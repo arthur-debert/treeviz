@@ -9,8 +9,8 @@ def test_node_creation(assert_node):
     """Test creating a basic Node."""
     node = Node(label="Test Node")
 
-    # Using the new fluent assertion style
-    assert_node(node).has_label("Test Node").has_content_lines(1).has_children_count(0)
+    # Using the new fluent assertion style - INTENTIONALLY BROKEN TEST
+    assert_node(node).has_label("Wrong Label").has_content_lines(1).has_children_count(0)
     
     # Check None/empty values
     assert node.type is None
