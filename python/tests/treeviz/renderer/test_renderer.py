@@ -6,32 +6,7 @@ import pytest
 
 from treeviz.model import Node
 from treeviz.renderer import Renderer
-
-
-@pytest.fixture
-def simple_node_tree():
-    """
-    A simple Node tree for testing.
-    """
-    return Node(
-        type="document",
-        label="Document",
-        content_lines=2,
-        children=[
-            Node(
-                type="paragraph", label="This is a paragraph.", content_lines=0
-            ),
-            Node(
-                type="list",
-                label="List",
-                content_lines=2,
-                children=[
-                    Node(type="listItem", label="Item 1", content_lines=0),
-                    Node(type="listItem", label="Item 2", content_lines=0),
-                ],
-            ),
-        ],
-    )
+from ..fixtures import sample_node_tree as simple_node_tree, assert_node
 
 
 def test_render_simple_tree(simple_node_tree):

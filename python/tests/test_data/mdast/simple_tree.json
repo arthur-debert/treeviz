@@ -1,0 +1,42 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [{"type": "text", "value": "Hello, world!"}]
+    },
+    {
+      "type": "paragraph",
+      "children": [{"type": "text", "value": "This is a paragraph."}]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "children": [
+        {
+          "type": "listItem",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {"type": "text", "value": "Item 1"}
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {"type": "text", "value": "Item 2"}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -6,22 +6,7 @@ import pytest
 
 from treeviz.adapters.unist import UnistAdapter
 from treeviz.model import Node
-
-
-@pytest.fixture
-def simple_unist_tree():
-    """
-    A simple unist tree for testing.
-    """
-    return {
-        "type": "root",
-        "children": [
-            {
-                "type": "paragraph",
-                "children": [{"type": "text", "value": "Hello, world!"}],
-            }
-        ],
-    }
+from ..fixtures import simple_unist_tree, assert_node
 
 
 def test_adapt_simple_unist_tree(simple_unist_tree):
