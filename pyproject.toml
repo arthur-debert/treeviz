@@ -85,6 +85,7 @@ exclude = '''
 [tool.pytest.ini_options]
 addopts = "-v -rN -q"
 testpaths = ["python/tests", "python/src"]
+pythonpath = ["python/src"]
 python_files = ["test_*.py"]
 python_functions = ["test_", "it_", "and_", "but_", "they_"]
 markers = [
