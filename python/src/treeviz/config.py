@@ -90,7 +90,6 @@ def _deep_merge_config(
     Args:
         base: Base configuration
         override: Override configuration
-
     Returns:
         Merged configuration
     """
@@ -105,7 +104,6 @@ def _deep_merge_config(
             result[key] = _deep_merge_config(result[key], value)
         else:
             result[key] = value
-
     return result
 
 
@@ -131,7 +129,6 @@ def load_config(
 
     # Load user configuration if provided
     user_config = None
-
     if config_path and config_dict:
         raise ConversionError("Cannot specify both config_path and config_dict")
 
@@ -225,7 +222,6 @@ def _load_config_file(filename: str) -> Dict[str, Any]:
 
     Returns:
         Configuration dictionary
-
     Raises:
         ConversionError: If file cannot be loaded
     """
@@ -265,7 +261,6 @@ def get_builtin_config(format_name: str) -> Dict[str, Any]:
     # Merge with default configuration
     default_config = get_default_config()
     merged_config = _deep_merge_config(default_config, config)
-
     return merged_config
 
 

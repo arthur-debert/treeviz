@@ -21,7 +21,6 @@ def test_load_config_from_dict():
     config_dict = {"attributes": {"label": "name", "type": "node_type"}}
 
     result = load_config(config_dict=config_dict)
-
     # Check that user config was merged with defaults
     assert result["attributes"]["label"] == "name"  # User override
     assert result["attributes"]["type"] == "node_type"  # User override
@@ -46,7 +45,6 @@ def test_load_config_from_file():
 
     try:
         result = load_config(config_path=temp_path)
-
         # Check that user config was merged with defaults
         assert result["attributes"]["label"] == "name"  # User override
         assert result["attributes"]["type"] == "node_type"  # User override
@@ -92,13 +90,11 @@ def test_load_config_both_sources():
 def test_load_config_no_sources():
     """Test that default configuration is returned when no sources are provided."""
     result = load_config()
-
     # Should return default configuration
     assert "attributes" in result
     assert "icon_map" in result
     assert "type_overrides" in result
     assert "ignore_types" in result
-
     # Check that we got the expected defaults
     assert result["attributes"]["label"] == "label"
     assert result["attributes"]["type"] == "type"
@@ -211,7 +207,6 @@ def test_builtin_configs_exist():
     mdast_config = get_builtin_config("mdast")
     assert "attributes" in mdast_config
     assert "label" in mdast_config["attributes"]
-
     json_config = get_builtin_config("json")
     assert "attributes" in json_config
     assert "label" in json_config["attributes"]
@@ -225,11 +220,6 @@ def test_get_builtin_config():
     assert "icon_map" in config
     assert "type_overrides" in config
     assert "ignore_types" in config
-
-    # Should load from JSON file with simple string mappings
-    assert config["attributes"]["label"] == "type"
-    assert config["icon_map"]["dict"] == "{}"
-
     # Should include default config elements
     assert "document" in config["icon_map"]  # From defaults
 

@@ -23,7 +23,6 @@ class Renderer:
         # Get default symbols from configuration
         default_config = get_default_config()
         self.symbols = default_config["icon_map"].copy()
-
         # Allow override of specific symbols
         if symbols:
             self.symbols.update(symbols)
