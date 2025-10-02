@@ -17,9 +17,7 @@ def test_node_creation(assert_node):
     # Check None/empty values
     assert node.type is None
     assert node.icon is None
-    
-    # SYNTAX ERROR - missing closing parenthesis
-    broken_syntax = some_function(
+
     assert node.source_location is None
     assert node.metadata == {}
 
