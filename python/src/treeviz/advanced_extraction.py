@@ -50,7 +50,7 @@ class PathParser:
         identifier := [a-zA-Z_][a-zA-Z0-9_]*
         number := ['-']?[0-9]+
         quoted_string := '"' [^"]* '"' | "'" [^']* "'"
-        unquoted_string := [^\]\s]+
+        unquoted_string := [^\\]\\s]+
 
     Critical Implementation Notes:
     - Position tracking enables precise error reporting
