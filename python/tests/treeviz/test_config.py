@@ -10,10 +10,8 @@ from pathlib import Path
 from treeviz.config import (
     load_config,
     validate_config,
-    create_sample_config,
-    save_sample_config,
     get_builtin_config,
-    BUILTIN_CONFIGS,
+    _load_config_file,
     ConversionError,
 )
 
@@ -23,7 +21,14 @@ def test_load_config_from_dict():
     config_dict = {"attributes": {"label": "name", "type": "node_type"}}
 
     result = load_config(config_dict=config_dict)
-    assert result == config_dict
+
+    # Check that user config was merged with defaults
+    assert result["attributes"]["label"] == "name"  # User override
+    assert result["attributes"]["type"] == "node_type"  # User override
+    assert result["attributes"]["children"] == "children"  # Default
+    assert "icon_map" in result  # Default included
+    assert "type_overrides" in result  # Default included
+    assert "ignore_types" in result  # Default included
 
 
 def test_load_config_from_file():
@@ -41,7 +46,15 @@ def test_load_config_from_file():
 
     try:
         result = load_config(config_path=temp_path)
-        assert result == config_dict
+
+        # Check that user config was merged with defaults
+        assert result["attributes"]["label"] == "name"  # User override
+        assert result["attributes"]["type"] == "node_type"  # User override
+        assert result["attributes"]["children"] == "children"  # Default
+        assert result["icon_map"]["test"] == "⧉"  # User override
+        assert "document" in result["icon_map"]  # Default icons included
+        assert "type_overrides" in result  # Default included
+        assert "ignore_types" in result  # Default included
     finally:
         Path(temp_path).unlink()
 
@@ -77,9 +90,19 @@ def test_load_config_both_sources():
 
 
 def test_load_config_no_sources():
-    """Test error when neither config_path nor config_dict are provided."""
-    with pytest.raises(ConversionError, match="Must specify either"):
-        load_config()
+    """Test that default configuration is returned when no sources are provided."""
+    result = load_config()
+
+    # Should return default configuration
+    assert "attributes" in result
+    assert "icon_map" in result
+    assert "type_overrides" in result
+    assert "ignore_types" in result
+
+    # Check that we got the expected defaults
+    assert result["attributes"]["label"] == "label"
+    assert result["attributes"]["type"] == "type"
+    assert result["attributes"]["children"] == "children"
 
 
 def test_validate_config_valid():
@@ -170,7 +193,7 @@ def test_validate_config_invalid_type_override_value():
 
 def test_create_sample_config():
     """Test creation of sample configuration."""
-    config = create_sample_config()
+    config = _load_config_file("sample.json")
 
     assert "attributes" in config
     assert "label" in config["attributes"]
@@ -182,38 +205,16 @@ def test_create_sample_config():
     validate_config(config)
 
 
-def test_save_sample_config():
-    """Test saving sample configuration to file."""
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False
-    ) as f:
-        temp_path = f.name
-
-    try:
-        save_sample_config(temp_path)
-
-        # Load and verify
-        with open(temp_path, "r") as f:
-            loaded_config = json.load(f)
-
-        expected_config = create_sample_config()
-        assert loaded_config == expected_config
-
-    finally:
-        Path(temp_path).unlink()
-
-
 def test_builtin_configs_exist():
     """Test that built-in configurations exist and are valid."""
-    assert "mdast" in BUILTIN_CONFIGS
-    assert "json" in BUILTIN_CONFIGS
+    # Test that we can load known builtin configs
+    mdast_config = get_builtin_config("mdast")
+    assert "attributes" in mdast_config
+    assert "label" in mdast_config["attributes"]
 
-    # Each should be valid
-    for format_name, config in BUILTIN_CONFIGS.items():
-        # Note: Built-in configs may have callable values which validate_config doesn't handle
-        # So we just check basic structure
-        assert "attributes" in config
-        assert "label" in config["attributes"]
+    json_config = get_builtin_config("json")
+    assert "attributes" in json_config
+    assert "label" in json_config["attributes"]
 
 
 def test_get_builtin_config():
@@ -221,16 +222,21 @@ def test_get_builtin_config():
     config = get_builtin_config("json")
 
     assert "attributes" in config
-    assert callable(
-        config["attributes"]["label"]
-    )  # Should be a lambda for JSON
+    assert "icon_map" in config
+    assert "type_overrides" in config
+    assert "ignore_types" in config
 
-    # Should be a copy, not the original
-    config["test"] = "modified"
-    assert "test" not in BUILTIN_CONFIGS["json"]
+    # Should load from JSON file with simple string mappings
+    assert config["attributes"]["label"] == "type"
+    assert config["icon_map"]["dict"] == "{}"
+
+    # Should include default config elements
+    assert "document" in config["icon_map"]  # From defaults
 
 
 def test_get_builtin_config_unknown():
     """Test error when requesting unknown built-in configuration."""
-    with pytest.raises(ConversionError, match="Unknown format 'unknown'"):
+    with pytest.raises(
+        ConversionError, match="Failed to load config file 'unknown.json'"
+    ):
         get_builtin_config("unknown")

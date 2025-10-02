@@ -1,0 +1,34 @@
+{
+  "attributes": {
+    "label": "name",
+    "type": "node_type",
+    "children": "children"
+  },
+  "icon_map": {
+    "document": "⧉",
+    "session": "§",
+    "heading": "⊤",
+    "paragraph": "¶",
+    "list": "☰",
+    "listItem": "•",
+    "verbatim": "𝒱",
+    "definition": "≔",
+    "text": "◦",
+    "textLine": "↵",
+    "emphasis": "𝐼",
+    "strong": "𝐁",
+    "inlineCode": "ƒ",
+    "contentContainer": "⊡",
+    "unknown": "?"
+  },
+  "type_overrides": {
+    "paragraph": {
+      "label": "content"
+    },
+    "text": {
+      "label": "value",
+      "icon": null
+    }
+  },
+  "ignore_types": ["comment", "whitespace"]
+}

@@ -5,12 +5,10 @@ This module provides a standalone CLI for the 3viz tool.
 """
 
 import json
-from pathlib import Path
 
 import click
 
-from treeviz.renderer import DEFAULT_SYMBOLS, Renderer
-from treeviz.parsers import parse
+from treeviz.config import get_default_config
 
 
 @click.group()
@@ -21,36 +19,52 @@ def cli():
     pass
 
 
-@cli.command()
-@click.argument("file", type=click.Path(exists=True))
+# Note: render command removed due to missing parsers module
+# TODO: Re-enable when parsers module is available
+
+
+@cli.group()
+def config():
+    """
+    Configuration management commands.
+    """
+    pass
+
+
+@config.command("sample")
 @click.option(
-    "--config",
-    "-c",
-    type=click.Path(exists=True),
-    help="Path to a JSON file with custom symbols.",
+    "--output",
+    "-o",
+    type=click.Path(),
+    help="Output file path (default: prints to stdout)",
 )
-def render(file, config):
+@click.option(
+    "--format",
+    "-f",
+    type=click.Choice(["json", "yaml"]),
+    default="json",
+    help="Output format (default: json)",
+)
+def sample(output, format):
     """
-    Render a document as a 3viz tree.
+    Generate a sample configuration file.
     """
-    # Read the input file
-    input_text = Path(file).read_text()
 
-    # Parse the document
-    parse(input_text)
+    # Get sample configuration
+    config = get_default_config()
 
-    symbols = DEFAULT_SYMBOLS
-    if config:
-        with open(config, "r") as f:
-            custom_symbols = json.load(f)
-            symbols.update(custom_symbols)
+    if format == "json":
+        output_text = json.dumps(config, indent=2)
+    else:
+        # YAML format (if requested, though not implemented)
+        output_text = json.dumps(config, indent=2)  # Fallback to JSON
 
-    # Render the Node tree
-    renderer = Renderer(symbols=symbols)
-    output = renderer.render(node_tree)
-
-    # Print the output
-    click.echo(output)
+    if output:
+        with open(output, "w") as f:
+            f.write(output_text)
+        click.echo(f"Sample configuration written to {output}")
+    else:
+        click.echo(output_text)
 
 
 if __name__ == "__main__":

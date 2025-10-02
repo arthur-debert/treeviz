@@ -1,0 +1,18 @@
+{
+  "attributes": {
+    "label": "type",
+    "type": "type",
+    "children": "children"
+  },
+  "icon_map": {
+    "dict": "{}",
+    "list": "[]",
+    "str": "\"",
+    "int": "#",
+    "float": "#",
+    "bool": "?",
+    "NoneType": "∅"
+  },
+  "type_overrides": {},
+  "ignore_types": []
+}
