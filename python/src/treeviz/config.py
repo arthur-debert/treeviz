@@ -81,25 +81,29 @@ import importlib.resources
 from .converter import ConversionError
 
 
-def _deep_merge_config(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
+def _deep_merge_config(
+    base: Dict[str, Any], override: Dict[str, Any]
+) -> Dict[str, Any]:
     """
     Deep merge configuration dictionaries, with override taking precedence.
-    
+
     Args:
         base: Base configuration
         override: Override configuration
-        
     Returns:
         Merged configuration
     """
     result = base.copy()
-    
+
     for key, value in override.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+        if (
+            key in result
+            and isinstance(result[key], dict)
+            and isinstance(value, dict)
+        ):
             result[key] = _deep_merge_config(result[key], value)
         else:
             result[key] = value
-            
     return result
 
 
@@ -122,10 +126,9 @@ def load_config(
     """
     # Start with default configuration
     config = get_default_config()
-    
+
     # Load user configuration if provided
     user_config = None
-    
     if config_path and config_dict:
         raise ConversionError("Cannot specify both config_path and config_dict")
 
@@ -213,18 +216,17 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
 def _load_config_file(filename: str) -> Dict[str, Any]:
     """
     Load a configuration file from the configs package.
-    
+
     Args:
         filename: Name of the config file to load
-        
+
     Returns:
         Configuration dictionary
-        
     Raises:
         ConversionError: If file cannot be loaded
     """
     try:
-        with importlib.resources.open_text('treeviz.configs', filename) as f:
+        with importlib.resources.open_text("treeviz.configs", filename) as f:
             return json.load(f)
     except Exception as e:
         raise ConversionError(f"Failed to load config file '{filename}': {e}")
@@ -233,15 +235,11 @@ def _load_config_file(filename: str) -> Dict[str, Any]:
 def get_default_config() -> Dict[str, Any]:
     """
     Get the default configuration.
-    
+
     Returns:
         Default configuration loaded from default.json
     """
-    return _load_config_file('default.json')
-
-
-
-
+    return _load_config_file("default.json")
 
 
 def get_builtin_config(format_name: str) -> Dict[str, Any]:
@@ -258,12 +256,11 @@ def get_builtin_config(format_name: str) -> Dict[str, Any]:
         ConversionError: If format is not supported
     """
     # Load config from file
-    config = _load_config_file(f'{format_name}.json')
-    
+    config = _load_config_file(f"{format_name}.json")
+
     # Merge with default configuration
     default_config = get_default_config()
     merged_config = _deep_merge_config(default_config, config)
-    
     return merged_config
 
 

@@ -3,7 +3,11 @@ Tests for the declarative converter engine.
 """
 
 import pytest
-from treeviz.converter import DeclarativeConverter, ConversionError, convert_tree
+from treeviz.converter import (
+    DeclarativeConverter,
+    ConversionError,
+    convert_tree,
+)
 from treeviz.model import Node
 
 
@@ -15,7 +19,7 @@ class MockNode:
             setattr(self, key, value)
 
 
-def test_basic_conversion():
+def test_basic_conversion(assert_node):
     """Test basic conversion with simple configuration."""
     config = {"attributes": {"label": "name", "type": "node_type"}}
 
@@ -25,11 +29,10 @@ def test_basic_conversion():
     result = converter.convert(source)
 
     assert isinstance(result, Node)
-    assert result.label == "Test Node"
-    assert result.type == "test"
+    assert_node(result).has_label("Test Node").has_type("test")
 
 
-def test_children_conversion():
+def test_children_conversion(assert_node):
     """Test conversion with children."""
     config = {
         "attributes": {
@@ -45,12 +48,11 @@ def test_children_conversion():
     converter = DeclarativeConverter(config)
     result = converter.convert(parent)
 
-    assert len(result.children) == 1
-    assert result.children[0].label == "Child"
-    assert result.children[0].type == "child"
+    assert_node(result).has_children_count(1)
+    assert_node(result.children[0]).has_label("Child").has_type("child")
 
 
-def test_icon_mapping():
+def test_icon_mapping(assert_node):
     """Test icon mapping functionality."""
     config = {
         "attributes": {"label": "name", "type": "node_type"},
@@ -62,10 +64,10 @@ def test_icon_mapping():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.icon == "¶"
+    assert_node(result).has_icon("¶")
 
 
-def test_type_overrides():
+def test_type_overrides(assert_node):
     """Test type-specific attribute overrides."""
     config = {
         "attributes": {"label": "name", "type": "node_type"},
@@ -77,10 +79,10 @@ def test_type_overrides():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.label == "Correct"
+    assert_node(result).has_label("Correct")
 
 
-def test_ignore_types():
+def test_ignore_types(assert_node):
     """Test ignoring specific node types."""
     config = {
         "attributes": {
@@ -101,11 +103,11 @@ def test_ignore_types():
     result = converter.convert(parent)
 
     # Should only have one child (text), comment should be ignored
-    assert len(result.children) == 1
-    assert result.children[0].label == "Text"
+    assert_node(result).has_children_count(1)
+    assert_node(result.children[0]).has_label("Text")
 
 
-def test_callable_extractors():
+def test_callable_extractors(assert_node):
     """Test using callable functions as attribute extractors."""
     config = {
         "attributes": {
@@ -119,10 +121,10 @@ def test_callable_extractors():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.label == "John Doe"
+    assert_node(result).has_label("John Doe")
 
 
-def test_missing_attribute_fallback():
+def test_missing_attribute_fallback(assert_node):
     """Test fallback when attribute is missing."""
     config = {"attributes": {"label": "missing_field", "type": "node_type"}}
 
@@ -132,10 +134,10 @@ def test_missing_attribute_fallback():
     result = converter.convert(source)
 
     # Should fallback to type name
-    assert result.label == "test"
+    assert_node(result).has_label("test")
 
 
-def test_dict_access():
+def test_dict_access(assert_node):
     """Test accessing attributes from dictionary nodes."""
     config = {"attributes": {"label": "name", "type": "type"}}
 
@@ -144,11 +146,10 @@ def test_dict_access():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.label == "Test"
-    assert result.type == "dict_node"
+    assert_node(result).has_label("Test").has_type("dict_node")
 
 
-def test_metadata_extraction():
+def test_metadata_extraction(assert_node):
     """Test extracting metadata."""
     config = {
         "attributes": {"label": "name", "type": "node_type", "metadata": "meta"}
@@ -161,10 +162,10 @@ def test_metadata_extraction():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.metadata == {"key": "value", "count": 42}
+    assert_node(result).has_metadata({"key": "value", "count": 42})
 
 
-def test_source_location_extraction():
+def test_source_location_extraction(assert_node):
     """Test extracting source location information."""
     config = {
         "attributes": {
@@ -181,7 +182,7 @@ def test_source_location_extraction():
     converter = DeclarativeConverter(config)
     result = converter.convert(source)
 
-    assert result.source_location == {"line": 5, "column": 10}
+    assert_node(result).has_source_location({"line": 5, "column": 10})
 
 
 def test_invalid_configuration():
@@ -215,7 +216,7 @@ def test_conversion_error_on_bad_children():
         converter.convert(source)
 
 
-def test_convert_tree_convenience_function():
+def test_convert_tree_convenience_function(assert_node):
     """Test the convert_tree convenience function."""
     config = {"attributes": {"label": "name", "type": "node_type"}}
 
@@ -224,8 +225,7 @@ def test_convert_tree_convenience_function():
     result = convert_tree(source, config)
 
     assert isinstance(result, Node)
-    assert result.label == "Root"
-    assert result.type == "root"
+    assert_node(result).has_label("Root").has_type("root")
 
 
 def test_convert_tree_with_ignored_root():

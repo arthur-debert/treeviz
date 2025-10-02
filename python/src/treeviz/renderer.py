@@ -8,17 +8,21 @@ from typing import Dict, Optional
 from treeviz.model import Node
 from treeviz.config import get_default_config
 
+# Export DEFAULT_SYMBOLS for tests - load from config
+DEFAULT_SYMBOLS = get_default_config()["icon_map"]
+
 
 class Renderer:
     """
     Renders a Node tree to the 3viz text format.
     """
 
-    def __init__(self, symbols: Optional[Dict[str, str]] = None, terminal_width: int = 80):
+    def __init__(
+        self, symbols: Optional[Dict[str, str]] = None, terminal_width: int = 80
+    ):
         # Get default symbols from configuration
         default_config = get_default_config()
         self.symbols = default_config["icon_map"].copy()
-        
         # Allow override of specific symbols
         if symbols:
             self.symbols.update(symbols)

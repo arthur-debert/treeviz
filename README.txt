@@ -1,8 +1,31 @@
 3viz, a terminal ast vizualizer for document based ASTs.
 
-3viz is designed to simplify re
+3viz is designed to simplify reasing about document tree. The 1-line per node and colunar layout makes
+scanning and grokking structure easy, while the texttual represntations, icons and metadata give 
+additional informattion at a glance.
 
-1.. Codebase rules:
+Being line based, it makes diffing trees useful and can be invaluable in debugging these parse trees.
+
+This is a sample output: 
+
+⧉ Document                                                                                                                                         7L
+  ¶ This is a paragraph:                                                                                                                         2L
+    ↵ This is a paragraph:                                                                                                                       1L
+    ↵ With two lines.                                                                                                                               1L
+    ↵ This documenent is the nanos spec, showing all elemetns, but not covering their full variation   1L
+  № List                                                                                                                            type=ordered 2L
+    §"Session And titles                                                                                                                           2L
+      ⊤"Session And titles                                                                                                                        1L
+      ⊡ Content                                                                                                                                         1L
+        № List                                                                                                                     type=ordered  1L
+          •     2. Core Elements                                                                                                                  2L
+            ◦     2. Core Elements                                                                                                               1L
+            ⊡ Content                                                                                                                                  1L
+              ¶         Which should have at least one item.                                                                          1L
+                ↵ Which should have at least one item.                                                                                1L
+  𝒱 4. A simple code block: (-)                                                                                              13L
+
+1. Codebase rules:
   
   1. Let's keep the repo clean, do not:
       - create status md files. Ideally we should use git commit, gh issues (if you're working on one) or pr requests (ifor you branch) to document it, anything BUT these. They do not belong under source control and they do not register correctly the history of the work being done.

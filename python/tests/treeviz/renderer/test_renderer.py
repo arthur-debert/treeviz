@@ -2,44 +2,15 @@
 Tests for the Renderer.
 """
 
-import pytest
-
-from treeviz.model import Node
 from treeviz.renderer import Renderer
 
 
-@pytest.fixture
-def simple_node_tree():
-    """
-    A simple Node tree for testing.
-    """
-    return Node(
-        type="document",
-        label="Document",
-        content_lines=2,
-        children=[
-            Node(
-                type="paragraph", label="This is a paragraph.", content_lines=0
-            ),
-            Node(
-                type="list",
-                label="List",
-                content_lines=2,
-                children=[
-                    Node(type="listItem", label="Item 1", content_lines=0),
-                    Node(type="listItem", label="Item 2", content_lines=0),
-                ],
-            ),
-        ],
-    )
-
-
-def test_render_simple_tree(simple_node_tree):
+def test_render_simple_tree(sample_node_tree):
     """
     Test rendering a simple Node tree.
     """
     renderer = Renderer()
-    output = renderer.render(simple_node_tree)
+    output = renderer.render(sample_node_tree)
 
     # Split the output into lines for easier comparison
     lines = output.split("\n")
@@ -51,7 +22,7 @@ def test_render_simple_tree(simple_node_tree):
     assert "• Item 2" in lines[4]
 
 
-def test_render_with_custom_symbols(simple_node_tree):
+def test_render_with_custom_symbols(sample_node_tree):
     """
     Test rendering with custom symbols.
     """
@@ -62,7 +33,7 @@ def test_render_with_custom_symbols(simple_node_tree):
         "listItem": "[I]",
     }
     renderer = Renderer(symbols=custom_symbols)
-    output = renderer.render(simple_node_tree)
+    output = renderer.render(sample_node_tree)
 
     lines = output.split("\n")
 

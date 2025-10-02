@@ -5,12 +5,13 @@ This module provides a standalone CLI for the 3viz tool.
 """
 
 import json
-from pathlib import Path
 
 import click
 
-from treeviz.renderer import Renderer
-from treeviz.config import get_default_config, get_builtin_config, _load_config_file
+from treeviz.config import (
+    get_builtin_config,
+    _load_config_file,
+)
 
 
 @click.group()
@@ -36,33 +37,37 @@ def config():
 @config.command("sample")
 @click.option(
     "--output",
-    "-o", 
+    "-o",
     type=click.Path(),
-    help="Output file path (default: prints to stdout)"
+    help="Output file path (default: prints to stdout)",
 )
 @click.option(
     "--format",
     "-f",
     type=click.Choice(["json", "yaml"]),
     default="json",
-    help="Output format (default: json)"
+    help="Output format (default: json)",
 )
 def config_sample(output, format):
     """
     Generate a sample configuration file.
     """
-    config_data = _load_config_file('sample.json')
-    
+    config_data = _load_config_file("sample.json")
+
     if format == "json":
         content = json.dumps(config_data, indent=2)
     else:  # yaml
         try:
             import yaml
+
             content = yaml.dump(config_data, default_flow_style=False, indent=2)
         except ImportError:
-            click.echo("YAML support requires 'pyyaml' package. Install with: pip install pyyaml", err=True)
+            click.echo(
+                "YAML support requires 'pyyaml' package. Install with: pip install pyyaml",
+                err=True,
+            )
             return
-    
+
     if output:
         with open(output, "w") as f:
             f.write(content)
@@ -76,20 +81,20 @@ def config_sample(output, format):
 @click.option(
     "--output",
     "-o",
-    type=click.Path(), 
-    help="Output file path (default: prints to stdout)"
+    type=click.Path(),
+    help="Output file path (default: prints to stdout)",
 )
 @click.option(
     "--format",
     "-f",
     type=click.Choice(["json", "yaml"]),
     default="json",
-    help="Output format (default: json)"
+    help="Output format (default: json)",
 )
 def config_builtin(format_name, output, format):
     """
     Export a built-in configuration.
-    
+
     FORMAT_NAME: Name of the built-in format (mdast, json, etc.)
     """
     try:
@@ -97,21 +102,27 @@ def config_builtin(format_name, output, format):
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
         return
-    
+
     if format == "json":
         content = json.dumps(config_data, indent=2)
     else:  # yaml
         try:
             import yaml
+
             content = yaml.dump(config_data, default_flow_style=False, indent=2)
         except ImportError:
-            click.echo("YAML support requires 'pyyaml' package. Install with: pip install pyyaml", err=True)
+            click.echo(
+                "YAML support requires 'pyyaml' package. Install with: pip install pyyaml",
+                err=True,
+            )
             return
-    
+
     if output:
         with open(output, "w") as f:
             f.write(content)
-        click.echo(f"Built-in configuration '{format_name}' written to {output}")
+        click.echo(
+            f"Built-in configuration '{format_name}' written to {output}"
+        )
     else:
         click.echo(content)
 
