@@ -7,6 +7,7 @@ from treeviz.converter import (
     DeclarativeConverter,
     ConversionError,
     convert_tree,
+    convert_node,
 )
 from treeviz.model import Node
 
@@ -239,3 +240,49 @@ def test_convert_tree_with_ignored_root():
 
     with pytest.raises(ConversionError, match="Root node was ignored"):
         convert_tree(source, config)
+
+
+# Tests for the new functional API
+def test_convert_node_basic(assert_node):
+    """Test basic conversion with convert_node function."""
+    config = {"attributes": {"label": "name", "type": "node_type"}}
+
+    source = MockNode(name="Test Node", node_type="test")
+
+    result = convert_node(source, config)
+
+    assert isinstance(result, Node)
+    assert_node(result).has_label("Test Node").has_type("test")
+
+
+def test_convert_node_with_children(assert_node):
+    """Test conversion with children using convert_node function."""
+    config = {
+        "attributes": {
+            "label": "name",
+            "type": "node_type",
+            "children": "child_nodes",
+        }
+    }
+
+    child = MockNode(name="Child", node_type="child")
+    parent = MockNode(name="Parent", node_type="parent", child_nodes=[child])
+
+    result = convert_node(parent, config)
+
+    assert_node(result).has_children_count(1)
+    assert_node(result.children[0]).has_label("Child").has_type("child")
+
+
+def test_convert_node_ignored_type():
+    """Test convert_node returns None for ignored types."""
+    config = {
+        "attributes": {"label": "name", "type": "node_type"},
+        "ignore_types": ["comment"],
+    }
+
+    source = MockNode(name="Comment", node_type="comment")
+
+    result = convert_node(source, config)
+
+    assert result is None

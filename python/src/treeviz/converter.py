@@ -18,8 +18,7 @@ Example usage:
         }
     }
     
-    converter = DeclarativeConverter(config)
-    node = converter.convert(my_ast_node)
+    node = convert_node(my_ast_node, config)
 """
 
 import sys
@@ -27,159 +26,148 @@ from typing import Any, Dict, Optional, Callable
 
 from .model import Node
 from .exceptions import ConversionError
-from .advanced_extraction import AdvancedAttributeExtractor
+from .advanced_extraction import extract_attribute
 
 
-class DeclarativeConverter:
+def validate_config(config: Dict[str, Any]) -> None:
     """
-    Converts arbitrary tree structures to 3viz Nodes using declarative configuration.
+    Validate converter configuration.
 
-    The converter operates on the principle of "fail fast" - if the source data
-    is malformed or the configuration is invalid, it exits immediately with
-    clear error messages.
+    Args:
+        config: Dictionary containing attribute mappings and icon mappings
+
+    Raises:
+        ConversionError: If configuration is invalid
     """
+    attributes = config.get("attributes", {})
 
-    def __init__(self, config: Dict[str, Any]):
-        """
-        Initialize converter with configuration.
+    if not attributes:
+        raise ConversionError("Configuration must include 'attributes' section")
 
-        Args:
-            config: Dictionary containing attribute mappings and icon mappings
+    if "label" not in attributes:
+        raise ConversionError(
+            "Configuration must specify how to extract 'label'"
+        )
 
-        Raises:
-            ConversionError: If configuration is invalid
-        """
-        self.config = config
-        self.attributes = config.get("attributes", {})
-        self.icon_map = config.get("icon_map", {})
-        self.type_overrides = config.get("type_overrides", {})
-        self.ignore_types = set(config.get("ignore_types", []))
 
-        # Initialize advanced extraction engine for Phase 2 features
-        self.extractor = AdvancedAttributeExtractor()
+def get_effective_attributes(
+    attributes: Dict[str, Any],
+    type_overrides: Dict[str, Any],
+    node_type: Optional[str],
+) -> Dict[str, Any]:
+    """Get the effective attribute configuration for a given node type."""
+    # Start with default attributes
+    effective = attributes.copy()
 
-        # Validate required configuration
-        if not self.attributes:
-            raise ConversionError(
-                "Configuration must include 'attributes' section"
+    # Apply type-specific overrides
+    if node_type and node_type in type_overrides:
+        overrides = type_overrides[node_type]
+        effective.update(overrides)
+
+    return effective
+
+
+def convert_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
+    """
+    Convert a source AST node to a 3viz Node.
+
+    Args:
+        source_node: The source AST node to convert
+        config: Dictionary containing attribute mappings and icon mappings
+
+    Returns:
+        3viz Node or None if node should be ignored
+
+    Raises:
+        ConversionError: If conversion fails
+    """
+    try:
+        validate_config(config)
+
+        attributes = config.get("attributes", {})
+        icon_map = config.get("icon_map", {})
+        type_overrides = config.get("type_overrides", {})
+        ignore_types = set(config.get("ignore_types", []))
+
+        # Check if this node type should be ignored
+        node_type = extract_attribute(source_node, attributes.get("type"))
+        if node_type and node_type in ignore_types:
+            return None
+
+        # Get the effective attributes for this node type
+        effective_attributes = get_effective_attributes(
+            attributes, type_overrides, node_type
+        )
+
+        # Extract basic attributes using advanced extractor
+        label = extract_attribute(source_node, effective_attributes["label"])
+        if label is None:
+            label = str(node_type) if node_type else "Unknown"
+
+        # Extract optional attributes using advanced extractor
+        icon = extract_attribute(source_node, effective_attributes.get("icon"))
+        content_lines = extract_attribute(
+            source_node, effective_attributes.get("content_lines", 1)
+        )
+
+        if not isinstance(content_lines, int):
+            content_lines = 1
+
+        # Extract source location if configured
+        source_location = None
+        if "source_location" in effective_attributes:
+            source_location = extract_attribute(
+                source_node, effective_attributes["source_location"]
             )
 
-        if "label" not in self.attributes:
-            raise ConversionError(
-                "Configuration must specify how to extract 'label'"
+        # Extract metadata using advanced extractor
+        metadata = {}
+        if "metadata" in effective_attributes:
+            extracted_metadata = extract_attribute(
+                source_node, effective_attributes["metadata"]
+            )
+            # Metadata can be any type after transformation (string, dict, etc.)
+            metadata = (
+                extracted_metadata if extracted_metadata is not None else {}
             )
 
-    def convert(self, source_node: Any) -> Optional[Node]:
-        """
-        Convert a source AST node to a 3viz Node.
+        # Apply icon mapping if no explicit icon
+        if not icon and node_type and node_type in icon_map:
+            icon = icon_map[node_type]
 
-        Args:
-            source_node: The source AST node to convert
-
-        Returns:
-            3viz Node or None if node should be ignored
-
-        Raises:
-            ConversionError: If conversion fails
-        """
-        try:
-            # Check if this node type should be ignored
-            node_type = self.extractor.extract_attribute(
-                source_node, self.attributes.get("type")
+        # Extract children using advanced extractor (supports filtering)
+        children = []
+        if "children" in effective_attributes:
+            children_source = extract_attribute(
+                source_node, effective_attributes["children"]
             )
-            if node_type and node_type in self.ignore_types:
-                return None
+            if children_source:
+                if not isinstance(children_source, list):
+                    raise ConversionError(
+                        f"Children attribute must return a list, got {type(children_source)}"
+                    )
 
-            # Get the effective attributes for this node type
-            effective_attributes = self._get_effective_attributes(node_type)
+                for child in children_source:
+                    child_node = convert_node(child, config)
+                    if child_node is not None:  # Skip ignored nodes
+                        children.append(child_node)
 
-            # Extract basic attributes using advanced extractor
-            label = self.extractor.extract_attribute(
-                source_node, effective_attributes["label"]
-            )
-            if label is None:
-                label = str(node_type) if node_type else "Unknown"
+        return Node(
+            label=str(label),
+            type=node_type,
+            icon=icon,
+            content_lines=content_lines,
+            source_location=source_location,
+            metadata=metadata,
+            children=children,
+        )
 
-            # Extract optional attributes using advanced extractor
-            icon = self.extractor.extract_attribute(
-                source_node, effective_attributes.get("icon")
-            )
-            content_lines = self.extractor.extract_attribute(
-                source_node, effective_attributes.get("content_lines", 1)
-            )
-
-            if not isinstance(content_lines, int):
-                content_lines = 1
-
-            # Extract source location if configured
-            source_location = None
-            if "source_location" in effective_attributes:
-                source_location = self.extractor.extract_attribute(
-                    source_node, effective_attributes["source_location"]
-                )
-
-            # Extract metadata using advanced extractor
-            metadata = {}
-            if "metadata" in effective_attributes:
-                extracted_metadata = self.extractor.extract_attribute(
-                    source_node, effective_attributes["metadata"]
-                )
-                # Metadata can be any type after transformation (string, dict, etc.)
-                metadata = (
-                    extracted_metadata if extracted_metadata is not None else {}
-                )
-
-            # Apply icon mapping if no explicit icon
-            if not icon and node_type and node_type in self.icon_map:
-                icon = self.icon_map[node_type]
-
-            # Extract children using advanced extractor (supports filtering)
-            children = []
-            if "children" in effective_attributes:
-                children_source = self.extractor.extract_attribute(
-                    source_node, effective_attributes["children"]
-                )
-                if children_source:
-                    if not isinstance(children_source, list):
-                        raise ConversionError(
-                            f"Children attribute must return a list, got {type(children_source)}"
-                        )
-
-                    for child in children_source:
-                        child_node = self.convert(child)
-                        if child_node is not None:  # Skip ignored nodes
-                            children.append(child_node)
-
-            return Node(
-                label=str(label),
-                type=node_type,
-                icon=icon,
-                content_lines=content_lines,
-                source_location=source_location,
-                metadata=metadata,
-                children=children,
-            )
-
-        except Exception as e:
-            # Convert any error to ConversionError for consistent handling
-            if isinstance(e, ConversionError):
-                raise
-            else:
-                raise ConversionError(f"Failed to convert node: {e}") from e
-
-    def _get_effective_attributes(
-        self, node_type: Optional[str]
-    ) -> Dict[str, Any]:
-        """Get the effective attribute configuration for a given node type."""
-        # Start with default attributes
-        effective = self.attributes.copy()
-
-        # Apply type-specific overrides
-        if node_type and node_type in self.type_overrides:
-            overrides = self.type_overrides[node_type]
-            effective.update(overrides)
-
-        return effective
+    except Exception as e:
+        # Convert any error to ConversionError for consistent handling
+        if isinstance(e, ConversionError):
+            raise
+        else:
+            raise ConversionError(f"Failed to convert node: {e}") from e
 
 
 def convert_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
@@ -196,8 +184,7 @@ def convert_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
     Raises:
         ConversionError: If conversion fails
     """
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source_tree)
+    result = convert_node(source_tree, config)
 
     if result is None:
         raise ConversionError(
@@ -223,3 +210,20 @@ def exit_on_error(func: Callable) -> Callable:
             sys.exit(1)
 
     return wrapper
+
+
+# Backward compatibility - maintain the class interface for existing code
+class DeclarativeConverter:
+    """
+    DEPRECATED: Use convert_node() function instead.
+
+    Converts arbitrary tree structures to 3viz Nodes using declarative configuration.
+    This class is maintained for backward compatibility but will be removed in future versions.
+    """
+
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        validate_config(config)
+
+    def convert(self, source_node: Any) -> Optional[Node]:
+        return convert_node(source_node, self.config)

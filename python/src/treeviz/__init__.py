@@ -24,7 +24,7 @@ Direct Node Construction:
 
 Declarative Conversion:
 
-    from treeviz import DeclarativeConverter
+    from treeviz import convert_node
     
     config = {
         "attributes": {
@@ -38,17 +38,15 @@ Declarative Conversion:
         }
     }
     
-    converter = DeclarativeConverter(config)
-    result = converter.convert(my_ast_node)
+    result = convert_node(my_ast_node, config)
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_config
+    from treeviz import get_builtin_config, convert_node
     
     # Use pre-built configuration for JSON structures
     config = get_builtin_config("json")
-    converter = DeclarativeConverter(config)
-    result = converter.convert({"name": "test", "items": [1, 2, 3]})
+    result = convert_node({"name": "test", "items": [1, 2, 3]}, config)
 
 Core Concepts
 -------------
@@ -185,7 +183,7 @@ Enable detailed error messages:
 
 Test configurations interactively:
     
-    from treeviz import validate_config
+    from treeviz import validate_config, ConversionError
     try:
         validate_config(my_config)
         print("Configuration valid!")
@@ -214,7 +212,12 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 
 # Main public API exports
 from .model import Node
-from .converter import DeclarativeConverter, convert_tree
+from .converter import (
+    DeclarativeConverter,
+    convert_tree,
+    convert_node,
+    validate_config,
+)
 from .exceptions import ConversionError
 from .renderer import (
     render,
@@ -224,7 +227,6 @@ from .renderer import (
 )
 from .config import (
     load_config,
-    validate_config,
     get_builtin_config,
 )
 
@@ -235,6 +237,8 @@ __all__ = [
     # Conversion engine
     "DeclarativeConverter",
     "convert_tree",
+    "convert_node",
+    "validate_config",
     "ConversionError",
     # Rendering
     "render",
@@ -243,6 +247,5 @@ __all__ = [
     "DEFAULT_SYMBOLS",
     # Configuration management
     "load_config",
-    "validate_config",
     "get_builtin_config",
 ]
