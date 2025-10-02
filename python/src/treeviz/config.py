@@ -4,14 +4,103 @@ Configuration Management for 3viz
 This module handles loading and validating configuration files for the
 declarative converter. Supports JSON configuration files with validation
 and helpful error messages.
+
+## Configuration Format
+
+3viz uses JSON configuration files to define how AST nodes are converted and displayed.
+A configuration file contains four main sections:
+
+### Configuration Sections
+
+#### 1. attributes (required)
+Maps 3viz node properties to source node attributes:
+- `label`: Property containing the text to display
+- `type`: Property containing the node type  
+- `children`: Property containing child nodes
+
+#### 2. icon_map (optional)
+Maps node types to display symbols using Unicode characters
+
+#### 3. type_overrides (optional)
+Overrides attributes for specific node types, allowing per-type customization
+
+#### 4. ignore_types (optional)
+List of node types to skip during conversion
+
+### Configuration Files
+
+See the actual configuration files for examples:
+- `treeviz/configs/default.json` - System default configuration
+- `treeviz/configs/sample.json` - User sample configuration  
+- `treeviz/configs/mdast.json` - Markdown AST format
+- `treeviz/configs/json.json` - Generic JSON structures
+
+### Advanced Configuration
+
+For complex attribute extraction, you can specify nested paths like:
+- `"label": "props.title"` - Access nested properties
+- `"type": "node.type"` - Deep object access
+- `"children": "content.children"` - Nested arrays
+
+### Built-in Configurations
+
+3viz includes built-in configurations for popular formats loaded from files.
+Use them with:
+```python
+from treeviz.config import get_builtin_config
+config = get_builtin_config("mdast")
+```
+
+### Configuration Loading
+
+Configurations are loaded and merged with defaults:
+1. Default configuration provides base settings
+2. User configuration overrides specific values  
+3. Result includes all necessary fields
+
+```python
+from treeviz.config import load_config
+
+# Load from file
+config = load_config(config_path="my_config.json")
+
+# Load from dictionary
+config = load_config(config_dict={"icon_map": {"custom": "★"}})
+
+# Use defaults only
+config = load_config()
+```
 """
 
 import json
 import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
+import importlib.resources
 
 from .converter import ConversionError
+
+
+def _deep_merge_config(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Deep merge configuration dictionaries, with override taking precedence.
+    
+    Args:
+        base: Base configuration
+        override: Override configuration
+        
+    Returns:
+        Merged configuration
+    """
+    result = base.copy()
+    
+    for key, value in override.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = _deep_merge_config(result[key], value)
+        else:
+            result[key] = value
+            
+    return result
 
 
 def load_config(
@@ -21,19 +110,26 @@ def load_config(
     Load and validate a 3viz configuration.
 
     Args:
-        config_path: Path to JSON configuration file
-        config_dict: Configuration dictionary (alternative to file)
+        config_path: Path to JSON configuration file (optional)
+        config_dict: Configuration dictionary (optional, alternative to file)
 
     Returns:
-        Validated configuration dictionary
+        Validated configuration dictionary merged with defaults.
+        If no config is provided, returns default configuration.
 
     Raises:
         ConversionError: If configuration is invalid
     """
+    # Start with default configuration
+    config = get_default_config()
+    
+    # Load user configuration if provided
+    user_config = None
+    
     if config_path and config_dict:
         raise ConversionError("Cannot specify both config_path and config_dict")
 
-    if config_path and not config_dict:
+    if config_path:
         try:
             path = Path(config_path)
             if not path.exists():
@@ -42,7 +138,7 @@ def load_config(
                 )
 
             with open(path, "r") as f:
-                config = json.load(f)
+                user_config = json.load(f)
 
         except json.JSONDecodeError as e:
             raise ConversionError(f"Invalid JSON in configuration file: {e}")
@@ -50,10 +146,11 @@ def load_config(
             raise ConversionError(f"Failed to load configuration file: {e}")
 
     elif config_dict:
-        config = config_dict
+        user_config = config_dict
 
-    else:
-        raise ConversionError("Must specify either config_path or config_dict")
+    # Merge user config with defaults if provided
+    if user_config:
+        config = _deep_merge_config(config, user_config)
 
     # Validate configuration
     return validate_config(config)
@@ -113,111 +210,38 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
     return config
 
 
-def create_sample_config() -> Dict[str, Any]:
+def _load_config_file(filename: str) -> Dict[str, Any]:
     """
-    Create a sample configuration for reference.
-
-    Returns:
-        Sample configuration dictionary
-    """
-    return {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "children",
-        },
-        "icon_map": {
-            "document": "⧉",
-            "paragraph": "¶",
-            "list": "☰",
-            "listItem": "•",
-            "text": "◦",
-        },
-        "type_overrides": {
-            "paragraph": {"label": "content"},
-            "text": {"label": "value", "icon": None},
-        },
-        "ignore_types": ["comment", "whitespace"],
-    }
-
-
-def save_sample_config(path: str) -> None:
-    """
-    Save a sample configuration to a file.
-
+    Load a configuration file from the configs package.
+    
     Args:
-        path: Path where to save the sample configuration
-
+        filename: Name of the config file to load
+        
+    Returns:
+        Configuration dictionary
+        
     Raises:
-        ConversionError: If file cannot be written
+        ConversionError: If file cannot be loaded
     """
     try:
-        config = create_sample_config()
-        with open(path, "w") as f:
-            json.dump(config, f, indent=2)
+        with importlib.resources.open_text('treeviz.configs', filename) as f:
+            return json.load(f)
     except Exception as e:
-        raise ConversionError(f"Failed to save sample configuration: {e}")
+        raise ConversionError(f"Failed to load config file '{filename}': {e}")
 
 
-# Common pre-built configurations for popular AST formats
-BUILTIN_CONFIGS = {
-    "mdast": {
-        "attributes": {
-            "label": "value",
-            "type": "type",
-            "children": "children",
-        },
-        "icon_map": {
-            "root": "⧉",
-            "paragraph": "¶",
-            "text": "◦",
-            "heading": "⊤",
-            "list": "☰",
-            "listItem": "•",
-        },
-        "type_overrides": {
-            "paragraph": {
-                "label": lambda node: "".join(
-                    child.get("value", "") for child in node.get("children", [])
-                )
-            },
-            "heading": {
-                "label": lambda node: "".join(
-                    child.get("value", "") for child in node.get("children", [])
-                )
-            },
-            "listItem": {
-                "label": lambda node: "".join(
-                    child.get("value", "") for child in node.get("children", [])
-                )
-            },
-        },
-    },
-    "json": {
-        "attributes": {
-            "label": lambda node: (
-                str(node)
-                if not isinstance(node, (dict, list))
-                else type(node).__name__
-            ),
-            "type": lambda node: type(node).__name__,
-            "children": lambda node: (
-                list(node.values())
-                if isinstance(node, dict)
-                else (list(node) if isinstance(node, list) else [])
-            ),
-        },
-        "icon_map": {
-            "dict": "{}",
-            "list": "[]",
-            "str": '"',
-            "int": "#",
-            "float": "#",
-            "bool": "?",
-            "NoneType": "∅",
-        },
-    },
-}
+def get_default_config() -> Dict[str, Any]:
+    """
+    Get the default configuration.
+    
+    Returns:
+        Default configuration loaded from default.json
+    """
+    return _load_config_file('default.json')
+
+
+
+
 
 
 def get_builtin_config(format_name: str) -> Dict[str, Any]:
@@ -228,18 +252,19 @@ def get_builtin_config(format_name: str) -> Dict[str, Any]:
         format_name: Name of the format ("mdast", "json", etc.)
 
     Returns:
-        Built-in configuration
+        Built-in configuration merged with defaults
 
     Raises:
         ConversionError: If format is not supported
     """
-    if format_name not in BUILTIN_CONFIGS:
-        available = ", ".join(BUILTIN_CONFIGS.keys())
-        raise ConversionError(
-            f"Unknown format '{format_name}'. Available: {available}"
-        )
-
-    return BUILTIN_CONFIGS[format_name].copy()
+    # Load config from file
+    config = _load_config_file(f'{format_name}.json')
+    
+    # Merge with default configuration
+    default_config = get_default_config()
+    merged_config = _deep_merge_config(default_config, config)
+    
+    return merged_config
 
 
 def exit_on_config_error(func):
