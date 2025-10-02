@@ -26,8 +26,8 @@ urls = { "Homepage" = "https://github.com/arthur-debert/treeviz-py" }
 ###############################################################################
 [tool.poetry]
 version = "0.0.1"
-packages = [{ include = "threeviz", from = "src" }]
-include = ["src/threeviz/**", "LICENSE", "README.txt"]
+packages = [{ include = "treeviz", from = "src" }]
+include = ["src/treeviz/**", "LICENSE", "README.txt"]
 exclude = ["tests"]
 
 
@@ -109,11 +109,11 @@ source = ["src"]
 omit = [
     "python/tests/*",
     "*/tests/*",
-    "src/threeviz/logger.py",
-    "src/threeviz/output/*",
-    "src/threeviz/main.py",
-    "src/threeviz/cli.py",
-    "src/threeviz/api/*",
+    "src/treeviz/logger.py",
+    "src/treeviz/output/*",
+    "src/treeviz/main.py",
+    "src/treeviz/cli.py",
+    "src/treeviz/api/*",
 ]
 
 [tool.coverage.report]
