@@ -39,7 +39,7 @@ This is a sample output:
         - That document design decisions or use cases for that code and that explains why that code is there.
         - That explain a few of very cryptics lines (very rate in python)
 
-  3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING
+  3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING NOT FALLBACKS unless explicitly requestd
     This is a pre-release software, there is no client app usage, there is nothing to keep backwards compatibility.
     Tasks that require refactoring , reorganizzing and renaming things INCLUDE updating callers AND tests.
     Creating layers and adapters to avoid doing the udpating work will:

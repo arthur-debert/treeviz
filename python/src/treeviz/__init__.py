@@ -9,7 +9,7 @@ Quick Start
 
 Direct Node Construction:
     
-    from treeviz import Node, Renderer
+    from treeviz import Node, render
     
     tree = Node(
         label="MyProject", 
@@ -20,8 +20,7 @@ Direct Node Construction:
         ]
     )
     
-    renderer = Renderer()
-    print(renderer.render(tree))
+    print(render(tree))
 
 Declarative Conversion:
 
@@ -128,10 +127,13 @@ Filtering and Predicates:
 Output Customization:
     
     # Custom symbols and terminal width
-    renderer = Renderer(
+    from treeviz import render, create_render_options
+    
+    options = create_render_options(
         symbols={"custom_type": "⚙"},
         terminal_width=120
     )
+    output = render(node, options)
 
 Built-in Configurations
 -----------------------
@@ -192,9 +194,11 @@ Test configurations interactively:
 
 Generate sample configurations:
     
-    from treeviz import create_sample_config, save_sample_config
-    sample = create_sample_config()
-    save_sample_config("my_config.json")
+    # Create configurations manually using declarative syntax
+    sample_config = {
+        "attributes": {"label": "name", "type": "node_type"},
+        "icon_map": {"function": "⚡", "class": "🏛"}
+    }
 
 See Also
 --------
@@ -212,7 +216,12 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 from .model import Node
 from .converter import DeclarativeConverter, convert_tree
 from .exceptions import ConversionError
-from .renderer import Renderer
+from .renderer import (
+    render,
+    create_render_options,
+    RenderOptions,
+    DEFAULT_SYMBOLS,
+)
 from .config import (
     load_config,
     validate_config,
@@ -228,12 +237,12 @@ __all__ = [
     "convert_tree",
     "ConversionError",
     # Rendering
-    "Renderer",
+    "render",
+    "create_render_options",
+    "RenderOptions",
     "DEFAULT_SYMBOLS",
     # Configuration management
     "load_config",
     "validate_config",
-    "create_sample_config",
-    "save_sample_config",
     "get_builtin_config",
 ]
