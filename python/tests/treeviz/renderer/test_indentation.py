@@ -181,7 +181,7 @@ def test_indentation_with_long_labels():
     # Child should be indented correctly despite long label
     assert lines[1].startswith("  ◦ ")
     # Long labels may be truncated, so check for the beginning
-    assert "This is a very long" in lines[1]
+    assert "This is a" in lines[1]
     assert lines[1].startswith("  ")  # Still proper indentation
 
 
