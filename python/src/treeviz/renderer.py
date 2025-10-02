@@ -4,25 +4,9 @@
 This module renders 3viz Node trees to the 3viz text format.
 """
 
+from typing import Dict, Optional
 from treeviz.model import Node
-
-DEFAULT_SYMBOLS = {
-    "document": "⧉",
-    "session": "§",
-    "heading": "⊤",
-    "paragraph": "¶",
-    "list": "☰",
-    "listItem": "•",
-    "verbatim": "𝒱",
-    "definition": "≔",  # Definition symbol
-    "text": "◦",
-    "textLine": "↵",  # TextLine node
-    "emphasis": "𝐼",
-    "strong": "𝐁",
-    "inlineCode": "ƒ",
-    "contentContainer": "⊡",  # ContentContainer symbol (box with dot)
-    "unknown": "?",
-}
+from treeviz.config import get_default_config
 
 
 class Renderer:
@@ -30,8 +14,12 @@ class Renderer:
     Renders a Node tree to the 3viz text format.
     """
 
-    def __init__(self, symbols: dict = None, terminal_width: int = 80):
-        self.symbols = DEFAULT_SYMBOLS.copy()
+    def __init__(self, symbols: Optional[Dict[str, str]] = None, terminal_width: int = 80):
+        # Get default symbols from configuration
+        default_config = get_default_config()
+        self.symbols = default_config["icon_map"].copy()
+        
+        # Allow override of specific symbols
         if symbols:
             self.symbols.update(symbols)
         self.terminal_width = terminal_width

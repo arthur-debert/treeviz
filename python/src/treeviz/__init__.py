@@ -212,12 +212,10 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 from .model import Node
 from .converter import DeclarativeConverter, convert_tree
 from .exceptions import ConversionError
-from .renderer import Renderer, DEFAULT_SYMBOLS
+from .renderer import Renderer
 from .config import (
     load_config,
     validate_config,
-    create_sample_config,
-    save_sample_config,
     get_builtin_config,
 )
 
