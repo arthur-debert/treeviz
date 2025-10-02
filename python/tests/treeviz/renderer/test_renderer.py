@@ -2,7 +2,6 @@
 Tests for the Renderer.
 """
 
-
 from treeviz.renderer import Renderer
 
 

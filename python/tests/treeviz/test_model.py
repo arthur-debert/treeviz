@@ -9,17 +9,17 @@ def test_node_creation(assert_node):
     """Test creating a basic Node."""
     node = Node(label="Test Node")
 
-    # Using the new fluent assertion style - INTENTIONALLY BROKEN TEST
-    assert_node(node).has_label("Wrong Label").has_content_lines(
+    # Using the new fluent assertion style
+    assert_node(node).has_label("Test Node").has_content_lines(
         1
     ).has_children_count(0)
-
-    # This will also fail
-    assert node.label == "This will fail too"
 
     # Check None/empty values
     assert node.type is None
     assert node.icon is None
+    
+    # SYNTAX ERROR - missing closing parenthesis
+    broken_syntax = some_function(
     assert node.source_location is None
     assert node.metadata == {}
 

@@ -2,7 +2,6 @@
 Tests for the MdastAdapter.
 """
 
-
 from treeviz.adapters.mdast import MdastAdapter
 from treeviz.model import Node
 

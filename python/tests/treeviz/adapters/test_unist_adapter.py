@@ -2,7 +2,6 @@
 Tests for the UnistAdapter.
 """
 
-
 from treeviz.adapters.unist import UnistAdapter
 from treeviz.model import Node
 
