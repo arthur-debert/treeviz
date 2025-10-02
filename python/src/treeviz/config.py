@@ -10,96 +10,41 @@ and helpful error messages.
 3viz uses JSON configuration files to define how AST nodes are converted and displayed.
 A configuration file contains four main sections:
 
-### Basic Configuration Example
-
-```json
-{
-  "attributes": {
-    "label": "value",
-    "type": "type", 
-    "children": "children"
-  },
-  "icon_map": {
-    "document": "⧉",
-    "paragraph": "¶",
-    "text": "◦",
-    "heading": "⊤",
-    "list": "☰",
-    "listItem": "•"
-  },
-  "type_overrides": {
-    "paragraph": {
-      "label": "content"
-    }
-  },
-  "ignore_types": ["comment", "whitespace"]
-}
-```
-
 ### Configuration Sections
 
 #### 1. attributes (required)
 Maps 3viz node properties to source node attributes:
 - `label`: Property containing the text to display
-- `type`: Property containing the node type
+- `type`: Property containing the node type  
 - `children`: Property containing child nodes
 
 #### 2. icon_map (optional)
-Maps node types to display symbols:
-```json
-{
-  "icon_map": {
-    "document": "⧉",
-    "heading": "⊤", 
-    "paragraph": "¶",
-    "unknown": "?"
-  }
-}
-```
+Maps node types to display symbols using Unicode characters
 
 #### 3. type_overrides (optional)
-Overrides attributes for specific node types:
-```json
-{
-  "type_overrides": {
-    "text": {
-      "label": "textContent",
-      "icon": "◦"
-    },
-    "heading": {
-      "label": "title"
-    }
-  }
-}
-```
+Overrides attributes for specific node types, allowing per-type customization
 
 #### 4. ignore_types (optional)
-List of node types to skip during conversion:
-```json
-{
-  "ignore_types": ["comment", "whitespace", "position"]
-}
-```
+List of node types to skip during conversion
+
+### Configuration Files
+
+See the actual configuration files for examples:
+- `treeviz/configs/default.json` - System default configuration
+- `treeviz/configs/sample.json` - User sample configuration  
+- `treeviz/configs/mdast.json` - Markdown AST format
+- `treeviz/configs/json.json` - Generic JSON structures
 
 ### Advanced Configuration
 
-For complex attribute extraction, you can specify nested paths:
-```json
-{
-  "attributes": {
-    "label": "props.title",
-    "type": "node.type",
-    "children": "content.children"
-  }
-}
-```
+For complex attribute extraction, you can specify nested paths like:
+- `"label": "props.title"` - Access nested properties
+- `"type": "node.type"` - Deep object access
+- `"children": "content.children"` - Nested arrays
 
 ### Built-in Configurations
 
-3viz includes built-in configurations for popular formats:
-- `mdast`: Markdown AST format
-- `json`: Generic JSON structures
-
+3viz includes built-in configurations for popular formats loaded from files.
 Use them with:
 ```python
 from treeviz.config import get_builtin_config
@@ -110,7 +55,7 @@ config = get_builtin_config("mdast")
 
 Configurations are loaded and merged with defaults:
 1. Default configuration provides base settings
-2. User configuration overrides specific values
+2. User configuration overrides specific values  
 3. Result includes all necessary fields
 
 ```python
@@ -119,7 +64,7 @@ from treeviz.config import load_config
 # Load from file
 config = load_config(config_path="my_config.json")
 
-# Load from dictionary  
+# Load from dictionary
 config = load_config(config_dict={"icon_map": {"custom": "★"}})
 
 # Use defaults only
