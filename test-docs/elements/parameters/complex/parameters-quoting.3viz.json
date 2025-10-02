@@ -1,0 +1,39 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Complex Quoting Scenarios",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Complex Quoting Scenarios",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Complex Quoting Scenarios",
+              "type": "text",
+              "icon": null,
+              "content_lines": 25,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

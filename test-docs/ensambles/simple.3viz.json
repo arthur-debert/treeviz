@@ -1,0 +1,215 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is a simple paragraph with no verbatim blocks.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is a simple paragraph with no verbatim blocks.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is a simple paragraph with no verbatim blocks.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 51,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Section One",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Content of section one.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Content of section one.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Content of section one.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 27,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - List item 1",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - List item 1",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 17,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - List item 2",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - List item 2",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 17,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Section Two",
+      "type": "session",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    More content here.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    More content here.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    More content here.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 22,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "        print(\"Hello\")",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "Code example",
+            "label": "python",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    That's all!",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    That's all!",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    That's all!",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

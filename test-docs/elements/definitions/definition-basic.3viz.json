@@ -1,0 +1,61 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    Definition content here",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Definition content here",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Definition content here",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 27,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

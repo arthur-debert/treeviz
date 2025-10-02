@@ -1,0 +1,977 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 7,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is a paragraph: {{paragraph}}This documenent is the nanos spec, showing all elemetns, but not covering their full variations.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is a paragraph: {{paragraph}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is a paragraph: {{paragraph}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 34,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This documenent is the nanos spec, showing all elemetns, but not covering their full variations.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This documenent is the nanos spec, showing all elemetns, but not covering their full variations.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 96,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Annotations {{list}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "Annotations {{list}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Session And titles {{session}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "2."
+          },
+          "children": [
+            {
+              "label": "Session And titles {{session}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 30,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": true,
+                    "style": "ordered-numeric"
+                  },
+                  "children": [
+                    {
+                      "label": "    2. Core Elements (session) {{session}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "2."
+                      },
+                      "children": [
+                        {
+                          "label": "    2. Core Elements (session) {{session}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 42,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "Content",
+                          "type": "contentContainer",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "indent": 5
+                          },
+                          "children": [
+                            {
+                              "label": "        Which should have at least one item.",
+                              "type": "paragraph",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        Which should have at least one item.",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "        Which should have at least one item.",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 44,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Lists",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "3."
+          },
+          "children": [
+            {
+              "label": "Lists",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 3,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - You can create unordered lists. {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - You can create unordered lists. {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 50,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    1. Or ordered lists, which can be nested. {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "1."
+                      },
+                      "children": [
+                        {
+                          "label": "    1. Or ordered lists, which can be nested. {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 58,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    2. And this is a list that contains a child {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "2."
+                      },
+                      "children": [
+                        {
+                          "label": "    2. And this is a list that contains a child {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 60,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "Content",
+                          "type": "contentContainer",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "indent": 5
+                          },
+                          "children": [
+                            {
+                              "label": "List",
+                              "type": "list",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "ordered": true,
+                                "style": "ordered-numeric"
+                              },
+                              "children": [
+                                {
+                                  "label": "        1. Like this. {{listItem}}",
+                                  "type": "listItem",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {
+                                    "marker": "1."
+                                  },
+                                  "children": [
+                                    {
+                                      "label": "        1. Like this. {{listItem}}",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 34,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "    A simple code block:\n        console.log(\"Hello, world!\");\n    (javascript) {{verbatim}}\n\n    But you can go wild, and use params too: \n        The universe tend towards maxium irony,  don't push it.\n    (jwz : src=jzw.org) {{verbatim}}\n\nCode with version info:\n            print(\"Hello, txxt!\")\n    (python: version=3.11) {{verbatim}}\n\n",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 12,
+      "source_location": null,
+      "metadata": {
+        "title": "4. Verbatim",
+        "label": "",
+        "parameters": {},
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "Media",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "        A beautiful landscape:        (image: src=, alt=\"Mountain vista\") {{verbatim}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        A beautiful landscape:",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        A beautiful landscape:",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 30,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "        (image: src=[PathRefTarget(type='pathRefTarget', position=None, data={}, raw_content='/images/landscape.jpg', icon='/', path='/images/landscape.jpg')], alt=\"Mountain vista\") {{verbatim}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        (image: src=",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "reference",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": ", alt=\"Mountain vista\") {{verbatim}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 36,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Definitions",
+          "type": "session",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        Term :: {{definition}}",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Term :: {{definition}}",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Term :: {{definition}}",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 30,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "            The explanation or definition of the term goes here. It can span             multiple lines and contain any txxt content.",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "            The explanation or definition of the term goes here. It can span ",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "            The explanation or definition of the term goes here. It can span ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 77,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "            multiple lines and contain any txxt content.",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "            multiple lines and contain any txxt content.",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 56,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Inlines",
+      "type": "session",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Inlines are formats whiting a body of text:  asterisks for  {{strong}} ,  underscores for  {{emphasis}} ,  backticks for  {{code}} , Math is supported:  {{math}} , citations:  or with pages  ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Inlines are formats whiting a body of text:  asterisks for bold {{strong}} ,  underscores for italic {{emphasis}} ,  backticks for monospace {{code}} , Math is supported:  {{math}} , citations:  or with pages  ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 13,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Inlines are formats whiting a body of text:  asterisks for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 63,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "bold",
+                  "type": "strong",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "bold",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 4,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " {{strong}} ,  underscores for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 31,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "italic",
+                  "type": "emphasis",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "italic",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 6,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " {{emphasis}} ,  backticks for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 31,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "monospace",
+                  "type": "inlineCode",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " {{code}} , Math is supported: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 31,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "E = mc^2",
+                  "type": "inlineMath",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " {{math}} , citations: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 23,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "citation",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " or with pages ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "citation",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "References",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "8."
+          },
+          "children": [
+            {
+              "label": "References",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 5,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - You can link to external sites . {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - You can link to external sites ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 37,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 14,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - Or other documents . {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Or other documents ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 25,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 14,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - It also supports footnotes. {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - It also supports footnotes",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 32,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 14,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - In sessions  no the same doc {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - In sessions ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 18,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": " no the same doc {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 29,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - Academic citations  with bibliography support {{listItem}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Academic citations ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 25,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "citation",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": " with bibliography support {{listItem}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 39,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

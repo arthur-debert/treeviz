@@ -1,0 +1,215 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "A list that has no blank line from a paragraph is still a list:",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "A list that has no blank line from a paragraph is still a list:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "A list that has no blank line from a paragraph is still a list:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 63,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Number or Unnumbered",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "Number or Unnumbered",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": true,
+                    "style": "ordered-numeric"
+                  },
+                  "children": [
+                    {
+                      "label": "    2. Nested or not",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "2."
+                      },
+                      "children": [
+                        {
+                          "label": "    2. Nested or not",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 20,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Number or Unnumbered",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Number or Unnumbered",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Nested or not",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Nested or not",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 19,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "A list that has no blank line from a paragraph is still a list:",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "A list that has no blank line from a paragraph is still a list:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "A list that has no blank line from a paragraph is still a list:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 63,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

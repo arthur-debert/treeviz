@@ -1,0 +1,39 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Namespace Edge Cases",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Namespace Edge Cases",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Namespace Edge Cases",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

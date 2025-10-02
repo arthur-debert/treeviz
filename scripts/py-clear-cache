@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Script to clear all Python cache files and directories
+# Clears __pycache__ directories and .pyc files from src and tests directories
+
+set -euo pipefail
+
+# Get the project root (parent directory of scripts)
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Define source directories
+SRC_ROOT="$PROJECT_ROOT/src"
+TESTS_ROOT="$PROJECT_ROOT/tests"
+
+# Function to clear cache in a directory
+clear_cache_in_dir() {
+    local dir="$1"
+    local dir_name="$2"
+    
+    if [[ ! -d "$dir" ]]; then
+        echo "Warning: $dir_name directory '$dir' does not exist"
+        return 0
+    fi
+    
+    echo "Clearing Python cache in $dir_name ($dir)..."
+    
+    # Count items before removal for reporting
+    local pycache_count
+    local pyc_count
+    
+    pycache_count=$(find "$dir" -type d -name "__pycache__" 2>/dev/null | wc -l)
+    pyc_count=$(find "$dir" -name "*.pyc" -type f 2>/dev/null | wc -l)
+    
+    if [[ $pycache_count -gt 0 ]]; then
+        echo "  Removing $pycache_count __pycache__ directories..."
+        find "$dir" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    fi
+    
+    if [[ $pyc_count -gt 0 ]]; then
+        echo "  Removing $pyc_count .pyc files..."
+        find "$dir" -name "*.pyc" -type f -delete 2>/dev/null || true
+    fi
+    
+    # Also remove .pyo files (optimized bytecode)
+    local pyo_count
+    pyo_count=$(find "$dir" -name "*.pyo" -type f 2>/dev/null | wc -l)
+    if [[ $pyo_count -gt 0 ]]; then
+        echo "  Removing $pyo_count .pyo files..."
+        find "$dir" -name "*.pyo" -type f -delete 2>/dev/null || true
+    fi
+    
+    if [[ $pycache_count -eq 0 && $pyc_count -eq 0 && $pyo_count -eq 0 ]]; then
+        echo "  No Python cache files found in $dir_name"
+    fi
+}
+
+echo "Python Cache Cleaner"
+echo "===================="
+echo "Project root: $PROJECT_ROOT"
+echo
+
+# Clear cache in both directories
+clear_cache_in_dir "$SRC_ROOT" "src"
+echo
+clear_cache_in_dir "$TESTS_ROOT" "tests"
+
+echo
+echo "Python cache cleanup complete!"

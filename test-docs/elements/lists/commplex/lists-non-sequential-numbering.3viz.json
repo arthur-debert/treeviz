@@ -1,0 +1,136 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing marker preservation with non-sequential numbering",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing marker preservation with non-sequential numbering",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing marker preservation with non-sequential numbering",
+              "type": "text",
+              "icon": null,
+              "content_lines": 57,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "First item",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "First item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Third item (skipping 2)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "3."
+          },
+          "children": [
+            {
+              "label": "Third item (skipping 2)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Letter item",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "a)"
+          },
+          "children": [
+            {
+              "label": "Letter item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 11,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Dash item",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Dash item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 9,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

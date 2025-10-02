@@ -1,0 +1,267 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 5,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is only one inline ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is only one inline bold {{strong}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is only one inline ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 24,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "bold {{strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "bold {{strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This is only one inline ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is only one inline italic {{emphasis}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is only one inline ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 24,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "italic {{emphasis}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "italic {{emphasis}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 19,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This is only one inline ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is only one inline code {{code}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is only one inline ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 24,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "code {{code}}",
+              "type": "inlineCode",
+              "icon": null,
+              "content_lines": 13,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This one is only math ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This one is only math ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This one is only math ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "x=10",
+              "type": "inlineMath",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This has  and  text.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This has bold {{strong}} and italic {{emphasis}} text.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 5,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This has ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 9,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "bold {{strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "bold {{strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " and ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "italic {{emphasis}}",
+              "type": "emphasis",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "italic {{emphasis}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 19,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " text.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

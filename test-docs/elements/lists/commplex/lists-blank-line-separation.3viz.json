@@ -1,0 +1,178 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing list separation rules with blank lines, and that we should 3 different lists",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing list separation rules with blank lines, and that we should 3 different lists",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing list separation rules with blank lines, and that we should 3 different lists",
+              "type": "text",
+              "icon": null,
+              "content_lines": 84,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 6,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "First list item",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "First list item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Second list item {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Second list item {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 29,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This should be a new list",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "This should be a new list",
+              "type": "text",
+              "icon": null,
+              "content_lines": 25,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Because of the blank line {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Because of the blank line {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 38,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Another new list starts here {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Another new list starts here {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 41,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "With multiple items {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "With multiple items {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 32,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

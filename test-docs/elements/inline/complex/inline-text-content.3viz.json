@@ -1,0 +1,154 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 4,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing text content and TextLine structure",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing text content and TextLine structure",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing text content and TextLine structure",
+              "type": "text",
+              "icon": null,
+              "content_lines": 43,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This paragraph contains text {{paragraph}}",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This paragraph contains text {{paragraph}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This paragraph contains text {{paragraph}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 42,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "The textLine structure {{paragraph.textLine}}",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "The textLine structure {{paragraph.textLine}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The textLine structure {{paragraph.textLine}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 45,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "With  content inside {{paragraph}}",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "With formatted {{strong}} content inside {{paragraph}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "With ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "formatted {{strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "formatted {{strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " content inside {{paragraph}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 29,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Special characters in labels::: label-with-hyphens :: Hyphenated (annotation, label=\"label-with-hyphens\", value=\"Hyphenated\"):: labelunderscores :: Underscored (annotation, label=\"labelunderscores\", value=\"Underscored\") :: label.with.dots :: Dotted namespace (annotation, label=\"label.with.dots\", value=\"Dotted namespace\"):: UPPERCASE :: All caps (annotation, label=\"UPPERCASE\", value=\"All caps\"):: mixedCase123 :: Mixed with numbers (annotation, label=\"mixedCase123\", value=\"Mixed with numbers\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 6,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Special characters in labels:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Special characters in labels:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 29,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: label-with-hyphens :: Hyphenated (annotation, label=\"label-with-hyphens\", value=\"Hyphenated\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: label-with-hyphens :: Hyphenated (annotation, label=\"label-with-hyphens\", value=\"Hyphenated\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 96,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: labelwithunderscores :: Underscored (annotation, label=\"labelwithunderscores\", value=\"Underscored\") ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 5,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: label",
+              "type": "text",
+              "icon": null,
+              "content_lines": 8,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "with",
+              "type": "emphasis",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "with",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 4,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "underscores :: Underscored (annotation, label=\"label",
+              "type": "text",
+              "icon": null,
+              "content_lines": 52,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "with",
+              "type": "emphasis",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "with",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 4,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "underscores\", value=\"Underscored\") ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 35,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: label.with.dots :: Dotted namespace (annotation, label=\"label.with.dots\", value=\"Dotted namespace\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: label.with.dots :: Dotted namespace (annotation, label=\"label.with.dots\", value=\"Dotted namespace\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 102,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: UPPERCASE :: All caps (annotation, label=\"UPPERCASE\", value=\"All caps\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: UPPERCASE :: All caps (annotation, label=\"UPPERCASE\", value=\"All caps\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 74,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: mixedCase123 :: Mixed with numbers (annotation, label=\"mixedCase123\", value=\"Mixed with numbers\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: mixedCase123 :: Mixed with numbers (annotation, label=\"mixedCase123\", value=\"Mixed with numbers\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 100,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+cd ${PROJECT_ROOT}
+source .venv/bin/activate
+pytest 

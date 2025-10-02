@@ -1,0 +1,284 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 5,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    This is a definition.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    This is a definition.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    This is a definition.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 25,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    Term can contain :: within it.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Term can contain :: within it.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Term can contain :: within it.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 34,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    This definition ends when    we return to lesser indentation.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    This definition ends when",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    This definition ends when",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 29,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "    we return to lesser indentation.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    we return to lesser indentation.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 36,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    This is separate.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    This is separate.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    This is separate.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 21,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    The term has inline elements.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    The term has inline elements.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    The term has inline elements.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 33,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

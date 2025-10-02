@@ -1,0 +1,292 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 5,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    Definitions has at least one line of content.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Definitions has at least one line of content.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Definitions has at least one line of content.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 49,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "    But can have more.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    But can have more.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    But can have more.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 22,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "    Including other types: ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Including other types: ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Including other types: ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 27,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "List",
+              "type": "list",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {
+                "ordered": false,
+                "style": "unordered"
+              },
+              "children": [
+                {
+                  "label": "    - Annotations",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Annotations",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 17,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "    - Lists",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Lists",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 11,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "Content",
+                      "type": "contentContainer",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "indent": 5
+                      },
+                      "children": [
+                        {
+                          "label": "List",
+                          "type": "list",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "ordered": false,
+                            "style": "unordered"
+                          },
+                          "children": [
+                            {
+                              "label": "        - Which can have children",
+                              "type": "listItem",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "marker": "-"
+                              },
+                              "children": [
+                                {
+                                  "label": "        - Which can have children",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 33,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "    - Definitions",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Definitions",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 17,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Definition",
+              "type": "definition",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "Content",
+                  "type": "contentContainer",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "indent": 5
+                  },
+                  "children": [
+                    {
+                      "label": "        This is a nested definition inside the outer definition",
+                      "type": "paragraph",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "        This is a nested definition inside the outer definition",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        This is a nested definition inside the outer definition",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 63,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

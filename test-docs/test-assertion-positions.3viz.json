@@ -1,0 +1,418 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This {{paragraph}} is a paragraph.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This {{paragraph}} is a paragraph.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This {{paragraph}} is a paragraph.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 34,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Simple Elements {{session, title=\"1. Simple Elements\"}}",
+      "type": "session",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Paragraphs {{paragraph}} have assertions at the start.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Paragraphs {{paragraph}} have assertions at the start.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Paragraphs {{paragraph}} have assertions at the start.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 58,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Lists have assertions at item start:",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Lists have assertions at item start:",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Lists have assertions at item start:",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 40,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - First {{listItem}} item",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - First {{listItem}} item",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 29,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Second {{listItem}} item",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Second {{listItem}} item",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 30,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Inline elements: , , ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Inline elements: {{strong}}bold, {{emphasis}}italic, {{code}}code",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Inline elements: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 21,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "{{strong}}bold",
+                  "type": "strong",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "{{strong}}bold",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 14,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": ", ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "{{emphasis}}italic",
+                  "type": "emphasis",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "{{emphasis}}italic",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 18,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": ", ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "{{code}}code",
+                  "type": "inlineCode",
+                  "icon": null,
+                  "content_lines": 12,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Complex Elements {{session, title=\"2. Complex Elements\"}}",
+      "type": "session",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Definition",
+          "type": "definition",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 5
+              },
+              "children": [
+                {
+                  "label": "        The assertion goes in the term line.",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        The assertion goes in the term line.",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "        The assertion goes in the term line.",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 44,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    :: label {{annotation}} :: Value",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    :: label {{annotation}} :: Value",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    :: label {{annotation}} :: Value",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 36,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "        For annotations, current implementation expects assertion in value.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        For annotations, current implementation expects assertion in value.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        For annotations, current implementation expects assertion in value.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 75,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "        console.log(\"hello\");",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "Code block title",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    javascript: {{verbatim, label=\"javascript\"}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    javascript: {{verbatim, label=\"javascript\"}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    javascript: {{verbatim, label=\"javascript\"}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 48,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

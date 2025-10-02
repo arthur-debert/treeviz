@@ -1,0 +1,125 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 145,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "➤ Arrow bullet item ➤ Another arrow item * Asterisk bullet item * Another asterisk item  {{paragraph}}",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "➤ Arrow bullet item ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "➤ Arrow bullet item ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "➤ Another arrow item ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "➤ Another arrow item ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "* Asterisk bullet item ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "* Asterisk bullet item ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "* Another asterisk item  {{paragraph}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "* Another asterisk item  {{paragraph}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 38,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

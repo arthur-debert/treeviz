@@ -1,0 +1,588 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 5,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Each paragraph has a reference by type.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Each paragraph has a reference by type.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Each paragraph has a reference by type.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 39,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This is the url  reference, and the protocol is not required.These are citactions references: Author Authors Author + Page Author + Pages Author + Page Interval This is the session  reference.This is the page referenct  and in various forms  including ranges .  All of these are valid: , and [p.43,p.44) and  and , in all combinationsThis is the footnote  referenceThis is the path  reference.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 11,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is the url [WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='http:://example.com/ref', icon='⁇')] reference, and the protocol is not required.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the url ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 16,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " reference, and the protocol is not required.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 45,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "These are citactions references: ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "These are citactions references: ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 33,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Author ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Author ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 7,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "citation",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Authors ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Authors ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 8,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "citation",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Author + Page ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Author + Page ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 14,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "citation",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Author + Pages ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Author + Pages ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "citation",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Author + Page Interval ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Author + Page Interval ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "citation",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is the session [SessionRefTarget(type='sessionRefTarget', position=None, data={}, raw_content='#3.2', icon='§', session_id='3.2')] reference.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the session ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " reference.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 11,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is the page referenct [PageRefTarget(type='pageRefTarget', position=None, data={}, raw_content='p.43', icon='◫', pages=['43'], page_type='p.')] and in various forms [PageRefTarget(type='pageRefTarget', position=None, data={}, raw_content='p.43,44', icon='◫', pages=['43', '44'], page_type='p.')] including ranges [WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='p.90=100', icon='⁇')].  All of these are valid: [WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='p43,p44', icon='⁇')], and [p.43,p.44) and [PageRefTarget(type='pageRefTarget', position=None, data={}, raw_content='pp.43', icon='◫', pages=['43'], page_type='pp.')] and [PageRefTarget(type='pageRefTarget', position=None, data={}, raw_content='pp 44', icon='◫', pages=['44'], page_type='pp')], in all combinations",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 13,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the page referenct ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 27,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " and in various forms ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " including ranges ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 18,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": ".  All of these are valid: ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 27,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": ", and [p.43,p.44) and ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " and ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": ", in all combinations",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is the footnote [FootnoteRefTarget(type='footnoteRefTarget', position=None, data={}, raw_content='3', icon='¹', number=3, has_caret=False)] reference",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the footnote ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " reference",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is the path [PathRefTarget(type='pathRefTarget', position=None, data={}, raw_content='/usr/var/etc', icon='/', path='/usr/var/etc')] reference.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the path ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 17,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " reference.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 11,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This is the TK (to come) reference , and it signals some content will be inserted (lowecase should be valid too)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is the TK (to come)[TkRefTarget(type='tkRefTarget', position=None, data={}, raw_content='TK', icon='⋯')] reference , and it signals some content will be inserted (lowecase should be valid too)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the TK (to come)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 24,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " reference , and it signals some content will be inserted (lowecase should be valid too)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 88,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "The parser should make an effort to validate the reference type, but nor error or warn. To be a vlalid reference all it's needed is at least one alpha numberical character. And it should not do further validation such as validate paths or even sessions or footnotes in this same document.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "The parser should make an effort to validate the reference type, but nor error or warn. To be a vlalid reference all it's needed is at least one alpha numberical character. And it should not do further validation such as validate paths or even sessions or footnotes in this same document.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The parser should make an effort to validate the reference type, but nor error or warn. To be a vlalid reference all it's needed is at least one alpha numberical character. And it should not do further validation such as validate paths or even sessions or footnotes in this same document.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 288,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "The precedence order is as it appears in this document,  and if none match, we use a defaut \"something\" (that is it's name) reference.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "The precedence order is as it appears in this document,  and if none match, we use a defaut \"something\" (that is it's name) reference.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The precedence order is as it appears in this document,  and if none match, we use a defaut \"something\" (that is it's name) reference.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 134,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

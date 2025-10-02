@@ -1,0 +1,53 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "  This has *asterisks* and _underscores_\n  But they are `not` parsed as #formatting#",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "title": "Verbatim with formatting",
+        "label": "",
+        "parameters": {},
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "The above verbatim block should preserve all formatting markers literally.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "The above verbatim block should preserve all formatting markers literally.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The above verbatim block should preserve all formatting markers literally.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 74,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

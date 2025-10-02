@@ -1,0 +1,106 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Deep Session {{session}}",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Content paragraph {{paragraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Content paragraph {{paragraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Content paragraph {{paragraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 35,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "1 Nested Session",
+          "type": "session",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        Nested paragraph {{paragraph, _ancestors=}}",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Nested paragraph {{paragraph, _ancestors=[WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='session, session', icon='⁇')]}}",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 3,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Nested paragraph {{paragraph, _ancestors=",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 49,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "",
+                      "type": "reference",
+                      "icon": null,
+                      "content_lines": 0,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "}}",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

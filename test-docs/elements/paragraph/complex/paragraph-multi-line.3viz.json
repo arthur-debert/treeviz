@@ -1,0 +1,77 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is a paragraph that has line breaks.We want to ensure this document has only one paragraphThis is the same paragraph {{paragraph}}",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is a paragraph that has line breaks.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is a paragraph that has line breaks.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 41,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "We want to ensure this document has only one paragraph",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "We want to ensure this document has only one paragraph",
+              "type": "text",
+              "icon": null,
+              "content_lines": 54,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is the same paragraph {{paragraph}}",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the same paragraph {{paragraph}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 40,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

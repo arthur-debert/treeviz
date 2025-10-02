@@ -1,0 +1,247 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing list items with complex inline elements",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing list items with complex inline elements",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing list items with complex inline elements",
+              "type": "text",
+              "icon": null,
+              "content_lines": 47,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "Item with  and  text",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 5,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Item with ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "emphasis",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "emphasis",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 8,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " and ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "strong",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "strong",
+                  "type": "strong",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "strong",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 6,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": " text",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Item with  and {math: x^2 + y^2}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Item with ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "inline code",
+              "type": "inlineCode",
+              "icon": null,
+              "content_lines": 11,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " and {math: x^2 + y^2}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Item with  and {cite: Smith2023}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 4,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Item with ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "",
+              "type": "reference",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": " and {cite: Smith2023}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Item ending with colon:",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Item ending with colon:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

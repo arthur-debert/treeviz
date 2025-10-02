@@ -1,0 +1,447 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 4,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    A definition containing a list:",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    A definition containing a list:",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    A definition containing a list:",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 35,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "List",
+              "type": "list",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {
+                "ordered": false,
+                "style": "unordered"
+              },
+              "children": [
+                {
+                  "label": "    - First item",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - First item",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 16,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "    - Second item  ",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Second item  ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 19,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "    - Third item",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Third item",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 16,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    First paragraph of content.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    First paragraph of content.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    First paragraph of content.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 31,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "    Second paragraph in the same definition.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Second paragraph in the same definition.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Second paragraph in the same definition.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 44,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "    Third paragraph still in definition.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Third paragraph still in definition.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Third paragraph still in definition.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 40,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    \n        def hello():\n            print(\"Hello\")",
+              "type": "verbatim",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {
+                "title": "Here is some code",
+                "label": "",
+                "parameters": {},
+                "mode": "in-flow"
+              },
+              "children": []
+            },
+            {
+              "label": "    python:",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    python:",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    python:",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 11,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "    After the code block.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    After the code block.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    After the code block.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 25,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Definition",
+      "type": "definition",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Content",
+          "type": "contentContainer",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "indent": 1
+          },
+          "children": [
+            {
+              "label": "    Definition with  and  content.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Definition with bold text and italic content.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 5,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    Definition with ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 20,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "bold text",
+                      "type": "strong",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "bold text",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 9,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": " and ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 5,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "italic",
+                      "type": "emphasis",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "italic",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 6,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": " content.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 9,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is the unorderd style: ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is the unorderd style: ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the unorderd style: ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 28,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "First item {{listItem, marker=\"-\"}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "First item {{listItem, marker=\"-\"}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 35,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Second item {{listItem, marker=\"-\"}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Second item {{listItem, marker=\"-\"}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 36,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "First ordered item {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "First ordered item {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 31,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Second ordered item {{listItem}}",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "2."
+          },
+          "children": [
+            {
+              "label": "Second ordered item {{listItem}}",
+              "type": "text",
+              "icon": null,
+              "content_lines": 32,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This is the ordered syle:",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is the ordered syle:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is the ordered syle:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 25,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

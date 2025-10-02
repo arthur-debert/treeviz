@@ -1,0 +1,136 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing Unicode and special characters in list items",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing Unicode and special characters in list items",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing Unicode and special characters in list items",
+              "type": "text",
+              "icon": null,
+              "content_lines": 52,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "中文内容测试",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "中文内容测试",
+              "type": "text",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Émojis: 🎉 🚀 ⭐",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Émojis: 🎉 🚀 ⭐",
+              "type": "text",
+              "icon": null,
+              "content_lines": 13,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Açcénted chàracters",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Açcénted chàracters",
+              "type": "text",
+              "icon": null,
+              "content_lines": 19,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Mathematical: ∑ ∫ ∂",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Mathematical: ∑ ∫ ∂",
+              "type": "text",
+              "icon": null,
+              "content_lines": 19,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

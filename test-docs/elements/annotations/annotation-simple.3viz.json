@@ -1,0 +1,490 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 10,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Basic annotation examples (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Basic annotation examples (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Basic annotation examples (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 37,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Single Annotatio::: author :: John Doe",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Single Annotatio:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Single Annotatio:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 17,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: author :: John Doe",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: author :: John Doe",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Block::: author :: John Doe:: title :: Test Document ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Block:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Block:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: author :: John Doe",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: author :: John Doe",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: title :: Test Document ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: title :: Test Document ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 26,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Empty label annotation:::  :: Empty label (annotation, label=\"\", value=\"Empty label\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Empty label annotation:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Empty label annotation:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "::  :: Empty label (annotation, label=\"\", value=\"Empty label\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "::  :: Empty label (annotation, label=\"\", value=\"Empty label\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 62,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Empty value annotation::: status :: (annotation, label=\"status\", value=\"\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Empty value annotation:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Empty value annotation:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 23,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: status :: (annotation, label=\"status\", value=\"\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: status :: (annotation, label=\"status\", value=\"\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 51,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Multi-word label::: release notes :: Version 1.0 (annotation, label=\"release notes\", value=\"Version 1.0\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Multi-word label:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Multi-word label:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 17,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: release notes :: Version 1.0 (annotation, label=\"release notes\", value=\"Version 1.0\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: release notes :: Version 1.0 (annotation, label=\"release notes\", value=\"Version 1.0\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 88,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Annotation with parameters::: meta:version=2.0 :: Document metadata (annotation, label=\"meta\", value=\"Document metadata\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Annotation with parameters:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Annotation with parameters:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 27,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: meta:version=2.0 :: Document metadata (annotation, label=\"meta\", value=\"Document metadata\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: meta:version=2.0 :: Document metadata (annotation, label=\"meta\", value=\"Document metadata\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 94,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Multiple parameters::: config:mode=debug,level=verbose :: Configuration (annotation, label=\"config\", value=\"Configuration\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Multiple parameters:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Multiple parameters:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: config:mode=debug,level=verbose :: Configuration (annotation, label=\"config\", value=\"Configuration\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: config:mode=debug,level=verbose :: Configuration (annotation, label=\"config\", value=\"Configuration\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 103,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Quoted parameter values::: author:name=\"Jane Smith\",role=\"Editor\" :: Author info (annotation, label=\"author\", value=\"Author info\")",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Quoted parameter values:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Quoted parameter values:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 24,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": ":: author:name=\"Jane Smith\",role=\"Editor\" :: Author info (annotation, label=\"author\", value=\"Author info\")",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: author:name=\"Jane Smith\",role=\"Editor\" :: Author info (annotation, label=\"author\", value=\"Author info\")",
+              "type": "text",
+              "icon": null,
+              "content_lines": 106,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Annotation-like content that isn't annotation:This is not :: an annotation :: because it's mid-line (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Annotation-like content that isn't annotation:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Annotation-like content that isn't annotation:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 46,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is not :: an annotation :: because it's mid-line (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is not :: an annotation :: because it's mid-line (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 65,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

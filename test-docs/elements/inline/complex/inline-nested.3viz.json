@@ -1,0 +1,152 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This has  text.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This has bold with {{strong}} text.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This has ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 9,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "bold with nested italic {{emphasis}}{{strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "bold with ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 10,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "nested italic {{emphasis}}",
+                  "type": "emphasis",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "nested italic {{emphasis}}",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 26,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "{{strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 10,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " text.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Paragraph with .",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Paragraph with emphasis {{paragraph.strong}}.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Paragraph with ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "emphasis {{paragraph.strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "emphasis {{paragraph.strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 29,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": ".",
+              "type": "text",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

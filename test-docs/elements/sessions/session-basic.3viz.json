@@ -1,0 +1,136 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Section Title {{session}}",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 64,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Another paragraph {{paragraph, _parent=session}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Another paragraph {{paragraph, _parent=session}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Another paragraph {{paragraph, _parent=session}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 52,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "And now we wil test the session wihtouth markers",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "And now we wil test the session wihtouth markers",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "And now we wil test the session wihtouth markers",
+              "type": "text",
+              "icon": null,
+              "content_lines": 48,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Session Another (session}})",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Session Another (session}})",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Session Another (session}})",
+              "type": "text",
+              "icon": null,
+              "content_lines": 27,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

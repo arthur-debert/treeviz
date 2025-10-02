@@ -1,0 +1,94 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing very long single-line items for wrapping behavior",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing very long single-line items for wrapping behavior",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing very long single-line items for wrapping behavior",
+              "type": "text",
+              "icon": null,
+              "content_lines": 57,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "This is an extremely long list item that continues for a very significant length to test how the parser handles line wrapping and whether it maintains the list structure when dealing with content that would typically wrap in most text editors or displays, continuing on and on with more text to ensure we exceed typical line length limits.",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "This is an extremely long list item that continues for a very significant length to test how the parser handles line wrapping and whether it maintains the list structure when dealing with content that would typically wrap in most text editors or displays, continuing on and on with more text to ensure we exceed typical line length limits.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 339,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Second item is shorter",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Second item is shorter",
+              "type": "text",
+              "icon": null,
+              "content_lines": 22,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

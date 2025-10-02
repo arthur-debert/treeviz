@@ -1,0 +1,200 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Basic Escaping",
+      "type": "session",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    This tests escaped asterisks and escaped underscores.    Also escaped backticks and escaped brackets.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    This tests escaped asterisks and escaped underscores.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    This tests escaped asterisks and escaped underscores.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 61,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    Also escaped backticks and escaped brackets.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Also escaped backticks and escaped brackets.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 52,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Inline Formats",
+      "type": "session",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Normal  and  and .    But escaped not bold and not italic.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Normal bold and italic and code.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 7,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Normal ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 11,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "bold",
+                  "type": "strong",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "bold",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 4,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " and ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 5,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "italic",
+                  "type": "emphasis",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "italic",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 6,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " and ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 5,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "code",
+                  "type": "inlineCode",
+                  "icon": null,
+                  "content_lines": 4,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": ".",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    But escaped not bold and not italic.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    But escaped not bold and not italic.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 44,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

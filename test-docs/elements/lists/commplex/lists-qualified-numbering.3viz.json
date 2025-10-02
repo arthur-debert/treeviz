@@ -1,0 +1,125 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 2,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing fully qualified decimal numbering",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing fully qualified decimal numbering",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing fully qualified decimal numbering",
+              "type": "text",
+              "icon": null,
+              "content_lines": 41,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "1.1. First sub-item1.2. Second sub-item2.1. Another section first2.1.1. Deeply nested item",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "1.1. First sub-item",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "1.1. First sub-item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 19,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "1.2. Second sub-item",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "1.2. Second sub-item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "2.1. Another section first",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "2.1. Another section first",
+              "type": "text",
+              "icon": null,
+              "content_lines": 26,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "2.1.1. Deeply nested item",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "2.1.1. Deeply nested item",
+              "type": "text",
+              "icon": null,
+              "content_lines": 25,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

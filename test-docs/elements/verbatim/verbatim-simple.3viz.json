@@ -1,0 +1,248 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Bogus session",
+      "type": "session",
+      "icon": null,
+      "content_lines": 12,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    in order to test a streched verbatim, we will include all the content in a session.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    in order to test a streched verbatim, we will include all the content in a session.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    in order to test a streched verbatim, we will include all the content in a session.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 87,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Basic verbatim examples (paragraph)",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Basic verbatim examples (paragraph)",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Basic verbatim examples (paragraph)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 39,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "        print(\"Hello World\")\n        return 42",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "title": "Simple verbatim with title and label",
+            "label": "python",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    Anonymous verbatim (no title or label)",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Anonymous verbatim (no title or label)",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Anonymous verbatim (no title or label)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 42,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    :\n        Some plain text\n        In verbatim block",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "title": "",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "        def example():\n            pass",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "title": "Title only",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    Label only. ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Label only. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Label only. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 16,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    :\n        SELECT * FROM users",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "title": "",
+            "label": "sql",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    :",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "        first content",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "First block",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "        second content",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "Second block",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "In this block, the content is not +1 indented, but the first column, absolute\nMany lines\n\nEven blank lines",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 4,
+          "source_location": null,
+          "metadata": {
+            "title": "Strecthed verbatim",
+            "label": "",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}

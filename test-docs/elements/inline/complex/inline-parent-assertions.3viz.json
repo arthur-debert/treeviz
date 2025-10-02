@@ -1,0 +1,182 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 4,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Testing various assertion styles",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing various assertion styles",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing various assertion styles",
+              "type": "text",
+              "icon": null,
+              "content_lines": 32,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This has  in a paragraph.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This has bold text {{strong}} in a paragraph.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This has ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 9,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "bold text {{strong}}",
+              "type": "strong",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "bold text {{strong}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " in a paragraph.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 16,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List item with  text",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "List item with emphasis {{emphasis}} text",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "List item with ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "emphasis {{emphasis}}",
+              "type": "emphasis",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "emphasis {{emphasis}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 21,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": " text",
+              "type": "text",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Testing attributes on annotations:",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Testing attributes on annotations:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Testing attributes on annotations:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 34,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

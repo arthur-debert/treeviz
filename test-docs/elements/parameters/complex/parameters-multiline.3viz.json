@@ -1,0 +1,174 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 3,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Multi-line Annotation Edge Cases",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Multi-line Annotation Edge Cases",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Multi-line Annotation Edge Cases",
+              "type": "text",
+              "icon": null,
+              "content_lines": 32,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": ":: multiline:param=value :: This starts a multiline",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": ":: multiline:param=value :: This starts a multiline",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: multiline:param=value :: This starts a multiline",
+              "type": "text",
+              "icon": null,
+              "content_lines": 51,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "    But parameters should only be on first line    :: nested:key=val :: This is content, not parameters",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    But parameters should only be on first line",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    But parameters should only be on first line",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 47,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    :: nested:key=val :: This is content, not parameters",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    :: nested:key=val :: This is content, not parameters",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 56,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": ":: another:key=\"multiline",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": ":: another:key=\"multiline",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": ":: another:key=\"multiline",
+              "type": "text",
+              "icon": null,
+              "content_lines": 25,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "    value\" :: Quoted value with newline (should it work?)",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    value\" :: Quoted value with newline (should it work?)",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    value\" :: Quoted value with newline (should it work?)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 57,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

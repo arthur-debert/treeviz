@@ -1,0 +1,39 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Invalid Parameter Syntax, the file is called bad so we can be ok with failure to parse",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Invalid Parameter Syntax, the file is called bad so we can be ok with failure to parse",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Invalid Parameter Syntax, the file is called bad so we can be ok with failure to parse",
+              "type": "text",
+              "icon": null,
+              "content_lines": 86,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

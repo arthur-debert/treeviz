@@ -1,0 +1,123 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 7,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "    print(\"Hello, World!\")",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "title": "Simple parameter example",
+        "label": "python",
+        "parameters": {
+          "version": "3"
+        },
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    host: localhost\n    port: 8080",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "title": "Multiple parameters example",
+        "label": "yaml",
+        "parameters": {
+          "version": "1.2",
+          "indent": "2"
+        },
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    <config>\n        <setting>value</setting>\n    </config>",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {
+        "title": "Parameters with spaces in values",
+        "label": "xml",
+        "parameters": {
+          "version": "1.0",
+          "encoding": "UTF-8",
+          "pretty_print": "true"
+        },
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    SELECT * FROM users;",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "title": "Label without parameters",
+        "label": "sql",
+        "parameters": {},
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    Some content here",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "title": "Empty label with parameters",
+        "label": "",
+        "parameters": {
+          "line_numbers": "true",
+          "highlight": "1-3"
+        },
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    Error occurred at line 42",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "title": "Complex label with parameters",
+        "label": "Debug Info",
+        "parameters": {
+          "Stack Trace: line": "42",
+          "severity": "error"
+        },
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "    x = 5\n    y = 10",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {
+        "title": "Edge case - single character keys (treated as math)",
+        "label": "equation: a=1,b=2",
+        "parameters": {},
+        "mode": "in-flow"
+      },
+      "children": []
+    }
+  ]
+}

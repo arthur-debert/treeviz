@@ -1,0 +1,618 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 11,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This document will test variations on list parsing. And can be run as an auto test (see conftest.py), where the content ends with <parens><element name><parens> and can be verified automatically (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This document will test variations on list parsing. ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This document will test variations on list parsing. ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 52,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "And can be run as an auto test (see conftest.py), where the content ends with <parens><element name><parens> and can be verified automatically (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "And can be run as an auto test (see conftest.py), where the content ends with <parens><element name><parens> and can be verified automatically (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 154,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 6,
+      "source_location": null,
+      "metadata": {
+        "ordered": false,
+        "style": "unordered"
+      },
+      "children": [
+        {
+          "label": "One : paragraph, no single items allowed in flat list (paragraph)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "One : paragraph, no single items allowed in flat list (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 65,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "One two items should be a list (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "One two items should be a list (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 42,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Two (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Two (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Single element top with children is a list though (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Single element top with children is a list though (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 61,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - inner list (list-item)",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - inner list (list-item)",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 28,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "One (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "One (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Two (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Two (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 76,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 76,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Number or Unnumbered (list-item)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "Number or Unnumbered (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 32,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - Nested or not (list-item)",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Nested or not (list-item)",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 31,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "One : paragraph, no single items allowed in flat list (paragraph)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "One : paragraph, no single items allowed in flat list (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 65,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This is actually a dialog, hence, paragraph, not a list.. ",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "This is actually a dialog, hence, paragraph, not a list.. ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 58,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Because it ended in a period after the end-punctuation mark (period also in this case) (paragraph)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "marker": "-"
+          },
+          "children": [
+            {
+              "label": "Because it ended in a period after the end-punctuation mark (period also in this case) (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 98,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "But the single element rule still applies (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "But the single element rule still applies (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "But the single element rule still applies (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 53,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 181,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "For all end-punctuations, just add a period, like in !!. ",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "For all end-punctuations, just add a period, like in !!. ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "For all end-punctuations, just add a period, like in !!. ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 57,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This should be a paragraph too (paragraph)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This should be a paragraph too (paragraph)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This should be a paragraph too (paragraph)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 42,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "this should be a list",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "this should be a list",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "this should be a list",
+              "type": "text",
+              "icon": null,
+              "content_lines": 21,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "yes (list-item)",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "yes (list-item)",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "yes (list-item)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

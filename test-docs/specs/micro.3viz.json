@@ -1,0 +1,1872 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 11,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "This is a paragraph:This documenent is the micro spec, showing all elemetns, but not covering their full variations.This will not cover all permutations, but cover all variations.  Aside from parsing ambiguities this does excercises the full synstax swath",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This is a paragraph:",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This is a paragraph:",
+              "type": "text",
+              "icon": null,
+              "content_lines": 20,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This documenent is the micro spec, showing all elemetns, but not covering their full variations.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This documenent is the micro spec, showing all elemetns, but not covering their full variations.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 96,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "This will not cover all permutations, but cover all variations.  Aside from parsing ambiguities this does excercises the full synstax swath",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This will not cover all permutations, but cover all variations.  Aside from parsing ambiguities this does excercises the full synstax swath",
+              "type": "text",
+              "icon": null,
+              "content_lines": 139,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Annotations",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "Annotations",
+              "type": "text",
+              "icon": null,
+              "content_lines": 11,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "    :: status ::  status-style=RFC :: ",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 4,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "    :: status ::  status-style=RFC :: ",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "    :: status ::  status-style=RFC :: ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 38,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "        Proposal. ",
+                      "type": "paragraph",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "        Proposal. ",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        Proposal. ",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 18,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "        Annotations can be multi-line for longer notes, and also support, live verbatim, parameters.        They support the whole txxt lang , excetp new sessions of course. And this goodie is not unique to annotations.",
+                      "type": "paragraph",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "        Annotations can be multi-line for longer notes, and also support, live verbatim, parameters.",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        Annotations can be multi-line for longer notes, and also support, live verbatim, parameters.",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 100,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "label": "        They support the whole txxt lang , excetp new sessions of course. And this goodie is not unique to annotations.",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        They support the whole txxt lang , excetp new sessions of course. And this goodie is not unique to annotations.",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 119,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "List",
+                      "type": "list",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {
+                        "ordered": false,
+                        "style": "unordered"
+                      },
+                      "children": [
+                        {
+                          "label": "        - Annotations, Definitions and Lists Items, all of them can host these, paragraphs and verbim blocks.",
+                          "type": "listItem",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "marker": "-"
+                          },
+                          "children": [
+                            {
+                              "label": "        - Annotations, Definitions and Lists Items, all of them can host these, paragraphs and verbim blocks.",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 109,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "label": "        - This is a core consequence of txxt structural, nested nature. Where non leafs are equally capable and parsing is recursive. ",
+                          "type": "listItem",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "marker": "-"
+                          },
+                          "children": [
+                            {
+                              "label": "        - This is a core consequence of txxt structural, nested nature. Where non leafs are equally capable and parsing is recursive. ",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 134,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Session And titles",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Core Elements {{session}}",
+          "type": "session",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        Which should have at least one item.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Which should have at least one item.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Which should have at least one item.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 44,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Titles don't require ordering {{session}}",
+          "type": "session",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        But every session has to have something in it",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        But every session has to have something in it",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        But every session has to have something in it",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 53,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Lists",
+      "type": "session",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 5,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - You can create unordered lists. {{list-item}}",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - You can create unordered lists. {{list-item}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 51,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - They have two have at lest two ltems",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - They have two have at lest two ltems",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 42,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Aferter all, you don't list one thing, you state it.",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Aferter all, you don't list one thing, you state it.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 58,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    1. The list style can be dashed or ordered",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "1."
+              },
+              "children": [
+                {
+                  "label": "    1. The list style can be dashed or ordered",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 46,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    2. And this is a list that contains a child",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {
+                "marker": "2."
+              },
+              "children": [
+                {
+                  "label": "    2. And this is a list that contains a child",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 47,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "Content",
+                  "type": "contentContainer",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {
+                    "indent": 5
+                  },
+                  "children": [
+                    {
+                      "label": "List",
+                      "type": "list",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {
+                        "ordered": false,
+                        "style": "unordered"
+                      },
+                      "children": [
+                        {
+                          "label": "        a) Like this. {{list-item}}",
+                          "type": "listItem",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "marker": "a)"
+                          },
+                          "children": [
+                            {
+                              "label": "        a) Like this. {{list-item}}",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 35,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "label": "        b) This child has other styling",
+                          "type": "listItem",
+                          "icon": null,
+                          "content_lines": 2,
+                          "source_location": null,
+                          "metadata": {
+                            "marker": "b)"
+                          },
+                          "children": [
+                            {
+                              "label": "        b) This child has other styling",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 39,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            },
+                            {
+                              "label": "Content",
+                              "type": "contentContainer",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "indent": 9
+                              },
+                              "children": [
+                                {
+                                  "label": "List",
+                                  "type": "list",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {
+                                    "ordered": true,
+                                    "style": "ordered-alpha"
+                                  },
+                                  "children": [
+                                    {
+                                      "label": "            i. The grand-chidlren can pick yet another",
+                                      "type": "listItem",
+                                      "icon": null,
+                                      "content_lines": 1,
+                                      "source_location": null,
+                                      "metadata": {
+                                        "marker": "i."
+                                      },
+                                      "children": [
+                                        {
+                                          "label": "            i. The grand-chidlren can pick yet another",
+                                          "type": "text",
+                                          "icon": null,
+                                          "content_lines": 54,
+                                          "source_location": null,
+                                          "metadata": {},
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Definition",
+                      "type": "definition",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "Content",
+                          "type": "contentContainer",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "indent": 9
+                          },
+                          "children": [
+                            {
+                              "label": "            A list who is part of a list litem, it's parent's.",
+                              "type": "paragraph",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "            A list who is part of a list litem, it's parent's.",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "            A list who is part of a list litem, it's parent's.",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 62,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "\n    Code with version info: label ::\n            print(\"Hello, txxt!\");\n   (python: version=3.11)\n    \n    The treatest quot of all times:\n        The universe words towards maximum irrony, don't push it\n    (folk-wisdom)\n\n    Labels are optional: \n        But are sad, it's always useful to declare the type of content on the block.\n    ()\n\n    And this is verbati streched mode:",
+      "type": "verbatim",
+      "icon": null,
+      "content_lines": 14,
+      "source_location": null,
+      "metadata": {
+        "title": "4. Verbatim",
+        "label": "",
+        "parameters": {},
+        "mode": "in-flow"
+      },
+      "children": []
+    },
+    {
+      "label": "| Name | Age | |---------|----|| Jen | 24 || Bob | 20 |",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 5,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "| Name | Age | ",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "| Name | Age | ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 15,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "|---------|----|",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "|---------|----|",
+              "type": "text",
+              "icon": null,
+              "content_lines": 16,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "| Jen | 24 |",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "| Jen | 24 |",
+              "type": "text",
+              "icon": null,
+              "content_lines": 12,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "| Bob | 20 |",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "| Bob | 20 |",
+              "type": "text",
+              "icon": null,
+              "content_lines": 12,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "    (markdown table)",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    (markdown table)",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    (markdown table)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Media",
+      "type": "session",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "            Not mandatory, but the block content is taken to represent the media, could be used as alt.",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "title": "A beautiful landscape",
+            "label": "image",
+            "parameters": {
+              "src": "/images/landscape.jpg",
+              "wrap": "full-width"
+            },
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 0,
+          "source_location": null,
+          "metadata": {
+            "title": "The Greattes",
+            "label": "video src=https",
+            "parameters": {
+              "//www.youtube.com/watch?v": "ShRwMpfHlqw"
+            },
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "ordered": true,
+            "style": "ordered-numeric"
+          },
+          "children": [
+            {
+              "label": "    6. Definitions",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {
+                "marker": "6."
+              },
+              "children": [
+                {
+                  "label": "    6. Definitions",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 18,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "Content",
+                  "type": "contentContainer",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "indent": 5
+                  },
+                  "children": [
+                    {
+                      "label": "Definition",
+                      "type": "definition",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "Content",
+                          "type": "contentContainer",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "indent": 9
+                          },
+                          "children": [
+                            {
+                              "label": "            The explanation or definition of the term goes here. It can span             multiple lines and contain any txxt content.",
+                              "type": "paragraph",
+                              "icon": null,
+                              "content_lines": 2,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "            The explanation or definition of the term goes here. It can span ",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "            The explanation or definition of the term goes here. It can span ",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 77,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "label": "            multiple lines and contain any txxt content.",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "            multiple lines and contain any txxt content.",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 56,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Inlines",
+      "type": "session",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Inlines are formats whiting a body of text:  asterisks for  ,  underscores for  ,  backticks for  , Math is supported:  , citations:  or with pages  ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Inlines are formats whiting a body of text:  asterisks for bold ,  underscores for italic ,  backticks for monospace , Math is supported:  , citations:  or with pages  ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 13,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Inlines are formats whiting a body of text:  asterisks for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 63,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "bold",
+                  "type": "strong",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "bold",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 4,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " ,  underscores for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "italic",
+                  "type": "emphasis",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "italic",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 6,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": " ,  backticks for ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 18,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "monospace",
+                  "type": "inlineCode",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " , Math is supported: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 22,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "E = mc^2",
+                  "type": "inlineMath",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " , citations: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 14,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "citation",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " or with pages ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "citation",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": " ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "References",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "8."
+          },
+          "children": [
+            {
+              "label": "References",
+              "type": "text",
+              "icon": null,
+              "content_lines": 10,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "List",
+                  "type": "list",
+                  "icon": null,
+                  "content_lines": 7,
+                  "source_location": null,
+                  "metadata": {
+                    "ordered": false,
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "label": "    - You can link to external sites . {{list-item}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - You can link to external sites ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 37,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{list-item}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 15,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - Or other documents . {{list-item}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Or other documents ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 25,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{list-item}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 15,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - It also supports footnotes. {{list-item}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - It also supports footnotes",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 32,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ". {{list-item}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 15,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - In sessions  no the same doc {{list-item}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - In sessions ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 18,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": " no the same doc {{list-item}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 30,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - In terms, verbatim or sessions by they name",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 6,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - In terms",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 14,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": ", verbatim",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 10,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": " or sessions by they name",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 25,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - Academic citations  with bibliography support {{list-item}}",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Academic citations ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 25,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "citation",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": " with bibliography support {{list-item}}",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 40,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "    - Foot notes are ",
+                      "type": "listItem",
+                      "icon": null,
+                      "content_lines": 2,
+                      "source_location": null,
+                      "metadata": {
+                        "marker": "-"
+                      },
+                      "children": [
+                        {
+                          "label": "    - Foot notes are ",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 21,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        },
+                        {
+                          "label": "",
+                          "type": "reference",
+                          "icon": null,
+                          "content_lines": 0,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Paragraphs",
+      "type": "session",
+      "icon": null,
+      "content_lines": 8,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Can be single lined. {{paragraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Can be single lined. {{paragraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Can be single lined. {{paragraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 38,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Can be single line but. Multi sentence. {{paragraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Can be single line but. Multi sentence. {{paragraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Can be single line but. Multi sentence. {{paragraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 57,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Can be multiline.     Like this, many times the result of hard wrapping editors {{pargraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Can be multiline. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Can be multiline. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 22,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    Like this, many times the result of hard wrapping editors {{pargraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Like this, many times the result of hard wrapping editors {{pargraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 74,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Dialog could look exactly like a list. To force the parser to treat this as a dialog, add and aditional period after the firts's line end-punctuation, as in: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Dialog could look exactly like a list. To force the parser to treat this as a dialog, add and aditional period after the firts's line end-punctuation, as in: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Dialog could look exactly like a list. To force the parser to treat this as a dialog, add and aditional period after the firts's line end-punctuation, as in: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 162,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    - Ma, this is not alist , but a dialog!.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    - Ma, this is not alist , but a dialog!.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    - Ma, this is not alist , but a dialog!.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 44,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    - Yup kiddo, I see it. Because the first line added a \".\" after the end-punctuation {{!}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    - Yup kiddo, I see it. Because the first line added a \".\" after the end-punctuation {{!}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    - Yup kiddo, I see it. Because the first line added a \".\" after the end-punctuation {{!}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 93,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    - That's right Ma and this is true for  any end-punctuatio ( ?., !., !!., ??., ....)",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    - That's right Ma and this is true for  any end-punctuatio ( ?., !., !!., ??., ....)",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    - That's right Ma and this is true for  any end-punctuatio ( ?., !., !!., ??., ....)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 88,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    - Well said, son, oh, and you only need to mark the first line. {{paragraph}}",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    - Well said, son, oh, and you only need to mark the first line. {{paragraph}}",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    - Well said, son, oh, and you only need to mark the first line. {{paragraph}}",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 81,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Footnotes",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    1. This is that first footnote.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    1. This is that first footnote.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    1. This is that first footnote.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 35,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    You can reference sessions by their numbers, and session 0 is taken to be the last one in the document.    If you don't use a # for the number, it's taken to mean 0, hence the last one.    Then in this case, this item is . Since zero is identity, we can short form this to , but ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    You can reference sessions by their numbers, and session 0 is taken to be the last one in the document.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    You can reference sessions by their numbers, and session 0 is taken to be the last one in the document.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 107,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    If you don't use a # for the number, it's taken to mean 0, hence the last one.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    If you don't use a # for the number, it's taken to mean 0, hence the last one.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 82,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    Then in this case, this item is [WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='0.1', icon='⁇')]. Since zero is identity, we can short form this to [FootnoteRefTarget(type='footnoteRefTarget', position=None, data={}, raw_content='1', icon='¹', number=1, has_caret=False)], but ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Then in this case, this item is ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 36,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "reference",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": ". Since zero is identity, we can short form this to ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 52,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "",
+                  "type": "reference",
+                  "icon": null,
+                  "content_lines": 0,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": ", but ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 6,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

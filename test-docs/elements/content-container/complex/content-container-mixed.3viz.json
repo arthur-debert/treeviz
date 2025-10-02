@@ -1,0 +1,613 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 4,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Definition with ContentContainer (listItem)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "1."
+          },
+          "children": [
+            {
+              "label": "Definition with ContentContainer (listItem)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 43,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "Definition",
+                  "type": "definition",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "Content",
+                      "type": "contentContainer",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "indent": 5
+                      },
+                      "children": [
+                        {
+                          "label": "        A definition uses ContentContainer to hold its content.        This allows for consistent structure across all indented content.",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 2,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        A definition uses ContentContainer to hold its content.",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        A definition uses ContentContainer to hold its content.",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 63,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "label": "        This allows for consistent structure across all indented content.",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        This allows for consistent structure across all indented content.",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 73,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Definition",
+                  "type": "definition",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "Content",
+                      "type": "contentContainer",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "indent": 5
+                      },
+                      "children": [
+                        {
+                          "label": "        Definitions can contain multiple block types:",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        Definitions can contain multiple block types:",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        Definitions can contain multiple block types:",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 53,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "label": "List",
+                          "type": "list",
+                          "icon": null,
+                          "content_lines": 3,
+                          "source_location": null,
+                          "metadata": {
+                            "ordered": false,
+                            "style": "unordered"
+                          },
+                          "children": [
+                            {
+                              "label": "        - Paragraphs (listItem)",
+                              "type": "listItem",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "marker": "-"
+                              },
+                              "children": [
+                                {
+                                  "label": "        - Paragraphs (listItem)",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 31,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "label": "        - Lists like this one (listItem)",
+                              "type": "listItem",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "marker": "-"
+                              },
+                              "children": [
+                                {
+                                  "label": "        - Lists like this one (listItem)",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 40,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "label": "        - Even nested definitions (listItem)",
+                              "type": "listItem",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "marker": "-"
+                              },
+                              "children": [
+                                {
+                                  "label": "        - Even nested definitions (listItem)",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 44,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "label": "        All wrapped in a ContentContainer.",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        All wrapped in a ContentContainer.",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        All wrapped in a ContentContainer.",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 42,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Multiline Annotations with ContentContainer (listItem)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "2."
+          },
+          "children": [
+            {
+              "label": "Multiline Annotations with ContentContainer (listItem)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 54,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "List",
+      "type": "list",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {
+        "ordered": true,
+        "style": "ordered-numeric"
+      },
+      "children": [
+        {
+          "label": "Nested Structures (listItem)",
+          "type": "listItem",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {
+            "marker": "3."
+          },
+          "children": [
+            {
+              "label": "Nested Structures (listItem)",
+              "type": "text",
+              "icon": null,
+              "content_lines": 28,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 1
+              },
+              "children": [
+                {
+                  "label": "Definition",
+                  "type": "definition",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "Content",
+                      "type": "contentContainer",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {
+                        "indent": 5
+                      },
+                      "children": [
+                        {
+                          "label": "        This definition contains nested structures.",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        This definition contains nested structures.",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        This definition contains nested structures.",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 51,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Definition",
+                          "type": "definition",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "Content",
+                              "type": "contentContainer",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "indent": 9
+                              },
+                              "children": [
+                                {
+                                  "label": "            Nested definitions work as expected.            Each has its own ContentContainer.",
+                                  "type": "paragraph",
+                                  "icon": null,
+                                  "content_lines": 2,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "            Nested definitions work as expected.",
+                                      "type": "textLine",
+                                      "icon": null,
+                                      "content_lines": 1,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": [
+                                        {
+                                          "label": "            Nested definitions work as expected.",
+                                          "type": "text",
+                                          "icon": null,
+                                          "content_lines": 48,
+                                          "source_location": null,
+                                          "metadata": {},
+                                          "children": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "label": "            Each has its own ContentContainer.",
+                                      "type": "textLine",
+                                      "icon": null,
+                                      "content_lines": 1,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": [
+                                        {
+                                          "label": "            Each has its own ContentContainer.",
+                                          "type": "text",
+                                          "icon": null,
+                                          "content_lines": 46,
+                                          "source_location": null,
+                                          "metadata": {},
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "label": "        Back to the outer definition content.",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "        Back to the outer definition content.",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "        Back to the outer definition content.",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 45,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Empty and Edge Cases (session, title=\"4. Empty and Edge Cases\")",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Empty Definition ::",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Empty Definition ::",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Empty Definition ::",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 23,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Definition",
+          "type": "definition",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Content",
+              "type": "contentContainer",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "indent": 5
+              },
+              "children": [
+                {
+                  "label": "        Single line content.",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Single line content.",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "        Single line content.",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 28,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 1,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "Greek leters tough #",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "Greek leters tough #",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "Greek leters tough ",
+              "type": "text",
+              "icon": null,
+              "content_lines": 19,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "beta == gama",
+              "type": "inlineMath",
+              "icon": null,
+              "content_lines": 0,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            },
+            {
+              "label": "#",
+              "type": "text",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

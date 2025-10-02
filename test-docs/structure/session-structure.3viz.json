@@ -1,0 +1,2153 @@
+{
+  "label": "Document",
+  "type": "document",
+  "icon": null,
+  "content_lines": 7,
+  "source_location": null,
+  "metadata": {},
+  "children": [
+    {
+      "label": "The most complex part of txxt to parse is the structure being derived from the indentation.The indentation itself is not the problem, but the lack of explicit syntax for most elements is, which generates various ambiguities.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "The most complex part of txxt to parse is the structure being derived from the indentation.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The most complex part of txxt to parse is the structure being derived from the indentation.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 91,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "The indentation itself is not the problem, but the lack of explicit syntax for most elements is, which generates various ambiguities.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "The indentation itself is not the problem, but the lack of explicit syntax for most elements is, which generates various ambiguities.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 133,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "This document aggregates most of these issues, both for reference and tests. Do not add cases to it.",
+      "type": "paragraph",
+      "icon": null,
+      "content_lines": 1,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "This document aggregates most of these issues, both for reference and tests. Do not add cases to it.",
+          "type": "textLine",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "This document aggregates most of these issues, both for reference and tests. Do not add cases to it.",
+              "type": "text",
+              "icon": null,
+              "content_lines": 100,
+              "source_location": null,
+              "metadata": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Sources",
+      "type": "session",
+      "icon": null,
+      "content_lines": 3,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 131,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - Session titles (hence sessions)",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Session titles (hence sessions)",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 37,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - List items",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - List items",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 16,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Paragraphs",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Paragraphs",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 16,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    All these can have similar forms. While list items do require a list marker (- or 1.), session titles and paragraphs do not and can contain them. Hence, for some variants you can write list items off these three as consistently intertwined. ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    All these can have similar forms. While list items do require a list marker (- or 1.), session titles and paragraphs do not and can contain them. Hence, for some variants you can write list items off these three as consistently intertwined. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    All these can have similar forms. While list items do require a list marker (- or 1.), session titles and paragraphs do not and can contain them. Hence, for some variants you can write list items off these three as consistently intertwined. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 245,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "General idea",
+      "type": "session",
+      "icon": null,
+      "content_lines": 2,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented.     Like here, the \"2. General Idea\" line itself could be any one of the three. How do you tell them apart?     The key is that session and lists require other features in the text, if you can't find them, by exclusion the element will be the paragraph.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 85,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    Like here, the \"2. General Idea\" line itself could be any one of the three. How do you tell them apart? ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Like here, the \"2. General Idea\" line itself could be any one of the three. How do you tell them apart? ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 108,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    The key is that session and lists require other features in the text, if you can't find them, by exclusion the element will be the paragraph.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    The key is that session and lists require other features in the text, if you can't find them, by exclusion the element will be the paragraph.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 145,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Sessions",
+          "type": "session",
+          "icon": null,
+          "content_lines": 6,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "            Foo \n\n            Bar",
+              "type": "verbatim",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {
+                "title": "A session's title has to be preceded by a blank line, it's content is +1 Indented and Sessions cannot be empty. Hence",
+                "label": "txxt",
+                "parameters": {},
+                "mode": "in-flow"
+              },
+              "children": []
+            },
+            {
+              "label": "        Foo and Bar can only be paragraphs.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Foo and Bar can only be paragraphs.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Foo and Bar can only be paragraphs.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 43,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "        Any valid session child would be +1 indented. ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Any valid session child would be +1 indented. ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Any valid session child would be +1 indented. ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 54,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "            \n            1. Session\n\n                a. Sub-Section\n\n                    c. Foo",
+              "type": "verbatim",
+              "icon": null,
+              "content_lines": 6,
+              "source_location": null,
+              "metadata": {
+                "title": "Here is the edge Case",
+                "label": "txxt",
+                "parameters": {},
+                "mode": "in-flow"
+              },
+              "children": []
+            },
+            {
+              "label": "        What is each element in this example?  The way to decide is this: ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        What is each element in this example?  The way to decide is this: ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        What is each element in this example?  The way to decide is this: ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 74,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "List",
+              "type": "list",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {
+                "ordered": false,
+                "style": "unordered"
+              },
+              "children": [
+                {
+                  "label": "        - 1. Session follows all the rules for a session title, including an indented child. So it's a Session.",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - 1. Session follows all the rules for a session title, including an indented child. So it's a Session.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 111,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - a. Sub Section also does so.",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - a. Sub Section also does so.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 38,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - c. Foo does not. It has a blank line above, is +1 indented from the parent but has no children. Hence c. Foo is a paragraph. Note that this does not alter the classification for a. Sub-Section. It does not matter if its child is a paragraph or session, it is still a session.",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - c. Foo does not. It has a blank line above, is +1 indented from the parent but has no children. Hence c. Foo is a paragraph. Note that this does not alter the classification for a. Sub-Section. It does not matter if its child is a paragraph or session, it is still a session.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 285,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Lists",
+      "type": "session",
+      "icon": null,
+      "content_lines": 7,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 207,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - Foo",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Foo",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Bar",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Bar",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Foo",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Foo",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                },
+                {
+                  "label": "Content",
+                  "type": "contentContainer",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "indent": 5
+                  },
+                  "children": [
+                    {
+                      "label": "List",
+                      "type": "list",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "ordered": true,
+                        "style": "ordered-numeric"
+                      },
+                      "children": [
+                        {
+                          "label": "        1. Bar",
+                          "type": "listItem",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "marker": "1."
+                          },
+                          "children": [
+                            {
+                              "label": "        1. Bar",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 14,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Is a list, so it",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Is a list, so it",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Is a list, so it",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 20,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Because, including nested lists, we have 2 items here.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Because, including nested lists, we have 2 items here.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Because, including nested lists, we have 2 items here.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 58,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Now,: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Now,: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Now,: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 10,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - Foo",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Foo",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 9,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Is not a list, is a paragraph, as lists cannot be single items.    This fact, together with sessions requiring a preceding blank line, pretty much disambiguates all cases, but one.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Is not a list, is a paragraph, as lists cannot be single items.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Is not a list, is a paragraph, as lists cannot be single items.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 67,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    This fact, together with sessions requiring a preceding blank line, pretty much disambiguates all cases, but one.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    This fact, together with sessions requiring a preceding blank line, pretty much disambiguates all cases, but one.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 117,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Paragraphs: Dialogs",
+      "type": "session",
+      "icon": null,
+      "content_lines": 4,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 189,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "List",
+          "type": "list",
+          "icon": null,
+          "content_lines": 4,
+          "source_location": null,
+          "metadata": {
+            "ordered": false,
+            "style": "unordered"
+          },
+          "children": [
+            {
+              "label": "    - Not sure about this.",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Not sure about this.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 26,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Call John.",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Call John.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 16,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Not sure about this..",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Not sure about this..",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 27,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    - Call John.",
+              "type": "listItem",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "marker": "-"
+              },
+              "children": [
+                {
+                  "label": "    - Call John.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 16,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Could be a perfectly fine list, but in this example it's a dialog.     The way to tell txxt that such line is a paragraph is by adding a period to the end-punctuation",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Could be a perfectly fine list, but in this example it's a dialog. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Could be a perfectly fine list, but in this example it's a dialog. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 71,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "    The way to tell txxt that such line is a paragraph is by adding a period to the end-punctuation",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    The way to tell txxt that such line is a paragraph is by adding a period to the end-punctuation",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 99,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    Here since the first line ends with \".\" and the preceding character is a valid end punctuation mark (?, ., !, .. and others) it's a dialog. Note that only the first line needs to have the extra period.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    Here since the first line ends with \".\" and the preceding character is a valid end punctuation mark (?, ., !, .. and others) it's a dialog. Note that only the first line needs to have the extra period.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    Here since the first line ends with \".\" and the preceding character is a valid end punctuation mark (?, ., !, .. and others) it's a dialog. Note that only the first line needs to have the extra period.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 205,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": ".Indentation and Containers",
+      "type": "session",
+      "icon": null,
+      "content_lines": 14,
+      "source_location": null,
+      "metadata": {},
+      "children": [
+        {
+          "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 140,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    As we've seen in both these: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    As we've seen in both these: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    As we've seen in both these: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 33,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "This is a title",
+          "type": "session",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        A paragraph, followed by a list",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        A paragraph, followed by a list",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        A paragraph, followed by a list",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 39,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "List",
+              "type": "list",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {
+                "ordered": true,
+                "style": "ordered-numeric"
+              },
+              "children": [
+                {
+                  "label": "        1. Pack for Trip",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 2,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "1."
+                  },
+                  "children": [
+                    {
+                      "label": "        1. Pack for Trip",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 24,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    },
+                    {
+                      "label": "Content",
+                      "type": "contentContainer",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {
+                        "indent": 9
+                      },
+                      "children": [
+                        {
+                          "label": "List",
+                          "type": "list",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {
+                            "ordered": true,
+                            "style": "ordered-numeric"
+                          },
+                          "children": [
+                            {
+                              "label": "            1. Passport",
+                              "type": "listItem",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {
+                                "marker": "1."
+                              },
+                              "children": [
+                                {
+                                  "label": "            1. Passport",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 23,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    The title, and the outer list (pack for trip) are not indented +1, although they denote the relationship. The reason for this is containers. ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    The title, and the outer list (pack for trip) are not indented +1, although they denote the relationship. The reason for this is containers. ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    The title, and the outer list (pack for trip) are not indented +1, although they denote the relationship. The reason for this is containers. ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 145,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "\n        <element>\n            </element title / item>\n            <container>\n                <container children> -> indented\n            </container>\n        </element>\n",
+          "type": "verbatim",
+          "icon": null,
+          "content_lines": 7,
+          "source_location": null,
+          "metadata": {
+            "title": "Containers is how any element that can have children work. Their form is",
+            "label": "txxt",
+            "parameters": {},
+            "mode": "in-flow"
+          },
+          "children": []
+        },
+        {
+          "label": "    In this case lists look like this: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    In this case lists look like this: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    In this case lists look like this: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 39,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    <list-item>",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    <list-item>",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    <list-item>",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "        <text line>        <container>        </container>",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        <text line>",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        <text line>",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 19,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        <container>",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        <container>",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 19,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        </container>",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        </container>",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 20,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    </list-item",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    </list-item",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    </list-item",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 15,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    If a list has no children the text line is aligned with the parent. When a nested list exists, then it will be like this: ",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    If a list has no children the text line is aligned with the parent. When a nested list exists, then it will be like this: ",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    If a list has no children the text line is aligned with the parent. When a nested list exists, then it will be like this: ",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 126,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    <list>",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 3,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    <list>",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    <list>",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 10,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "        <outter-list-item>",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 3,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        <outter-list-item>",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        <outter-list-item>",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 26,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "            <text-line>            <container>",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 4,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "            <text-line>",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "            <text-line>",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 23,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "            <container>",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "            <container>",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 23,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "                <list>",
+                      "type": "paragraph",
+                      "icon": null,
+                      "content_lines": 3,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "                <list>",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "                <list>",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 22,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "label": "                    <inner-list-item>",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 2,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "                    <inner-list-item>",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "                    <inner-list-item>",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 37,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "label": "                        <text line>                        </container>",
+                              "type": "paragraph",
+                              "icon": null,
+                              "content_lines": 2,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "                        <text line>",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "                        <text line>",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 35,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "label": "                        </container>",
+                                  "type": "textLine",
+                                  "icon": null,
+                                  "content_lines": 1,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": [
+                                    {
+                                      "label": "                        </container>",
+                                      "type": "text",
+                                      "icon": null,
+                                      "content_lines": 36,
+                                      "source_location": null,
+                                      "metadata": {},
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "label": "                    </inner-list-item>",
+                          "type": "paragraph",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "                    </inner-list-item>",
+                              "type": "textLine",
+                              "icon": null,
+                              "content_lines": 1,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": [
+                                {
+                                  "label": "                    </inner-list-item>",
+                                  "type": "text",
+                                  "icon": null,
+                                  "content_lines": 38,
+                                  "source_location": null,
+                                  "metadata": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "                </list>",
+                      "type": "paragraph",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "                </list>",
+                          "type": "textLine",
+                          "icon": null,
+                          "content_lines": 1,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": [
+                            {
+                              "label": "                </list>",
+                              "type": "text",
+                              "icon": null,
+                              "content_lines": 23,
+                              "source_location": null,
+                              "metadata": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "            </container>",
+                  "type": "paragraph",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "            </container>",
+                      "type": "textLine",
+                      "icon": null,
+                      "content_lines": 1,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": [
+                        {
+                          "label": "            </container>",
+                          "type": "text",
+                          "icon": null,
+                          "content_lines": 24,
+                          "source_location": null,
+                          "metadata": {},
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "        </outter-list-item>",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        </outter-list-item>",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        </outter-list-item>",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 27,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    </list>",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    </list>",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    </list>",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 11,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "    There are two types of containers: ContentContainers and Session Containers.",
+          "type": "paragraph",
+          "icon": null,
+          "content_lines": 1,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "    There are two types of containers: ContentContainers and Session Containers.",
+              "type": "textLine",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "    There are two types of containers: ContentContainers and Session Containers.",
+                  "type": "text",
+                  "icon": null,
+                  "content_lines": 80,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "1 Content Containers",
+          "type": "session",
+          "icon": null,
+          "content_lines": 4,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        The following elements have them, that is, they can have multiple children; ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        The following elements have them, that is, they can have multiple children; ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        The following elements have them, that is, they can have multiple children; ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 84,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "List",
+              "type": "list",
+              "icon": null,
+              "content_lines": 5,
+              "source_location": null,
+              "metadata": {
+                "ordered": false,
+                "style": "unordered"
+              },
+              "children": [
+                {
+                  "label": "        - Annotations",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - Annotations",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 21,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - Definitions",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - Definitions",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 21,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - Lists",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - Lists",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 15,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - Paragraph (pretty obvious why)",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - Paragraph (pretty obvious why)",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 40,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        - Verbatim Block: since this marks text that txxt does not format, no way to have children.",
+                  "type": "listItem",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {
+                    "marker": "-"
+                  },
+                  "children": [
+                    {
+                      "label": "        - Verbatim Block: since this marks text that txxt does not format, no way to have children.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 99,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "        These elements cannot host children: ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        These elements cannot host children: ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        These elements cannot host children: ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 45,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "        Content containers can attach any element type but one Session.         It makes sense, right? You don't want an inner list item creating a new session, from a navigation point of view it would not make any sense, hence:",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 2,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        Content containers can attach any element type but one Session. ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        Content containers can attach any element type but one Session. ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 72,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "label": "        It makes sense, right? You don't want an inner list item creating a new session, from a navigation point of view it would not make any sense, hence:",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        It makes sense, right? You don't want an inner list item creating a new session, from a navigation point of view it would not make any sense, hence:",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 156,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "2 Session Containers:",
+          "type": "session",
+          "icon": null,
+          "content_lines": 2,
+          "source_location": null,
+          "metadata": {},
+          "children": [
+            {
+              "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 174,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "        ps: currently the implementation still has session as having a title attribute then children node not the container here described. This is temporary so we're documenting the correct information.",
+              "type": "paragraph",
+              "icon": null,
+              "content_lines": 1,
+              "source_location": null,
+              "metadata": {},
+              "children": [
+                {
+                  "label": "        ps: currently the implementation still has session as having a title attribute then children node not the container here described. This is temporary so we're documenting the correct information.",
+                  "type": "textLine",
+                  "icon": null,
+                  "content_lines": 1,
+                  "source_location": null,
+                  "metadata": {},
+                  "children": [
+                    {
+                      "label": "        ps: currently the implementation still has session as having a title attribute then children node not the container here described. This is temporary so we're documenting the correct information.",
+                      "type": "text",
+                      "icon": null,
+                      "content_lines": 203,
+                      "source_location": null,
+                      "metadata": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
