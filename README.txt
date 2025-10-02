@@ -1,4 +1,6 @@
-3viz, 
+3viz, a terminal ast vizualizer for document based ASTs.
+
+3viz is designed to simplify re
 
 1.. Codebase rules:
   
