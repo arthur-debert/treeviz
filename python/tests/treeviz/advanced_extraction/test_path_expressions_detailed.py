@@ -7,10 +7,10 @@ and edge cases for path expressions, transformations, filtering, and combination
 
 import pytest
 from treeviz.advanced_extraction import (
-    PathExpressionEngine,
-    TransformationEngine,
-    FilterEngine,
-    AdvancedAttributeExtractor,
+    extract_by_path,
+    apply_transformation,
+    filter_collection,
+    extract_attribute,
 )
 from treeviz.exceptions import ConversionError
 
@@ -40,8 +40,8 @@ class TestPathExpressionHardcore:
     )
     def test_simple_path_extraction(self, path, data, expected):
         """Test simple path extraction with various data types."""
-        engine = PathExpressionEngine()
-        result = engine.extract_by_path(data, path)
+        # Using functional API
+        result = extract_by_path(data, path)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -78,8 +78,8 @@ class TestPathExpressionHardcore:
     )
     def test_dot_notation_paths(self, path, data, expected):
         """Test dot notation path resolution with various nesting levels."""
-        engine = PathExpressionEngine()
-        result = engine.extract_by_path(data, path)
+        # Using functional API
+        result = extract_by_path(data, path)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -111,8 +111,8 @@ class TestPathExpressionHardcore:
     )
     def test_array_indexing_paths(self, path, data, expected):
         """Test array indexing with positive/negative indices and edge cases."""
-        engine = PathExpressionEngine()
-        result = engine.extract_by_path(data, path)
+        # Using functional API
+        result = extract_by_path(data, path)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -138,8 +138,8 @@ class TestPathExpressionHardcore:
     )
     def test_bracket_notation_paths(self, path, data, expected):
         """Test bracket notation for string keys and numeric indices."""
-        engine = PathExpressionEngine()
-        result = engine.extract_by_path(data, path)
+        # Using functional API
+        result = extract_by_path(data, path)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -195,8 +195,8 @@ class TestPathExpressionHardcore:
     )
     def test_complex_path_combinations(self, path, data, expected):
         """Test complex path combinations with multiple access types."""
-        engine = PathExpressionEngine()
-        result = engine.extract_by_path(data, path)
+        # Using functional API
+        result = extract_by_path(data, path)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -216,11 +216,11 @@ class TestPathExpressionHardcore:
     )
     def test_malformed_path_expressions(self, malformed_path):
         """Test that malformed path expressions raise ConversionError."""
-        engine = PathExpressionEngine()
+        # Using functional API
         data = {"items": [1, 2, 3]}
 
         with pytest.raises(ConversionError):
-            engine.extract_by_path(data, malformed_path)
+            extract_by_path(data, malformed_path)
 
 
 class TestTransformationHardcore:
@@ -244,8 +244,8 @@ class TestTransformationHardcore:
     )
     def test_text_transformations(self, value, transform, expected):
         """Test text transformation functions with various input types."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(value, transform)
+        # Using functional API
+        result = apply_transformation(value, transform)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -296,8 +296,8 @@ class TestTransformationHardcore:
     )
     def test_truncate_transformation_variations(self, value, params, expected):
         """Test truncate transformation with various parameters."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(value, params)
+        # Using functional API
+        result = apply_transformation(value, params)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -324,8 +324,8 @@ class TestTransformationHardcore:
     )
     def test_numeric_transformations(self, value, transform, expected):
         """Test numeric transformation functions."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(value, transform)
+        # Using functional API
+        result = apply_transformation(value, transform)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -352,8 +352,8 @@ class TestTransformationHardcore:
     )
     def test_collection_transformations(self, value, transform, expected):
         """Test collection transformation functions."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(value, transform)
+        # Using functional API
+        result = apply_transformation(value, transform)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -369,8 +369,8 @@ class TestTransformationHardcore:
     )
     def test_type_transformations(self, value, transform, expected):
         """Test type conversion transformations."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(value, transform)
+        # Using functional API
+        result = apply_transformation(value, transform)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -386,23 +386,21 @@ class TestTransformationHardcore:
     )
     def test_invalid_transformations(self, invalid_transform):
         """Test that invalid transformations raise ConversionError."""
-        engine = TransformationEngine()
+        # Using functional API
 
         with pytest.raises(ConversionError):
-            engine.apply_transformation("test", invalid_transform)
+            apply_transformation("test", invalid_transform)
 
     def test_none_value_handling(self):
         """Test that None values skip transformation."""
-        engine = TransformationEngine()
+        # Using functional API
 
-        assert engine.apply_transformation(None, "upper") is None
+        assert apply_transformation(None, "upper") is None
         assert (
-            engine.apply_transformation(
-                None, {"name": "truncate", "max_length": 5}
-            )
+            apply_transformation(None, {"name": "truncate", "max_length": 5})
             is None
         )
-        assert engine.apply_transformation(None, lambda x: x * 2) is None
+        assert apply_transformation(None, lambda x: x * 2) is None
 
 
 class TestFilterEngineHardcore:
@@ -426,8 +424,8 @@ class TestFilterEngineHardcore:
     )
     def test_equality_filters(self, items, predicate, expected_count):
         """Test simple equality-based filtering with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the predicate
@@ -471,8 +469,8 @@ class TestFilterEngineHardcore:
     )
     def test_membership_filters(self, items, predicate, expected_count):
         """Test membership-based filtering (in/not_in) with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the membership predicate
@@ -536,8 +534,8 @@ class TestFilterEngineHardcore:
     )
     def test_string_operation_filters(self, items, predicate, expected_count):
         """Test string-based filtering operations with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the string operation predicate
@@ -606,8 +604,8 @@ class TestFilterEngineHardcore:
     )
     def test_comparison_filters(self, items, predicate, expected_count):
         """Test comparison-based filtering operations with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the comparison predicate
@@ -669,8 +667,8 @@ class TestFilterEngineHardcore:
     )
     def test_type_check_filters(self, items, predicate, expected_count):
         """Test type checking filters with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the type check predicate
@@ -757,8 +755,8 @@ class TestFilterEngineHardcore:
     )
     def test_logical_operator_filters(self, items, predicate, expected_count):
         """Test logical operator combinations (and, or, not) with content verification."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert len(result) == expected_count
 
         # Verify all returned items actually match the logical predicate by re-evaluating
@@ -766,7 +764,7 @@ class TestFilterEngineHardcore:
         # that the filter engine itself would accept these items
         for item in result:
             # Re-run the filter on just this item to ensure it passes
-            single_item_result = engine.filter_collection([item], predicate)
+            single_item_result = filter_collection([item], predicate)
             assert (
                 len(single_item_result) == 1
             ), f"Item {item} should match predicate {predicate} but doesn't when tested individually"
@@ -803,8 +801,8 @@ class TestFilterEngineHardcore:
     )
     def test_filter_content_accuracy(self, items, predicate, expected_items):
         """Test that filtering returns the correct items, not just correct count."""
-        engine = FilterEngine()
-        result = engine.filter_collection(items, predicate)
+        # Using functional API
+        result = filter_collection(items, predicate)
         assert result == expected_items
 
     @pytest.mark.parametrize(
@@ -818,21 +816,21 @@ class TestFilterEngineHardcore:
     )
     def test_non_list_input_error(self, invalid_input):
         """Test that non-list inputs raise ConversionError."""
-        engine = FilterEngine()
+        # Using functional API
 
         with pytest.raises(
             ConversionError, match="Cannot filter non-list type"
         ):
-            engine.filter_collection(invalid_input, {"type": "any"})
+            filter_collection(invalid_input, {"type": "any"})
 
     def test_empty_collection_filtering(self):
         """Test filtering empty collections."""
-        engine = FilterEngine()
+        # Using functional API
 
-        result = engine.filter_collection([], {"type": "any"})
+        result = filter_collection([], {"type": "any"})
         assert result == []
 
-        result = engine.filter_collection([], {"and": [{"a": 1}, {"b": 2}]})
+        result = filter_collection([], {"and": [{"a": 1}, {"b": 2}]})
         assert result == []
 
 
@@ -876,8 +874,8 @@ class TestAdvancedAttributeExtractorHardcore:
     )
     def test_extraction_scenarios(self, source, spec, expected):
         """Test various extraction scenarios with different specifications."""
-        extractor = AdvancedAttributeExtractor()
-        result = extractor.extract_attribute(source, spec)
+        # Using functional API
+        result = extract_attribute(source, spec)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -923,19 +921,17 @@ class TestAdvancedAttributeExtractorHardcore:
     )
     def test_filtering_scenarios(self, source, spec, expected_count):
         """Test filtering scenarios with various predicates and content verification."""
-        extractor = AdvancedAttributeExtractor()
-        result = extractor.extract_attribute(source, spec)
+        # Using functional API
+        result = extract_attribute(source, spec)
         assert len(result) == expected_count
 
         # Verify the filtered results actually match the filter criteria
         if isinstance(result, list) and "filter" in spec:
             filter_spec = spec["filter"]
-            # Use FilterEngine to verify each result item matches the filter
-            filter_engine = FilterEngine()
+            # Use filter_collection to verify each result item matches the filter
+            # Using functional API for verification
             for item in result:
-                single_item_result = filter_engine.filter_collection(
-                    [item], filter_spec
-                )
+                single_item_result = filter_collection([item], filter_spec)
                 assert (
                     len(single_item_result) == 1
                 ), f"Filtered item {item} should match filter {filter_spec} but doesn't when tested individually"
@@ -984,8 +980,8 @@ class TestAdvancedAttributeExtractorHardcore:
     )
     def test_complex_extraction_chains(self, source, spec, expected):
         """Test complex extraction chains combining multiple features."""
-        extractor = AdvancedAttributeExtractor()
-        result = extractor.extract_attribute(source, spec)
+        # Using functional API
+        result = extract_attribute(source, spec)
         assert result == expected
 
     @pytest.mark.parametrize(
@@ -1012,24 +1008,22 @@ class TestAdvancedAttributeExtractorHardcore:
     )
     def test_complex_path_extraction(self, source, path):
         """Test complex path expressions with real-world nesting scenarios."""
-        extractor = AdvancedAttributeExtractor()
+        # Using functional API
         # Just test that these don't crash - specific values depend on the source data
-        result = extractor.extract_attribute(source, path)
+        result = extract_attribute(source, path)
         assert result is not None
 
     def test_error_propagation(self):
         """Test that errors are properly propagated through the extraction chain."""
-        extractor = AdvancedAttributeExtractor()
+        # Using functional API
 
         # Test malformed path
         with pytest.raises(ConversionError):
-            extractor.extract_attribute(
-                {"test": "value"}, {"path": "test[unclosed"}
-            )
+            extract_attribute({"test": "value"}, {"path": "test[unclosed"})
 
         # Test invalid transformation
         with pytest.raises(ConversionError):
-            extractor.extract_attribute(
+            extract_attribute(
                 {"test": "value"},
                 {"path": "test", "transform": "invalid_transform"},
             )
@@ -1045,11 +1039,11 @@ class TestAdvancedAttributeExtractorHardcore:
     )
     def test_callable_extraction_compatibility(self, spec):
         """Test that callable extraction (Phase 1 compatibility) still works."""
-        extractor = AdvancedAttributeExtractor()
+        # Using functional API
         source = {"name": "test", "items": [1, 2, 3], "value": 5}
 
         # Should not raise an error
-        result = extractor.extract_attribute(source, spec)
+        result = extract_attribute(source, spec)
         assert result is not None
 
 
@@ -1142,17 +1136,16 @@ class TestIntegrationHardcore:
         self, config, source, expected_label, expected_child_count
     ):
         """Test realistic configuration scenarios that combine multiple features."""
-        from treeviz import DeclarativeConverter
+        from treeviz.converter import convert_node
 
-        converter = DeclarativeConverter(config)
-        result = converter.convert(source)
+        result = convert_node(source, config)
 
         assert result.label == expected_label
         assert len(result.children) == expected_child_count
 
     def test_performance_with_large_data(self):
         """Test performance with larger data structures."""
-        from treeviz import DeclarativeConverter
+        from treeviz.converter import convert_node
 
         # Create a large source structure
         large_source = {
@@ -1189,8 +1182,7 @@ class TestIntegrationHardcore:
             },
         }
 
-        converter = DeclarativeConverter(config)
-        result = converter.convert(large_source)
+        result = convert_node(large_source, config)
 
         # Should complete without error and produce reasonable results
         assert result.label == "root"
@@ -1225,7 +1217,7 @@ class TestIntegrationHardcore:
     )
     def test_edge_case_data_handling(self, edge_case_data):
         """Test that edge case data is handled gracefully."""
-        from treeviz import DeclarativeConverter
+        from treeviz.converter import convert_node
 
         config = {
             "attributes": {
@@ -1234,11 +1226,9 @@ class TestIntegrationHardcore:
             }
         }
 
-        converter = DeclarativeConverter(config)
-
         # Should not crash on edge case data
         try:
-            result = converter.convert(edge_case_data)
+            result = convert_node(edge_case_data, config)
             assert result is not None
             assert result.label == "unnamed"  # Should use default
         except ConversionError:

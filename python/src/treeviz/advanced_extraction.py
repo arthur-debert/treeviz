@@ -870,35 +870,3 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
 
     return primary_value
 
-
-# Backward compatibility - maintain the class interfaces for existing code
-class AdvancedAttributeExtractor:
-    """DEPRECATED: Use extract_attribute() function instead."""
-
-    def extract_attribute(self, source_node: Any, extraction_spec: Any) -> Any:
-        return extract_attribute(source_node, extraction_spec)
-
-
-class PathExpressionEngine:
-    """DEPRECATED: Use extract_by_path() function instead."""
-
-    def extract_by_path(self, source_node: Any, path_expression: str) -> Any:
-        return extract_by_path(source_node, path_expression)
-
-
-class TransformationEngine:
-    """DEPRECATED: Use apply_transformation() function instead."""
-
-    def apply_transformation(
-        self, value: Any, transform_spec: Union[str, Dict[str, Any], Callable]
-    ) -> Any:
-        return apply_transformation(value, transform_spec)
-
-
-class FilterEngine:
-    """DEPRECATED: Use filter_collection() function instead."""
-
-    def filter_collection(
-        self, collection: List[Any], filter_spec: Dict[str, Any]
-    ) -> List[Any]:
-        return filter_collection(collection, filter_spec)

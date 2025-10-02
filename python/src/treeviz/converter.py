@@ -212,18 +212,3 @@ def exit_on_error(func: Callable) -> Callable:
     return wrapper
 
 
-# Backward compatibility - maintain the class interface for existing code
-class DeclarativeConverter:
-    """
-    DEPRECATED: Use convert_node() function instead.
-
-    Converts arbitrary tree structures to 3viz Nodes using declarative configuration.
-    This class is maintained for backward compatibility but will be removed in future versions.
-    """
-
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        validate_config(config)
-
-    def convert(self, source_node: Any) -> Optional[Node]:
-        return convert_node(source_node, self.config)

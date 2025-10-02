@@ -213,7 +213,6 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 # Main public API exports
 from .model import Node
 from .converter import (
-    DeclarativeConverter,
     convert_tree,
     convert_node,
     validate_config,
@@ -235,7 +234,6 @@ __all__ = [
     # Core data structures
     "Node",
     # Conversion engine
-    "DeclarativeConverter",
     "convert_tree",
     "convert_node",
     "validate_config",

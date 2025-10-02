@@ -7,7 +7,7 @@ children processing, and hierarchical data conversion.
 
 import pytest
 from treeviz.converter import (
-    DeclarativeConverter,
+    convert_node,
     ConversionError,
     convert_tree,
 )
@@ -27,8 +27,7 @@ def test_single_node_conversion(assert_node):
     config = {"attributes": {"label": "name", "type": "node_type"}}
     source = MockNode(name="Leaf Node", node_type="leaf")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_label("Leaf Node").has_type(
         "leaf"
@@ -51,8 +50,7 @@ def test_parent_child_conversion(assert_node):
         name="Parent", node_type="parent", child_nodes=[child1, child2]
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    result = convert_node(parent, config)
 
     assert_node(result).has_label("Parent").has_type(
         "parent"
@@ -76,8 +74,7 @@ def test_deep_tree_conversion(assert_node):
     child = MockNode(name="Child", node_type="branch", child_nodes=[grandchild])
     root = MockNode(name="Root", node_type="root", child_nodes=[child])
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(root)
+    result = convert_node(root, config)
 
     # Test the full tree structure
     assert_node(result).has_label("Root").has_type("root").has_children_count(1)
@@ -105,8 +102,7 @@ def test_empty_children_list(assert_node):
 
     source = MockNode(name="Empty Parent", node_type="parent", child_nodes=[])
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_children_count(0)
 
@@ -123,8 +119,7 @@ def test_missing_children_attribute(assert_node):
 
     source = MockNode(name="No Children", node_type="parent")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_children_count(0)
 
@@ -140,11 +135,10 @@ def test_children_conversion_error():
 
     source = MockNode(name="Bad Parent", bad_children="not a list")
 
-    converter = DeclarativeConverter(config)
     with pytest.raises(
         ConversionError, match="Children attribute must return a list"
     ):
-        converter.convert(source)
+        convert_node(source, config)
 
 
 def test_mixed_child_types(assert_node):
@@ -167,8 +161,7 @@ def test_mixed_child_types(assert_node):
         child_nodes=[heading_child, text_child, list_child],
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    result = convert_node(parent, config)
 
     assert_node(result).has_children_count(3)
     assert_node(result.children[0]).has_type("heading")
@@ -225,8 +218,7 @@ def test_recursive_tree_processing():
         name="Root", node_type="root", child_nodes=[branch1, branch2]
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(root)
+    result = convert_node(root, config)
 
     # Verify the complete tree structure
     assert len(result.children) == 2

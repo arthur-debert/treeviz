@@ -4,7 +4,6 @@ Tests for the declarative converter engine.
 
 import pytest
 from treeviz.converter import (
-    DeclarativeConverter,
     ConversionError,
     convert_tree,
     convert_node,
@@ -26,8 +25,7 @@ def test_basic_conversion(assert_node):
 
     source = MockNode(name="Test Node", node_type="test")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert isinstance(result, Node)
     assert_node(result).has_label("Test Node").has_type("test")
@@ -46,8 +44,7 @@ def test_children_conversion(assert_node):
     child = MockNode(name="Child", node_type="child")
     parent = MockNode(name="Parent", node_type="parent", child_nodes=[child])
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    result = convert_node(parent, config)
 
     assert_node(result).has_children_count(1)
     assert_node(result.children[0]).has_label("Child").has_type("child")
@@ -62,8 +59,7 @@ def test_icon_mapping(assert_node):
 
     source = MockNode(name="Test", node_type="paragraph")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_icon("¶")
 
@@ -77,8 +73,7 @@ def test_type_overrides(assert_node):
 
     source = MockNode(name="Wrong", content="Correct", node_type="text")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_label("Correct")
 
@@ -100,8 +95,7 @@ def test_ignore_types(assert_node):
         name="Parent", node_type="parent", child_nodes=[comment, text]
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    result = convert_node(parent, config)
 
     # Should only have one child (text), comment should be ignored
     assert_node(result).has_children_count(1)
@@ -119,8 +113,7 @@ def test_callable_extractors(assert_node):
 
     source = MockNode(first_name="John", last_name="Doe", node_type="person")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_label("John Doe")
 
@@ -131,8 +124,7 @@ def test_missing_attribute_fallback(assert_node):
 
     source = MockNode(node_type="test")  # missing_field not set
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     # Should fallback to type name
     assert_node(result).has_label("test")
@@ -144,8 +136,7 @@ def test_dict_access(assert_node):
 
     source = {"name": "Test", "type": "dict_node"}
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_label("Test").has_type("dict_node")
 
@@ -160,8 +151,7 @@ def test_metadata_extraction(assert_node):
         name="Test", node_type="test", meta={"key": "value", "count": 42}
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_metadata({"key": "value", "count": 42})
 
@@ -180,8 +170,7 @@ def test_source_location_extraction(assert_node):
         name="Test", node_type="test", location={"line": 5, "column": 10}
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    result = convert_node(source, config)
 
     assert_node(result).has_source_location({"line": 5, "column": 10})
 
@@ -190,13 +179,13 @@ def test_invalid_configuration():
     """Test that invalid configurations raise errors."""
     # No attributes section
     with pytest.raises(ConversionError, match="must include 'attributes'"):
-        DeclarativeConverter({})
+        convert_node({}, {})
 
     # No label in attributes
     with pytest.raises(
         ConversionError, match="must specify how to extract 'label'"
     ):
-        DeclarativeConverter({"attributes": {"type": "node_type"}})
+        convert_node({}, {"attributes": {"type": "node_type"}})
 
 
 def test_conversion_error_on_bad_children():
@@ -210,11 +199,10 @@ def test_conversion_error_on_bad_children():
 
     source = MockNode(name="Test", bad_children="not a list")
 
-    converter = DeclarativeConverter(config)
     with pytest.raises(
         ConversionError, match="Children attribute must return a list"
     ):
-        converter.convert(source)
+        convert_node(source, config)
 
 
 def test_convert_tree_convenience_function(assert_node):
