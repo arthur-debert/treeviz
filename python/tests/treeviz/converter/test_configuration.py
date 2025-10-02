@@ -20,7 +20,7 @@ class MockNode:
 def test_minimal_valid_configuration():
     """Test converter with minimal valid configuration."""
     config = {"attributes": {"label": "name"}}
-    
+
     # Should not raise an exception
     converter = DeclarativeConverter(config)
     assert converter is not None
@@ -29,7 +29,7 @@ def test_minimal_valid_configuration():
 def test_configuration_validation_no_attributes():
     """Test that configuration without attributes section raises error."""
     config = {}
-    
+
     with pytest.raises(ConversionError, match="must include 'attributes'"):
         DeclarativeConverter(config)
 
@@ -37,7 +37,7 @@ def test_configuration_validation_no_attributes():
 def test_configuration_validation_no_label():
     """Test that configuration without label mapping raises error."""
     config = {"attributes": {"type": "node_type"}}
-    
+
     with pytest.raises(
         ConversionError, match="must specify how to extract 'label'"
     ):
@@ -50,7 +50,7 @@ def test_configuration_with_icon_map():
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
-    
+
     converter = DeclarativeConverter(config)
     assert converter is not None
 
@@ -61,10 +61,10 @@ def test_configuration_with_type_overrides():
         "attributes": {"label": "name", "type": "node_type"},
         "type_overrides": {
             "text": {"label": "content"},
-            "heading": {"label": "title", "metadata": "attrs"}
+            "heading": {"label": "title", "metadata": "attrs"},
         },
     }
-    
+
     converter = DeclarativeConverter(config)
     assert converter is not None
 
@@ -75,7 +75,7 @@ def test_configuration_with_ignore_types():
         "attributes": {"label": "name", "type": "node_type"},
         "ignore_types": ["comment", "whitespace", "debug"],
     }
-    
+
     converter = DeclarativeConverter(config)
     assert converter is not None
 
@@ -90,18 +90,13 @@ def test_configuration_with_all_features():
             "icon": "symbol",
             "content_lines": "line_count",
             "source_location": "location",
-            "metadata": "meta"
+            "metadata": "meta",
         },
-        "icon_map": {
-            "paragraph": "¶",
-            "list": "☰"
-        },
-        "type_overrides": {
-            "text": {"label": "content"}
-        },
-        "ignore_types": ["comment"]
+        "icon_map": {"paragraph": "¶", "list": "☰"},
+        "type_overrides": {"text": {"label": "content"}},
+        "ignore_types": ["comment"],
     }
-    
+
     converter = DeclarativeConverter(config)
     assert converter is not None
 
@@ -112,7 +107,7 @@ def test_invalid_configuration_types():
     # it would fail at runtime when trying to access dict methods
     # This is a design decision - we'll just test that it doesn't crash
     # on initialization with valid structure
-    
+
     # Test with valid minimal config
     valid_config = {"attributes": {"label": "name"}}
     converter = DeclarativeConverter(valid_config)
@@ -125,7 +120,7 @@ def test_configuration_error_messages():
         DeclarativeConverter({})
     except ConversionError as e:
         assert "attributes" in str(e).lower()
-    
+
     try:
         DeclarativeConverter({"attributes": {"type": "node_type"}})
     except ConversionError as e:

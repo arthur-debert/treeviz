@@ -2,9 +2,7 @@
 Tests for the Renderer.
 """
 
-import pytest
 
-from treeviz.model import Node
 from treeviz.renderer import Renderer
 
 

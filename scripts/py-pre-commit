@@ -92,7 +92,7 @@ get_staged_files() {
 # Get all files by extension (for --all-files mode)
 get_all_files() {
     local extension="$1"
-    find src/ tests/ scripts/ -name "*.$extension" 2>/dev/null || true
+    find python/ scripts/ -name "*.$extension" 2>/dev/null || true
 }
 
 # =============================================================================
@@ -232,7 +232,7 @@ run_phase_ii() {
     
     # Run tests first (most important check)
     log_info "Running test suite..."
-    if ! poetry run pytest tests/; then
+    if ! poetry run pytest python/tests/; then
         log_error "Test suite failed"
         phase_ii_status=$EXIT_FAILURE
     else
@@ -242,7 +242,7 @@ run_phase_ii() {
     # Python: Ruff linting (non-fixable issues)
     log_info "Running ruff check (Python linter)..."
     if [[ "$ALL_FILES" == "true" ]]; then
-        if ! poetry run ruff check src/ tests/ scripts/; then
+        if ! poetry run ruff check python/ scripts/; then
             log_error "Ruff found linting issues"
             phase_ii_status=$EXIT_FAILURE
         else

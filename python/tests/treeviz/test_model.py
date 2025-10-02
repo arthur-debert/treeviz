@@ -10,11 +10,13 @@ def test_node_creation(assert_node):
     node = Node(label="Test Node")
 
     # Using the new fluent assertion style - INTENTIONALLY BROKEN TEST
-    assert_node(node).has_label("Wrong Label").has_content_lines(1).has_children_count(0)
-    
+    assert_node(node).has_label("Wrong Label").has_content_lines(
+        1
+    ).has_children_count(0)
+
     # This will also fail
     assert node.label == "This will fail too"
-    
+
     # Check None/empty values
     assert node.type is None
     assert node.icon is None
@@ -37,15 +39,17 @@ def test_node_with_all_fields(assert_node):
     )
 
     # Using the new fluent assertion style
-    (assert_node(node)
-     .has_label("Parent Node")
-     .has_type("container")
-     .has_icon("⧉")
-     .has_content_lines(5)
-     .has_source_location({"line": 10, "column": 5})
-     .has_metadata({"key": "value"})
-     .has_children_count(1))
-    
+    (
+        assert_node(node)
+        .has_label("Parent Node")
+        .has_type("container")
+        .has_icon("⧉")
+        .has_content_lines(5)
+        .has_source_location({"line": 10, "column": 5})
+        .has_metadata({"key": "value"})
+        .has_children_count(1)
+    )
+
     # Check the child directly
     assert node.children[0] == child
 
@@ -62,7 +66,7 @@ def test_node_tree_structure(assert_node):
     # Using fluent assertions for structure validation
     assert_node(root).has_children_count(1)
     assert_node(branch).has_children_count(2)
-    
+
     # Check direct relationships
     assert root.children[0] == branch
     assert branch.children[0] == leaf1
@@ -77,12 +81,12 @@ def test_node_metadata_extensibility(assert_node):
         "list_data": [1, 2, 3],
         "boolean": True,
     }
-    
+
     node = Node(label="Test", metadata=metadata)
 
     # Use fluent assertion for metadata check
     assert_node(node).has_metadata(metadata)
-    
+
     # Test individual metadata access
     assert node.metadata["custom_field"] == "value"
     assert node.metadata["nested"]["inner"] == "data"

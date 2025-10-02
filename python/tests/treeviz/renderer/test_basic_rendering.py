@@ -5,7 +5,6 @@ This test file focuses on core rendering behavior, output formatting,
 and basic tree structure rendering.
 """
 
-import pytest
 from treeviz.renderer import Renderer
 from treeviz.model import Node
 
@@ -14,9 +13,9 @@ def test_render_single_node():
     """Test rendering a single node without children."""
     node = Node(type="text", label="Hello World")
     renderer = Renderer()
-    
+
     output = renderer.render(node)
-    
+
     assert "◦ Hello World" in output
     assert output.count("\n") == 0  # Single line
 
@@ -25,9 +24,9 @@ def test_render_node_with_custom_icon():
     """Test rendering node with custom icon mapping."""
     node = Node(type="paragraph", label="Test paragraph")
     renderer = Renderer()
-    
+
     output = renderer.render(node)
-    
+
     assert "¶ Test paragraph" in output
 
 
@@ -35,9 +34,9 @@ def test_render_node_with_unknown_type():
     """Test rendering node with unknown type uses default icon."""
     node = Node(type="unknown", label="Unknown node")
     renderer = Renderer()
-    
+
     output = renderer.render(node)
-    
+
     assert "? Unknown node" in output
 
 
@@ -46,10 +45,10 @@ def test_render_simple_tree():
     child1 = Node(type="text", label="Child 1")
     child2 = Node(type="text", label="Child 2")
     parent = Node(type="paragraph", label="Parent", children=[child1, child2])
-    
+
     renderer = Renderer()
     output = renderer.render(parent)
-    
+
     lines = output.split("\n")
     assert "¶ Parent" in lines[0]
     assert "  ◦ Child 1" in lines[1]  # Indented
@@ -61,10 +60,10 @@ def test_render_deep_tree():
     grandchild = Node(type="text", label="Grandchild")
     child = Node(type="paragraph", label="Child", children=[grandchild])
     root = Node(type="document", label="Root", children=[child])
-    
+
     renderer = Renderer()
     output = renderer.render(root)
-    
+
     lines = output.split("\n")
     assert "⧉ Root" in lines[0]
     assert "  ¶ Child" in lines[1]
@@ -75,9 +74,9 @@ def test_render_empty_tree():
     """Test rendering a node with empty children list."""
     node = Node(type="document", label="Empty Document", children=[])
     renderer = Renderer()
-    
+
     output = renderer.render(node)
-    
+
     # Should contain the symbol and label
     assert "⧉ Empty Document" in output
     assert "1L" in output  # Line count for single line content
@@ -87,10 +86,10 @@ def test_render_output_format():
     """Test that rendered output has correct format and structure."""
     child = Node(type="text", label="Text content")
     parent = Node(type="document", label="Document", children=[child])
-    
+
     renderer = Renderer()
     output = renderer.render(parent)
-    
+
     # Check basic structure - symbols are present
     assert "⧉ Document" in output
     assert "◦ Text content" in output
@@ -104,13 +103,13 @@ def test_render_multiple_children():
         Node(type="heading", label="Heading"),
         Node(type="paragraph", label="Paragraph"),
         Node(type="list", label="List"),
-        Node(type="text", label="Text")
+        Node(type="text", label="Text"),
     ]
     parent = Node(type="document", label="Document", children=children)
-    
+
     renderer = Renderer()
     output = renderer.render(parent)
-    
+
     lines = output.split("\n")
     assert len(lines) == 5  # Parent + 4 children
     assert "⧉ Document" in lines[0]
@@ -131,11 +130,11 @@ def test_render_preserves_label_content():
         "Label [with brackets]",
         "Label {with braces}",
         "Label/with/slashes",
-        "Label\\with\\backslashes"
+        "Label\\with\\backslashes",
     ]
-    
+
     renderer = Renderer()
-    
+
     for label in special_labels:
         node = Node(type="text", label=label)
         output = renderer.render(node)
@@ -147,14 +146,14 @@ def test_render_unicode_labels():
     unicode_labels = [
         "Café",
         "naïve",
-        "résumé", 
+        "résumé",
         "北京",
         "🚀 Rocket",
-        "α + β = γ"
+        "α + β = γ",
     ]
-    
+
     renderer = Renderer()
-    
+
     for label in unicode_labels:
         node = Node(type="text", label=label)
         output = renderer.render(node)
@@ -168,13 +167,13 @@ def test_render_newlines_in_output():
     renderer = Renderer()
     output = renderer.render(single)
     assert "\n" not in output
-    
+
     # Parent with one child - one newline
     child = Node(type="text", label="Child")
     parent = Node(type="paragraph", label="Parent", children=[child])
     output = renderer.render(parent)
     assert output.count("\n") == 1
-    
+
     # Parent with two children - two newlines
     child1 = Node(type="text", label="Child 1")
     child2 = Node(type="text", label="Child 2")

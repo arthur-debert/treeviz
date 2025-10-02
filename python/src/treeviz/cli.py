@@ -37,8 +37,7 @@ def render(file, config):
     input_text = Path(file).read_text()
 
     # Parse the document
-    document = parse(input_text)
-
+    parse(input_text)
 
     symbols = DEFAULT_SYMBOLS
     if config:

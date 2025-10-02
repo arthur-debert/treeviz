@@ -3,7 +3,11 @@ Tests for the declarative converter engine.
 """
 
 import pytest
-from treeviz.converter import DeclarativeConverter, ConversionError, convert_tree
+from treeviz.converter import (
+    DeclarativeConverter,
+    ConversionError,
+    convert_tree,
+)
 from treeviz.model import Node
 
 
