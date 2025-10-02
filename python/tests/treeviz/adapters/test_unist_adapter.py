@@ -6,10 +6,9 @@ import pytest
 
 from treeviz.adapters.unist import UnistAdapter
 from treeviz.model import Node
-from ..fixtures import simple_unist_tree, assert_node
 
 
-def test_adapt_simple_unist_tree(simple_unist_tree):
+def test_adapt_simple_unist_tree(simple_unist_tree, assert_node):
     """
     Test adapting a simple unist tree.
     """
@@ -17,16 +16,15 @@ def test_adapt_simple_unist_tree(simple_unist_tree):
     adapter = UnistAdapter()
     node_tree = adapter.adapt(simple_unist_tree)
 
-    # Assertions
+    # Root node assertions
     assert isinstance(node_tree, Node)
-    assert node_tree.type == "root"
-    assert len(node_tree.children) == 1
+    assert_node(node_tree).has_type("root").has_children_count(1)
 
+    # Check paragraph
     paragraph_node = node_tree.children[0]
-    assert paragraph_node.type == "paragraph"
-    assert len(paragraph_node.children) == 1
+    assert_node(paragraph_node).has_type("paragraph").has_children_count(1)
     assert "Hello, world!" in paragraph_node.label
 
+    # Check text node
     text_node = paragraph_node.children[0]
-    assert text_node.type == "text"
-    assert text_node.label == "Hello, world!"
+    assert_node(text_node).has_type("text").has_label("Hello, world!")

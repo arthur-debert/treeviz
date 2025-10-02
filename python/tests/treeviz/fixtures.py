@@ -36,7 +36,7 @@ def load_test_data(filename: str) -> Any:
         return json.load(f)
 
 
-def assert_node(
+def assert_node_properties(
     node: Node,
     *,
     label: Optional[str] = None,
@@ -49,21 +49,18 @@ def assert_node(
     children_count: Optional[int] = None
 ) -> None:
     """
-    Custom assertion for Node objects with detailed error messages.
+    DEPRECATED: Use the assert_node fixture from conftest.py instead.
     
-    Args:
-        node: The Node object to check
-        label: Expected label value
-        type: Expected type value
-        icon: Expected icon value
-        content_lines: Expected content_lines value
-        source_location: Expected source_location dict
-        metadata: Expected metadata dict
-        children: Expected list of child nodes (exact match)
-        children_count: Expected number of children (count only)
-        
-    Example:
-        >>> assert_node(node, label="Test", type="container", children_count=2)
+    Custom assertion for Node objects with detailed error messages.
+    This function is kept for backward compatibility but the pytest fixture
+    approach in conftest.py is preferred.
+    
+    New usage:
+        def test_something(assert_node):
+            assert_node(node).has_label("test").has_type("container")
+    
+    Old usage (still works):
+        assert_node_properties(node, label="test", type="container")
     """
     if label is not None:
         assert node.label == label, f"Expected label '{label}', got '{node.label}'"
@@ -89,6 +86,10 @@ def assert_node(
     if children_count is not None:
         actual_count = len(node.children) if node.children else 0
         assert actual_count == children_count, f"Expected {children_count} children, got {actual_count}"
+
+
+# Backward compatibility alias
+assert_node = assert_node_properties
 
 
 # Common test fixtures

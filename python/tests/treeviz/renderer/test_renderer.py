@@ -6,15 +6,14 @@ import pytest
 
 from treeviz.model import Node
 from treeviz.renderer import Renderer
-from ..fixtures import sample_node_tree as simple_node_tree, assert_node
 
 
-def test_render_simple_tree(simple_node_tree):
+def test_render_simple_tree(sample_node_tree):
     """
     Test rendering a simple Node tree.
     """
     renderer = Renderer()
-    output = renderer.render(simple_node_tree)
+    output = renderer.render(sample_node_tree)
 
     # Split the output into lines for easier comparison
     lines = output.split("\n")
@@ -26,7 +25,7 @@ def test_render_simple_tree(simple_node_tree):
     assert "• Item 2" in lines[4]
 
 
-def test_render_with_custom_symbols(simple_node_tree):
+def test_render_with_custom_symbols(sample_node_tree):
     """
     Test rendering with custom symbols.
     """
@@ -37,7 +36,7 @@ def test_render_with_custom_symbols(simple_node_tree):
         "listItem": "[I]",
     }
     renderer = Renderer(symbols=custom_symbols)
-    output = renderer.render(simple_node_tree)
+    output = renderer.render(sample_node_tree)
 
     lines = output.split("\n")
 

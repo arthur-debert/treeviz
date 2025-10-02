@@ -5,20 +5,21 @@ Tests for the 3viz data model.
 from treeviz.model import Node
 
 
-def test_node_creation():
+def test_node_creation(assert_node):
     """Test creating a basic Node."""
     node = Node(label="Test Node")
 
-    assert node.label == "Test Node"
+    # Using the new fluent assertion style
+    assert_node(node).has_label("Test Node").has_content_lines(1).has_children_count(0)
+    
+    # Check None/empty values
     assert node.type is None
     assert node.icon is None
-    assert node.content_lines == 1
     assert node.source_location is None
     assert node.metadata == {}
-    assert node.children == []
 
 
-def test_node_with_all_fields():
+def test_node_with_all_fields(assert_node):
     """Test creating a Node with all fields populated."""
     child = Node(label="Child")
 
@@ -32,17 +33,21 @@ def test_node_with_all_fields():
         children=[child],
     )
 
-    assert node.label == "Parent Node"
-    assert node.type == "container"
-    assert node.icon == "⧉"
-    assert node.content_lines == 5
-    assert node.source_location == {"line": 10, "column": 5}
-    assert node.metadata == {"key": "value"}
-    assert len(node.children) == 1
+    # Using the new fluent assertion style
+    (assert_node(node)
+     .has_label("Parent Node")
+     .has_type("container")
+     .has_icon("⧉")
+     .has_content_lines(5)
+     .has_source_location({"line": 10, "column": 5})
+     .has_metadata({"key": "value"})
+     .has_children_count(1))
+    
+    # Check the child directly
     assert node.children[0] == child
 
 
-def test_node_tree_structure():
+def test_node_tree_structure(assert_node):
     """Test creating a tree structure with Node."""
     leaf1 = Node(label="Leaf 1", type="text")
     leaf2 = Node(label="Leaf 2", type="text")
@@ -51,25 +56,31 @@ def test_node_tree_structure():
 
     root = Node(label="Root", type="document", children=[branch])
 
-    assert len(root.children) == 1
+    # Using fluent assertions for structure validation
+    assert_node(root).has_children_count(1)
+    assert_node(branch).has_children_count(2)
+    
+    # Check direct relationships
     assert root.children[0] == branch
-    assert len(branch.children) == 2
     assert branch.children[0] == leaf1
     assert branch.children[1] == leaf2
 
 
-def test_node_metadata_extensibility():
+def test_node_metadata_extensibility(assert_node):
     """Test that metadata can store arbitrary data."""
-    node = Node(
-        label="Test",
-        metadata={
-            "custom_field": "value",
-            "nested": {"inner": "data"},
-            "list_data": [1, 2, 3],
-            "boolean": True,
-        },
-    )
+    metadata = {
+        "custom_field": "value",
+        "nested": {"inner": "data"},
+        "list_data": [1, 2, 3],
+        "boolean": True,
+    }
+    
+    node = Node(label="Test", metadata=metadata)
 
+    # Use fluent assertion for metadata check
+    assert_node(node).has_metadata(metadata)
+    
+    # Test individual metadata access
     assert node.metadata["custom_field"] == "value"
     assert node.metadata["nested"]["inner"] == "data"
     assert node.metadata["list_data"] == [1, 2, 3]
