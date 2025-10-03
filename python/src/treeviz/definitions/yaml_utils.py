@@ -6,7 +6,7 @@ with comments extracted from dataclass field metadata using ruamel.yaml.
 """
 
 from typing import Dict, Any
-from dataclasses import asdict
+from dataclasses import asdict, fields, is_dataclass
 from io import StringIO
 
 try:
@@ -16,17 +16,35 @@ try:
 except ImportError:
     HAS_YAML = False
 
-from .model import Definition
 
-
-def serialize_definition_to_yaml(
-    definition: Definition, include_comments: bool = True
-) -> str:
+def get_dataclass_field_docs(dataclass_obj: Any) -> Dict[str, str]:
     """
-    Serialize a Definition to YAML with optional field comments using ruamel.yaml.
+    Extract field documentation from any dataclass metadata.
 
     Args:
-        definition: The Definition object to serialize
+        dataclass_obj: Any dataclass instance or class
+
+    Returns:
+        Dictionary mapping field names to their documentation strings
+    """
+    if not is_dataclass(dataclass_obj):
+        return {}
+
+    field_docs = {}
+    for field_obj in fields(dataclass_obj):
+        if field_obj.metadata and "doc" in field_obj.metadata:
+            field_docs[field_obj.name] = field_obj.metadata["doc"]
+    return field_docs
+
+
+def serialize_dataclass_to_yaml(
+    dataclass_obj: Any, include_comments: bool = True
+) -> str:
+    """
+    Serialize any dataclass to YAML with optional field comments using ruamel.yaml.
+
+    Args:
+        dataclass_obj: Any dataclass instance to serialize
         include_comments: Whether to include field documentation as comments
 
     Returns:
@@ -34,38 +52,20 @@ def serialize_definition_to_yaml(
 
     Raises:
         ImportError: If ruamel.yaml is not available
+        ValueError: If input is not a dataclass
     """
-    if not HAS_YAML:
-        raise ImportError(
-            "YAML support requires 'ruamel.yaml' package. Install with: pip install ruamel.yaml"
-        )
+    if not is_dataclass(dataclass_obj):
+        raise ValueError("Input must be a dataclass instance")
 
-    # Create YAML instance with proper configuration
-    yml = yaml.YAML()
-    yml.preserve_quotes = True
-    yml.default_flow_style = False
-    yml.indent(mapping=2, sequence=4, offset=2)
-
-    # Convert to dict and create CommentedMap for comments
-    def_data = asdict(definition)
-    commented_data = yaml.CommentedMap(def_data)
-
-    if include_comments:
-        # Get field documentation
-        field_docs = Definition.get_field_docs()
-
-        # Add comments for each field that has documentation
-        for field_name, doc in field_docs.items():
-            if field_name in commented_data:
-                # Add comment before the field
-                commented_data.yaml_set_comment_before_after_key(
-                    field_name, before=doc
-                )
-
-    # Serialize to string
-    stream = StringIO()
-    yml.dump(commented_data, stream)
-    return stream.getvalue()
+    return serialize_dict_to_yaml(
+        asdict(dataclass_obj),
+        include_comments=include_comments,
+        field_docs=(
+            get_dataclass_field_docs(dataclass_obj)
+            if include_comments
+            else None
+        ),
+    )
 
 
 def serialize_dict_to_yaml(

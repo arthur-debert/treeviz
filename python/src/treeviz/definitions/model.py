@@ -5,7 +5,7 @@ This module provides a clean, typed interface for treeviz definitions
 replacing the ad-hoc dictionary validation.
 """
 
-from dataclasses import dataclass, field, asdict, fields
+from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Any
 from ..const import ICONS
 
@@ -141,17 +141,3 @@ class Definition:
                 merged_data[key] = value
 
         return Definition.from_dict(merged_data)
-
-    @classmethod
-    def get_field_docs(cls) -> Dict[str, str]:
-        """
-        Extract field documentation from dataclass metadata.
-
-        Returns:
-            Dictionary mapping field names to their documentation strings
-        """
-        field_docs = {}
-        for field_obj in fields(cls):
-            if field_obj.metadata and "doc" in field_obj.metadata:
-                field_docs[field_obj.name] = field_obj.metadata["doc"]
-        return field_docs

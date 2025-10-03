@@ -10,9 +10,7 @@ import sys
 from dataclasses import asdict
 
 from .definitions import Lib, Definition
-from .definitions.yaml_utils import (
-    serialize_definition_to_yaml,
-)
+from .definitions.yaml_utils import serialize_dataclass_to_yaml
 
 
 def get_definition(format_name, output_format):
@@ -57,7 +55,7 @@ def _output_definition(definition, output_format):
     elif output_format in ["text", "term"]:
         # For text/term output, use YAML with comments for better readability
         try:
-            yaml_output = serialize_definition_to_yaml(
+            yaml_output = serialize_dataclass_to_yaml(
                 definition, include_comments=True
             )
             print(yaml_output)
