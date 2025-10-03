@@ -71,7 +71,6 @@ def_ = load_def()
 """
 
 import json
-import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -129,16 +128,3 @@ def load_def(
 
     # Validation happens automatically in Definition.from_dict() via __post_init__
     return def_
-
-
-def exit_on_def_error(func):
-    """Decorator to exit with status 1 on any exception."""
-
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            print(f"Configuration Error: {e}", file=sys.stderr)
-            sys.exit(1)
-
-    return wrapper
