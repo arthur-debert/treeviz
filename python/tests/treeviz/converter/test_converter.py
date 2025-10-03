@@ -20,7 +20,7 @@ class MockNode:
 
 def test_basic_conversion(assert_node):
     """Test basic conversion with simple definition."""
-    def_ = {"attributes": {"label": "name", "type": "node_type"}}
+    def_ = {"label": "name", "type": "node_type"}
 
     source = MockNode(name="Test Node", node_type="test")
 
@@ -33,11 +33,9 @@ def test_basic_conversion(assert_node):
 def test_children_conversion(assert_node):
     """Test conversion with children."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        }
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
     }
 
     child = MockNode(name="Child", node_type="child")
@@ -52,7 +50,8 @@ def test_children_conversion(assert_node):
 def test_iconsping(assert_node):
     """Test icon mapping functionality."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "icons": {"paragraph": "¶", "list": "☰"},
     }
 
@@ -66,7 +65,8 @@ def test_iconsping(assert_node):
 def test_type_overrides(assert_node):
     """Test type-specific attribute overrides."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "type_overrides": {"text": {"label": "content"}},
     }
 
@@ -80,11 +80,9 @@ def test_type_overrides(assert_node):
 def test_ignore_types(assert_node):
     """Test ignoring specific node types."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
         "ignore_types": ["comment"],
     }
 
@@ -104,10 +102,8 @@ def test_ignore_types(assert_node):
 def test_callable_extractors(assert_node):
     """Test using callable functions as attribute extractors."""
     def_ = {
-        "attributes": {
-            "label": lambda node: node.first_name + " " + node.last_name,
-            "type": "node_type",
-        }
+        "label": lambda node: node.first_name + " " + node.last_name,
+        "type": "node_type",
     }
 
     source = MockNode(first_name="John", last_name="Doe", node_type="person")
@@ -119,7 +115,7 @@ def test_callable_extractors(assert_node):
 
 def test_missing_attribute_fallback(assert_node):
     """Test fallback when attribute is missing."""
-    def_ = {"attributes": {"label": "missing_field", "type": "node_type"}}
+    def_ = {"label": "missing_field", "type": "node_type"}
 
     source = MockNode(node_type="test")  # missing_field not set
 
@@ -131,7 +127,7 @@ def test_missing_attribute_fallback(assert_node):
 
 def test_dict_access(assert_node):
     """Test accessing attributes from dictionary nodes."""
-    def_ = {"attributes": {"label": "name", "type": "type"}}
+    def_ = {"label": "name", "type": "type"}
 
     source = {"name": "Test", "type": "dict_node"}
 
@@ -142,9 +138,7 @@ def test_dict_access(assert_node):
 
 def test_metadata_extraction(assert_node):
     """Test extracting metadata."""
-    def_ = {
-        "attributes": {"label": "name", "type": "node_type", "metadata": "meta"}
-    }
+    def_ = {"label": "name", "type": "node_type", "metadata": "meta"}
 
     source = MockNode(
         name="Test", node_type="test", meta={"key": "value", "count": 42}
@@ -158,11 +152,9 @@ def test_metadata_extraction(assert_node):
 def test_source_location_extraction(assert_node):
     """Test extracting source location information."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "source_location": "location",
-        }
+        "label": "name",
+        "type": "node_type",
+        "source_location": "location",
     }
 
     source = MockNode(
@@ -181,18 +173,16 @@ def test_invalid_defuration():
     result = adapt_node(source, {})
     assert result is not None
 
-    # No label in attributes should fail
-    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
-        adapt_node({}, {"attributes": {"type": "node_type"}})
+    # No label field should work with defaults (uses "label" field)
+    result = adapt_node({"label": "test"}, {"type": "missing_type"})
+    assert result.label == "test"
 
 
 def test_conversion_error_on_bad_children():
     """Test that non-list children cause conversion error."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "children": "bad_children",  # This will return a string
-        }
+        "label": "name",
+        "children": "bad_children",  # This will return a string
     }
 
     source = MockNode(name="Test", bad_children="not a list")
@@ -205,7 +195,7 @@ def test_conversion_error_on_bad_children():
 
 def test_adapt_tree_convenience_function(assert_node):
     """Test the adapt_tree convenience function."""
-    def_ = {"attributes": {"label": "name", "type": "node_type"}}
+    def_ = {"label": "name", "type": "node_type"}
 
     source = MockNode(name="Root", node_type="root")
 
@@ -218,7 +208,8 @@ def test_adapt_tree_convenience_function(assert_node):
 def test_adapt_tree_with_ignored_root():
     """Test adapt_tree when root is ignored."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "ignore_types": ["root"],
     }
 
@@ -231,7 +222,7 @@ def test_adapt_tree_with_ignored_root():
 # Tests for the new functional API
 def test_adapt_node_basic(assert_node):
     """Test basic conversion with adapt_node function."""
-    def_ = {"attributes": {"label": "name", "type": "node_type"}}
+    def_ = {"label": "name", "type": "node_type"}
 
     source = MockNode(name="Test Node", node_type="test")
 
@@ -244,11 +235,9 @@ def test_adapt_node_basic(assert_node):
 def test_adapt_node_with_children(assert_node):
     """Test conversion with children using adapt_node function."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        }
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
     }
 
     child = MockNode(name="Child", node_type="child")
@@ -263,7 +252,8 @@ def test_adapt_node_with_children(assert_node):
 def test_adapt_node_ignored_type():
     """Test adapt_node returns None for ignored types."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "ignore_types": ["comment"],
     }
 

@@ -5,7 +5,6 @@ This test file focuses specifically on how the converter handles various
 definition scenarios, validation, and error cases.
 """
 
-import pytest
 from treeviz.adapter import adapt_node
 
 
@@ -19,7 +18,7 @@ class MockNode:
 
 def test_minimal_valid_defuration():
     """Test converter with minimal valid definition."""
-    def_ = {"attributes": {"label": "name"}}
+    def_ = {"label": "name"}
     source = MockNode(name="test")
 
     # Should not raise an exception
@@ -38,18 +37,20 @@ def test_definition_uses_defaults_when_empty():
 
 
 def test_defuration_validation_no_label():
-    """Test that definition without label mapping raises error."""
-    def_ = {"attributes": {"type": "node_type"}}
-    source = MockNode(node_type="test")
+    """Test that definition without label mapping uses default 'label' field."""
+    def_ = {"type": "node_type"}
+    source = MockNode(label="test", node_type="test")
 
-    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
-        adapt_node(source, def_)
+    # Should use default "label" field without error
+    result = adapt_node(source, def_)
+    assert result.label == "test"
 
 
 def test_defuration_with_icons():
     """Test definition with icon mapping."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "icons": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
     source = MockNode(name="test", node_type="paragraph")
@@ -61,7 +62,8 @@ def test_defuration_with_icons():
 def test_defuration_with_type_overrides():
     """Test definition with type-specific attribute overrides."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "type_overrides": {
             "text": {"label": "content"},
             "heading": {"label": "title", "metadata": "attrs"},
@@ -76,7 +78,8 @@ def test_defuration_with_type_overrides():
 def test_defuration_with_ignore_types():
     """Test definition with ignored node types."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "ignore_types": ["comment", "whitespace", "debug"],
     }
     source = MockNode(name="test", node_type="normal")
@@ -88,15 +91,13 @@ def test_defuration_with_ignore_types():
 def test_defuration_with_all_features():
     """Test definition using all available features."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-            "icon": "symbol",
-            "content_lines": "line_count",
-            "source_location": "location",
-            "metadata": "meta",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
+        "icon": "symbol",
+        "content_lines": "line_count",
+        "source_location": "location",
+        "metadata": "meta",
         "icons": {"paragraph": "¶", "list": "☰"},
         "type_overrides": {"text": {"label": "content"}},
         "ignore_types": ["comment"],
@@ -115,7 +116,7 @@ def test_invalid_defuration_types():
     # on conversion with valid structure
 
     # Test with valid minimal def_
-    valid_def = {"attributes": {"label": "name"}}
+    valid_def = {"label": "name"}
     source = MockNode(name="test")
     result = adapt_node(source, valid_def)
     assert result is not None
@@ -131,6 +132,6 @@ def test_defuration_error_messages():
         assert "attributes" in str(e).lower()
 
     try:
-        adapt_node(source, {"attributes": {"type": "node_type"}})
+        adapt_node(source, {"type": "node_type"})
     except KeyError as e:
         assert "label" in str(e).lower()

@@ -20,7 +20,8 @@ class MockNode:
 def test_iconsping_basic(assert_node):
     """Test basic icon mapping functionality."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "icons": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
 
@@ -35,7 +36,8 @@ def test_iconsping_basic(assert_node):
 def test_iconsping_missing_type():
     """Test icon mapping when type is not in map."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "icons": {"paragraph": "¶"},
     }
 
@@ -51,7 +53,8 @@ def test_iconsping_missing_type():
 def test_iconsping_multiple_types():
     """Test icon mapping with various node types."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "icons": {
             "document": "⧉",
             "paragraph": "¶",
@@ -78,7 +81,8 @@ def test_iconsping_multiple_types():
 def test_type_overrides_simple(assert_node):
     """Test simple type-specific attribute overrides."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "type_overrides": {"text": {"label": "content"}},
     }
 
@@ -93,11 +97,9 @@ def test_type_overrides_simple(assert_node):
 def test_type_overrides_multiple_attributes(assert_node):
     """Test type overrides affecting multiple attributes."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "metadata": "default_meta",
-        },
+        "label": "name",
+        "type": "node_type",
+        "metadata": "default_meta",
         "type_overrides": {
             "special": {"label": "title", "metadata": "special_meta"}
         },
@@ -122,7 +124,8 @@ def test_type_overrides_multiple_attributes(assert_node):
 def test_type_overrides_multiple_types():
     """Test type overrides for multiple different types."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "type_overrides": {
             "text": {"label": "content"},
             "heading": {"label": "title"},
@@ -150,11 +153,9 @@ def test_type_overrides_multiple_types():
 def test_ignore_types_single(assert_node):
     """Test ignoring a single node type."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
         "ignore_types": ["comment"],
     }
 
@@ -175,11 +176,9 @@ def test_ignore_types_single(assert_node):
 def test_ignore_types_multiple(assert_node):
     """Test ignoring multiple node types."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
         "ignore_types": ["comment", "whitespace", "debug"],
     }
 
@@ -205,11 +204,9 @@ def test_ignore_types_multiple(assert_node):
 def test_ignore_types_nested_trees(assert_node):
     """Test that ignored types work in nested tree structures."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
         "ignore_types": ["comment"],
     }
 
@@ -242,7 +239,8 @@ def test_ignore_types_nested_trees(assert_node):
 def test_adapt_tree_with_ignored_root():
     """Test error when root node type is ignored."""
     def_ = {
-        "attributes": {"label": "name", "type": "node_type"},
+        "label": "name",
+        "type": "node_type",
         "ignore_types": ["root"],
     }
 
@@ -257,11 +255,9 @@ def test_adapt_tree_with_ignored_root():
 def test_combined_type_features(assert_node):
     """Test combining icon mapping, type overrides, and ignore types."""
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-        },
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
         "icons": {"paragraph": "¶", "heading": "⊤"},
         "type_overrides": {"heading": {"label": "title"}},
         "ignore_types": ["comment"],

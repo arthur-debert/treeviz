@@ -1053,13 +1053,8 @@ class TestIntegrationHardcore:
             # Basic definition with filtering
             (
                 {
-                    "attributes": {
-                        "label": "name",
-                        "children": {
-                            "path": "items",
-                            "filter": {"active": True},
-                        },
-                    }
+                    "label": "name",
+                    "children": {"path": "items", "filter": {"active": True}},
                 },
                 {
                     "name": "root",
@@ -1075,11 +1070,9 @@ class TestIntegrationHardcore:
             # Complex extraction with type overrides
             (
                 {
-                    "attributes": {
-                        "label": "name",
-                        "type": "node_type",
-                        "children": "child_nodes",
-                    },
+                    "label": "name",
+                    "type": "node_type",
+                    "children": "child_nodes",
                     "type_overrides": {
                         "special": {
                             "label": {
@@ -1110,13 +1103,11 @@ class TestIntegrationHardcore:
             # Deep nesting with transformations
             (
                 {
-                    "attributes": {
-                        "label": {
-                            "path": "def_.display.title",
-                            "transform": {"name": "truncate", "max_length": 10},
-                        },
-                        "children": "modules",
-                    }
+                    "label": {
+                        "path": "def_.display.title",
+                        "transform": {"name": "truncate", "max_length": 10},
+                    },
+                    "children": "modules",
                 },
                 {
                     "def_": {
@@ -1165,9 +1156,10 @@ class TestIntegrationHardcore:
         }
 
         def_ = {
-            "attributes": {
-                "label": "name",
-                "children": {"path": "modules", "filter": {"type": "module"}},
+            "label": "name",
+            "children": {
+                "path": "modules",
+                "filter": {"type": "module"},
             },
             "type_overrides": {
                 "module": {
@@ -1217,10 +1209,8 @@ class TestIntegrationHardcore:
         from treeviz.adapter import adapt_node
 
         def_ = {
-            "attributes": {
-                "label": {"path": "name", "default": "unnamed"},
-                "children": {"path": "items", "default": []},
-            }
+            "label": {"path": "name", "default": "unnamed"},
+            "children": {"path": "items", "default": []},
         }
 
         # Should not crash on edge case data

@@ -15,11 +15,9 @@ class TestPhase2Integration:
     def test_complex_path_expressions_in_def(self):
         """Test complex path expressions in declarative definition."""
         def_ = {
-            "attributes": {
-                "label": "metadata.title",
-                "type": "node_info.type",
-                "children": "child_nodes",
-            }
+            "label": "metadata.title",
+            "type": "node_info.type",
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -37,14 +35,12 @@ class TestPhase2Integration:
     def test_fallback_extraction_in_def(self):
         """Test fallback chains in declarative definition."""
         def_ = {
-            "attributes": {
-                "label": {
-                    "path": "title",
-                    "fallback": "name",
-                    "default": "Untitled",
-                },
-                "children": "child_nodes",
-            }
+            "label": {
+                "path": "title",
+                "fallback": "name",
+                "default": "Untitled",
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -67,14 +63,12 @@ class TestPhase2Integration:
     def test_transformations_in_def(self):
         """Test transformation functions in declarative definition."""
         def_ = {
-            "attributes": {
-                "label": {"path": "name", "transform": "upper"},
-                "metadata": {
-                    "path": "description",
-                    "transform": {"name": "truncate", "max_length": 20},
-                },
-                "children": "child_nodes",
-            }
+            "label": {"path": "name", "transform": "upper"},
+            "metadata": {
+                "path": "description",
+                "transform": {"name": "truncate", "max_length": 20},
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -92,13 +86,11 @@ class TestPhase2Integration:
     def test_children_filtering_in_def(self):
         """Test children filtering in declarative definition."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "children": {
-                    "path": "child_nodes",
-                    "filter": {"type": {"not_in": ["comment", "whitespace"]}},
-                },
-            }
+            "label": "name",
+            "children": {
+                "path": "child_nodes",
+                "filter": {"type": {"not_in": ["comment", "whitespace"]}},
+            },
         }
 
         # No need for converter instance with functional API
@@ -121,11 +113,9 @@ class TestPhase2Integration:
     def test_type_overrides_with_phase2_features(self):
         """Test type overrides combined with Phase 2 features."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "child_nodes",
-            },
+            "label": "name",
+            "type": "node_type",
+            "children": "child_nodes",
             "type_overrides": {
                 "function": {
                     "label": {
@@ -175,24 +165,22 @@ class TestPhase2Integration:
     def test_complex_nested_extraction(self):
         """Test complex nested data extraction with Phase 2 features."""
         def_ = {
-            "attributes": {
-                "label": {
-                    "path": "definition.name",
-                    "fallback": "metadata.identifier",
-                    "default": "Anonymous",
+            "label": {
+                "path": "definition.name",
+                "fallback": "metadata.identifier",
+                "default": "Anonymous",
+            },
+            "content_lines": "source.line_count",
+            "metadata": {
+                "path": "annotations",
+                "transform": lambda anns: {
+                    "annotation_count": len(anns) if anns else 0
                 },
-                "content_lines": "source.line_count",
-                "metadata": {
-                    "path": "annotations",
-                    "transform": lambda anns: {
-                        "annotation_count": len(anns) if anns else 0
-                    },
-                },
-                "children": {
-                    "path": "body.statements",
-                    "filter": {"visibility": {"ne": "private"}},
-                },
-            }
+            },
+            "children": {
+                "path": "body.statements",
+                "filter": {"visibility": {"ne": "private"}},
+            },
         }
 
         # No need for converter instance with functional API
@@ -231,11 +219,9 @@ class TestPhase2Integration:
     def test_array_indexing_in_def(self):
         """Test array indexing in definition paths."""
         def_ = {
-            "attributes": {
-                "label": "items[0].name",
-                "type": "items[-1].type",
-                "children": "child_nodes",
-            }
+            "label": "items[0].name",
+            "type": "items[-1].type",
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -256,19 +242,17 @@ class TestPhase2Integration:
     def test_filtering_with_logical_operators(self):
         """Test complex filtering with logical operators."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "children": {
-                    "path": "members",
-                    "filter": {
-                        "and": [
-                            {"type": "method"},
-                            {"visibility": "public"},
-                            {"name": {"startswith": "get_"}},
-                        ]
-                    },
+            "label": "name",
+            "children": {
+                "path": "members",
+                "filter": {
+                    "and": [
+                        {"type": "method"},
+                        {"visibility": "public"},
+                        {"name": {"startswith": "get_"}},
+                    ]
                 },
-            }
+            },
         }
 
         # No need for converter instance with functional API
@@ -324,14 +308,12 @@ class TestPhase2Integration:
             return f"params({len(params)})"
 
         def_ = {
-            "attributes": {
-                "label": "name",
-                "metadata": {
-                    "path": "parameters",
-                    "transform": format_signature,
-                },
-                "children": "child_nodes",
-            }
+            "label": "name",
+            "metadata": {
+                "path": "parameters",
+                "transform": format_signature,
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -349,11 +331,9 @@ class TestPhase2Integration:
         """Test that Phase 1 definitions still work with Phase 2 converter."""
         # Simple Phase 1 definition
         def_ = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "child_nodes",
-            },
+            "label": "name",
+            "type": "node_type",
+            "children": "child_nodes",
             "icons": {"function": "⚡", "class": "🏛"},
         }
 
@@ -373,12 +353,10 @@ class TestPhase2Integration:
     def test_error_handling_in_phase2_features(self):
         """Test proper error handling with Phase 2 features."""
         def_ = {
-            "attributes": {
-                "label": {
-                    "path": "broken[syntax",  # Malformed path
-                },
-                "children": "child_nodes",
-            }
+            "label": {
+                "path": "broken[syntax",  # Malformed path
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API

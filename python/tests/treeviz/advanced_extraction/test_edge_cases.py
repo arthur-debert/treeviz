@@ -187,16 +187,14 @@ class Testadapt_nodeIntegration:
     def test_metadata_transformation_with_fallback(self):
         """Test metadata extraction with transformation and fallback."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "metadata": {
-                    "path": "description",
-                    "fallback": "summary",
-                    "default": "No description",
-                    "transform": {"name": "truncate", "max_length": 20},
-                },
-                "children": [],
-            }
+            "label": "name",
+            "metadata": {
+                "path": "description",
+                "fallback": "summary",
+                "default": "No description",
+                "transform": {"name": "truncate", "max_length": 20},
+            },
+            "children": [],
         }
 
         # Test with description
@@ -221,11 +219,9 @@ class Testadapt_nodeIntegration:
     def test_complex_filtering_in_type_overrides(self):
         """Test complex filtering in type-specific overrides."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "items",
-            },
+            "label": "name",
+            "type": "node_type",
+            "children": "items",
             "type_overrides": {
                 "filtered_module": {
                     "children": {
@@ -273,10 +269,8 @@ class Testadapt_nodeIntegration:
     def test_error_propagation_through_conversion(self):
         """Test that errors are properly propagated through the conversion chain."""
         def_ = {
-            "attributes": {
-                "label": {"path": "name", "transform": "invalid_transform"},
-                "children": [],
-            }
+            "label": {"path": "name", "transform": "invalid_transform"},
+            "children": [],
         }
 
         source = {"name": "test"}
@@ -287,10 +281,8 @@ class Testadapt_nodeIntegration:
     def test_large_collection_filtering_performance(self):
         """Test performance with larger collections."""
         def_ = {
-            "attributes": {
-                "label": "name",
-                "children": {"path": "items", "filter": {"value": {"gt": 500}}},
-            }
+            "label": "name",
+            "children": {"path": "items", "filter": {"value": {"gt": 500}}},
         }
 
         # Generate large dataset
