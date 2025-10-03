@@ -1,0 +1,6 @@
+{
+  "type": "document",
+  "title": "Malformed JSON"
+  // missing comma here
+  "content": "This JSON is intentionally malformed"
+}
