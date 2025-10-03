@@ -10,6 +10,9 @@ import sys
 from dataclasses import asdict
 
 from .definitions import Lib, Definition
+from .definitions.yaml_utils import (
+    serialize_definition_to_yaml,
+)
 
 
 def get_definition(format_name, output_format):
@@ -26,10 +29,10 @@ def get_definition(format_name, output_format):
     try:
         if format_name == "3viz":
             # Use the default 3viz definition
-            def_data = asdict(Definition.default())
+            definition = Definition.default()
         else:
             # Get format from library
-            def_data = asdict(Lib.get(format_name))
+            definition = Lib.get(format_name)
     except Exception as e:
         if output_format == "json":
             print(json.dumps({"error": str(e)}))
@@ -37,7 +40,33 @@ def get_definition(format_name, output_format):
             print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
-    _output_data(def_data, output_format)
+    _output_definition(definition, output_format)
+
+
+def _output_definition(definition, output_format):
+    """
+    Output definition in the specified format.
+
+    Args:
+        definition: The Definition object to output
+        output_format: One of 'text', 'json', 'term'
+    """
+    if output_format == "json":
+        data = asdict(definition)
+        print(json.dumps(data, indent=2, ensure_ascii=False))
+    elif output_format in ["text", "term"]:
+        # For text/term output, use YAML with comments for better readability
+        try:
+            yaml_output = serialize_definition_to_yaml(
+                definition, include_comments=True
+            )
+            print(yaml_output)
+        except ImportError:
+            # Fallback to JSON if YAML not available
+            data = asdict(definition)
+            print(json.dumps(data, indent=2, ensure_ascii=False))
+    else:
+        raise ValueError(f"Unknown output format: {output_format}")
 
 
 def _output_data(data, output_format):
