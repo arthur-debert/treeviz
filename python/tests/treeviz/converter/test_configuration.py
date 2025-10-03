@@ -1,12 +1,11 @@
 """
-Tests for DeclarativeConverter configuration handling.
+Tests for DeclarativeConverter definition handling.
 
 This test file focuses specifically on how the converter handles various
-configuration scenarios, validation, and error cases.
+definition scenarios, validation, and error cases.
 """
 
-import pytest
-from treeviz.converter import convert_node, ConversionError
+from treeviz.adapters import adapt_node
 
 
 class MockNode:
@@ -17,52 +16,54 @@ class MockNode:
             setattr(self, key, value)
 
 
-def test_minimal_valid_configuration():
-    """Test converter with minimal valid configuration."""
-    config = {"attributes": {"label": "name"}}
+def test_minimal_valid_defuration():
+    """Test converter with minimal valid definition."""
+    def_ = {"label": "name"}
     source = MockNode(name="test")
 
     # Should not raise an exception
-    result = convert_node(source, config)
+    result = adapt_node(source, def_)
     assert result is not None
 
 
-def test_configuration_validation_no_attributes():
-    """Test that configuration without attributes section raises error."""
-    config = {}
-    source = MockNode()
+def test_definition_uses_defaults_when_empty():
+    """Test that empty definition uses all defaults."""
+    def_ = {}
+    source = MockNode(label="test", type="unknown", children=[])
 
-    with pytest.raises(ConversionError, match="must include 'attributes'"):
-        convert_node(source, config)
-
-
-def test_configuration_validation_no_label():
-    """Test that configuration without label mapping raises error."""
-    config = {"attributes": {"type": "node_type"}}
-    source = MockNode(node_type="test")
-
-    with pytest.raises(
-        ConversionError, match="must specify how to extract 'label'"
-    ):
-        convert_node(source, config)
+    # Should not raise an exception - uses defaults
+    result = adapt_node(source, def_)
+    assert result is not None
 
 
-def test_configuration_with_icon_map():
-    """Test configuration with icon mapping."""
-    config = {
-        "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
+def test_defuration_validation_no_label():
+    """Test that definition without label mapping uses default 'label' field."""
+    def_ = {"type": "node_type"}
+    source = MockNode(label="test", node_type="test")
+
+    # Should use default "label" field without error
+    result = adapt_node(source, def_)
+    assert result.label == "test"
+
+
+def test_defuration_with_icons():
+    """Test definition with icon mapping."""
+    def_ = {
+        "label": "name",
+        "type": "node_type",
+        "icons": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
     source = MockNode(name="test", node_type="paragraph")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, def_)
     assert result is not None
 
 
-def test_configuration_with_type_overrides():
-    """Test configuration with type-specific attribute overrides."""
-    config = {
-        "attributes": {"label": "name", "type": "node_type"},
+def test_defuration_with_type_overrides():
+    """Test definition with type-specific attribute overrides."""
+    def_ = {
+        "label": "name",
+        "type": "node_type",
         "type_overrides": {
             "text": {"label": "content"},
             "heading": {"label": "title", "metadata": "attrs"},
@@ -70,68 +71,67 @@ def test_configuration_with_type_overrides():
     }
     source = MockNode(name="test", node_type="text", content="text content")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, def_)
     assert result is not None
 
 
-def test_configuration_with_ignore_types():
-    """Test configuration with ignored node types."""
-    config = {
-        "attributes": {"label": "name", "type": "node_type"},
+def test_defuration_with_ignore_types():
+    """Test definition with ignored node types."""
+    def_ = {
+        "label": "name",
+        "type": "node_type",
         "ignore_types": ["comment", "whitespace", "debug"],
     }
     source = MockNode(name="test", node_type="normal")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, def_)
     assert result is not None
 
 
-def test_configuration_with_all_features():
-    """Test configuration using all available features."""
-    config = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes",
-            "icon": "symbol",
-            "content_lines": "line_count",
-            "source_location": "location",
-            "metadata": "meta",
-        },
-        "icon_map": {"paragraph": "¶", "list": "☰"},
+def test_defuration_with_all_features():
+    """Test definition using all available features."""
+    def_ = {
+        "label": "name",
+        "type": "node_type",
+        "children": "child_nodes",
+        "icon": "symbol",
+        "content_lines": "line_count",
+        "source_location": "location",
+        "metadata": "meta",
+        "icons": {"paragraph": "¶", "list": "☰"},
         "type_overrides": {"text": {"label": "content"}},
         "ignore_types": ["comment"],
     }
     source = MockNode(name="test", node_type="paragraph", child_nodes=[])
 
-    result = convert_node(source, config)
+    result = adapt_node(source, def_)
     assert result is not None
 
 
-def test_invalid_configuration_types():
-    """Test that invalid configuration types are rejected."""
+def test_invalid_defuration_types():
+    """Test that invalid definition types are rejected."""
     # The converter doesn't currently validate input types,
     # it would fail at runtime when trying to access dict methods
     # This is a design decision - we'll just test that it doesn't crash
     # on conversion with valid structure
 
-    # Test with valid minimal config
-    valid_config = {"attributes": {"label": "name"}}
+    # Test with valid minimal def_
+    valid_def = {"label": "name"}
     source = MockNode(name="test")
-    result = convert_node(source, valid_config)
+    result = adapt_node(source, valid_def)
     assert result is not None
 
 
-def test_configuration_error_messages():
-    """Test that configuration errors provide helpful messages."""
+def test_defuration_error_messages():
+    """Test that definition errors provide helpful messages."""
     source = MockNode()
 
     try:
-        convert_node(source, {})
-    except ConversionError as e:
+        adapt_node(source, {})
+    except KeyError as e:
         assert "attributes" in str(e).lower()
 
     try:
-        convert_node(source, {"attributes": {"type": "node_type"}})
-    except ConversionError as e:
+        adapt_node(source, {"type": "node_type"})
+    except KeyError as e:
         assert "label" in str(e).lower()

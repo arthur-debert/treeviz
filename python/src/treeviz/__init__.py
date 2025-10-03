@@ -1,7 +1,7 @@
 """
 3viz - Standalone AST Visualization Library
 
-3viz transforms any tree structure into clean, scannable visualizations with minimal configuration.
+3viz transforms any tree structure into clean, scannable visualizations with minimal definition.
 Designed for developers debugging parsers, analyzing ASTs, and understanding document structure.
 
 Quick Start
@@ -24,29 +24,36 @@ Direct Node Construction:
 
 Declarative Conversion:
 
-    from treeviz import convert_node
+    from treeviz import adapt_node
     
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",           # Extract label from node.name
             "type": "node_type",       # Extract type from node.node_type  
             "children": "child_nodes"  # Extract children from node.child_nodes
         },
-        "icon_map": {
+        "icons": {
             "function": "⚡",           # Map function type to symbol
             "class": "🏛"              # Map class type to symbol
         }
     }
     
-    result = convert_node(my_ast_node, config)
+    result = adapt_node(my_ast_node, def_)
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_config, convert_node
+    from treeviz import adapt_node
     
-    # Use pre-built configuration for JSON structures
-    config = get_builtin_config("json")
-    result = convert_node({"name": "test", "items": [1, 2, 3]}, config)
+    # Use pre-built definition for MDAST structures  
+    from dataclasses import asdict
+    from treeviz.definitions import Lib
+    def_ = asdict(Lib.get("mdast"))
+    result = adapt_node(my_mdast_tree, def_)
+    
+    # For JSON/dict structures, use default definition (baseline icons work automatically)
+    from treeviz.definitions import Definition
+    def_ = asdict(Definition.default())  # Returns default definition with baseline icons
+    result = adapt_node({"name": "test", "items": [1, 2, 3]}, def_)
 
 Core Concepts
 -------------
@@ -62,9 +69,9 @@ Node Structure:
     - children: Child nodes (optional)
 
 Declarative Configuration:
-    Convert any tree using JSON configuration instead of custom code:
+    Adapt any tree using JSON definition instead of custom code:
     - attributes: Map source fields to Node fields
-    - icon_map: Map types to Unicode symbols
+    - icons: Map types to Unicode symbols
     - type_overrides: Per-type attribute customization
     - ignore_types: Filter out unwanted node types
 
@@ -136,28 +143,35 @@ Output Customization:
 Built-in Configurations
 -----------------------
 
-JSON: For JSON-like structures
-    
-    config = get_builtin_config("json")
-    # Handles dicts, lists, and primitive types automatically
-
 MDAST: For Markdown Abstract Syntax Trees
     
-    config = get_builtin_config("mdast") 
-    # Handles paragraph, heading, list, text nodes with proper text extraction
+    from treeviz.definitions import Lib
+    def_ = asdict(Lib.get("mdast"))
+    # Handles paragraph, heading, list, text nodes with proper icons
+
+UNIST: For Universal Syntax Trees
+    
+    def_ = asdict(Lib.get("unist"))
+    # Handles element, text, comment nodes with proper element rendering
+
+Generic JSON/Dict Structures:
+    
+    from treeviz.definitions import Definition
+    def_ = asdict(Definition.default())  # Returns baseline definition
+    # Baseline icons automatically handle dict, array, str, int, bool, etc.
 
 Error Messages
 --------------
 
 Common issues and solutions:
 
-ConversionError: "Configuration must include 'attributes' section"
+KeyError: "Configuration must include 'attributes' section"
     → Add attributes mapping: {"attributes": {"label": "name"}}
 
-ConversionError: "Children attribute must return a list, got str"  
+TypeError: "Children attribute must return a list, got str"  
     → Check that children path points to list, not string
 
-ConversionError: "Failed to extract attribute 'missing_field'"
+AttributeError: "Failed to extract attribute 'missing_field'"
     → Verify field exists or add fallback/default values
 
 Performance Guidelines
@@ -181,30 +195,38 @@ Enable detailed error messages:
     import logging
     logging.basicConfig(level=logging.DEBUG)
 
-Test configurations interactively:
+Test definitions interactively:
     
-    from treeviz import validate_config, ConversionError
+    from treeviz.definitions.schema import Definition
     try:
-        validate_config(my_config)
+        Definition.from_dict(my_def)
         print("Configuration valid!")
-    except ConversionError as e:
-        print(f"Config error: {e}")
+    except (TypeError, KeyError, ValueError) as e:
+        print(f"Definition error: {e}")
 
-Generate sample configurations:
+Generate sample definitions:
     
-    # Create configurations manually using declarative syntax
-    sample_config = {
+    # Option 1: Dictionary format (classic)
+    sample_def = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"function": "⚡", "class": "🏛"}
+        "icons": {"function": "⚡", "class": "🏛"}
     }
+    
+    # Option 2: Dataclass format (recommended - typed and validated)
+    from treeviz.definitions import Definition
+    from dataclasses import asdict
+    sample_def = asdict(Definition(
+        attributes={"label": "name", "type": "node_type"},
+        icons={"function": "⚡", "class": "🏛"}
+    ))
 
 See Also
 --------
 
 Examples: examples/standalone_3viz_demo.py
 Tests: tests/treeviz/ for comprehensive usage examples
-Config Reference: treeviz.config module for detailed configuration options
-Converter Reference: treeviz.converter module for advanced extraction features
+def_ Reference: treeviz.definitions module for detailed definition options
+Converter Reference: treeviz.adapters module for advanced extraction features
 
 License: MIT
 Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
@@ -212,21 +234,17 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 
 # Main public API exports
 from .model import Node
-from .converter import (
-    convert_tree,
-    convert_node,
-    validate_config,
+from .adapters import (
+    adapt_tree,
+    adapt_node,
 )
-from .exceptions import ConversionError
+
+# No custom exceptions - we use standard Python exceptions with helpful messages
 from .renderer import (
     render,
     create_render_options,
     RenderOptions,
     DEFAULT_SYMBOLS,
-)
-from .config import (
-    load_config,
-    get_builtin_config,
 )
 
 __version__ = "1.0.0"
@@ -234,16 +252,12 @@ __all__ = [
     # Core data structures
     "Node",
     # Conversion engine
-    "convert_tree",
-    "convert_node",
-    "validate_config",
-    "ConversionError",
+    "adapt_tree",
+    "adapt_node",
     # Rendering
     "render",
     "create_render_options",
     "RenderOptions",
     "DEFAULT_SYMBOLS",
     # Configuration management
-    "load_config",
-    "get_builtin_config",
 ]

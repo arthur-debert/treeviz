@@ -5,14 +5,13 @@ This focuses on specific problematic scenarios discovered during testing.
 """
 
 import pytest
-from treeviz.advanced_extraction import (
+from treeviz.adapters.advanced_extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,
     extract_attribute,
 )
-from treeviz.exceptions import ConversionError
-from treeviz import convert_node
+from treeviz import adapt_node
 
 
 class TestTruncationEdgeCases:
@@ -139,7 +138,7 @@ class TestPathExpressionEdgeCases:
         """Test paths through mixed data types."""
 
         mixed_data = {
-            "config": {
+            "def_": {
                 "items": [
                     {"name": "first", "values": [10, 20, 30]},
                     {"name": "second", "values": [40, 50, 60]},
@@ -147,7 +146,7 @@ class TestPathExpressionEdgeCases:
             }
         }
 
-        result = extract_by_path(mixed_data, "config.items[1].values[0]")
+        result = extract_by_path(mixed_data, "def_.items[1].values[0]")
         assert result == 40
 
     def test_numeric_keys_and_indices(self):
@@ -182,22 +181,20 @@ class TestPathExpressionEdgeCases:
         assert result is None
 
 
-class Testconvert_nodeIntegration:
+class Testadapt_nodeIntegration:
     """Test complete integration scenarios."""
 
     def test_metadata_transformation_with_fallback(self):
         """Test metadata extraction with transformation and fallback."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "metadata": {
-                    "path": "description",
-                    "fallback": "summary",
-                    "default": "No description",
-                    "transform": {"name": "truncate", "max_length": 20},
-                },
-                "children": [],
-            }
+        def_ = {
+            "label": "name",
+            "metadata": {
+                "path": "description",
+                "fallback": "summary",
+                "default": "No description",
+                "transform": {"name": "truncate", "max_length": 20},
+            },
+            "children": [],
         }
 
         # Test with description
@@ -205,28 +202,26 @@ class Testconvert_nodeIntegration:
             "name": "item1",
             "description": "This is a very long description that will be truncated",
         }
-        result1 = convert_node(source1, config)
+        result1 = adapt_node(source1, def_)
         assert len(result1.metadata) <= 20
         assert result1.metadata.endswith("…")
 
         # Test with fallback
         source2 = {"name": "item2", "summary": "Short summary"}
-        result2 = convert_node(source2, config)
+        result2 = adapt_node(source2, def_)
         assert result2.metadata == "Short summary"
 
         # Test with default
         source3 = {"name": "item3"}
-        result3 = convert_node(source3, config)
+        result3 = adapt_node(source3, def_)
         assert result3.metadata == "No description"
 
     def test_complex_filtering_in_type_overrides(self):
         """Test complex filtering in type-specific overrides."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "items",
-            },
+        def_ = {
+            "label": "name",
+            "type": "node_type",
+            "children": "items",
             "type_overrides": {
                 "filtered_module": {
                     "children": {
@@ -252,7 +247,7 @@ class Testconvert_nodeIntegration:
             "node_type": "filtered_module",
             "functions": [
                 {"name": "get_user", "visibility": "public"},
-                {"name": "set_config", "visibility": "public"},
+                {"name": "set_def", "visibility": "public"},
                 {"name": "internal_helper", "visibility": "private"},
                 {
                     "name": "get_data",
@@ -266,32 +261,28 @@ class Testconvert_nodeIntegration:
             "items": [],
         }
 
-        result = convert_node(source, config)
+        result = adapt_node(source, def_)
         assert (
             len(result.children) == 2
-        )  # Only get_user and set_config should pass the filter
+        )  # Only get_user and set_def should pass the filter
 
     def test_error_propagation_through_conversion(self):
         """Test that errors are properly propagated through the conversion chain."""
-        config = {
-            "attributes": {
-                "label": {"path": "name", "transform": "invalid_transform"},
-                "children": [],
-            }
+        def_ = {
+            "label": {"path": "name", "transform": "invalid_transform"},
+            "children": [],
         }
 
         source = {"name": "test"}
 
-        with pytest.raises(ConversionError, match="Unknown transformation"):
-            convert_node(source, config)
+        with pytest.raises(ValueError, match="Unknown transformation"):
+            adapt_node(source, def_)
 
     def test_large_collection_filtering_performance(self):
         """Test performance with larger collections."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "children": {"path": "items", "filter": {"value": {"gt": 500}}},
-            }
+        def_ = {
+            "label": "name",
+            "children": {"path": "items", "filter": {"value": {"gt": 500}}},
         }
 
         # Generate large dataset
@@ -300,7 +291,7 @@ class Testconvert_nodeIntegration:
             "items": [{"value": i, "name": f"item_{i}"} for i in range(1000)],
         }
 
-        result = convert_node(large_source, config)
+        result = adapt_node(large_source, def_)
 
         # Should efficiently filter to items with value > 500
         assert len(result.children) == 499  # 501-999 inclusive
@@ -337,7 +328,7 @@ class TestRegressionTests:
         """Test that empty brackets are handled correctly."""
         data = {"test": [1, 2, 3]}
 
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_by_path(data, "test[]")
 
     def test_transformation_order_in_extraction(self):

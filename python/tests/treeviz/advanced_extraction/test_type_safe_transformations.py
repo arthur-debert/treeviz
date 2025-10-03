@@ -7,8 +7,7 @@ have proper type checking and provide clear error messages.
 """
 
 import pytest
-from treeviz.advanced_extraction import apply_transformation
-from treeviz.exceptions import ConversionError
+from treeviz.adapters.advanced_extraction import apply_transformation
 
 
 class TestTypeSafeTextTransformations:
@@ -44,7 +43,7 @@ class TestTypeSafeTextTransformations:
         # Using functional API
 
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match=f"{transform_name} transformation requires string input",
         ):
             apply_transformation(invalid_value, transform_name)
@@ -86,7 +85,7 @@ class TestTypeSafeNumericTransformations:
         # Using functional API
 
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match=f"{transform_name} transformation requires numeric input",
         ):
             apply_transformation(invalid_value, transform_name)
@@ -126,7 +125,7 @@ class TestTypeSafeCollectionTransformations:
             pass
 
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match="length transformation requires object with __len__",
         ):
             apply_transformation(NoLenObj(), "length")
@@ -140,13 +139,13 @@ class TestTypeSafeCollectionTransformations:
             pass
 
         with pytest.raises(
-            ConversionError, match="join transformation requires iterable"
+            ValueError, match="join transformation requires iterable"
         ):
             apply_transformation(NoIterObj(), "join")
 
         # Strings should be rejected (even though they're iterable)
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match="join transformation requires iterable \\(non-string\\)",
         ):
             apply_transformation("hello", "join")
@@ -156,7 +155,7 @@ class TestTypeSafeCollectionTransformations:
         # Using functional API
 
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match="join transformation requires string separator",
         ):
             apply_transformation([1, 2, 3], {"name": "join", "separator": 123})
@@ -171,7 +170,7 @@ class TestTypeSafeCollectionTransformations:
 
         for transform_name in ["first", "last"]:
             with pytest.raises(
-                ConversionError,
+                ValueError,
                 match=f"{transform_name} transformation requires",
             ):
                 apply_transformation(NoAccessObj(), transform_name)
@@ -204,7 +203,7 @@ class TestTypeSafeFormatTransformation:
         # Using functional API
 
         with pytest.raises(
-            ConversionError,
+            ValueError,
             match="format transformation requires string format_spec",
         ):
             apply_transformation(42, {"name": "format", "format_spec": 123})
@@ -214,9 +213,7 @@ class TestTypeSafeFormatTransformation:
         # Using functional API
 
         # Invalid format spec for the value type
-        with pytest.raises(
-            ConversionError, match="format transformation failed"
-        ):
+        with pytest.raises(ValueError, match="format transformation failed"):
             apply_transformation(
                 "hello", {"name": "format", "format_spec": "04d"}
             )
@@ -245,10 +242,10 @@ class TestExplicitTypeConversions:
         assert apply_transformation(True, "int") == 1
 
         # Invalid conversions should raise errors
-        with pytest.raises(ConversionError, match="int transformation failed"):
+        with pytest.raises(ValueError, match="int transformation failed"):
             apply_transformation("not_a_number", "int")
 
-        with pytest.raises(ConversionError, match="int transformation failed"):
+        with pytest.raises(ValueError, match="int transformation failed"):
             apply_transformation([1, 2, 3], "int")
 
     def test_explicit_float_conversion(self):
@@ -260,14 +257,10 @@ class TestExplicitTypeConversions:
         assert apply_transformation(True, "float") == 1.0
 
         # Invalid conversions should raise errors
-        with pytest.raises(
-            ConversionError, match="float transformation failed"
-        ):
+        with pytest.raises(ValueError, match="float transformation failed"):
             apply_transformation("not_a_number", "float")
 
-        with pytest.raises(
-            ConversionError, match="float transformation failed"
-        ):
+        with pytest.raises(ValueError, match="float transformation failed"):
             apply_transformation([1, 2, 3], "float")
 
 
@@ -296,15 +289,15 @@ class TestErrorMessageQuality:
         """Test that error messages include the actual type of the invalid input."""
         # Using functional API
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation(123, "upper")
         assert "got int" in str(exc_info.value)
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation([1, 2, 3], "abs")
         assert "got list" in str(exc_info.value)
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation("hello", "round")
         assert "got str" in str(exc_info.value)
 
@@ -312,11 +305,11 @@ class TestErrorMessageQuality:
         """Test that error messages clearly identify which transformation failed."""
         # Using functional API
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation(123, "upper")
         assert "upper transformation" in str(exc_info.value)
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation("hello", "abs")
         assert "abs transformation" in str(exc_info.value)
 
@@ -324,12 +317,12 @@ class TestErrorMessageQuality:
         """Test error messages for type conversion failures."""
         # Using functional API
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation("not_a_number", "int")
         assert "int transformation failed" in str(exc_info.value)
         assert "not_a_number" in str(exc_info.value)
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             apply_transformation("invalid", "float")
         assert "float transformation failed" in str(exc_info.value)
         assert "invalid" in str(exc_info.value)

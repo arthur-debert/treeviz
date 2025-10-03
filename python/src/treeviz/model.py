@@ -3,7 +3,7 @@
 
 This module defines the core data structures for the 3viz AST visualization tool.
 The Node class is the universal tree representation for 3viz - any tool can
-convert their AST to this format for visualization.
+adapt their AST to this format for visualization.
 """
 
 from dataclasses import dataclass, field

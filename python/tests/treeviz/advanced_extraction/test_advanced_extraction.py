@@ -6,13 +6,12 @@ complex path expressions, transformations, filtering, and fallback chains.
 """
 
 import pytest
-from treeviz.advanced_extraction import (
+from treeviz.adapters.advanced_extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,
     extract_attribute,
 )
-from treeviz.exceptions import ConversionError
 
 
 class TestPathExpressionEngine:
@@ -38,9 +37,9 @@ class TestPathExpressionEngine:
 
     def test_dot_notation(self):
         """Test nested dot notation access."""
-        data = {"config": {"database": {"host": "localhost"}}}
+        data = {"def_": {"database": {"host": "localhost"}}}
 
-        result = extract_by_path(data, "config.database.host")
+        result = extract_by_path(data, "def_.database.host")
         assert result == "localhost"
 
     def test_array_indexing(self):
@@ -81,11 +80,11 @@ class TestPathExpressionEngine:
         assert result is None
 
     def test_malformed_path_raises_error(self):
-        """Test that malformed path expressions raise ConversionError."""
+        """Test that malformed path expressions raise ValueError."""
         data = {"test": "value"}
 
         with pytest.raises(
-            ConversionError, match="Failed to evaluate path expression"
+            ValueError, match="Failed to evaluate path expression"
         ):
             extract_by_path(data, "test[malformed")
 
@@ -171,9 +170,9 @@ class TestTransformationEngine:
         assert result is None
 
     def test_unknown_transformation_raises_error(self):
-        """Test that unknown transformations raise ConversionError."""
+        """Test that unknown transformations raise ValueError."""
 
-        with pytest.raises(ConversionError, match="Unknown transformation"):
+        with pytest.raises(ValueError, match="Unknown transformation"):
             apply_transformation("test", "unknown_transform")
 
 
@@ -405,7 +404,7 @@ class TestAdvancedAttributeExtractor:
     def test_nested_path_with_fallback_and_transform(self):
         """Test complex nested extraction with all Phase 2 features."""
         data = {
-            "config": {
+            "def_": {
                 "display": {
                     "description": "a very long description that should be truncated for display purposes"
                 }
@@ -415,8 +414,8 @@ class TestAdvancedAttributeExtractor:
         result = extract_attribute(
             data,
             {
-                "path": "config.display.title",
-                "fallback": "config.display.description",
+                "path": "def_.display.title",
+                "fallback": "def_.display.description",
                 "transform": {"name": "truncate", "max_length": 20},
                 "default": "No description",
             },
@@ -444,7 +443,7 @@ class TestAdvancedAttributeExtractor:
         data = {"test": "value"}
 
         # Test malformed path expression
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_attribute(
                 data,
                 {
@@ -453,7 +452,7 @@ class TestAdvancedAttributeExtractor:
             )
 
         # Test invalid transformation
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_attribute(
                 data, {"path": "test", "transform": "unknown_transform"}
             )

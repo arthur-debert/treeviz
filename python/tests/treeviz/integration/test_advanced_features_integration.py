@@ -6,21 +6,18 @@ when integrated with the main DeclarativeConverter.
 """
 
 import pytest
-from treeviz.converter import convert_node
-from treeviz.exceptions import ConversionError
+from treeviz.adapters import adapt_node
 
 
 class TestPhase2Integration:
     """Test Phase 2 features integrated with DeclarativeConverter."""
 
-    def test_complex_path_expressions_in_config(self):
-        """Test complex path expressions in declarative configuration."""
-        config = {
-            "attributes": {
-                "label": "metadata.title",
-                "type": "node_info.type",
-                "children": "child_nodes",
-            }
+    def test_complex_path_expressions_in_def(self):
+        """Test complex path expressions in declarative definition."""
+        def_ = {
+            "label": "metadata.title",
+            "type": "node_info.type",
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -31,51 +28,47 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Test Node"
         assert result.type == "container"
 
-    def test_fallback_extraction_in_config(self):
-        """Test fallback chains in declarative configuration."""
-        config = {
-            "attributes": {
-                "label": {
-                    "path": "title",
-                    "fallback": "name",
-                    "default": "Untitled",
-                },
-                "children": "child_nodes",
-            }
+    def test_fallback_extraction_in_def(self):
+        """Test fallback chains in declarative definition."""
+        def_ = {
+            "label": {
+                "path": "title",
+                "fallback": "name",
+                "default": "Untitled",
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
 
         # Test primary path exists
         source_data = {"title": "Primary Title", "child_nodes": []}
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Primary Title"
 
         # Test fallback path used
         source_data = {"name": "Fallback Name", "child_nodes": []}
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Fallback Name"
 
         # Test default value used
         source_data = {"child_nodes": []}
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Untitled"
 
-    def test_transformations_in_config(self):
-        """Test transformation functions in declarative configuration."""
-        config = {
-            "attributes": {
-                "label": {"path": "name", "transform": "upper"},
-                "metadata": {
-                    "path": "description",
-                    "transform": {"name": "truncate", "max_length": 20},
-                },
-                "children": "child_nodes",
-            }
+    def test_transformations_in_def(self):
+        """Test transformation functions in declarative definition."""
+        def_ = {
+            "label": {"path": "name", "transform": "upper"},
+            "metadata": {
+                "path": "description",
+                "transform": {"name": "truncate", "max_length": 20},
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -86,20 +79,18 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "TEST FUNCTION"
         assert len(result.metadata) <= 20  # Should be truncated
 
-    def test_children_filtering_in_config(self):
-        """Test children filtering in declarative configuration."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "children": {
-                    "path": "child_nodes",
-                    "filter": {"type": {"not_in": ["comment", "whitespace"]}},
-                },
-            }
+    def test_children_filtering_in_def(self):
+        """Test children filtering in declarative definition."""
+        def_ = {
+            "label": "name",
+            "children": {
+                "path": "child_nodes",
+                "filter": {"type": {"not_in": ["comment", "whitespace"]}},
+            },
         }
 
         # No need for converter instance with functional API
@@ -114,19 +105,17 @@ class TestPhase2Integration:
             ],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert len(result.children) == 2
         assert result.children[0].label == "Child 1"
         assert result.children[1].label == "Child 2"
 
     def test_type_overrides_with_phase2_features(self):
         """Test type overrides combined with Phase 2 features."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "child_nodes",
-            },
+        def_ = {
+            "label": "name",
+            "type": "node_type",
+            "children": "child_nodes",
             "type_overrides": {
                 "function": {
                     "label": {
@@ -158,7 +147,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(function_data, config)
+        result = adapt_node(function_data, def_)
         assert len(result.label) <= 30
         assert result.metadata["param_count"] == 3
 
@@ -170,30 +159,28 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(class_data, config)
+        result = adapt_node(class_data, def_)
         assert result.label == "Myclass"
 
     def test_complex_nested_extraction(self):
         """Test complex nested data extraction with Phase 2 features."""
-        config = {
-            "attributes": {
-                "label": {
-                    "path": "definition.name",
-                    "fallback": "metadata.identifier",
-                    "default": "Anonymous",
+        def_ = {
+            "label": {
+                "path": "definition.name",
+                "fallback": "metadata.identifier",
+                "default": "Anonymous",
+            },
+            "content_lines": "source.line_count",
+            "metadata": {
+                "path": "annotations",
+                "transform": lambda anns: {
+                    "annotation_count": len(anns) if anns else 0
                 },
-                "content_lines": "source.line_count",
-                "metadata": {
-                    "path": "annotations",
-                    "transform": lambda anns: {
-                        "annotation_count": len(anns) if anns else 0
-                    },
-                },
-                "children": {
-                    "path": "body.statements",
-                    "filter": {"visibility": {"ne": "private"}},
-                },
-            }
+            },
+            "children": {
+                "path": "body.statements",
+                "filter": {"visibility": {"ne": "private"}},
+            },
         }
 
         # No need for converter instance with functional API
@@ -223,20 +210,18 @@ class TestPhase2Integration:
             },
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "PublicClass"
         assert result.content_lines == 50
         assert result.metadata["annotation_count"] == 2
         assert len(result.children) == 2  # Private method filtered out
 
-    def test_array_indexing_in_config(self):
-        """Test array indexing in configuration paths."""
-        config = {
-            "attributes": {
-                "label": "items[0].name",
-                "type": "items[-1].type",
-                "children": "child_nodes",
-            }
+    def test_array_indexing_in_def(self):
+        """Test array indexing in definition paths."""
+        def_ = {
+            "label": "items[0].name",
+            "type": "items[-1].type",
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -250,26 +235,24 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "First Item"
         assert result.type == "end"
 
     def test_filtering_with_logical_operators(self):
         """Test complex filtering with logical operators."""
-        config = {
-            "attributes": {
-                "label": "name",
-                "children": {
-                    "path": "members",
-                    "filter": {
-                        "and": [
-                            {"type": "method"},
-                            {"visibility": "public"},
-                            {"name": {"startswith": "get_"}},
-                        ]
-                    },
+        def_ = {
+            "label": "name",
+            "children": {
+                "path": "members",
+                "filter": {
+                    "and": [
+                        {"type": "method"},
+                        {"visibility": "public"},
+                        {"name": {"startswith": "get_"}},
+                    ]
                 },
-            }
+            },
         }
 
         # No need for converter instance with functional API
@@ -296,7 +279,7 @@ class TestPhase2Integration:
                     "members": [],
                 },
                 {
-                    "name": "get_config",
+                    "name": "get_def",
                     "type": "method",
                     "visibility": "public",
                     "members": [],
@@ -310,29 +293,27 @@ class TestPhase2Integration:
             ],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert (
             len(result.children) == 2
-        )  # Only get_user and get_config match all conditions
+        )  # Only get_user and get_def match all conditions
         assert all("get_" in child.label for child in result.children)
 
     def test_custom_transformation_functions(self):
-        """Test custom transformation functions in configuration."""
+        """Test custom transformation functions in definition."""
 
         def format_signature(params):
             if not params:
                 return "no_params"
             return f"params({len(params)})"
 
-        config = {
-            "attributes": {
-                "label": "name",
-                "metadata": {
-                    "path": "parameters",
-                    "transform": format_signature,
-                },
-                "children": "child_nodes",
-            }
+        def_ = {
+            "label": "name",
+            "metadata": {
+                "path": "parameters",
+                "transform": format_signature,
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -343,19 +324,17 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.metadata == "params(2)"
 
     def test_phase2_backward_compatibility(self):
-        """Test that Phase 1 configurations still work with Phase 2 converter."""
-        # Simple Phase 1 configuration
-        config = {
-            "attributes": {
-                "label": "name",
-                "type": "node_type",
-                "children": "child_nodes",
-            },
-            "icon_map": {"function": "⚡", "class": "🏛"},
+        """Test that Phase 1 definitions still work with Phase 2 converter."""
+        # Simple Phase 1 definition
+        def_ = {
+            "label": "name",
+            "type": "node_type",
+            "children": "child_nodes",
+            "icons": {"function": "⚡", "class": "🏛"},
         }
 
         # No need for converter instance with functional API
@@ -366,20 +345,18 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = convert_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "test_function"
         assert result.type == "function"
         assert result.icon == "⚡"
 
     def test_error_handling_in_phase2_features(self):
         """Test proper error handling with Phase 2 features."""
-        config = {
-            "attributes": {
-                "label": {
-                    "path": "broken[syntax",  # Malformed path
-                },
-                "children": "child_nodes",
-            }
+        def_ = {
+            "label": {
+                "path": "broken[syntax",  # Malformed path
+            },
+            "children": "child_nodes",
         }
 
         # No need for converter instance with functional API
@@ -387,6 +364,6 @@ class TestPhase2Integration:
         source_data = {"test": "value", "child_nodes": []}
 
         with pytest.raises(
-            ConversionError, match="Failed to evaluate path expression"
+            ValueError, match="Failed to evaluate path expression"
         ):
-            convert_node(source_data, config)
+            adapt_node(source_data, def_)

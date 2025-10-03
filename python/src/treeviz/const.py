@@ -1,10 +1,5 @@
-{
-  "attributes": {
-    "label": "label",
-    "type": "type",
-    "children": "children"
-  },
-  "icon_map": {
+ICONS = {
+    # Document structure
     "document": "⧉",
     "session": "§",
     "heading": "⊤",
@@ -19,8 +14,14 @@
     "strong": "𝐁",
     "inlineCode": "ƒ",
     "contentContainer": "⊡",
-    "unknown": "?"
-  },
-  "type_overrides": {},
-  "ignore_types": []
+    # Data types (for generic JSON/dict structures)
+    "dict": "{}",
+    "array": "[]",
+    "str": '"',
+    "int": "#",
+    "float": "#",
+    "bool": "?",
+    "NoneType": "∅",
+    # Fallback
+    "unknown": "?",
 }

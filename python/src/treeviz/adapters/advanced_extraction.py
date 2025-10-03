@@ -8,10 +8,10 @@ This module provides enhanced declarative extraction capabilities including:
 - Advanced filtering with complex predicates
 
 The extraction engine is designed to handle real-world AST complexity while 
-maintaining the "fail fast" principle for malformed configurations.
+maintaining the "fail fast" principle for malformed definitions.
 
 Key Design Principles:
-- Declarative over imperative: prefer configuration to code
+- Declarative over imperative: prefer definition to code
 - Fail fast on malformed input but provide helpful error messages
 - Extensible: new transformations and predicates can be easily added
 - Performance: optimized for typical AST sizes (up to ~100 nodes)
@@ -22,7 +22,6 @@ See treeviz.__init__ module docstring for usage examples and API reference.
 import re
 import logging
 from typing import Any, Dict, List, Union, Callable
-from .exceptions import ConversionError
 
 # Set up module logger for debugging path resolution and transformation
 logger = logging.getLogger(__name__)
@@ -42,15 +41,15 @@ def parse_path_expression(path: str) -> List[Dict[str, Any]]:
         unquoted_string := [^\\]\\s]+
 
     Examples:
-        "config.items[0].name" -> [
-            {"type": "attribute", "name": "config"},
+        "def_.items[0].name" -> [
+            {"type": "attribute", "name": "def_"},
             {"type": "attribute", "name": "items"},
             {"type": "index", "index": 0},
             {"type": "attribute", "name": "name"}
         ]
     """
     if not path.strip():
-        raise ConversionError("Path expression cannot be empty")
+        raise ValueError("Path expression cannot be empty")
 
     parser_state = {"path": path, "pos": 0, "length": len(path)}
     return _parse_path_with_state(parser_state)
@@ -77,13 +76,13 @@ def _parse_path_with_state(state: Dict[str, Any]) -> List[Dict[str, Any]]:
 
     # Verify we've consumed the entire input
     if state["pos"] < state["length"]:
-        raise ConversionError(
+        raise ValueError(
             f"Unexpected character '{_current_char(state)}' at position {state['pos']} in path: '{state['path']}'"
         )
 
     # Ensure we parsed at least one valid step
     if not steps:
-        raise ConversionError(
+        raise ValueError(
             f"No valid steps found in path expression: '{state['path']}'"
         )
 
@@ -109,7 +108,7 @@ def _parse_part(state: Dict[str, Any]) -> List[Dict[str, Any]]:
 def _parse_identifier(state: Dict[str, Any]) -> str:
     """Parse an identifier: [a-zA-Z_][a-zA-Z0-9_]*"""
     if not _is_identifier_start(_current_char(state)):
-        raise ConversionError(
+        raise ValueError(
             f"Expected identifier at position {state['pos']}, got '{_current_char(state)}' in path: '{state['path']}'"
         )
 
@@ -128,7 +127,7 @@ def _parse_accessor(state: Dict[str, Any]) -> Dict[str, Any]:
     _skip_whitespace(state)
 
     if state["pos"] >= state["length"]:
-        raise ConversionError(f"Unclosed bracket in path: '{state['path']}'")
+        raise ValueError(f"Unclosed bracket in path: '{state['path']}'")
 
     # Numeric index detection
     if _current_char(state) == "-" or _current_char(state).isdigit():
@@ -161,7 +160,7 @@ def _parse_number(state: Dict[str, Any]) -> int:
         state["pos"] += 1
 
     if not _current_char(state).isdigit():
-        raise ConversionError(
+        raise ValueError(
             f"Expected digit at position {state['pos']} in path: '{state['path']}'"
         )
 
@@ -171,7 +170,7 @@ def _parse_number(state: Dict[str, Any]) -> int:
     try:
         return int(state["path"][start : state["pos"]])
     except ValueError:
-        raise ConversionError(
+        raise ValueError(
             f"Invalid number '{state['path'][start:state['pos']]}' at position {start} in path: '{state['path']}'"
         )
 
@@ -186,7 +185,7 @@ def _parse_quoted_string(state: Dict[str, Any]) -> str:
         state["pos"] += 1
 
     if state["pos"] >= state["length"]:
-        raise ConversionError(
+        raise ValueError(
             f"Unclosed string starting at position {start-1} in path: '{state['path']}'"
         )
 
@@ -207,7 +206,7 @@ def _parse_unquoted_string(state: Dict[str, Any]) -> str:
         state["pos"] += 1
 
     if start == state["pos"]:
-        raise ConversionError(
+        raise ValueError(
             f"Empty key in bracket at position {state['pos']} in path: '{state['path']}'"
         )
 
@@ -234,7 +233,7 @@ def _current_char(state: Dict[str, Any]) -> str:
 def _consume(state: Dict[str, Any], expected: str):
     """Consume expected character with precise error reporting."""
     if _current_char(state) != expected:
-        raise ConversionError(
+        raise ValueError(
             f"Expected '{expected}' at position {state['pos']}, got '{_current_char(state)}' in path: '{state['path']}'"
         )
     state["pos"] += 1
@@ -244,11 +243,9 @@ def _consume_bracket_close(state: Dict[str, Any]):
     """Consume closing bracket with specific error message for unclosed brackets."""
     if _current_char(state) != "]":
         if state["pos"] >= state["length"]:
-            raise ConversionError(
-                f"Unclosed bracket in path: '{state['path']}'"
-            )
+            raise ValueError(f"Unclosed bracket in path: '{state['path']}'")
         else:
-            raise ConversionError(
+            raise ValueError(
                 f"Expected ']' at position {state['pos']}, got '{_current_char(state)}' in path: '{state['path']}'"
             )
     state["pos"] += 1
@@ -273,13 +270,13 @@ def extract_by_path(source_node: Any, path_expression: str) -> Any:
 
     Args:
         source_node: The source node to extract from
-        path_expression: Path like "config.items[0].name"
+        path_expression: Path like "def_.items[0].name"
 
     Returns:
         Extracted value or None if path doesn't exist
 
     Raises:
-        ConversionError: If path expression is malformed
+        ValueError: If path expression is malformed
     """
     logger.debug(
         f"Extracting path '{path_expression}' from {type(source_node)}"
@@ -303,8 +300,8 @@ def extract_by_path(source_node: Any, path_expression: str) -> Any:
         return current
 
     except Exception as e:
-        # Convert any path evaluation error to ConversionError for consistent handling
-        raise ConversionError(
+        # Adapt any path evaluation error to ValueError for consistent handling
+        raise ValueError(
             f"Failed to evaluate path expression '{path_expression}': {e}"
         ) from e
 
@@ -324,11 +321,11 @@ def _evaluate_step(
         elif step_type == "key":
             return _get_by_key(current, step["key"])
         else:
-            raise ConversionError(f"Unknown step type: {step_type}")
+            raise ValueError(f"Unknown step type: {step_type}")
 
     except Exception as e:
         # Enhance error context with step position and path information
-        raise ConversionError(
+        raise ValueError(
             f"Step {step_index} failed in path '{full_path}' at {step}: {e}"
         ) from e
 
@@ -370,7 +367,7 @@ def _get_by_index(obj: Any, index: int) -> Any:
 def _get_by_key(obj: Any, key: str) -> Any:
     """Get item by string key for dictionary-like objects."""
     if not hasattr(obj, "__getitem__"):
-        raise ConversionError(
+        raise ValueError(
             f"Cannot access key '{key}' on non-mapping type {type(obj)}"
         )
 
@@ -400,7 +397,7 @@ def apply_transformation(
         Transformed value
 
     Raises:
-        ConversionError: If transformation fails or is unknown
+        ValueError: If transformation fails or is unknown
     """
     # Skip transformation for None values (allows fallback chains)
     if value is None:
@@ -421,7 +418,7 @@ def apply_transformation(
             # Transformation with parameters
             transform_name = transform_spec.get("name")
             if not transform_name:
-                raise ConversionError(
+                raise ValueError(
                     "Transformation dict must include 'name' field"
                 )
 
@@ -432,16 +429,16 @@ def apply_transformation(
             )
 
         else:
-            raise ConversionError(
+            raise ValueError(
                 f"Invalid transformation specification type: {type(transform_spec)}"
             )
 
     except Exception as e:
-        # Re-raise ConversionError as-is, wrap other exceptions
-        if isinstance(e, ConversionError):
+        # Re-raise ValueError as-is, wrap other exceptions
+        if isinstance(e, ValueError):
             raise
         else:
-            raise ConversionError(f"Transformation failed: {e}") from e
+            raise ValueError(f"Transformation failed: {e}") from e
 
 
 def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
@@ -470,7 +467,7 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
 
     if name not in transformations:
         available = ", ".join(transformations.keys())
-        raise ConversionError(
+        raise ValueError(
             f"Unknown transformation '{name}'. Available: {available}"
         )
 
@@ -495,18 +492,18 @@ def _truncate_text(
 
 # Type-safe text transformations
 def _text_upper(value: Any) -> str:
-    """Convert to uppercase with type checking."""
+    """Adapt to uppercase with type checking."""
     if not isinstance(value, str):
-        raise ConversionError(
+        raise ValueError(
             f"upper transformation requires string input, got {type(value).__name__}"
         )
     return value.upper()
 
 
 def _text_lower(value: Any) -> str:
-    """Convert to lowercase with type checking."""
+    """Adapt to lowercase with type checking."""
     if not isinstance(value, str):
-        raise ConversionError(
+        raise ValueError(
             f"lower transformation requires string input, got {type(value).__name__}"
         )
     return value.lower()
@@ -515,7 +512,7 @@ def _text_lower(value: Any) -> str:
 def _text_capitalize(value: Any) -> str:
     """Capitalize with type checking."""
     if not isinstance(value, str):
-        raise ConversionError(
+        raise ValueError(
             f"capitalize transformation requires string input, got {type(value).__name__}"
         )
     return value.capitalize()
@@ -524,7 +521,7 @@ def _text_capitalize(value: Any) -> str:
 def _text_strip(value: Any) -> str:
     """Strip whitespace with type checking."""
     if not isinstance(value, str):
-        raise ConversionError(
+        raise ValueError(
             f"strip transformation requires string input, got {type(value).__name__}"
         )
     return value.strip()
@@ -534,7 +531,7 @@ def _text_strip(value: Any) -> str:
 def _numeric_abs(value: Any) -> Union[int, float]:
     """Absolute value with type checking."""
     if not isinstance(value, (int, float)) or isinstance(value, bool):
-        raise ConversionError(
+        raise ValueError(
             f"abs transformation requires numeric input, got {type(value).__name__}"
         )
     return abs(value)
@@ -543,7 +540,7 @@ def _numeric_abs(value: Any) -> Union[int, float]:
 def _numeric_round(value: Any, digits: int = 0, **kwargs) -> Union[int, float]:
     """Round number with type checking."""
     if not isinstance(value, (int, float)) or isinstance(value, bool):
-        raise ConversionError(
+        raise ValueError(
             f"round transformation requires numeric input, got {type(value).__name__}"
         )
     return round(value, digits)
@@ -552,13 +549,13 @@ def _numeric_round(value: Any, digits: int = 0, **kwargs) -> Union[int, float]:
 def _format_value(value: Any, format_spec: str = "", **kwargs) -> str:
     """Format value with type checking for format spec."""
     if not isinstance(format_spec, str):
-        raise ConversionError(
+        raise ValueError(
             f"format transformation requires string format_spec, got {type(format_spec).__name__}"
         )
     try:
         return format(value, format_spec)
     except (ValueError, TypeError) as e:
-        raise ConversionError(
+        raise ValueError(
             f"format transformation failed for value {value} with spec '{format_spec}': {e}"
         ) from e
 
@@ -567,13 +564,13 @@ def _format_value(value: Any, format_spec: str = "", **kwargs) -> str:
 def _collection_length(value: Any) -> int:
     """Get length with type checking."""
     if not hasattr(value, "__len__"):
-        raise ConversionError(
+        raise ValueError(
             f"length transformation requires object with __len__, got {type(value).__name__}"
         )
     try:
         return len(value)
     except TypeError as e:
-        raise ConversionError(
+        raise ValueError(
             f"length transformation failed for {type(value).__name__}: {e}"
         ) from e
 
@@ -581,17 +578,17 @@ def _collection_length(value: Any) -> int:
 def _collection_join(value: Any, separator: str = "", **kwargs) -> str:
     """Join collection elements with type checking."""
     if not hasattr(value, "__iter__") or isinstance(value, (str, bytes)):
-        raise ConversionError(
+        raise ValueError(
             f"join transformation requires iterable (non-string), got {type(value).__name__}"
         )
     if not isinstance(separator, str):
-        raise ConversionError(
+        raise ValueError(
             f"join transformation requires string separator, got {type(separator).__name__}"
         )
     try:
         return separator.join(str(x) for x in value)
     except TypeError as e:
-        raise ConversionError(
+        raise ValueError(
             f"join transformation failed for {type(value).__name__}: {e}"
         ) from e
 
@@ -599,7 +596,7 @@ def _collection_join(value: Any, separator: str = "", **kwargs) -> str:
 def _collection_first(value: Any) -> Any:
     """Get first element with type checking."""
     if not hasattr(value, "__getitem__") and not hasattr(value, "__iter__"):
-        raise ConversionError(
+        raise ValueError(
             f"first transformation requires indexable or iterable, got {type(value).__name__}"
         )
     try:
@@ -610,7 +607,7 @@ def _collection_first(value: Any) -> Any:
             # Fall back to iterator for other iterables
             return next(iter(value), None)
     except (IndexError, TypeError) as e:
-        raise ConversionError(
+        raise ValueError(
             f"first transformation failed for {type(value).__name__}: {e}"
         ) from e
 
@@ -618,7 +615,7 @@ def _collection_first(value: Any) -> Any:
 def _collection_last(value: Any) -> Any:
     """Get last element with type checking."""
     if not hasattr(value, "__getitem__") and not hasattr(value, "__iter__"):
-        raise ConversionError(
+        raise ValueError(
             f"last transformation requires indexable or iterable, got {type(value).__name__}"
         )
     try:
@@ -632,7 +629,7 @@ def _collection_last(value: Any) -> Any:
                 last_item = item
             return last_item
     except (IndexError, TypeError) as e:
-        raise ConversionError(
+        raise ValueError(
             f"last transformation failed for {type(value).__name__}: {e}"
         ) from e
 
@@ -643,7 +640,7 @@ def _convert_to_str(value: Any) -> str:
     try:
         return str(value)
     except Exception as e:
-        raise ConversionError(
+        raise ValueError(
             f"str transformation failed for {type(value).__name__}: {e}"
         ) from e
 
@@ -653,7 +650,7 @@ def _convert_to_int(value: Any) -> int:
     try:
         return int(value)
     except (ValueError, TypeError) as e:
-        raise ConversionError(
+        raise ValueError(
             f"int transformation failed for value '{value}' of type {type(value).__name__}: {e}"
         ) from e
 
@@ -663,7 +660,7 @@ def _convert_to_float(value: Any) -> float:
     try:
         return float(value)
     except (ValueError, TypeError) as e:
-        raise ConversionError(
+        raise ValueError(
             f"float transformation failed for value '{value}' of type {type(value).__name__}: {e}"
         ) from e
 
@@ -682,12 +679,10 @@ def filter_collection(
         Filtered list containing only items matching the predicate
 
     Raises:
-        ConversionError: If filter specification is malformed
+        ValueError: If filter specification is malformed
     """
     if not isinstance(collection, list):
-        raise ConversionError(
-            f"Cannot filter non-list type: {type(collection)}"
-        )
+        raise ValueError(f"Cannot filter non-list type: {type(collection)}")
 
     logger.debug(
         f"Filtering collection of {len(collection)} items with spec: {filter_spec}"
@@ -705,11 +700,11 @@ def filter_collection(
         return filtered
 
     except Exception as e:
-        # Convert any filtering error to ConversionError
-        if isinstance(e, ConversionError):
+        # Adapt any filtering error to ValueError
+        if isinstance(e, ValueError):
             raise
         else:
-            raise ConversionError(f"Filter evaluation failed: {e}") from e
+            raise ValueError(f"Filter evaluation failed: {e}") from e
 
 
 def _evaluate_predicate(item: Any, predicate: Dict[str, Any]) -> bool:
@@ -793,7 +788,7 @@ def _evaluate_operator(field_value: Any, operator: str, expected: Any) -> bool:
         return type(field_value).__name__ == expected
 
     else:
-        raise ConversionError(f"Unknown filter operator: {operator}")
+        raise ValueError(f"Unknown filter operator: {operator}")
 
 
 def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
@@ -826,7 +821,7 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
         result = extract_by_path(source_node, extraction_spec)
         return result
 
-    # Literal values: constants, numbers, booleans in configuration
+    # Literal values: constants, numbers, booleans in definition
     if not isinstance(extraction_spec, dict):
         return extraction_spec  # Literal value pass-through
 
@@ -869,4 +864,3 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
             )
 
     return primary_value
-

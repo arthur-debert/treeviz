@@ -2,7 +2,7 @@
 Tests for Renderer customization features.
 
 This test file focuses on symbol customization, terminal width handling,
-and other renderer configuration options.
+and other renderer definition options.
 """
 
 from treeviz.renderer import render, create_render_options, DEFAULT_SYMBOLS
@@ -95,7 +95,7 @@ def test_empty_custom_symbols():
 
 
 def test_renderer_terminal_width():
-    """Test renderer terminal width configuration."""
+    """Test renderer terminal width definition."""
     options_80 = create_render_options(terminal_width=80)
     options_120 = create_render_options(terminal_width=120)
 

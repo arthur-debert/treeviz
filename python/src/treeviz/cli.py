@@ -5,13 +5,11 @@ This module provides a standalone CLI for the 3viz tool.
 """
 
 import json
+from dataclasses import asdict
 
 import click
 
-from treeviz.config import (
-    get_builtin_config,
-    _load_config_file,
-)
+from .definitions import Lib, Definition
 
 
 @click.group()
@@ -27,14 +25,14 @@ def cli():
 
 
 @cli.group()
-def config():
+def def_():
     """
     Configuration management commands.
     """
     pass
 
 
-@config.command("sample")
+@def_.command("sample")
 @click.option(
     "--output",
     "-o",
@@ -48,19 +46,39 @@ def config():
     default="json",
     help="Output format (default: json)",
 )
-def config_sample(output, format):
+def def_sample(output, format):
     """
-    Generate a sample configuration file.
+    Generate a sample definition file.
     """
-    config_data = _load_config_file("sample.json")
+    # Generate a comprehensive sample definition
+    sample_def = Definition(
+        attributes={
+            "label": "name",
+            "type": "node_type",
+            "children": "children",
+        },
+        icons={
+            "document": "⧉",
+            "paragraph": "¶",
+            "heading": "⊤",
+            "list": "☰",
+            "custom_type": "★",
+        },
+        type_overrides={
+            "paragraph": {"label": "content"},
+            "heading": {"label": "title"},
+        },
+        ignore_types=["comment", "whitespace"],
+    )
+    def_data = asdict(sample_def)
 
     if format == "json":
-        content = json.dumps(config_data, indent=2)
+        content = json.dumps(def_data, indent=2)
     else:  # yaml
         try:
             import yaml
 
-            content = yaml.dump(config_data, default_flow_style=False, indent=2)
+            content = yaml.dump(def_data, default_flow_style=False, indent=2)
         except ImportError:
             click.echo(
                 "YAML support requires 'pyyaml' package. Install with: pip install pyyaml",
@@ -71,12 +89,12 @@ def config_sample(output, format):
     if output:
         with open(output, "w") as f:
             f.write(content)
-        click.echo(f"Sample configuration written to {output}")
+        click.echo(f"Sample definition written to {output}")
     else:
         click.echo(content)
 
 
-@config.command("builtin")
+@def_.command("builtin")
 @click.argument("format_name", type=str)
 @click.option(
     "--output",
@@ -91,25 +109,25 @@ def config_sample(output, format):
     default="json",
     help="Output format (default: json)",
 )
-def config_builtin(format_name, output, format):
+def def_builtin(format_name, output, format):
     """
-    Export a built-in configuration.
+    Export a built-in definition.
 
     FORMAT_NAME: Name of the built-in format (mdast, json, etc.)
     """
     try:
-        config_data = get_builtin_config(format_name)
+        def_data = asdict(Lib.get(format_name))
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
         return
 
     if format == "json":
-        content = json.dumps(config_data, indent=2)
+        content = json.dumps(def_data, indent=2)
     else:  # yaml
         try:
             import yaml
 
-            content = yaml.dump(config_data, default_flow_style=False, indent=2)
+            content = yaml.dump(def_data, default_flow_style=False, indent=2)
         except ImportError:
             click.echo(
                 "YAML support requires 'pyyaml' package. Install with: pip install pyyaml",
@@ -120,9 +138,7 @@ def config_builtin(format_name, output, format):
     if output:
         with open(output, "w") as f:
             f.write(content)
-        click.echo(
-            f"Built-in configuration '{format_name}' written to {output}"
-        )
+        click.echo(f"Built-in definition '{format_name}' written to {output}")
     else:
         click.echo(content)
 
