@@ -11,7 +11,6 @@ from treeviz.definitions import (
     load_def,
     validate_def,
     get_builtin_def,
-    _load_def_file,
     ConversionError,
 )
 
@@ -187,7 +186,17 @@ def test_validate_def_invalid_type_override_value():
 
 def test_create_sample_def():
     """Test creation of sample definition."""
-    def_ = _load_def_file("sample.json")
+    # Use inline sample definition instead of external file
+    def_ = {
+        "attributes": {
+            "label": "name",
+            "type": "node_type",
+            "children": "children",
+        },
+        "icons": {"document": "⧉", "paragraph": "¶", "heading": "⊤"},
+        "type_overrides": {"paragraph": {"label": "content"}},
+        "ignore_types": ["comment", "whitespace"],
+    }
 
     assert "attributes" in def_
     assert "label" in def_["attributes"]

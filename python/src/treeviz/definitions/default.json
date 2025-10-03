@@ -1,9 +1,0 @@
-{
-  "attributes": {
-    "label": "label",
-    "type": "type",
-    "children": "children"
-  },
-  "type_overrides": {},
-  "ignore_types": []
-}

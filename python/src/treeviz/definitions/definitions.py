@@ -30,10 +30,8 @@ List of node types to skip during conversion
 ### Configuration Files
 
 See the actual definition files for examples:
-- `treeviz/configs/default.json` - System default definition
-- `treeviz/configs/sample.json` - User sample definition  
-- `treeviz/configs/mdast.json` - Markdown AST format
-- `treeviz/configs/json.json` - Generic JSON structures
+- `treeviz/definitions/mdast.json` - Markdown AST format
+- `treeviz/definitions/unist.json` - Universal Syntax Tree format
 
 ### Advanced Configuration
 
@@ -238,12 +236,18 @@ def get_default_def() -> Dict[str, Any]:
     Get the default definition.
 
     Returns:
-        Default definition loaded from default.json with baseline icons
+        Default definition with baseline icons from const.py
     """
-    def_ = _load_def_file("default.json")
-    # Add baseline icons from const.py
-    def_["icons"] = ICONS.copy()
-    return def_
+    return {
+        "attributes": {
+            "label": "label",
+            "type": "type",
+            "children": "children",
+        },
+        "icons": ICONS.copy(),
+        "type_overrides": {},
+        "ignore_types": [],
+    }
 
 
 def get_builtin_def(format_name: str) -> Dict[str, Any]:
