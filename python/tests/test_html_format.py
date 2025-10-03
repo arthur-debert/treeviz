@@ -11,7 +11,6 @@ from pathlib import Path
 from treeviz.formats.html_format import (
     parse_html,
     HTMLParseError,
-    BS4_AVAILABLE,
 )
 from treeviz.formats import parse_document, get_format_by_name
 
@@ -19,9 +18,6 @@ from treeviz.formats import parse_document, get_format_by_name
 class TestHTMLParser:
     """Test HTML parser functionality."""
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_simple_html_parsing(self):
         """Test parsing simple HTML document."""
         content = "<html><body><p>Hello World</p></body></html>"
@@ -32,9 +28,6 @@ class TestHTMLParser:
         assert len(result["children"]) == 1
         assert result["children"][0]["type"] == "body"
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_html_with_attributes(self):
         """Test parsing HTML with attributes."""
         content = (
@@ -49,9 +42,6 @@ class TestHTMLParser:
         assert result["children"][0]["type"] == "p"
         assert result["children"][0]["class"] == "text"
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_html_multiple_class_attributes(self):
         """Test HTML with multiple class values."""
         content = '<div class="container main-content active">Content</div>'
@@ -62,9 +52,6 @@ class TestHTMLParser:
         # Multiple classes should be joined with spaces
         assert result["class"] == "container main-content active"
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_html_mixed_content(self):
         """Test HTML with mixed text and element content."""
         content = "<p>text1 <strong>bold</strong> text2</p>"
@@ -82,9 +69,6 @@ class TestHTMLParser:
         # Combined text for compatibility (only direct text, not from children)
         assert result["text"] == "text1 text2"
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_html_self_closing_tags(self):
         """Test HTML with self-closing tags."""
         content = (
@@ -102,9 +86,6 @@ class TestHTMLParser:
         assert img["src"] == "image.jpg"
         assert img["alt"] == "image"
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_html_doctype_handling(self):
         """Test that HTML DOCTYPE is handled properly."""
         content = "<!DOCTYPE html><html><head><title>Test</title></head><body>Content</body></html>"
@@ -114,9 +95,6 @@ class TestHTMLParser:
         assert result["type"] == "html"
         assert len(result["children"]) == 2  # head and body
 
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_malformed_html_tolerance(self):
         """Test that parser handles malformed HTML gracefully."""
         content = "<div><p>Unclosed paragraph<div>Nested div</div>"
@@ -127,19 +105,6 @@ class TestHTMLParser:
         assert result["type"] == "div"
         # BeautifulSoup should fix the structure
 
-    def test_html_without_bs4_error(self):
-        """Test error when BeautifulSoup4 is not available."""
-        if BS4_AVAILABLE:
-            pytest.skip("BeautifulSoup4 is available, can't test this scenario")
-
-        with pytest.raises(HTMLParseError) as exc_info:
-            parse_html("<html><body>test</body></html>")
-
-        assert "BeautifulSoup4 is required" in str(exc_info.value)
-
-    @pytest.mark.skipif(
-        not BS4_AVAILABLE, reason="BeautifulSoup4 not available"
-    )
     def test_empty_html_error(self):
         """Test error handling for empty HTML."""
         content = "   "
@@ -150,7 +115,6 @@ class TestHTMLParser:
         assert "No HTML elements found" in str(exc_info.value)
 
 
-@pytest.mark.skipif(not BS4_AVAILABLE, reason="BeautifulSoup4 not available")
 class TestHTMLIntegration:
     """Test HTML integration with format system."""
 
@@ -158,15 +122,11 @@ class TestHTMLIntegration:
         """Test that HTML format is registered."""
         html_format = get_format_by_name("html")
 
-        if BS4_AVAILABLE:
-            assert html_format is not None
-            assert html_format.name == "HTML"
-            assert ".html" in html_format.extensions
-            assert ".htm" in html_format.extensions
-            assert html_format.description == "HyperText Markup Language"
-        else:
-            # If BS4 not available, format shouldn't be registered
-            assert html_format is None
+        assert html_format is not None
+        assert html_format.name == "HTML"
+        assert ".html" in html_format.extensions
+        assert ".htm" in html_format.extensions
+        assert html_format.description == "HyperText Markup Language"
 
     def test_parse_html_file(self):
         """Test parsing HTML file through format system."""
@@ -227,7 +187,6 @@ class TestHTMLIntegration:
         assert pformat_result["type"] == "html"
 
 
-@pytest.mark.skipif(not BS4_AVAILABLE, reason="BeautifulSoup4 not available")
 class TestHTMLWithAdapters:
     """Test HTML integration with adapter system."""
 

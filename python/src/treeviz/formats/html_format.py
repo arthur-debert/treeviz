@@ -6,13 +6,7 @@ which handles malformed HTML and various HTML-specific features.
 """
 
 from typing import Dict, Any
-
-try:
-    from bs4 import BeautifulSoup, NavigableString, Tag
-
-    BS4_AVAILABLE = True
-except ImportError:
-    BS4_AVAILABLE = False
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 
 class HTMLParseError(Exception):
@@ -32,13 +26,8 @@ def parse_html(content: str) -> Dict[str, Any]:
         Python dict representing the HTML document tree
 
     Raises:
-        HTMLParseError: If parsing fails or BeautifulSoup4 is not available
+        HTMLParseError: If parsing fails
     """
-    if not BS4_AVAILABLE:
-        raise HTMLParseError(
-            "BeautifulSoup4 is required for HTML parsing but not installed"
-        )
-
     try:
         soup = BeautifulSoup(content, "html.parser")
 
