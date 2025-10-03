@@ -6,7 +6,7 @@ icon mapping, and ignored types.
 """
 
 import pytest
-from treeviz.converter import DeclarativeConverter, ConversionError
+from treeviz.converter import convert_node, ConversionError
 
 
 class MockNode:
@@ -26,8 +26,8 @@ def test_icon_mapping_basic(assert_node):
 
     source = MockNode(name="Paragraph", node_type="paragraph")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    # Using functional API
+    result = convert_node(source, config)
 
     assert_node(result).has_icon("¶")
 
@@ -41,8 +41,8 @@ def test_icon_mapping_missing_type():
 
     source = MockNode(name="Unknown", node_type="unknown")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    # Using functional API
+    result = convert_node(source, config)
 
     # Should have no icon when type not in map
     assert result.icon is None
@@ -67,11 +67,11 @@ def test_icon_mapping_multiple_types():
         ("Code Block", "code", "ƒ"),
     ]
 
-    converter = DeclarativeConverter(config)
+    # Using functional API
 
     for name, node_type, expected_icon in test_cases:
         source = MockNode(name=name, node_type=node_type)
-        result = converter.convert(source)
+        result = convert_node(source, config)
         assert result.icon == expected_icon
 
 
@@ -84,8 +84,8 @@ def test_type_overrides_simple(assert_node):
 
     source = MockNode(name="Wrong", content="Correct", node_type="text")
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    # Using functional API
+    result = convert_node(source, config)
 
     assert_node(result).has_label("Correct")
 
@@ -111,8 +111,8 @@ def test_type_overrides_multiple_attributes(assert_node):
         special_meta={"special": True},
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(source)
+    # Using functional API
+    result = convert_node(source, config)
 
     assert_node(result).has_label("Correct Title").has_metadata(
         {"special": True}
@@ -130,20 +130,20 @@ def test_type_overrides_multiple_types():
         },
     }
 
-    converter = DeclarativeConverter(config)
+    # Using functional API
 
     # Test text type
     text_source = MockNode(
         name="Wrong", content="Text Content", node_type="text"
     )
-    text_result = converter.convert(text_source)
+    text_result = convert_node(text_source, config)
     assert text_result.label == "Text Content"
 
     # Test heading type
     heading_source = MockNode(
         name="Wrong", title="Heading Title", node_type="heading"
     )
-    heading_result = converter.convert(heading_source)
+    heading_result = convert_node(heading_source, config)
     assert heading_result.label == "Heading Title"
 
 
@@ -164,8 +164,8 @@ def test_ignore_types_single(assert_node):
         name="Parent", node_type="parent", child_nodes=[comment, text]
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    # Using functional API
+    result = convert_node(parent, config)
 
     # Should only have one child (text), comment should be ignored
     assert_node(result).has_children_count(1)
@@ -194,8 +194,8 @@ def test_ignore_types_multiple(assert_node):
         child_nodes=[comment, text, whitespace, debug],
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    # Using functional API
+    result = convert_node(parent, config)
 
     # Should only have one child (text)
     assert_node(result).has_children_count(1)
@@ -227,8 +227,8 @@ def test_ignore_types_nested_trees(assert_node):
         name="Root", node_type="root", child_nodes=[branch, comment2, text2]
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(root)
+    # Using functional API
+    result = convert_node(root, config)
 
     # Root should have 2 children (branch and text2)
     assert_node(result).has_children_count(2)
@@ -277,8 +277,8 @@ def test_combined_type_features(assert_node):
         child_nodes=[comment, heading, paragraph],
     )
 
-    converter = DeclarativeConverter(config)
-    result = converter.convert(parent)
+    # Using functional API
+    result = convert_node(parent, config)
 
     # Should have 2 children (heading and paragraph, comment ignored)
     assert_node(result).has_children_count(2)

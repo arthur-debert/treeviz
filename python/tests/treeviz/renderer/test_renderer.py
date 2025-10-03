@@ -2,15 +2,14 @@
 Tests for the Renderer.
 """
 
-from treeviz.renderer import Renderer
+from treeviz.renderer import render, create_render_options
 
 
 def test_render_simple_tree(sample_node_tree):
     """
     Test rendering a simple Node tree.
     """
-    renderer = Renderer()
-    output = renderer.render(sample_node_tree)
+    output = render(sample_node_tree)
 
     # Split the output into lines for easier comparison
     lines = output.split("\n")
@@ -32,8 +31,8 @@ def test_render_with_custom_symbols(sample_node_tree):
         "list": "[L]",
         "listItem": "[I]",
     }
-    renderer = Renderer(symbols=custom_symbols)
-    output = renderer.render(sample_node_tree)
+    options = create_render_options(symbols=custom_symbols)
+    output = render(sample_node_tree, options)
 
     lines = output.split("\n")
 

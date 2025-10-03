@@ -6,7 +6,7 @@ when integrated with the main DeclarativeConverter.
 """
 
 import pytest
-from treeviz import DeclarativeConverter
+from treeviz.converter import convert_node
 from treeviz.exceptions import ConversionError
 
 
@@ -23,7 +23,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "metadata": {"title": "Test Node"},
@@ -31,7 +31,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "Test Node"
         assert result.type == "container"
 
@@ -48,21 +48,21 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         # Test primary path exists
         source_data = {"title": "Primary Title", "child_nodes": []}
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "Primary Title"
 
         # Test fallback path used
         source_data = {"name": "Fallback Name", "child_nodes": []}
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "Fallback Name"
 
         # Test default value used
         source_data = {"child_nodes": []}
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "Untitled"
 
     def test_transformations_in_config(self):
@@ -78,7 +78,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "name": "test function",
@@ -86,7 +86,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "TEST FUNCTION"
         assert len(result.metadata) <= 20  # Should be truncated
 
@@ -102,7 +102,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "name": "Parent",
@@ -114,7 +114,7 @@ class TestPhase2Integration:
             ],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert len(result.children) == 2
         assert result.children[0].label == "Child 1"
         assert result.children[1].label == "Child 2"
@@ -147,7 +147,7 @@ class TestPhase2Integration:
             },
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         # Test function with long signature
         function_data = {
@@ -158,7 +158,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(function_data)
+        result = convert_node(function_data, config)
         assert len(result.label) <= 30
         assert result.metadata["param_count"] == 3
 
@@ -170,7 +170,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(class_data)
+        result = convert_node(class_data, config)
         assert result.label == "Myclass"
 
     def test_complex_nested_extraction(self):
@@ -196,7 +196,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "definition": {"name": "PublicClass"},
@@ -223,7 +223,7 @@ class TestPhase2Integration:
             },
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "PublicClass"
         assert result.content_lines == 50
         assert result.metadata["annotation_count"] == 2
@@ -239,7 +239,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "items": [
@@ -250,7 +250,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "First Item"
         assert result.type == "end"
 
@@ -272,7 +272,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "name": "APIClass",
@@ -310,7 +310,7 @@ class TestPhase2Integration:
             ],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert (
             len(result.children) == 2
         )  # Only get_user and get_config match all conditions
@@ -335,7 +335,7 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "name": "test_function",
@@ -343,7 +343,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.metadata == "params(2)"
 
     def test_phase2_backward_compatibility(self):
@@ -358,7 +358,7 @@ class TestPhase2Integration:
             "icon_map": {"function": "⚡", "class": "🏛"},
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {
             "name": "test_function",
@@ -366,7 +366,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = converter.convert(source_data)
+        result = convert_node(source_data, config)
         assert result.label == "test_function"
         assert result.type == "function"
         assert result.icon == "⚡"
@@ -382,11 +382,11 @@ class TestPhase2Integration:
             }
         }
 
-        converter = DeclarativeConverter(config)
+        # No need for converter instance with functional API
 
         source_data = {"test": "value", "child_nodes": []}
 
         with pytest.raises(
             ConversionError, match="Failed to evaluate path expression"
         ):
-            converter.convert(source_data)
+            convert_node(source_data, config)

@@ -9,7 +9,7 @@ Quick Start
 
 Direct Node Construction:
     
-    from treeviz import Node, Renderer
+    from treeviz import Node, render
     
     tree = Node(
         label="MyProject", 
@@ -20,12 +20,11 @@ Direct Node Construction:
         ]
     )
     
-    renderer = Renderer()
-    print(renderer.render(tree))
+    print(render(tree))
 
 Declarative Conversion:
 
-    from treeviz import DeclarativeConverter
+    from treeviz import convert_node
     
     config = {
         "attributes": {
@@ -39,17 +38,15 @@ Declarative Conversion:
         }
     }
     
-    converter = DeclarativeConverter(config)
-    result = converter.convert(my_ast_node)
+    result = convert_node(my_ast_node, config)
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_config
+    from treeviz import get_builtin_config, convert_node
     
     # Use pre-built configuration for JSON structures
     config = get_builtin_config("json")
-    converter = DeclarativeConverter(config)
-    result = converter.convert({"name": "test", "items": [1, 2, 3]})
+    result = convert_node({"name": "test", "items": [1, 2, 3]}, config)
 
 Core Concepts
 -------------
@@ -128,10 +125,13 @@ Filtering and Predicates:
 Output Customization:
     
     # Custom symbols and terminal width
-    renderer = Renderer(
+    from treeviz import render, create_render_options
+    
+    options = create_render_options(
         symbols={"custom_type": "⚙"},
         terminal_width=120
     )
+    output = render(node, options)
 
 Built-in Configurations
 -----------------------
@@ -183,7 +183,7 @@ Enable detailed error messages:
 
 Test configurations interactively:
     
-    from treeviz import validate_config
+    from treeviz import validate_config, ConversionError
     try:
         validate_config(my_config)
         print("Configuration valid!")
@@ -192,9 +192,11 @@ Test configurations interactively:
 
 Generate sample configurations:
     
-    from treeviz import create_sample_config, save_sample_config
-    sample = create_sample_config()
-    save_sample_config("my_config.json")
+    # Create configurations manually using declarative syntax
+    sample_config = {
+        "attributes": {"label": "name", "type": "node_type"},
+        "icon_map": {"function": "⚡", "class": "🏛"}
+    }
 
 See Also
 --------
@@ -210,12 +212,20 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 
 # Main public API exports
 from .model import Node
-from .converter import DeclarativeConverter, convert_tree
+from .converter import (
+    convert_tree,
+    convert_node,
+    validate_config,
+)
 from .exceptions import ConversionError
-from .renderer import Renderer
+from .renderer import (
+    render,
+    create_render_options,
+    RenderOptions,
+    DEFAULT_SYMBOLS,
+)
 from .config import (
     load_config,
-    validate_config,
     get_builtin_config,
 )
 
@@ -224,16 +234,16 @@ __all__ = [
     # Core data structures
     "Node",
     # Conversion engine
-    "DeclarativeConverter",
     "convert_tree",
+    "convert_node",
+    "validate_config",
     "ConversionError",
     # Rendering
-    "Renderer",
+    "render",
+    "create_render_options",
+    "RenderOptions",
     "DEFAULT_SYMBOLS",
     # Configuration management
     "load_config",
-    "validate_config",
-    "create_sample_config",
-    "save_sample_config",
     "get_builtin_config",
 ]

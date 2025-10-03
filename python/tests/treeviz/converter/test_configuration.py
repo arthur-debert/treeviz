@@ -6,7 +6,7 @@ configuration scenarios, validation, and error cases.
 """
 
 import pytest
-from treeviz.converter import DeclarativeConverter, ConversionError
+from treeviz.converter import convert_node, ConversionError
 
 
 class MockNode:
@@ -20,28 +20,31 @@ class MockNode:
 def test_minimal_valid_configuration():
     """Test converter with minimal valid configuration."""
     config = {"attributes": {"label": "name"}}
+    source = MockNode(name="test")
 
     # Should not raise an exception
-    converter = DeclarativeConverter(config)
-    assert converter is not None
+    result = convert_node(source, config)
+    assert result is not None
 
 
 def test_configuration_validation_no_attributes():
     """Test that configuration without attributes section raises error."""
     config = {}
+    source = MockNode()
 
     with pytest.raises(ConversionError, match="must include 'attributes'"):
-        DeclarativeConverter(config)
+        convert_node(source, config)
 
 
 def test_configuration_validation_no_label():
     """Test that configuration without label mapping raises error."""
     config = {"attributes": {"type": "node_type"}}
+    source = MockNode(node_type="test")
 
     with pytest.raises(
         ConversionError, match="must specify how to extract 'label'"
     ):
-        DeclarativeConverter(config)
+        convert_node(source, config)
 
 
 def test_configuration_with_icon_map():
@@ -50,9 +53,10 @@ def test_configuration_with_icon_map():
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
+    source = MockNode(name="test", node_type="paragraph")
 
-    converter = DeclarativeConverter(config)
-    assert converter is not None
+    result = convert_node(source, config)
+    assert result is not None
 
 
 def test_configuration_with_type_overrides():
@@ -64,9 +68,10 @@ def test_configuration_with_type_overrides():
             "heading": {"label": "title", "metadata": "attrs"},
         },
     }
+    source = MockNode(name="test", node_type="text", content="text content")
 
-    converter = DeclarativeConverter(config)
-    assert converter is not None
+    result = convert_node(source, config)
+    assert result is not None
 
 
 def test_configuration_with_ignore_types():
@@ -75,9 +80,10 @@ def test_configuration_with_ignore_types():
         "attributes": {"label": "name", "type": "node_type"},
         "ignore_types": ["comment", "whitespace", "debug"],
     }
+    source = MockNode(name="test", node_type="normal")
 
-    converter = DeclarativeConverter(config)
-    assert converter is not None
+    result = convert_node(source, config)
+    assert result is not None
 
 
 def test_configuration_with_all_features():
@@ -96,9 +102,10 @@ def test_configuration_with_all_features():
         "type_overrides": {"text": {"label": "content"}},
         "ignore_types": ["comment"],
     }
+    source = MockNode(name="test", node_type="paragraph", child_nodes=[])
 
-    converter = DeclarativeConverter(config)
-    assert converter is not None
+    result = convert_node(source, config)
+    assert result is not None
 
 
 def test_invalid_configuration_types():
@@ -106,22 +113,25 @@ def test_invalid_configuration_types():
     # The converter doesn't currently validate input types,
     # it would fail at runtime when trying to access dict methods
     # This is a design decision - we'll just test that it doesn't crash
-    # on initialization with valid structure
+    # on conversion with valid structure
 
     # Test with valid minimal config
     valid_config = {"attributes": {"label": "name"}}
-    converter = DeclarativeConverter(valid_config)
-    assert converter is not None
+    source = MockNode(name="test")
+    result = convert_node(source, valid_config)
+    assert result is not None
 
 
 def test_configuration_error_messages():
     """Test that configuration errors provide helpful messages."""
+    source = MockNode()
+
     try:
-        DeclarativeConverter({})
+        convert_node(source, {})
     except ConversionError as e:
         assert "attributes" in str(e).lower()
 
     try:
-        DeclarativeConverter({"attributes": {"type": "node_type"}})
+        convert_node(source, {"attributes": {"type": "node_type"}})
     except ConversionError as e:
         assert "label" in str(e).lower()

@@ -25,6 +25,38 @@ This is a sample output:
                 ↵ Which should have at least one item.                                                                                1L
   𝒱 4. A simple code block: (-)                                                                                              13L
 
+
+1. Using 3viz
+
+3viz can be used as a cli: 
+
+  $ 3viz <path>
+
+Or as a library. 
+
+  from 3viz import render(data)
+
+2. Data for 3viz
+
+
+  2.1  The Native 3Viz Node 
+
+    3Viz intakes data structure: 
+      label: str  
+      type: Optional[str] = None  # Node type (for icon mapping)
+      icon: Optional[str] = None  # Unicode character icon
+      content_lines: int = 1  # Number of lines this node represents
+      source_location: Optional[Dict[str, Any]] = 
+      metadata: Dict[str, Any] :  node metatdata / attributes for display
+      children: List["Node"] 
+
+      Which can be passed both as objects/dicts in the library or in a json file for the cli.
+
+  Chances are your ast is not structured exactly like this,  hence you'll need to format your data to a format that 3viz can render. 3viz comes with some handly helpers which make adapting the data be a few lines of configuration most of the time.
+
+  2.2 Ready made adapters 
+
+
 1. Codebase rules:
   
   1. Let's keep the repo clean, do not:
@@ -39,7 +71,8 @@ This is a sample output:
         - That document design decisions or use cases for that code and that explains why that code is there.
         - That explain a few of very cryptics lines (very rate in python)
 
-  3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING
+  3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING NOT FALLBACKS unless explicitly requestd
+
     This is a pre-release software, there is no client app usage, there is nothing to keep backwards compatibility.
     Tasks that require refactoring , reorganizzing and renaming things INCLUDE updating callers AND tests.
     Creating layers and adapters to avoid doing the udpating work will:

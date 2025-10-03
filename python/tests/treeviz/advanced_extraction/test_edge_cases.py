@@ -6,13 +6,13 @@ This focuses on specific problematic scenarios discovered during testing.
 
 import pytest
 from treeviz.advanced_extraction import (
-    PathExpressionEngine,
-    TransformationEngine,
-    FilterEngine,
-    AdvancedAttributeExtractor,
+    extract_by_path,
+    apply_transformation,
+    filter_collection,
+    extract_attribute,
 )
 from treeviz.exceptions import ConversionError
-from treeviz import DeclarativeConverter
+from treeviz import convert_node
 
 
 class TestTruncationEdgeCases:
@@ -59,8 +59,7 @@ class TestTruncationEdgeCases:
     )
     def test_truncation_edge_cases(self, text, max_length, suffix, expected):
         """Test truncation with various edge cases."""
-        engine = TransformationEngine()
-        result = engine.apply_transformation(
+        result = apply_transformation(
             text,
             {"name": "truncate", "max_length": max_length, "suffix": suffix},
         )
@@ -72,20 +71,16 @@ class TestFilteringEdgeCases:
 
     def test_empty_filter_results(self):
         """Test filtering that results in empty collections."""
-        engine = FilterEngine()
 
         items = [{"type": "A"}, {"type": "B"}]
-        result = engine.filter_collection(
-            items, {"type": "C"}
-        )  # Nothing matches
+        result = filter_collection(items, {"type": "C"})  # Nothing matches
         assert result == []
 
-        result = engine.filter_collection([], {"type": "A"})  # Empty input
+        result = filter_collection([], {"type": "A"})  # Empty input
         assert result == []
 
     def test_complex_nested_filtering(self):
         """Test complex nested logical operations."""
-        engine = FilterEngine()
 
         items = [
             {"a": 1, "b": {"c": "x"}},
@@ -94,7 +89,7 @@ class TestFilteringEdgeCases:
         ]
 
         # This tests dot notation path access in filters
-        result = engine.filter_collection(items, {"b.c": "y"})
+        result = filter_collection(items, {"b.c": "y"})
         assert len(result) == 2
         # Verify all returned items have b.c == "y"
         for item in result:
@@ -102,7 +97,6 @@ class TestFilteringEdgeCases:
 
     def test_filter_with_transformation_chain(self):
         """Test filtering objects after transformation."""
-        extractor = AdvancedAttributeExtractor()
 
         data = {
             "items": [
@@ -114,7 +108,7 @@ class TestFilteringEdgeCases:
         }
 
         # Transform names to lowercase, then filter by type
-        result = extractor.extract_attribute(
+        result = extract_attribute(
             data,
             {
                 "path": "items",
@@ -136,15 +130,13 @@ class TestPathExpressionEdgeCases:
 
     def test_very_deep_nesting(self):
         """Test very deep nesting scenarios."""
-        engine = PathExpressionEngine()
 
         deep_data = {"a": {"b": {"c": {"d": {"e": {"f": "deep_value"}}}}}}
-        result = engine.extract_by_path(deep_data, "a.b.c.d.e.f")
+        result = extract_by_path(deep_data, "a.b.c.d.e.f")
         assert result == "deep_value"
 
     def test_mixed_data_types_in_paths(self):
         """Test paths through mixed data types."""
-        engine = PathExpressionEngine()
 
         mixed_data = {
             "config": {
@@ -155,21 +147,20 @@ class TestPathExpressionEdgeCases:
             }
         }
 
-        result = engine.extract_by_path(mixed_data, "config.items[1].values[0]")
+        result = extract_by_path(mixed_data, "config.items[1].values[0]")
         assert result == 40
 
     def test_numeric_keys_and_indices(self):
         """Test handling of numeric keys vs indices."""
-        engine = PathExpressionEngine()
 
         # Dict with numeric string keys
         data_dict = {"0": "zero_string", "1": "one_string"}
-        result = engine.extract_by_path(data_dict, "['0']")
+        result = extract_by_path(data_dict, "['0']")
         assert result == "zero_string"
 
         # List with numeric indices
         data_list = ["zero_index", "one_index"]
-        result = engine.extract_by_path(data_list, "[0]")
+        result = extract_by_path(data_list, "[0]")
         assert result == "zero_index"
 
     @pytest.mark.parametrize(
@@ -185,14 +176,13 @@ class TestPathExpressionEdgeCases:
     )
     def test_empty_input_handling(self, empty_input):
         """Test that empty inputs are handled gracefully."""
-        engine = PathExpressionEngine()
 
         # Should not crash on empty inputs
-        result = engine.extract_by_path(empty_input, "any.path")
+        result = extract_by_path(empty_input, "any.path")
         assert result is None
 
 
-class TestDeclarativeConverterIntegration:
+class Testconvert_nodeIntegration:
     """Test complete integration scenarios."""
 
     def test_metadata_transformation_with_fallback(self):
@@ -210,25 +200,23 @@ class TestDeclarativeConverterIntegration:
             }
         }
 
-        converter = DeclarativeConverter(config)
-
         # Test with description
         source1 = {
             "name": "item1",
             "description": "This is a very long description that will be truncated",
         }
-        result1 = converter.convert(source1)
+        result1 = convert_node(source1, config)
         assert len(result1.metadata) <= 20
         assert result1.metadata.endswith("…")
 
         # Test with fallback
         source2 = {"name": "item2", "summary": "Short summary"}
-        result2 = converter.convert(source2)
+        result2 = convert_node(source2, config)
         assert result2.metadata == "Short summary"
 
         # Test with default
         source3 = {"name": "item3"}
-        result3 = converter.convert(source3)
+        result3 = convert_node(source3, config)
         assert result3.metadata == "No description"
 
     def test_complex_filtering_in_type_overrides(self):
@@ -259,8 +247,6 @@ class TestDeclarativeConverterIntegration:
             },
         }
 
-        converter = DeclarativeConverter(config)
-
         source = {
             "name": "MyModule",
             "node_type": "filtered_module",
@@ -280,7 +266,7 @@ class TestDeclarativeConverterIntegration:
             "items": [],
         }
 
-        result = converter.convert(source)
+        result = convert_node(source, config)
         assert (
             len(result.children) == 2
         )  # Only get_user and set_config should pass the filter
@@ -294,11 +280,10 @@ class TestDeclarativeConverterIntegration:
             }
         }
 
-        converter = DeclarativeConverter(config)
         source = {"name": "test"}
 
         with pytest.raises(ConversionError, match="Unknown transformation"):
-            converter.convert(source)
+            convert_node(source, config)
 
     def test_large_collection_filtering_performance(self):
         """Test performance with larger collections."""
@@ -309,15 +294,13 @@ class TestDeclarativeConverterIntegration:
             }
         }
 
-        converter = DeclarativeConverter(config)
-
         # Generate large dataset
         large_source = {
             "name": "root",
             "items": [{"value": i, "name": f"item_{i}"} for i in range(1000)],
         }
 
-        result = converter.convert(large_source)
+        result = convert_node(large_source, config)
 
         # Should efficiently filter to items with value > 500
         assert len(result.children) == 499  # 501-999 inclusive
@@ -342,33 +325,30 @@ class TestRegressionTests:
 
     def test_dict_method_access_bug(self):
         """Test that dict methods like 'items' aren't accessed instead of dict keys."""
-        engine = PathExpressionEngine()
 
         data = {"items": ["a", "b", "c"], "keys": ["x", "y", "z"]}
 
         # These should access the dict values, not the methods
-        assert engine.extract_by_path(data, "items") == ["a", "b", "c"]
-        assert engine.extract_by_path(data, "keys") == ["x", "y", "z"]
-        assert engine.extract_by_path(data, "items[0]") == "a"
+        assert extract_by_path(data, "items") == ["a", "b", "c"]
+        assert extract_by_path(data, "keys") == ["x", "y", "z"]
+        assert extract_by_path(data, "items[0]") == "a"
 
     def test_empty_bracket_handling(self):
         """Test that empty brackets are handled correctly."""
-        engine = PathExpressionEngine()
         data = {"test": [1, 2, 3]}
 
         with pytest.raises(ConversionError):
-            engine.extract_by_path(data, "test[]")
+            extract_by_path(data, "test[]")
 
     def test_transformation_order_in_extraction(self):
         """Test that transformation happens after path extraction but before filtering."""
-        extractor = AdvancedAttributeExtractor()
 
         data = {
             "items": [{"name": "HELLO"}, {"name": "WORLD"}, {"name": "test"}]
         }
 
         # Transform names to lowercase, then filter for ones starting with 'h'
-        result = extractor.extract_attribute(
+        result = extract_attribute(
             data,
             {
                 "path": "items",
