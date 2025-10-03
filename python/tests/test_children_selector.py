@@ -196,3 +196,30 @@ class TestChildrenSelectorIntegration:
 
         assert len(result.children) == 2
         assert all(child.type == "paragraph" for child in result.children)
+
+    def test_adapt_node_with_dict_structure(self):
+        """Test that ChildrenSelector works with dictionary structures."""
+        source_dict = {
+            "type": "session",
+            "label": "Session Title",
+            "paragraph": {"type": "paragraph", "label": "Paragraph content"},
+            "section": {"type": "section", "label": "Section content"},
+            "footer": {"type": "footer", "label": "Footer content"},
+        }
+
+        def_dict = {
+            "label": "label",
+            "type": "type",
+            "children": {
+                "include": ["paragraph", "section"],
+                "exclude": ["footer"],
+            },
+        }
+
+        result = adapt_node(source_dict, def_dict)
+
+        assert len(result.children) == 2
+        child_types = [child.type for child in result.children]
+        assert "paragraph" in child_types
+        assert "section" in child_types
+        assert "footer" not in child_types

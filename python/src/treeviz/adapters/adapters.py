@@ -99,12 +99,24 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
 
     if isinstance(effective_children, ChildrenSelector):
         # Node-based children selection: filter source_node's direct children
-        # For this to work, we assume source_node has attributes that contain child nodes
-        # We'll look at all attributes and filter nodes based on their type
-        for attr_name in dir(source_node):
-            if attr_name.startswith("_"):
-                continue
-            attr_value = getattr(source_node, attr_name, None)
+        # Support both dict keys and object attributes
+
+        # Get all potential attribute names/keys
+        attr_names = []
+        if isinstance(source_node, dict):
+            attr_names = list(source_node.keys())
+        else:
+            attr_names = [
+                name for name in dir(source_node) if not name.startswith("_")
+            ]
+
+        for attr_name in attr_names:
+            # Get the attribute value (works for both dict and object)
+            if isinstance(source_node, dict):
+                attr_value = source_node.get(attr_name)
+            else:
+                attr_value = getattr(source_node, attr_name, None)
+
             if attr_value is None:
                 continue
 
