@@ -48,7 +48,7 @@ class TestGetDefinitionCommand:
         output_data = json.loads(result.output)
         assert "label" in output_data
         assert "icons" in output_data
-        assert output_data["label"] == "name"
+        assert output_data["label"] == "label"  # Definition.default() uses "label"
 
     def test_get_definition_3viz_explicit(self):
         """Test getting 3viz definition explicitly."""
@@ -57,8 +57,8 @@ class TestGetDefinitionCommand:
         assert result.exit_code == 0
 
         output_data = json.loads(result.output)
-        assert output_data["label"] == "name"
-        assert output_data["type"] == "node_type"
+        assert output_data["label"] == "label"  # Definition.default() uses "label"
+        assert output_data["type"] == "type"    # Definition.default() uses "type"
         assert output_data["children"] == "children"
 
     def test_get_definition_mdast(self):
@@ -144,7 +144,7 @@ class TestOutputHelper:
 
     def test_output_data_json(self):
         """Test _output_data function with JSON format."""
-        from treeviz.cli import _output_data
+        from treeviz.__main__ import _output_data
         from io import StringIO
         import sys
 
@@ -163,7 +163,7 @@ class TestOutputHelper:
 
     def test_output_data_text(self):
         """Test _output_data function with text format."""
-        from treeviz.cli import _output_data
+        from treeviz.__main__ import _output_data
         from io import StringIO
         import sys
 
@@ -183,7 +183,7 @@ class TestOutputHelper:
 
     def test_output_data_invalid_format(self):
         """Test _output_data function with invalid format."""
-        from treeviz.cli import _output_data
+        from treeviz.__main__ import _output_data
 
         with pytest.raises(ValueError, match="Unknown output format"):
             _output_data({}, "invalid")

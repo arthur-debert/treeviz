@@ -31,7 +31,7 @@ include = ["python/src/treeviz/**", "LICENSE", "README.txt"]
 exclude = ["tests"]
 
 [tool.poetry.scripts]
-3viz = "treeviz.__main__:cli"
+3viz = "treeviz.__main__:main"
 
 
 ###############################################################################

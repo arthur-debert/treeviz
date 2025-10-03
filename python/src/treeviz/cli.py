@@ -1,16 +1,15 @@
 """
 3viz CLI
 
-This module provides a standalone CLI for the 3viz tool.
+This module provides argument parsing for the 3viz tool.
+Business logic is implemented in __main__.py.
 """
 
-import json
 import sys
-from dataclasses import asdict
 
 import click
 
-from .definitions import Lib, Definition
+from .definitions import Lib
 
 
 @click.group()
@@ -39,69 +38,39 @@ def cli(ctx, format):
 # TODO: Re-enable when parsers module is available
 
 
-@cli.command("get-definition")
-@click.argument(
-    "format_name",
-    type=click.Choice(Lib.list_formats() + ["3viz"]),
-    default="3viz",
-)
-@click.pass_context
-def get_definition(ctx, format_name):
-    """
+# Create the get-definition command dynamically
+def _make_get_definition_command():
+    """Create get-definition command with proper dynamic docstring."""
+    # Get available formats dynamically
+    available_formats = ["3viz"] + Lib.list_formats()
+    format_list = ", ".join(available_formats)
+
+    def get_definition_impl(ctx, format_name):
+        """Call the main business logic for get-definition."""
+        from . import __main__
+        
+        output_format = ctx.obj["format"]
+        __main__.get_definition(format_name, output_format)
+
+    # Set the docstring before applying decorators
+    get_definition_impl.__doc__ = f"""
     Get a definition for the specified format.
 
-    FORMAT_NAME: Name of the format (dynamically sourced from Lib.list_formats() plus 3viz)
+    FORMAT_NAME: Name of the format ({format_list})
     """
-    output_format = ctx.obj["format"]
 
-    try:
-        if format_name == "3viz":
-            # Generate a comprehensive sample definition for 3viz
-            sample_def = Definition(
-                label="name",
-                type="node_type",
-                children="children",
-                icons={
-                    "document": "⧉",
-                    "paragraph": "¶",
-                    "heading": "⊤",
-                    "list": "☰",
-                    "custom_type": "★",
-                },
-                type_overrides={
-                    "paragraph": {"label": "content"},
-                    "heading": {"label": "title"},
-                },
-                ignore_types=["comment", "whitespace"],
-            )
-            def_data = asdict(sample_def)
-        else:
-            def_data = asdict(Lib.get(format_name))
-    except Exception as e:
-        if output_format == "json":
-            click.echo(json.dumps({"error": str(e)}))
-        else:
-            click.echo(f"Error: {e}", err=True)
-        return
-
-    _output_data(def_data, output_format)
+    # Apply decorators
+    return cli.command("get-definition")(
+        click.argument(
+            "format_name",
+            type=click.Choice(Lib.list_formats() + ["3viz"]),
+            default="3viz",
+        )(click.pass_context(get_definition_impl))
+    )
 
 
-def _output_data(data, output_format):
-    """
-    Output data in the specified format.
-
-    Args:
-        data: The data to output
-        output_format: One of 'text', 'json', 'term'
-    """
-    if output_format == "json":
-        click.echo(json.dumps(data, indent=2))
-    elif output_format in ["text", "term"]:
-        # For text/term output, just pipe the JSON (simpler approach)
-        click.echo(json.dumps(data, indent=2))
-    else:
-        raise ValueError(f"Unknown output format: {output_format}")
+# Create the command
+get_definition = _make_get_definition_command()
 
 
 if __name__ == "__main__":
