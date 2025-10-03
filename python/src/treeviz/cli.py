@@ -50,7 +50,7 @@ def get_definition(ctx, format_name):
     """
     Get a definition for the specified format.
 
-    FORMAT_NAME: Name of the format (3viz, mdast, unist, etc.)
+    FORMAT_NAME: Name of the format (dynamically sourced from Lib.list_formats() plus 3viz)
     """
     output_format = ctx.obj["format"]
 

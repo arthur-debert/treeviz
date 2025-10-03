@@ -30,6 +30,9 @@ packages = [{ include = "treeviz", from = "python/src" }]
 include = ["python/src/treeviz/**", "LICENSE", "README.txt"]
 exclude = ["tests"]
 
+[tool.poetry.scripts]
+3viz = "treeviz.__main__:cli"
+
 
 ###############################################################################
 ### dependencies
