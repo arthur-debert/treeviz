@@ -10,7 +10,7 @@ from pathlib import Path
 from treeviz.definitions import (
     load_def,
     validate_def,
-    get_builtin_def,
+    load_format_def,
     ConversionError,
 )
 
@@ -49,7 +49,7 @@ def test_load_def_from_file():
         assert result["attributes"]["type"] == "node_type"  # User override
         assert result["attributes"]["children"] == "children"  # Default
         assert result["icons"]["test"] == "⧉"  # User override
-        assert "document" in result["icons"]  # Default icons included
+        # Note: Default icons are NOT merged in load_def - they're merged in adapter
         assert "type_overrides" in result  # Default included
         assert "ignore_types" in result  # Default included
     finally:
@@ -211,17 +211,17 @@ def test_create_sample_def():
 def test_builtin_defs_exist():
     """Test that built-in definitions exist and are valid."""
     # Test that we can load known builtin configs
-    mdast_def = get_builtin_def("mdast")
+    mdast_def = load_format_def("mdast").to_dict()
     assert "attributes" in mdast_def
     assert "label" in mdast_def["attributes"]
-    json_def = get_builtin_def("json")
+    json_def = load_format_def("json").to_dict()
     assert "attributes" in json_def
     assert "label" in json_def["attributes"]
 
 
-def test_get_builtin_def():
-    """Test getting built-in definition."""
-    def_ = get_builtin_def("json")
+def test_load_format_def():
+    """Test loading format definition."""
+    def_ = load_format_def("json").to_dict()
 
     assert "attributes" in def_
     assert "type_overrides" in def_
@@ -229,9 +229,9 @@ def test_get_builtin_def():
     # Note: icons is no longer in definitions - icons come from const.py and are merged in adapter
 
 
-def test_get_builtin_def_unknown():
-    """Test error when requesting unknown built-in definition."""
+def test_load_format_def_unknown():
+    """Test error when requesting unknown format definition."""
     with pytest.raises(
         ConversionError, match="Failed to load def_ file 'unknown.json'"
     ):
-        get_builtin_def("unknown")
+        load_format_def("unknown")

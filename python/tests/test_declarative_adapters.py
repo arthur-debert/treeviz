@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from treeviz.adapter import adapt_node
-from treeviz.definitions import get_builtin_def
+from treeviz.definitions import load_format_def
 
 
 class TestDeclarativeAdapters:
@@ -28,7 +28,7 @@ class TestDeclarativeAdapters:
             mdast_data = json.load(f)
 
         # Get MDAST definition
-        mdast_def = get_builtin_def("mdast")
+        mdast_def = load_format_def("mdast").to_dict()
 
         # Adapt the data
         result = adapt_node(mdast_data, mdast_def)
@@ -89,7 +89,7 @@ class TestDeclarativeAdapters:
             unist_data = json.load(f)
 
         # Get UNIST definition
-        unist_def = get_builtin_def("unist")
+        unist_def = load_format_def("unist").to_dict()
 
         # Adapt the data
         result = adapt_node(unist_data, unist_def)
@@ -137,7 +137,7 @@ class TestDeclarativeAdapters:
         with open(test_data_path) as f:
             mdast_data = json.load(f)
 
-        mdast_def = get_builtin_def("mdast")
+        mdast_def = load_format_def("mdast").to_dict()
         result = adapt_node(mdast_data, mdast_def)
 
         # Find a list node and verify its structure
@@ -175,7 +175,7 @@ class TestDeclarativeAdapters:
         with open(test_data_path) as f:
             unist_data = json.load(f)
 
-        unist_def = get_builtin_def("unist")
+        unist_def = load_format_def("unist").to_dict()
         result = adapt_node(unist_data, unist_def)
 
         # Find elements and check their labels use tagName

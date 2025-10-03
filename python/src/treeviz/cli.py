@@ -9,7 +9,7 @@ import json
 import click
 
 from .treeviz.definitions import (
-    get_builtin_def,
+    load_format_def,
     _load_def_file,
 )
 
@@ -98,7 +98,7 @@ def def_builtin(format_name, output, format):
     FORMAT_NAME: Name of the built-in format (mdast, json, etc.)
     """
     try:
-        def_data = get_builtin_def(format_name)
+        def_data = load_format_def(format_name).to_dict()
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
         return

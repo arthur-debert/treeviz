@@ -101,7 +101,7 @@ def load_def(
         ConversionError: If definition is invalid
     """
     # Start with default definition
-    def_ = get_default_def()
+    def_ = get_default_def().to_dict(merge_icons=False)
 
     # Load user definition if provided
     user_def = None
@@ -176,41 +176,39 @@ def _load_def_file(filename: str) -> Dict[str, Any]:
         raise ConversionError(f"Failed to load def_ file '{filename}': {e}")
 
 
-def get_default_def() -> Dict[str, Any]:
+def get_default_def() -> Definition:
     """
     Get the default definition.
 
     Returns:
-        Default definition with baseline icons from const.py
+        Default Definition object with baseline configuration
     """
-    return Definition.default().to_dict()
+    return Definition.default()
 
 
-def get_builtin_def(format_name: str) -> Dict[str, Any]:
+def load_format_def(format_name: str) -> Definition:
     """
-    Get a built-in definition for a popular format.
+    Load a format-specific definition merged with defaults.
 
     Args:
         format_name: Name of the format ("mdast", "unist", etc.)
 
     Returns:
-        Built-in definition merged with defaults
+        Definition object merged with defaults
 
     Raises:
         ConversionError: If format is not supported
     """
-    # Handle special case for generic structures - no special definition needed
+    # Handle special case - no specific definition needed for JSON
     if format_name == "json":
-        # JSON/dict structures work automatically with baseline icons from const.py
         return get_default_def()
 
-    # Load def_ from file
+    # Load format-specific definition file
     format_def_dict = _load_def_file(f"{format_name}.json")
 
-    # Merge with default definition using dataclass
-    default_definition = Definition.default()
-    merged_definition = default_definition.merge_with(format_def_dict)
-    return merged_definition.to_dict()
+    # Merge with defaults
+    default_def = get_default_def()
+    return default_def.merge_with(format_def_dict)
 
 
 def exit_on_def_error(func):

@@ -42,14 +42,14 @@ Declarative Conversion:
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_def, adapt_node
+    from treeviz import load_format_def, adapt_node
     
     # Use pre-built definition for MDAST structures
-    def_ = get_builtin_def("mdast")
+    def_ = load_format_def("mdast").to_dict()
     result = adapt_node(my_mdast_tree, def_)
     
     # For JSON/dict structures, use default definition (baseline icons work automatically)
-    def_ = get_builtin_def("json")  # Returns default definition with baseline icons
+    def_ = load_format_def("json").to_dict()  # Returns default definition with baseline icons
     result = adapt_node({"name": "test", "items": [1, 2, 3]}, def_)
 
 Core Concepts
@@ -142,17 +142,17 @@ Built-in Configurations
 
 MDAST: For Markdown Abstract Syntax Trees
     
-    def_ = get_builtin_def("mdast")
+    def_ = load_format_def("mdast").to_dict()
     # Handles paragraph, heading, list, text nodes with proper icons
 
 UNIST: For Universal Syntax Trees
     
-    def_ = get_builtin_def("unist")
+    def_ = load_format_def("unist").to_dict()
     # Handles element, text, comment nodes with proper element rendering
 
 Generic JSON/Dict Structures:
     
-    def_ = get_builtin_def("json")  # Returns baseline definition
+    def_ = load_format_def("json").to_dict()  # Returns baseline definition
     # Or just use default definition - both work the same
     # Baseline icons automatically handle dict, array, str, int, bool, etc.
 
@@ -243,7 +243,7 @@ from .renderer import (
 )
 from .definitions import (
     load_def,
-    get_builtin_def,
+    load_format_def,
 )
 
 __version__ = "1.0.0"
@@ -262,5 +262,5 @@ __all__ = [
     "DEFAULT_SYMBOLS",
     # Configuration management
     "load_def",
-    "get_builtin_def",
+    "load_format_def",
 ]

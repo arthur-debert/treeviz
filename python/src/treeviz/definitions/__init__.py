@@ -8,7 +8,7 @@ from .definitions import (
     load_def,
     validate_def,
     get_default_def,
-    get_builtin_def,
+    load_format_def,
     _load_def_file,
     ConversionError,
 )
@@ -18,7 +18,7 @@ __all__ = [
     "load_def",
     "validate_def",
     "get_default_def",
-    "get_builtin_def",
+    "load_format_def",
     "_load_def_file",
     "ConversionError",
     "Definition",
