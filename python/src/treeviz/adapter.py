@@ -27,12 +27,12 @@ from typing import Any, Dict, Optional, Callable
 from .model import Node
 from .exceptions import ConversionError
 from .advanced_extraction import extract_attribute
-from .const import ICONS
+from .definitions.schema import Definition
 
 
 def validate_def(def_: Dict[str, Any]) -> None:
     """
-    Validate converter definition.
+    Validate converter definition using Definition dataclass.
 
     Args:
         def_: Dictionary containing attribute mappings and icon mappings
@@ -40,15 +40,8 @@ def validate_def(def_: Dict[str, Any]) -> None:
     Raises:
         ConversionError: If definition is invalid
     """
-    attributes = def_.get("attributes", {})
-
-    if not attributes:
-        raise ConversionError("Configuration must include 'attributes' section")
-
-    if "label" not in attributes:
-        raise ConversionError(
-            "Configuration must specify how to extract 'label'"
-        )
+    # Validation is handled by Definition.from_dict()
+    Definition.from_dict(def_)
 
 
 def get_effective_attributes(
@@ -83,17 +76,13 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         ConversionError: If conversion fails
     """
     try:
-        validate_def(def_)
+        # Parse and validate using dataclass
+        definition = Definition.from_dict(def_)
 
-        attributes = def_.get("attributes", {})
-
-        # Merge baseline icons with definition overrides
-        icons = ICONS.copy()
-        if "icons" in def_:
-            icons.update(def_["icons"])
-
-        type_overrides = def_.get("type_overrides", {})
-        ignore_types = set(def_.get("ignore_types", []))
+        attributes = definition.attributes
+        icons = definition.get_merged_icons()
+        type_overrides = definition.type_overrides
+        ignore_types = set(definition.ignore_types)
 
         # Check if this node type should be ignored
         node_type = extract_attribute(source_node, attributes.get("type"))

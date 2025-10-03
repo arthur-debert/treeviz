@@ -202,11 +202,18 @@ Test definitions interactively:
 
 Generate sample definitions:
     
-    # Create definitions manually using declarative syntax
+    # Option 1: Dictionary format (classic)
     sample_def = {
         "attributes": {"label": "name", "type": "node_type"},
         "icons": {"function": "⚡", "class": "🏛"}
     }
+    
+    # Option 2: Dataclass format (recommended - typed and validated)
+    from treeviz.definitions import Definition
+    sample_def = Definition(
+        attributes={"label": "name", "type": "node_type"},
+        icons={"function": "⚡", "class": "🏛"}
+    ).to_dict()
 
 See Also
 --------

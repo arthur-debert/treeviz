@@ -77,33 +77,10 @@ from typing import Any, Dict, Optional
 import importlib.resources
 
 from ..adapter import ConversionError
-from ..const import ICONS
+from .schema import Definition
 
 
-def _deep_merge_def(
-    base: Dict[str, Any], override: Dict[str, Any]
-) -> Dict[str, Any]:
-    """
-    Deep merge definition dictionaries, with override taking precedence.
-
-    Args:
-        base: Base definition
-        override: Override definition
-    Returns:
-        Merged definition
-    """
-    result = base.copy()
-
-    for key, value in override.items():
-        if (
-            key in result
-            and isinstance(result[key], dict)
-            and isinstance(value, dict)
-        ):
-            result[key] = _deep_merge_def(result[key], value)
-        else:
-            result[key] = value
-    return result
+# Deep merge functionality moved to Definition.merge_with() method
 
 
 def load_def(
@@ -152,7 +129,9 @@ def load_def(
 
     # Merge user def_ with defaults if provided
     if user_def:
-        def_ = _deep_merge_def(def_, user_def)
+        default_definition = Definition.from_dict(def_)
+        merged_definition = default_definition.merge_with(user_def)
+        def_ = merged_definition.to_dict(merge_icons=False)
 
     # Validate definition
     return validate_def(def_)
@@ -160,54 +139,20 @@ def load_def(
 
 def validate_def(def_: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Validate a definition dictionary.
+    Validate a definition dictionary using the Definition dataclass.
 
     Args:
         def_: Configuration to validate
 
     Returns:
-        Validated definition (may include defaults)
+        Validated definition dictionary (original format)
 
     Raises:
         ConversionError: If definition is invalid
     """
-    if not isinstance(def_, dict):
-        raise ConversionError("Configuration must be a dictionary")
-
-    # Check for required sections
-    if "attributes" not in def_:
-        raise ConversionError("Configuration must include 'attributes' section")
-
-    attributes = def_["attributes"]
-    if not isinstance(attributes, dict):
-        raise ConversionError("'attributes' section must be a dictionary")
-
-    if "label" not in attributes:
-        raise ConversionError(
-            "'attributes' must specify how to extract 'label'"
-        )
-
-    # Validate optional sections
-    if "icons" in def_ and not isinstance(def_["icons"], dict):
-        raise ConversionError("'icons' must be a dictionary")
-
-    if "type_overrides" in def_ and not isinstance(
-        def_["type_overrides"], dict
-    ):
-        raise ConversionError("'type_overrides' must be a dictionary")
-
-    if "ignore_types" in def_ and not isinstance(def_["ignore_types"], list):
-        raise ConversionError("'ignore_types' must be a list")
-
-    # Validate type_overrides structure
-    if "type_overrides" in def_:
-        for type_name, overrides in def_["type_overrides"].items():
-            if not isinstance(overrides, dict):
-                raise ConversionError(
-                    f"Type override for '{type_name}' must be a dictionary"
-                )
-
-    return def_
+    # Use dataclass for validation but return original format for backwards compatibility
+    definition = Definition.from_dict(def_)
+    return definition.to_dict(merge_icons=False)
 
 
 def _load_def_file(filename: str) -> Dict[str, Any]:
@@ -238,16 +183,7 @@ def get_default_def() -> Dict[str, Any]:
     Returns:
         Default definition with baseline icons from const.py
     """
-    return {
-        "attributes": {
-            "label": "label",
-            "type": "type",
-            "children": "children",
-        },
-        "icons": ICONS.copy(),
-        "type_overrides": {},
-        "ignore_types": [],
-    }
+    return Definition.default().to_dict()
 
 
 def get_builtin_def(format_name: str) -> Dict[str, Any]:
@@ -269,12 +205,12 @@ def get_builtin_def(format_name: str) -> Dict[str, Any]:
         return get_default_def()
 
     # Load def_ from file
-    def_ = _load_def_file(f"{format_name}.json")
+    format_def_dict = _load_def_file(f"{format_name}.json")
 
-    # Merge with default definition
-    default_def = get_default_def()
-    merged_def = _deep_merge_def(default_def, def_)
-    return merged_def
+    # Merge with default definition using dataclass
+    default_definition = Definition.default()
+    merged_definition = default_definition.merge_with(format_def_dict)
+    return merged_definition.to_dict()
 
 
 def exit_on_def_error(func):

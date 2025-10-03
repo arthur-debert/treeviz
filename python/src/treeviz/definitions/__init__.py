@@ -12,6 +12,7 @@ from .definitions import (
     _load_def_file,
     ConversionError,
 )
+from .schema import Definition
 
 __all__ = [
     "load_def",
@@ -20,4 +21,5 @@ __all__ = [
     "get_builtin_def",
     "_load_def_file",
     "ConversionError",
+    "Definition",
 ]
