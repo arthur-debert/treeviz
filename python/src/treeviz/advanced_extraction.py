@@ -303,7 +303,7 @@ def extract_by_path(source_node: Any, path_expression: str) -> Any:
         return current
 
     except Exception as e:
-        # Convert any path evaluation error to ConversionError for consistent handling
+        # Adapt any path evaluation error to ConversionError for consistent handling
         raise ConversionError(
             f"Failed to evaluate path expression '{path_expression}': {e}"
         ) from e
@@ -495,7 +495,7 @@ def _truncate_text(
 
 # Type-safe text transformations
 def _text_upper(value: Any) -> str:
-    """Convert to uppercase with type checking."""
+    """Adapt to uppercase with type checking."""
     if not isinstance(value, str):
         raise ConversionError(
             f"upper transformation requires string input, got {type(value).__name__}"
@@ -504,7 +504,7 @@ def _text_upper(value: Any) -> str:
 
 
 def _text_lower(value: Any) -> str:
-    """Convert to lowercase with type checking."""
+    """Adapt to lowercase with type checking."""
     if not isinstance(value, str):
         raise ConversionError(
             f"lower transformation requires string input, got {type(value).__name__}"
@@ -705,7 +705,7 @@ def filter_collection(
         return filtered
 
     except Exception as e:
-        # Convert any filtering error to ConversionError
+        # Adapt any filtering error to ConversionError
         if isinstance(e, ConversionError):
             raise
         else:
@@ -869,4 +869,3 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
             )
 
     return primary_value
-

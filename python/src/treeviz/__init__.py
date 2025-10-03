@@ -24,7 +24,7 @@ Direct Node Construction:
 
 Declarative Conversion:
 
-    from treeviz import convert_node
+    from treeviz import adapt_node
     
     config = {
         "attributes": {
@@ -38,15 +38,15 @@ Declarative Conversion:
         }
     }
     
-    result = convert_node(my_ast_node, config)
+    result = adapt_node(my_ast_node, config)
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_config, convert_node
+    from treeviz import get_builtin_config, adapt_node
     
     # Use pre-built configuration for JSON structures
     config = get_builtin_config("json")
-    result = convert_node({"name": "test", "items": [1, 2, 3]}, config)
+    result = adapt_node({"name": "test", "items": [1, 2, 3]}, config)
 
 Core Concepts
 -------------
@@ -62,7 +62,7 @@ Node Structure:
     - children: Child nodes (optional)
 
 Declarative Configuration:
-    Convert any tree using JSON configuration instead of custom code:
+    Adapt any tree using JSON configuration instead of custom code:
     - attributes: Map source fields to Node fields
     - icon_map: Map types to Unicode symbols
     - type_overrides: Per-type attribute customization
@@ -204,7 +204,7 @@ See Also
 Examples: examples/standalone_3viz_demo.py
 Tests: tests/treeviz/ for comprehensive usage examples
 Config Reference: treeviz.config module for detailed configuration options
-Converter Reference: treeviz.converter module for advanced extraction features
+Converter Reference: treeviz.adapter module for advanced extraction features
 
 License: MIT
 Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
@@ -212,9 +212,9 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 
 # Main public API exports
 from .model import Node
-from .converter import (
-    convert_tree,
-    convert_node,
+from .adapter import (
+    adapt_tree,
+    adapt_node,
     validate_config,
 )
 from .exceptions import ConversionError
@@ -234,8 +234,8 @@ __all__ = [
     # Core data structures
     "Node",
     # Conversion engine
-    "convert_tree",
-    "convert_node",
+    "adapt_tree",
+    "adapt_node",
     "validate_config",
     "ConversionError",
     # Rendering

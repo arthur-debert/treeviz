@@ -6,7 +6,7 @@ icon mapping, and ignored types.
 """
 
 import pytest
-from treeviz.converter import convert_node, ConversionError
+from treeviz.adapter import adapt_node, ConversionError
 
 
 class MockNode:
@@ -27,7 +27,7 @@ def test_icon_mapping_basic(assert_node):
     source = MockNode(name="Paragraph", node_type="paragraph")
 
     # Using functional API
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_icon("¶")
 
@@ -42,7 +42,7 @@ def test_icon_mapping_missing_type():
     source = MockNode(name="Unknown", node_type="unknown")
 
     # Using functional API
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     # Should have no icon when type not in map
     assert result.icon is None
@@ -71,7 +71,7 @@ def test_icon_mapping_multiple_types():
 
     for name, node_type, expected_icon in test_cases:
         source = MockNode(name=name, node_type=node_type)
-        result = convert_node(source, config)
+        result = adapt_node(source, config)
         assert result.icon == expected_icon
 
 
@@ -85,7 +85,7 @@ def test_type_overrides_simple(assert_node):
     source = MockNode(name="Wrong", content="Correct", node_type="text")
 
     # Using functional API
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_label("Correct")
 
@@ -112,7 +112,7 @@ def test_type_overrides_multiple_attributes(assert_node):
     )
 
     # Using functional API
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_label("Correct Title").has_metadata(
         {"special": True}
@@ -136,14 +136,14 @@ def test_type_overrides_multiple_types():
     text_source = MockNode(
         name="Wrong", content="Text Content", node_type="text"
     )
-    text_result = convert_node(text_source, config)
+    text_result = adapt_node(text_source, config)
     assert text_result.label == "Text Content"
 
     # Test heading type
     heading_source = MockNode(
         name="Wrong", title="Heading Title", node_type="heading"
     )
-    heading_result = convert_node(heading_source, config)
+    heading_result = adapt_node(heading_source, config)
     assert heading_result.label == "Heading Title"
 
 
@@ -165,7 +165,7 @@ def test_ignore_types_single(assert_node):
     )
 
     # Using functional API
-    result = convert_node(parent, config)
+    result = adapt_node(parent, config)
 
     # Should only have one child (text), comment should be ignored
     assert_node(result).has_children_count(1)
@@ -195,7 +195,7 @@ def test_ignore_types_multiple(assert_node):
     )
 
     # Using functional API
-    result = convert_node(parent, config)
+    result = adapt_node(parent, config)
 
     # Should only have one child (text)
     assert_node(result).has_children_count(1)
@@ -228,7 +228,7 @@ def test_ignore_types_nested_trees(assert_node):
     )
 
     # Using functional API
-    result = convert_node(root, config)
+    result = adapt_node(root, config)
 
     # Root should have 2 children (branch and text2)
     assert_node(result).has_children_count(2)
@@ -239,19 +239,19 @@ def test_ignore_types_nested_trees(assert_node):
     assert_node(branch_result.children[0]).has_label("Text 1")
 
 
-def test_convert_tree_with_ignored_root():
+def test_adapt_tree_with_ignored_root():
     """Test error when root node type is ignored."""
     config = {
         "attributes": {"label": "name", "type": "node_type"},
         "ignore_types": ["root"],
     }
 
-    from treeviz.converter import convert_tree
+    from treeviz.adapter import adapt_tree
 
     source = MockNode(name="Root", node_type="root")
 
     with pytest.raises(ConversionError, match="Root node was ignored"):
-        convert_tree(source, config)
+        adapt_tree(source, config)
 
 
 def test_combined_type_features(assert_node):
@@ -278,7 +278,7 @@ def test_combined_type_features(assert_node):
     )
 
     # Using functional API
-    result = convert_node(parent, config)
+    result = adapt_node(parent, config)
 
     # Should have 2 children (heading and paragraph, comment ignored)
     assert_node(result).has_children_count(2)

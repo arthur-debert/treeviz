@@ -1,7 +1,7 @@
 """
 Declarative Converter Engine for 3viz
 
-This module provides a declarative way to convert any tree structure to the 3viz
+This module provides a declarative way to adapt any tree structure to the 3viz
 Node format. Instead of writing custom adapter code, users can specify how to
 extract information from their AST using simple attribute mappings.
 
@@ -18,7 +18,7 @@ Example usage:
         }
     }
     
-    node = convert_node(my_ast_node, config)
+    node = adapt_node(my_ast_node, config)
 """
 
 import sys
@@ -67,12 +67,12 @@ def get_effective_attributes(
     return effective
 
 
-def convert_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
+def adapt_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
     """
-    Convert a source AST node to a 3viz Node.
+    Adapt a source AST node to a 3viz Node.
 
     Args:
-        source_node: The source AST node to convert
+        source_node: The source AST node to adapt
         config: Dictionary containing attribute mappings and icon mappings
 
     Returns:
@@ -148,7 +148,7 @@ def convert_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
                     )
 
                 for child in children_source:
-                    child_node = convert_node(child, config)
+                    child_node = adapt_node(child, config)
                     if child_node is not None:  # Skip ignored nodes
                         children.append(child_node)
 
@@ -163,16 +163,16 @@ def convert_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
         )
 
     except Exception as e:
-        # Convert any error to ConversionError for consistent handling
+        # Adapt any error to ConversionError for consistent handling
         if isinstance(e, ConversionError):
             raise
         else:
-            raise ConversionError(f"Failed to convert node: {e}") from e
+            raise ConversionError(f"Failed to adapt node: {e}") from e
 
 
-def convert_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
+def adapt_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
     """
-    Convenience function to convert a tree with configuration.
+    Convenience function to adapt a tree with configuration.
 
     Args:
         source_tree: The root of the source AST
@@ -184,7 +184,7 @@ def convert_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
     Raises:
         ConversionError: If conversion fails
     """
-    result = convert_node(source_tree, config)
+    result = adapt_node(source_tree, config)
 
     if result is None:
         raise ConversionError(

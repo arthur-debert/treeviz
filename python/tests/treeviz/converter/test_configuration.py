@@ -6,7 +6,7 @@ configuration scenarios, validation, and error cases.
 """
 
 import pytest
-from treeviz.converter import convert_node, ConversionError
+from treeviz.adapter import adapt_node, ConversionError
 
 
 class MockNode:
@@ -23,7 +23,7 @@ def test_minimal_valid_configuration():
     source = MockNode(name="test")
 
     # Should not raise an exception
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
     assert result is not None
 
 
@@ -33,7 +33,7 @@ def test_configuration_validation_no_attributes():
     source = MockNode()
 
     with pytest.raises(ConversionError, match="must include 'attributes'"):
-        convert_node(source, config)
+        adapt_node(source, config)
 
 
 def test_configuration_validation_no_label():
@@ -44,7 +44,7 @@ def test_configuration_validation_no_label():
     with pytest.raises(
         ConversionError, match="must specify how to extract 'label'"
     ):
-        convert_node(source, config)
+        adapt_node(source, config)
 
 
 def test_configuration_with_icon_map():
@@ -55,7 +55,7 @@ def test_configuration_with_icon_map():
     }
     source = MockNode(name="test", node_type="paragraph")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
     assert result is not None
 
 
@@ -70,7 +70,7 @@ def test_configuration_with_type_overrides():
     }
     source = MockNode(name="test", node_type="text", content="text content")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
     assert result is not None
 
 
@@ -82,7 +82,7 @@ def test_configuration_with_ignore_types():
     }
     source = MockNode(name="test", node_type="normal")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
     assert result is not None
 
 
@@ -104,7 +104,7 @@ def test_configuration_with_all_features():
     }
     source = MockNode(name="test", node_type="paragraph", child_nodes=[])
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
     assert result is not None
 
 
@@ -118,7 +118,7 @@ def test_invalid_configuration_types():
     # Test with valid minimal config
     valid_config = {"attributes": {"label": "name"}}
     source = MockNode(name="test")
-    result = convert_node(source, valid_config)
+    result = adapt_node(source, valid_config)
     assert result is not None
 
 
@@ -127,11 +127,11 @@ def test_configuration_error_messages():
     source = MockNode()
 
     try:
-        convert_node(source, {})
+        adapt_node(source, {})
     except ConversionError as e:
         assert "attributes" in str(e).lower()
 
     try:
-        convert_node(source, {"attributes": {"type": "node_type"}})
+        adapt_node(source, {"attributes": {"type": "node_type"}})
     except ConversionError as e:
         assert "label" in str(e).lower()

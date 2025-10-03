@@ -6,10 +6,10 @@ children processing, and hierarchical data conversion.
 """
 
 import pytest
-from treeviz.converter import (
-    convert_node,
+from treeviz.adapter import (
+    adapt_node,
     ConversionError,
-    convert_tree,
+    adapt_tree,
 )
 from treeviz.model import Node
 
@@ -27,7 +27,7 @@ def test_single_node_conversion(assert_node):
     config = {"attributes": {"label": "name", "type": "node_type"}}
     source = MockNode(name="Leaf Node", node_type="leaf")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_label("Leaf Node").has_type(
         "leaf"
@@ -50,7 +50,7 @@ def test_parent_child_conversion(assert_node):
         name="Parent", node_type="parent", child_nodes=[child1, child2]
     )
 
-    result = convert_node(parent, config)
+    result = adapt_node(parent, config)
 
     assert_node(result).has_label("Parent").has_type(
         "parent"
@@ -74,7 +74,7 @@ def test_deep_tree_conversion(assert_node):
     child = MockNode(name="Child", node_type="branch", child_nodes=[grandchild])
     root = MockNode(name="Root", node_type="root", child_nodes=[child])
 
-    result = convert_node(root, config)
+    result = adapt_node(root, config)
 
     # Test the full tree structure
     assert_node(result).has_label("Root").has_type("root").has_children_count(1)
@@ -102,7 +102,7 @@ def test_empty_children_list(assert_node):
 
     source = MockNode(name="Empty Parent", node_type="parent", child_nodes=[])
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_children_count(0)
 
@@ -119,7 +119,7 @@ def test_missing_children_attribute(assert_node):
 
     source = MockNode(name="No Children", node_type="parent")
 
-    result = convert_node(source, config)
+    result = adapt_node(source, config)
 
     assert_node(result).has_children_count(0)
 
@@ -138,7 +138,7 @@ def test_children_conversion_error():
     with pytest.raises(
         ConversionError, match="Children attribute must return a list"
     ):
-        convert_node(source, config)
+        adapt_node(source, config)
 
 
 def test_mixed_child_types(assert_node):
@@ -161,7 +161,7 @@ def test_mixed_child_types(assert_node):
         child_nodes=[heading_child, text_child, list_child],
     )
 
-    result = convert_node(parent, config)
+    result = adapt_node(parent, config)
 
     assert_node(result).has_children_count(3)
     assert_node(result.children[0]).has_type("heading")
@@ -169,19 +169,19 @@ def test_mixed_child_types(assert_node):
     assert_node(result.children[2]).has_type("list")
 
 
-def test_convert_tree_convenience_function(assert_node):
-    """Test the convert_tree convenience function."""
+def test_adapt_tree_convenience_function(assert_node):
+    """Test the adapt_tree convenience function."""
     config = {"attributes": {"label": "name", "type": "node_type"}}
     source = MockNode(name="Root", node_type="root")
 
-    result = convert_tree(source, config)
+    result = adapt_tree(source, config)
 
     assert isinstance(result, Node)
     assert_node(result).has_label("Root").has_type("root")
 
 
-def test_convert_tree_with_children(assert_node):
-    """Test convert_tree with complex tree structure."""
+def test_adapt_tree_with_children(assert_node):
+    """Test adapt_tree with complex tree structure."""
     config = {
         "attributes": {
             "label": "name",
@@ -193,7 +193,7 @@ def test_convert_tree_with_children(assert_node):
     child = MockNode(name="Child", node_type="child")
     parent = MockNode(name="Parent", node_type="parent", child_nodes=[child])
 
-    result = convert_tree(parent, config)
+    result = adapt_tree(parent, config)
 
     assert_node(result).has_children_count(1)
     assert_node(result.children[0]).has_label("Child")
@@ -218,7 +218,7 @@ def test_recursive_tree_processing():
         name="Root", node_type="root", child_nodes=[branch1, branch2]
     )
 
-    result = convert_node(root, config)
+    result = adapt_node(root, config)
 
     # Verify the complete tree structure
     assert len(result.children) == 2

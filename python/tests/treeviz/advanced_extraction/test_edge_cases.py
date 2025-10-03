@@ -12,7 +12,7 @@ from treeviz.advanced_extraction import (
     extract_attribute,
 )
 from treeviz.exceptions import ConversionError
-from treeviz import convert_node
+from treeviz import adapt_node
 
 
 class TestTruncationEdgeCases:
@@ -182,7 +182,7 @@ class TestPathExpressionEdgeCases:
         assert result is None
 
 
-class Testconvert_nodeIntegration:
+class Testadapt_nodeIntegration:
     """Test complete integration scenarios."""
 
     def test_metadata_transformation_with_fallback(self):
@@ -205,18 +205,18 @@ class Testconvert_nodeIntegration:
             "name": "item1",
             "description": "This is a very long description that will be truncated",
         }
-        result1 = convert_node(source1, config)
+        result1 = adapt_node(source1, config)
         assert len(result1.metadata) <= 20
         assert result1.metadata.endswith("…")
 
         # Test with fallback
         source2 = {"name": "item2", "summary": "Short summary"}
-        result2 = convert_node(source2, config)
+        result2 = adapt_node(source2, config)
         assert result2.metadata == "Short summary"
 
         # Test with default
         source3 = {"name": "item3"}
-        result3 = convert_node(source3, config)
+        result3 = adapt_node(source3, config)
         assert result3.metadata == "No description"
 
     def test_complex_filtering_in_type_overrides(self):
@@ -266,7 +266,7 @@ class Testconvert_nodeIntegration:
             "items": [],
         }
 
-        result = convert_node(source, config)
+        result = adapt_node(source, config)
         assert (
             len(result.children) == 2
         )  # Only get_user and set_config should pass the filter
@@ -283,7 +283,7 @@ class Testconvert_nodeIntegration:
         source = {"name": "test"}
 
         with pytest.raises(ConversionError, match="Unknown transformation"):
-            convert_node(source, config)
+            adapt_node(source, config)
 
     def test_large_collection_filtering_performance(self):
         """Test performance with larger collections."""
@@ -300,7 +300,7 @@ class Testconvert_nodeIntegration:
             "items": [{"value": i, "name": f"item_{i}"} for i in range(1000)],
         }
 
-        result = convert_node(large_source, config)
+        result = adapt_node(large_source, config)
 
         # Should efficiently filter to items with value > 500
         assert len(result.children) == 499  # 501-999 inclusive

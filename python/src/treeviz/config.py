@@ -78,7 +78,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 import importlib.resources
 
-from .converter import ConversionError
+from .adapter import ConversionError
 
 
 def _deep_merge_config(

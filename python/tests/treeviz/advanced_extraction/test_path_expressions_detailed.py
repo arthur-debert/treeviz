@@ -1136,16 +1136,16 @@ class TestIntegrationHardcore:
         self, config, source, expected_label, expected_child_count
     ):
         """Test realistic configuration scenarios that combine multiple features."""
-        from treeviz.converter import convert_node
+        from treeviz.adapter import adapt_node
 
-        result = convert_node(source, config)
+        result = adapt_node(source, config)
 
         assert result.label == expected_label
         assert len(result.children) == expected_child_count
 
     def test_performance_with_large_data(self):
         """Test performance with larger data structures."""
-        from treeviz.converter import convert_node
+        from treeviz.adapter import adapt_node
 
         # Create a large source structure
         large_source = {
@@ -1182,7 +1182,7 @@ class TestIntegrationHardcore:
             },
         }
 
-        result = convert_node(large_source, config)
+        result = adapt_node(large_source, config)
 
         # Should complete without error and produce reasonable results
         assert result.label == "root"
@@ -1217,7 +1217,7 @@ class TestIntegrationHardcore:
     )
     def test_edge_case_data_handling(self, edge_case_data):
         """Test that edge case data is handled gracefully."""
-        from treeviz.converter import convert_node
+        from treeviz.adapter import adapt_node
 
         config = {
             "attributes": {
@@ -1228,7 +1228,7 @@ class TestIntegrationHardcore:
 
         # Should not crash on edge case data
         try:
-            result = convert_node(edge_case_data, config)
+            result = adapt_node(edge_case_data, config)
             assert result is not None
             assert result.label == "unnamed"  # Should use default
         except ConversionError:
