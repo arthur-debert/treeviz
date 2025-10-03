@@ -44,8 +44,12 @@ Built-in Format Support:
 
     from treeviz import get_builtin_def, adapt_node
     
-    # Use pre-built definition for JSON structures
-    def_ = get_builtin_def("json")
+    # Use pre-built definition for MDAST structures
+    def_ = get_builtin_def("mdast")
+    result = adapt_node(my_mdast_tree, def_)
+    
+    # For JSON/dict structures, use default definition (baseline icons work automatically)
+    def_ = get_builtin_def("json")  # Returns default definition with baseline icons
     result = adapt_node({"name": "test", "items": [1, 2, 3]}, def_)
 
 Core Concepts
@@ -136,15 +140,21 @@ Output Customization:
 Built-in Configurations
 -----------------------
 
-JSON: For JSON-like structures
-    
-    def_ = get_builtin_def("json")
-    # Handles dicts, lists, and primitive types automatically
-
 MDAST: For Markdown Abstract Syntax Trees
     
-    def_ = get_builtin_def("mdast") 
-    # Handles paragraph, heading, list, text nodes with proper text extraction
+    def_ = get_builtin_def("mdast")
+    # Handles paragraph, heading, list, text nodes with proper icons
+
+UNIST: For Universal Syntax Trees
+    
+    def_ = get_builtin_def("unist")
+    # Handles element, text, comment nodes with proper element rendering
+
+Generic JSON/Dict Structures:
+    
+    def_ = get_builtin_def("json")  # Returns baseline definition
+    # Or just use default definition - both work the same
+    # Baseline icons automatically handle dict, array, str, int, bool, etc.
 
 Error Messages
 --------------

@@ -6,10 +6,10 @@ This module renders 3viz Node trees to the 3viz text format using pure functions
 
 from typing import Dict, Optional, List, NamedTuple
 from .model import Node
-from .definitions import get_default_def
+from .const import ICONS
 
-# Export DEFAULT_SYMBOLS for tests - load from def_
-DEFAULT_SYMBOLS = get_default_def()["icon_map"]
+# Export DEFAULT_SYMBOLS for tests - use const baseline
+DEFAULT_SYMBOLS = ICONS
 
 
 class RenderOptions(NamedTuple):
@@ -32,9 +32,8 @@ def create_render_options(
     Returns:
         RenderOptions with merged symbols
     """
-    # Get default symbols from definition
-    default_def = get_default_def()
-    merged_symbols = default_def["icon_map"].copy()
+    # Start with baseline icons from const.py
+    merged_symbols = ICONS.copy()
 
     # Allow override of specific symbols
     if symbols:

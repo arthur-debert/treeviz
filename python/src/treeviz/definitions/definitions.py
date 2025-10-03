@@ -79,6 +79,7 @@ from typing import Any, Dict, Optional
 import importlib.resources
 
 from ..adapter import ConversionError
+from ..const import ICONS
 
 
 def _deep_merge_def(
@@ -237,9 +238,12 @@ def get_default_def() -> Dict[str, Any]:
     Get the default definition.
 
     Returns:
-        Default definition loaded from default.json
+        Default definition loaded from default.json with baseline icons
     """
-    return _load_def_file("default.json")
+    def_ = _load_def_file("default.json")
+    # Add baseline icons from const.py
+    def_["icon_map"] = ICONS.copy()
+    return def_
 
 
 def get_builtin_def(format_name: str) -> Dict[str, Any]:
@@ -247,7 +251,7 @@ def get_builtin_def(format_name: str) -> Dict[str, Any]:
     Get a built-in definition for a popular format.
 
     Args:
-        format_name: Name of the format ("mdast", "json", etc.)
+        format_name: Name of the format ("mdast", "unist", etc.)
 
     Returns:
         Built-in definition merged with defaults
@@ -255,6 +259,11 @@ def get_builtin_def(format_name: str) -> Dict[str, Any]:
     Raises:
         ConversionError: If format is not supported
     """
+    # Handle special case for generic structures - no special definition needed
+    if format_name == "json":
+        # JSON/dict structures work automatically with baseline icons from const.py
+        return get_default_def()
+
     # Load def_ from file
     def_ = _load_def_file(f"{format_name}.json")
 

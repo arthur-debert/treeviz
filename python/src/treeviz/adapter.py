@@ -27,6 +27,7 @@ from typing import Any, Dict, Optional, Callable
 from .model import Node
 from .exceptions import ConversionError
 from .advanced_extraction import extract_attribute
+from .const import ICONS
 
 
 def validate_def(def_: Dict[str, Any]) -> None:
@@ -85,7 +86,12 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         validate_def(def_)
 
         attributes = def_.get("attributes", {})
-        icon_map = def_.get("icon_map", {})
+
+        # Merge baseline icons with definition overrides
+        icon_map = ICONS.copy()
+        if "icon_map" in def_:
+            icon_map.update(def_["icon_map"])
+
         type_overrides = def_.get("type_overrides", {})
         ignore_types = set(def_.get("ignore_types", []))
 

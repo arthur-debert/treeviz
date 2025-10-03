@@ -217,11 +217,9 @@ def test_get_builtin_def():
     def_ = get_builtin_def("json")
 
     assert "attributes" in def_
-    assert "icon_map" in def_
     assert "type_overrides" in def_
     assert "ignore_types" in def_
-    # Should include default def_ elements
-    assert "document" in def_["icon_map"]  # From defaults
+    # Note: icon_map is no longer in definitions - icons come from const.py and are merged in adapter
 
 
 def test_get_builtin_def_unknown():

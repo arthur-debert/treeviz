@@ -44,8 +44,8 @@ def test_icon_mapping_missing_type():
     # Using functional API
     result = adapt_node(source, def_)
 
-    # Should have no icon when type not in map
-    assert result.icon is None
+    # Should get fallback icon from baseline const.py
+    assert result.icon == "?"
 
 
 def test_icon_mapping_multiple_types():
