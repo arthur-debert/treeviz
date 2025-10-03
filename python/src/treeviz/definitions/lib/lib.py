@@ -9,7 +9,7 @@ import json
 import importlib.resources
 from pathlib import Path
 from typing import Dict
-from ..schema import Definition
+from ..model import Definition
 
 
 class Lib:

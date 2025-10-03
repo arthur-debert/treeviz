@@ -8,8 +8,7 @@ import pytest
 from pathlib import Path
 from dataclasses import asdict
 
-from treeviz.definitions import Lib
-from treeviz.definitions.schema import Definition
+from treeviz.definitions import Lib, Definition
 
 
 def test_load_def_from_dict():

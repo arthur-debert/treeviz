@@ -9,8 +9,7 @@ from dataclasses import asdict
 
 import click
 
-from .definitions import Lib
-from .definitions.schema import Definition
+from .definitions import Lib, Definition
 
 
 @click.group()

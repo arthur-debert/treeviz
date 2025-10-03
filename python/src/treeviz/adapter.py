@@ -24,7 +24,7 @@ from typing import Any, Dict, Optional, Callable
 
 from .model import Node
 from .advanced_extraction import extract_attribute
-from .definitions.schema import Definition
+from .definitions.model import Definition
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
@@ -83,9 +83,9 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     content_lines = extract_attribute(source_node, effective_content_lines)
     if not isinstance(content_lines, int):
         content_lines = 1
-    
+
     source_location = extract_attribute(source_node, effective_source_location)
-    
+
     # Extract metadata using advanced extractor
     extracted_metadata = extract_attribute(source_node, effective_metadata)
     metadata = extracted_metadata if extracted_metadata is not None else {}
