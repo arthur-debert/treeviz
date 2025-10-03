@@ -24,10 +24,10 @@ class MockNode:
 
 def test_single_node_conversion(assert_node):
     """Test conversion of a single node without children."""
-    config = {"attributes": {"label": "name", "type": "node_type"}}
+    def_ = {"attributes": {"label": "name", "type": "node_type"}}
     source = MockNode(name="Leaf Node", node_type="leaf")
 
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_label("Leaf Node").has_type(
         "leaf"
@@ -36,7 +36,7 @@ def test_single_node_conversion(assert_node):
 
 def test_parent_child_conversion(assert_node):
     """Test conversion of parent node with children."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -50,7 +50,7 @@ def test_parent_child_conversion(assert_node):
         name="Parent", node_type="parent", child_nodes=[child1, child2]
     )
 
-    result = adapt_node(parent, config)
+    result = adapt_node(parent, def_)
 
     assert_node(result).has_label("Parent").has_type(
         "parent"
@@ -61,7 +61,7 @@ def test_parent_child_conversion(assert_node):
 
 def test_deep_tree_conversion(assert_node):
     """Test conversion of deeply nested tree structures."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -74,7 +74,7 @@ def test_deep_tree_conversion(assert_node):
     child = MockNode(name="Child", node_type="branch", child_nodes=[grandchild])
     root = MockNode(name="Root", node_type="root", child_nodes=[child])
 
-    result = adapt_node(root, config)
+    result = adapt_node(root, def_)
 
     # Test the full tree structure
     assert_node(result).has_label("Root").has_type("root").has_children_count(1)
@@ -92,7 +92,7 @@ def test_deep_tree_conversion(assert_node):
 
 def test_empty_children_list(assert_node):
     """Test conversion when children list is empty."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -102,14 +102,14 @@ def test_empty_children_list(assert_node):
 
     source = MockNode(name="Empty Parent", node_type="parent", child_nodes=[])
 
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_children_count(0)
 
 
 def test_missing_children_attribute(assert_node):
     """Test conversion when children attribute is missing."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -119,14 +119,14 @@ def test_missing_children_attribute(assert_node):
 
     source = MockNode(name="No Children", node_type="parent")
 
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_children_count(0)
 
 
 def test_children_conversion_error():
     """Test error when children attribute returns non-list."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "children": "bad_children",
@@ -138,12 +138,12 @@ def test_children_conversion_error():
     with pytest.raises(
         ConversionError, match="Children attribute must return a list"
     ):
-        adapt_node(source, config)
+        adapt_node(source, def_)
 
 
 def test_mixed_child_types(assert_node):
     """Test conversion with children of different types."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -161,7 +161,7 @@ def test_mixed_child_types(assert_node):
         child_nodes=[heading_child, text_child, list_child],
     )
 
-    result = adapt_node(parent, config)
+    result = adapt_node(parent, def_)
 
     assert_node(result).has_children_count(3)
     assert_node(result.children[0]).has_type("heading")
@@ -171,10 +171,10 @@ def test_mixed_child_types(assert_node):
 
 def test_adapt_tree_convenience_function(assert_node):
     """Test the adapt_tree convenience function."""
-    config = {"attributes": {"label": "name", "type": "node_type"}}
+    def_ = {"attributes": {"label": "name", "type": "node_type"}}
     source = MockNode(name="Root", node_type="root")
 
-    result = adapt_tree(source, config)
+    result = adapt_tree(source, def_)
 
     assert isinstance(result, Node)
     assert_node(result).has_label("Root").has_type("root")
@@ -182,7 +182,7 @@ def test_adapt_tree_convenience_function(assert_node):
 
 def test_adapt_tree_with_children(assert_node):
     """Test adapt_tree with complex tree structure."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -193,7 +193,7 @@ def test_adapt_tree_with_children(assert_node):
     child = MockNode(name="Child", node_type="child")
     parent = MockNode(name="Parent", node_type="parent", child_nodes=[child])
 
-    result = adapt_tree(parent, config)
+    result = adapt_tree(parent, def_)
 
     assert_node(result).has_children_count(1)
     assert_node(result.children[0]).has_label("Child")
@@ -201,7 +201,7 @@ def test_adapt_tree_with_children(assert_node):
 
 def test_recursive_tree_processing():
     """Test that tree processing handles recursive structures correctly."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -218,7 +218,7 @@ def test_recursive_tree_processing():
         name="Root", node_type="root", child_nodes=[branch1, branch2]
     )
 
-    result = adapt_node(root, config)
+    result = adapt_node(root, def_)
 
     # Verify the complete tree structure
     assert len(result.children) == 2

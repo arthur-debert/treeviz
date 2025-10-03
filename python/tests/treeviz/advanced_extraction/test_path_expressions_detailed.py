@@ -49,7 +49,7 @@ class TestPathExpressionHardcore:
         [
             # Basic dot notation
             ("a.b", {"a": {"b": "value"}}, "value"),
-            ("config.name", {"config": {"name": "app"}}, "app"),
+            ("def_.name", {"def_": {"name": "app"}}, "app"),
             (
                 "deep.nested.value",
                 {"deep": {"nested": {"value": "found"}}},
@@ -166,8 +166,8 @@ class TestPathExpressionHardcore:
             ("matrix[1][0]", {"matrix": [[1, 2, 3], [4, 5, 6]]}, 4),
             # Deep nesting with mixed access
             (
-                "config.databases[0].host",
-                {"config": {"databases": [{"host": "localhost"}]}},
+                "def_.databases[0].host",
+                {"def_": {"databases": [{"host": "localhost"}]}},
                 "localhost",
             ),
             (
@@ -989,8 +989,8 @@ class TestAdvancedAttributeExtractorHardcore:
         [
             # Deep nesting with arrays
             (
-                {"config": {"servers": [{"db": {"host": "localhost"}}]}},
-                "config.servers[0].db.host",
+                {"def_": {"servers": [{"db": {"host": "localhost"}}]}},
+                "def_.servers[0].db.host",
             ),
             # Multiple array accesses
             ({"matrix": [[{"value": 42}]]}, "matrix[0][0].value"),
@@ -1051,9 +1051,9 @@ class TestIntegrationHardcore:
     """Hardcore integration tests combining all Phase 2 features."""
 
     @pytest.mark.parametrize(
-        "config,source,expected_label,expected_child_count",
+        "def_,source,expected_label,expected_child_count",
         [
-            # Basic configuration with filtering
+            # Basic definition with filtering
             (
                 {
                     "attributes": {
@@ -1115,14 +1115,14 @@ class TestIntegrationHardcore:
                 {
                     "attributes": {
                         "label": {
-                            "path": "config.display.title",
+                            "path": "def_.display.title",
                             "transform": {"name": "truncate", "max_length": 10},
                         },
                         "children": "modules",
                     }
                 },
                 {
-                    "config": {
+                    "def_": {
                         "display": {"title": "Very Long Application Title"}
                     },
                     "modules": [],
@@ -1132,13 +1132,13 @@ class TestIntegrationHardcore:
             ),
         ],
     )
-    def test_realistic_configurations(
-        self, config, source, expected_label, expected_child_count
+    def test_realistic_defurations(
+        self, def_, source, expected_label, expected_child_count
     ):
-        """Test realistic configuration scenarios that combine multiple features."""
+        """Test realistic definition scenarios that combine multiple features."""
         from treeviz.adapter import adapt_node
 
-        result = adapt_node(source, config)
+        result = adapt_node(source, def_)
 
         assert result.label == expected_label
         assert len(result.children) == expected_child_count
@@ -1167,7 +1167,7 @@ class TestIntegrationHardcore:
             ],
         }
 
-        config = {
+        def_ = {
             "attributes": {
                 "label": "name",
                 "children": {"path": "modules", "filter": {"type": "module"}},
@@ -1182,7 +1182,7 @@ class TestIntegrationHardcore:
             },
         }
 
-        result = adapt_node(large_source, config)
+        result = adapt_node(large_source, def_)
 
         # Should complete without error and produce reasonable results
         assert result.label == "root"
@@ -1219,7 +1219,7 @@ class TestIntegrationHardcore:
         """Test that edge case data is handled gracefully."""
         from treeviz.adapter import adapt_node
 
-        config = {
+        def_ = {
             "attributes": {
                 "label": {"path": "name", "default": "unnamed"},
                 "children": {"path": "items", "default": []},
@@ -1228,7 +1228,7 @@ class TestIntegrationHardcore:
 
         # Should not crash on edge case data
         try:
-            result = adapt_node(edge_case_data, config)
+            result = adapt_node(edge_case_data, def_)
             assert result is not None
             assert result.label == "unnamed"  # Should use default
         except ConversionError:

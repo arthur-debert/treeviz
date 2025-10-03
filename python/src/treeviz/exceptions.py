@@ -7,6 +7,6 @@ Separating exceptions prevents circular import issues between modules.
 
 
 class ConversionError(Exception):
-    """Raised when conversion fails due to malformed data or configuration."""
+    """Raised when conversion fails due to malformed data or definition."""
 
     pass

@@ -19,7 +19,7 @@ class MockNode:
 
 def test_icon_mapping_basic(assert_node):
     """Test basic icon mapping functionality."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
@@ -27,14 +27,14 @@ def test_icon_mapping_basic(assert_node):
     source = MockNode(name="Paragraph", node_type="paragraph")
 
     # Using functional API
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_icon("¶")
 
 
 def test_icon_mapping_missing_type():
     """Test icon mapping when type is not in map."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"paragraph": "¶"},
     }
@@ -42,7 +42,7 @@ def test_icon_mapping_missing_type():
     source = MockNode(name="Unknown", node_type="unknown")
 
     # Using functional API
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     # Should have no icon when type not in map
     assert result.icon is None
@@ -50,7 +50,7 @@ def test_icon_mapping_missing_type():
 
 def test_icon_mapping_multiple_types():
     """Test icon mapping with various node types."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {
             "document": "⧉",
@@ -71,13 +71,13 @@ def test_icon_mapping_multiple_types():
 
     for name, node_type, expected_icon in test_cases:
         source = MockNode(name=name, node_type=node_type)
-        result = adapt_node(source, config)
+        result = adapt_node(source, def_)
         assert result.icon == expected_icon
 
 
 def test_type_overrides_simple(assert_node):
     """Test simple type-specific attribute overrides."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "type_overrides": {"text": {"label": "content"}},
     }
@@ -85,14 +85,14 @@ def test_type_overrides_simple(assert_node):
     source = MockNode(name="Wrong", content="Correct", node_type="text")
 
     # Using functional API
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_label("Correct")
 
 
 def test_type_overrides_multiple_attributes(assert_node):
     """Test type overrides affecting multiple attributes."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -112,7 +112,7 @@ def test_type_overrides_multiple_attributes(assert_node):
     )
 
     # Using functional API
-    result = adapt_node(source, config)
+    result = adapt_node(source, def_)
 
     assert_node(result).has_label("Correct Title").has_metadata(
         {"special": True}
@@ -121,7 +121,7 @@ def test_type_overrides_multiple_attributes(assert_node):
 
 def test_type_overrides_multiple_types():
     """Test type overrides for multiple different types."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "type_overrides": {
             "text": {"label": "content"},
@@ -136,20 +136,20 @@ def test_type_overrides_multiple_types():
     text_source = MockNode(
         name="Wrong", content="Text Content", node_type="text"
     )
-    text_result = adapt_node(text_source, config)
+    text_result = adapt_node(text_source, def_)
     assert text_result.label == "Text Content"
 
     # Test heading type
     heading_source = MockNode(
         name="Wrong", title="Heading Title", node_type="heading"
     )
-    heading_result = adapt_node(heading_source, config)
+    heading_result = adapt_node(heading_source, def_)
     assert heading_result.label == "Heading Title"
 
 
 def test_ignore_types_single(assert_node):
     """Test ignoring a single node type."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -165,7 +165,7 @@ def test_ignore_types_single(assert_node):
     )
 
     # Using functional API
-    result = adapt_node(parent, config)
+    result = adapt_node(parent, def_)
 
     # Should only have one child (text), comment should be ignored
     assert_node(result).has_children_count(1)
@@ -174,7 +174,7 @@ def test_ignore_types_single(assert_node):
 
 def test_ignore_types_multiple(assert_node):
     """Test ignoring multiple node types."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -195,7 +195,7 @@ def test_ignore_types_multiple(assert_node):
     )
 
     # Using functional API
-    result = adapt_node(parent, config)
+    result = adapt_node(parent, def_)
 
     # Should only have one child (text)
     assert_node(result).has_children_count(1)
@@ -204,7 +204,7 @@ def test_ignore_types_multiple(assert_node):
 
 def test_ignore_types_nested_trees(assert_node):
     """Test that ignored types work in nested tree structures."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -228,7 +228,7 @@ def test_ignore_types_nested_trees(assert_node):
     )
 
     # Using functional API
-    result = adapt_node(root, config)
+    result = adapt_node(root, def_)
 
     # Root should have 2 children (branch and text2)
     assert_node(result).has_children_count(2)
@@ -241,7 +241,7 @@ def test_ignore_types_nested_trees(assert_node):
 
 def test_adapt_tree_with_ignored_root():
     """Test error when root node type is ignored."""
-    config = {
+    def_ = {
         "attributes": {"label": "name", "type": "node_type"},
         "ignore_types": ["root"],
     }
@@ -251,12 +251,12 @@ def test_adapt_tree_with_ignored_root():
     source = MockNode(name="Root", node_type="root")
 
     with pytest.raises(ConversionError, match="Root node was ignored"):
-        adapt_tree(source, config)
+        adapt_tree(source, def_)
 
 
 def test_combined_type_features(assert_node):
     """Test combining icon mapping, type overrides, and ignore types."""
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -278,7 +278,7 @@ def test_combined_type_features(assert_node):
     )
 
     # Using functional API
-    result = adapt_node(parent, config)
+    result = adapt_node(parent, def_)
 
     # Should have 2 children (heading and paragraph, comment ignored)
     assert_node(result).has_children_count(2)

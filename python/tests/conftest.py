@@ -1,5 +1,5 @@
 """
-Pytest configuration and custom assertions for treeviz tests.
+Pytest definition and custom assertions for treeviz tests.
 
 This file provides pytest fixtures and custom assertion methods that are available
 to all test files automatically.

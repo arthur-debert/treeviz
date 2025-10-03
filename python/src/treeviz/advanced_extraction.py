@@ -8,10 +8,10 @@ This module provides enhanced declarative extraction capabilities including:
 - Advanced filtering with complex predicates
 
 The extraction engine is designed to handle real-world AST complexity while 
-maintaining the "fail fast" principle for malformed configurations.
+maintaining the "fail fast" principle for malformed definitions.
 
 Key Design Principles:
-- Declarative over imperative: prefer configuration to code
+- Declarative over imperative: prefer definition to code
 - Fail fast on malformed input but provide helpful error messages
 - Extensible: new transformations and predicates can be easily added
 - Performance: optimized for typical AST sizes (up to ~100 nodes)
@@ -42,8 +42,8 @@ def parse_path_expression(path: str) -> List[Dict[str, Any]]:
         unquoted_string := [^\\]\\s]+
 
     Examples:
-        "config.items[0].name" -> [
-            {"type": "attribute", "name": "config"},
+        "def_.items[0].name" -> [
+            {"type": "attribute", "name": "def_"},
             {"type": "attribute", "name": "items"},
             {"type": "index", "index": 0},
             {"type": "attribute", "name": "name"}
@@ -273,7 +273,7 @@ def extract_by_path(source_node: Any, path_expression: str) -> Any:
 
     Args:
         source_node: The source node to extract from
-        path_expression: Path like "config.items[0].name"
+        path_expression: Path like "def_.items[0].name"
 
     Returns:
         Extracted value or None if path doesn't exist
@@ -826,7 +826,7 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
         result = extract_by_path(source_node, extraction_spec)
         return result
 
-    # Literal values: constants, numbers, booleans in configuration
+    # Literal values: constants, numbers, booleans in definition
     if not isinstance(extraction_spec, dict):
         return extraction_spec  # Literal value pass-through
 

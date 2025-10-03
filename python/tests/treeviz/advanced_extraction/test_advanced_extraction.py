@@ -38,9 +38,9 @@ class TestPathExpressionEngine:
 
     def test_dot_notation(self):
         """Test nested dot notation access."""
-        data = {"config": {"database": {"host": "localhost"}}}
+        data = {"def_": {"database": {"host": "localhost"}}}
 
-        result = extract_by_path(data, "config.database.host")
+        result = extract_by_path(data, "def_.database.host")
         assert result == "localhost"
 
     def test_array_indexing(self):
@@ -405,7 +405,7 @@ class TestAdvancedAttributeExtractor:
     def test_nested_path_with_fallback_and_transform(self):
         """Test complex nested extraction with all Phase 2 features."""
         data = {
-            "config": {
+            "def_": {
                 "display": {
                     "description": "a very long description that should be truncated for display purposes"
                 }
@@ -415,8 +415,8 @@ class TestAdvancedAttributeExtractor:
         result = extract_attribute(
             data,
             {
-                "path": "config.display.title",
-                "fallback": "config.display.description",
+                "path": "def_.display.title",
+                "fallback": "def_.display.description",
                 "transform": {"name": "truncate", "max_length": 20},
                 "default": "No description",
             },

@@ -28,9 +28,9 @@ class TestRobustPathParser:
 
     def test_dot_notation(self):
         """Test dot notation for nested access."""
-        result = parse_path_expression("config.database.host")
+        result = parse_path_expression("def_.database.host")
         expected = [
-            {"type": "attribute", "name": "config"},
+            {"type": "attribute", "name": "def_"},
             {"type": "attribute", "name": "database"},
             {"type": "attribute", "name": "host"},
         ]
@@ -185,10 +185,10 @@ class TestRobustPathParser:
         assert result[1]["key"] == "key-with-dashes_and_underscores"
 
         # Mixed access patterns
-        result = parse_path_expression('root["config"].items[0].nested["key"]')
+        result = parse_path_expression('root["def_"].items[0].nested["key"]')
         expected = [
             {"type": "attribute", "name": "root"},
-            {"type": "key", "key": "config"},
+            {"type": "key", "key": "def_"},
             {"type": "attribute", "name": "items"},
             {"type": "index", "index": 0},
             {"type": "attribute", "name": "nested"},
@@ -207,7 +207,7 @@ class TestPathParserRobustness:
         test_cases = [
             'a.b[0].c["d"][1].e',
             "matrix[0][1][2]",
-            'config["database"]["host"]',
+            'def_["database"]["host"]',
             "users[-1].permissions[0]",
             'deeply.nested[0]["complex-key"].items[-1].value',
         ]

@@ -1,7 +1,7 @@
 """
 3viz - Standalone AST Visualization Library
 
-3viz transforms any tree structure into clean, scannable visualizations with minimal configuration.
+3viz transforms any tree structure into clean, scannable visualizations with minimal definition.
 Designed for developers debugging parsers, analyzing ASTs, and understanding document structure.
 
 Quick Start
@@ -26,7 +26,7 @@ Declarative Conversion:
 
     from treeviz import adapt_node
     
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",           # Extract label from node.name
             "type": "node_type",       # Extract type from node.node_type  
@@ -38,15 +38,15 @@ Declarative Conversion:
         }
     }
     
-    result = adapt_node(my_ast_node, config)
+    result = adapt_node(my_ast_node, def_)
 
 Built-in Format Support:
 
-    from treeviz import get_builtin_config, adapt_node
+    from treeviz import get_builtin_def, adapt_node
     
-    # Use pre-built configuration for JSON structures
-    config = get_builtin_config("json")
-    result = adapt_node({"name": "test", "items": [1, 2, 3]}, config)
+    # Use pre-built definition for JSON structures
+    def_ = get_builtin_def("json")
+    result = adapt_node({"name": "test", "items": [1, 2, 3]}, def_)
 
 Core Concepts
 -------------
@@ -62,7 +62,7 @@ Node Structure:
     - children: Child nodes (optional)
 
 Declarative Configuration:
-    Adapt any tree using JSON configuration instead of custom code:
+    Adapt any tree using JSON definition instead of custom code:
     - attributes: Map source fields to Node fields
     - icon_map: Map types to Unicode symbols
     - type_overrides: Per-type attribute customization
@@ -138,12 +138,12 @@ Built-in Configurations
 
 JSON: For JSON-like structures
     
-    config = get_builtin_config("json")
+    def_ = get_builtin_def("json")
     # Handles dicts, lists, and primitive types automatically
 
 MDAST: For Markdown Abstract Syntax Trees
     
-    config = get_builtin_config("mdast") 
+    def_ = get_builtin_def("mdast") 
     # Handles paragraph, heading, list, text nodes with proper text extraction
 
 Error Messages
@@ -181,19 +181,19 @@ Enable detailed error messages:
     import logging
     logging.basicConfig(level=logging.DEBUG)
 
-Test configurations interactively:
+Test definitions interactively:
     
-    from treeviz import validate_config, ConversionError
+    from treeviz import validate_def, ConversionError
     try:
-        validate_config(my_config)
+        validate_def(my_def)
         print("Configuration valid!")
     except ConversionError as e:
-        print(f"Config error: {e}")
+        print(f"def_ error: {e}")
 
-Generate sample configurations:
+Generate sample definitions:
     
-    # Create configurations manually using declarative syntax
-    sample_config = {
+    # Create definitions manually using declarative syntax
+    sample_def = {
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"function": "⚡", "class": "🏛"}
     }
@@ -203,7 +203,7 @@ See Also
 
 Examples: examples/standalone_3viz_demo.py
 Tests: tests/treeviz/ for comprehensive usage examples
-Config Reference: treeviz.config module for detailed configuration options
+def_ Reference: treeviz.definitions module for detailed definition options
 Converter Reference: treeviz.adapter module for advanced extraction features
 
 License: MIT
@@ -215,7 +215,7 @@ from .model import Node
 from .adapter import (
     adapt_tree,
     adapt_node,
-    validate_config,
+    validate_def,
 )
 from .exceptions import ConversionError
 from .renderer import (
@@ -224,9 +224,9 @@ from .renderer import (
     RenderOptions,
     DEFAULT_SYMBOLS,
 )
-from .config import (
-    load_config,
-    get_builtin_config,
+from .definitions import (
+    load_def,
+    get_builtin_def,
 )
 
 __version__ = "1.0.0"
@@ -236,7 +236,7 @@ __all__ = [
     # Conversion engine
     "adapt_tree",
     "adapt_node",
-    "validate_config",
+    "validate_def",
     "ConversionError",
     # Rendering
     "render",
@@ -244,6 +244,6 @@ __all__ = [
     "RenderOptions",
     "DEFAULT_SYMBOLS",
     # Configuration management
-    "load_config",
-    "get_builtin_config",
+    "load_def",
+    "get_builtin_def",
 ]

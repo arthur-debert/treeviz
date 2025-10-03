@@ -13,9 +13,9 @@ from treeviz.exceptions import ConversionError
 class TestPhase2Integration:
     """Test Phase 2 features integrated with DeclarativeConverter."""
 
-    def test_complex_path_expressions_in_config(self):
-        """Test complex path expressions in declarative configuration."""
-        config = {
+    def test_complex_path_expressions_in_def(self):
+        """Test complex path expressions in declarative definition."""
+        def_ = {
             "attributes": {
                 "label": "metadata.title",
                 "type": "node_info.type",
@@ -31,13 +31,13 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Test Node"
         assert result.type == "container"
 
-    def test_fallback_extraction_in_config(self):
-        """Test fallback chains in declarative configuration."""
-        config = {
+    def test_fallback_extraction_in_def(self):
+        """Test fallback chains in declarative definition."""
+        def_ = {
             "attributes": {
                 "label": {
                     "path": "title",
@@ -52,22 +52,22 @@ class TestPhase2Integration:
 
         # Test primary path exists
         source_data = {"title": "Primary Title", "child_nodes": []}
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Primary Title"
 
         # Test fallback path used
         source_data = {"name": "Fallback Name", "child_nodes": []}
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Fallback Name"
 
         # Test default value used
         source_data = {"child_nodes": []}
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "Untitled"
 
-    def test_transformations_in_config(self):
-        """Test transformation functions in declarative configuration."""
-        config = {
+    def test_transformations_in_def(self):
+        """Test transformation functions in declarative definition."""
+        def_ = {
             "attributes": {
                 "label": {"path": "name", "transform": "upper"},
                 "metadata": {
@@ -86,13 +86,13 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "TEST FUNCTION"
         assert len(result.metadata) <= 20  # Should be truncated
 
-    def test_children_filtering_in_config(self):
-        """Test children filtering in declarative configuration."""
-        config = {
+    def test_children_filtering_in_def(self):
+        """Test children filtering in declarative definition."""
+        def_ = {
             "attributes": {
                 "label": "name",
                 "children": {
@@ -114,14 +114,14 @@ class TestPhase2Integration:
             ],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert len(result.children) == 2
         assert result.children[0].label == "Child 1"
         assert result.children[1].label == "Child 2"
 
     def test_type_overrides_with_phase2_features(self):
         """Test type overrides combined with Phase 2 features."""
-        config = {
+        def_ = {
             "attributes": {
                 "label": "name",
                 "type": "node_type",
@@ -158,7 +158,7 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(function_data, config)
+        result = adapt_node(function_data, def_)
         assert len(result.label) <= 30
         assert result.metadata["param_count"] == 3
 
@@ -170,12 +170,12 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(class_data, config)
+        result = adapt_node(class_data, def_)
         assert result.label == "Myclass"
 
     def test_complex_nested_extraction(self):
         """Test complex nested data extraction with Phase 2 features."""
-        config = {
+        def_ = {
             "attributes": {
                 "label": {
                     "path": "definition.name",
@@ -223,15 +223,15 @@ class TestPhase2Integration:
             },
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "PublicClass"
         assert result.content_lines == 50
         assert result.metadata["annotation_count"] == 2
         assert len(result.children) == 2  # Private method filtered out
 
-    def test_array_indexing_in_config(self):
-        """Test array indexing in configuration paths."""
-        config = {
+    def test_array_indexing_in_def(self):
+        """Test array indexing in definition paths."""
+        def_ = {
             "attributes": {
                 "label": "items[0].name",
                 "type": "items[-1].type",
@@ -250,13 +250,13 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "First Item"
         assert result.type == "end"
 
     def test_filtering_with_logical_operators(self):
         """Test complex filtering with logical operators."""
-        config = {
+        def_ = {
             "attributes": {
                 "label": "name",
                 "children": {
@@ -296,7 +296,7 @@ class TestPhase2Integration:
                     "members": [],
                 },
                 {
-                    "name": "get_config",
+                    "name": "get_def",
                     "type": "method",
                     "visibility": "public",
                     "members": [],
@@ -310,21 +310,21 @@ class TestPhase2Integration:
             ],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert (
             len(result.children) == 2
-        )  # Only get_user and get_config match all conditions
+        )  # Only get_user and get_def match all conditions
         assert all("get_" in child.label for child in result.children)
 
     def test_custom_transformation_functions(self):
-        """Test custom transformation functions in configuration."""
+        """Test custom transformation functions in definition."""
 
         def format_signature(params):
             if not params:
                 return "no_params"
             return f"params({len(params)})"
 
-        config = {
+        def_ = {
             "attributes": {
                 "label": "name",
                 "metadata": {
@@ -343,13 +343,13 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.metadata == "params(2)"
 
     def test_phase2_backward_compatibility(self):
-        """Test that Phase 1 configurations still work with Phase 2 converter."""
-        # Simple Phase 1 configuration
-        config = {
+        """Test that Phase 1 definitions still work with Phase 2 converter."""
+        # Simple Phase 1 definition
+        def_ = {
             "attributes": {
                 "label": "name",
                 "type": "node_type",
@@ -366,14 +366,14 @@ class TestPhase2Integration:
             "child_nodes": [],
         }
 
-        result = adapt_node(source_data, config)
+        result = adapt_node(source_data, def_)
         assert result.label == "test_function"
         assert result.type == "function"
         assert result.icon == "⚡"
 
     def test_error_handling_in_phase2_features(self):
         """Test proper error handling with Phase 2 features."""
-        config = {
+        def_ = {
             "attributes": {
                 "label": {
                     "path": "broken[syntax",  # Malformed path
@@ -389,4 +389,4 @@ class TestPhase2Integration:
         with pytest.raises(
             ConversionError, match="Failed to evaluate path expression"
         ):
-            adapt_node(source_data, config)
+            adapt_node(source_data, def_)

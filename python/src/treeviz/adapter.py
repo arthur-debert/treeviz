@@ -6,7 +6,7 @@ Node format. Instead of writing custom adapter code, users can specify how to
 extract information from their AST using simple attribute mappings.
 
 Example usage:
-    config = {
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -18,7 +18,7 @@ Example usage:
         }
     }
     
-    node = adapt_node(my_ast_node, config)
+    node = adapt_node(my_ast_node, def_)
 """
 
 import sys
@@ -29,17 +29,17 @@ from .exceptions import ConversionError
 from .advanced_extraction import extract_attribute
 
 
-def validate_config(config: Dict[str, Any]) -> None:
+def validate_def(def_: Dict[str, Any]) -> None:
     """
-    Validate converter configuration.
+    Validate converter definition.
 
     Args:
-        config: Dictionary containing attribute mappings and icon mappings
+        def_: Dictionary containing attribute mappings and icon mappings
 
     Raises:
-        ConversionError: If configuration is invalid
+        ConversionError: If definition is invalid
     """
-    attributes = config.get("attributes", {})
+    attributes = def_.get("attributes", {})
 
     if not attributes:
         raise ConversionError("Configuration must include 'attributes' section")
@@ -55,7 +55,7 @@ def get_effective_attributes(
     type_overrides: Dict[str, Any],
     node_type: Optional[str],
 ) -> Dict[str, Any]:
-    """Get the effective attribute configuration for a given node type."""
+    """Get the effective attribute definition for a given node type."""
     # Start with default attributes
     effective = attributes.copy()
 
@@ -67,13 +67,13 @@ def get_effective_attributes(
     return effective
 
 
-def adapt_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
+def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     """
     Adapt a source AST node to a 3viz Node.
 
     Args:
         source_node: The source AST node to adapt
-        config: Dictionary containing attribute mappings and icon mappings
+        def_: Dictionary containing attribute mappings and icon mappings
 
     Returns:
         3viz Node or None if node should be ignored
@@ -82,12 +82,12 @@ def adapt_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
         ConversionError: If conversion fails
     """
     try:
-        validate_config(config)
+        validate_def(def_)
 
-        attributes = config.get("attributes", {})
-        icon_map = config.get("icon_map", {})
-        type_overrides = config.get("type_overrides", {})
-        ignore_types = set(config.get("ignore_types", []))
+        attributes = def_.get("attributes", {})
+        icon_map = def_.get("icon_map", {})
+        type_overrides = def_.get("type_overrides", {})
+        ignore_types = set(def_.get("ignore_types", []))
 
         # Check if this node type should be ignored
         node_type = extract_attribute(source_node, attributes.get("type"))
@@ -148,7 +148,7 @@ def adapt_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
                     )
 
                 for child in children_source:
-                    child_node = adapt_node(child, config)
+                    child_node = adapt_node(child, def_)
                     if child_node is not None:  # Skip ignored nodes
                         children.append(child_node)
 
@@ -170,13 +170,13 @@ def adapt_node(source_node: Any, config: Dict[str, Any]) -> Optional[Node]:
             raise ConversionError(f"Failed to adapt node: {e}") from e
 
 
-def adapt_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
+def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
     """
-    Convenience function to adapt a tree with configuration.
+    Convenience function to adapt a tree with definition.
 
     Args:
         source_tree: The root of the source AST
-        config: Declarative converter configuration
+        def_: Declarative converter definition
 
     Returns:
         Converted 3viz Node tree
@@ -184,11 +184,11 @@ def adapt_tree(source_tree: Any, config: Dict[str, Any]) -> Node:
     Raises:
         ConversionError: If conversion fails
     """
-    result = adapt_node(source_tree, config)
+    result = adapt_node(source_tree, def_)
 
     if result is None:
         raise ConversionError(
-            "Root node was ignored - check ignore_types configuration"
+            "Root node was ignored - check ignore_types definition"
         )
 
     return result
@@ -210,5 +210,3 @@ def exit_on_error(func: Callable) -> Callable:
             sys.exit(1)
 
     return wrapper
-
-

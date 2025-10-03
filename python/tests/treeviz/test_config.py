@@ -1,5 +1,5 @@
 """
-Tests for configuration management.
+Tests for definition management.
 """
 
 import json
@@ -7,21 +7,21 @@ import tempfile
 import pytest
 from pathlib import Path
 
-from treeviz.config import (
-    load_config,
-    validate_config,
-    get_builtin_config,
-    _load_config_file,
+from treeviz.definitions import (
+    load_def,
+    validate_def,
+    get_builtin_def,
+    _load_def_file,
     ConversionError,
 )
 
 
-def test_load_config_from_dict():
-    """Test loading configuration from dictionary."""
-    config_dict = {"attributes": {"label": "name", "type": "node_type"}}
+def test_load_def_from_dict():
+    """Test loading definition from dictionary."""
+    def_dict = {"attributes": {"label": "name", "type": "node_type"}}
 
-    result = load_config(config_dict=config_dict)
-    # Check that user config was merged with defaults
+    result = load_def(def_dict=def_dict)
+    # Check that user def_ was merged with defaults
     assert result["attributes"]["label"] == "name"  # User override
     assert result["attributes"]["type"] == "node_type"  # User override
     assert result["attributes"]["children"] == "children"  # Default
@@ -30,9 +30,9 @@ def test_load_config_from_dict():
     assert "ignore_types" in result  # Default included
 
 
-def test_load_config_from_file():
-    """Test loading configuration from JSON file."""
-    config_dict = {
+def test_load_def_from_file():
+    """Test loading definition from JSON file."""
+    def_dict = {
         "attributes": {"label": "name", "type": "node_type"},
         "icon_map": {"test": "⧉"},
     }
@@ -40,12 +40,12 @@ def test_load_config_from_file():
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".json", delete=False
     ) as f:
-        json.dump(config_dict, f)
+        json.dump(def_dict, f)
         temp_path = f.name
 
     try:
-        result = load_config(config_path=temp_path)
-        # Check that user config was merged with defaults
+        result = load_def(def_path=temp_path)
+        # Check that user def_ was merged with defaults
         assert result["attributes"]["label"] == "name"  # User override
         assert result["attributes"]["type"] == "node_type"  # User override
         assert result["attributes"]["children"] == "children"  # Default
@@ -57,14 +57,14 @@ def test_load_config_from_file():
         Path(temp_path).unlink()
 
 
-def test_load_config_file_not_found():
-    """Test error when configuration file doesn't exist."""
+def test_load_def_file_not_found():
+    """Test error when definition file doesn't exist."""
     with pytest.raises(ConversionError, match="Configuration file not found"):
-        load_config(config_path="/nonexistent/path.json")
+        load_def(def_path="/nonexistent/path.json")
 
 
-def test_load_config_invalid_json():
-    """Test error when configuration file has invalid JSON."""
+def test_load_def_invalid_json():
+    """Test error when definition file has invalid JSON."""
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".json", delete=False
     ) as f:
@@ -73,24 +73,24 @@ def test_load_config_invalid_json():
 
     try:
         with pytest.raises(ConversionError, match="Invalid JSON"):
-            load_config(config_path=temp_path)
+            load_def(def_path=temp_path)
     finally:
         Path(temp_path).unlink()
 
 
-def test_load_config_both_sources():
-    """Test error when both config_path and config_dict are provided."""
+def test_load_def_both_sources():
+    """Test error when both def_path and def_dict are provided."""
     with pytest.raises(ConversionError, match="Cannot specify both"):
-        load_config(
-            config_path="test.json",
-            config_dict={"attributes": {"label": "name"}},
+        load_def(
+            def_path="test.json",
+            def_dict={"attributes": {"label": "name"}},
         )
 
 
-def test_load_config_no_sources():
-    """Test that default configuration is returned when no sources are provided."""
-    result = load_config()
-    # Should return default configuration
+def test_load_def_no_sources():
+    """Test that default definition is returned when no sources are provided."""
+    result = load_def()
+    # Should return default definition
     assert "attributes" in result
     assert "icon_map" in result
     assert "type_overrides" in result
@@ -101,9 +101,9 @@ def test_load_config_no_sources():
     assert result["attributes"]["children"] == "children"
 
 
-def test_validate_config_valid():
-    """Test validation of valid configuration."""
-    config = {
+def test_validate_def_valid():
+    """Test validation of valid definition."""
+    def_ = {
         "attributes": {
             "label": "name",
             "type": "node_type",
@@ -114,69 +114,69 @@ def test_validate_config_valid():
         "ignore_types": ["comment"],
     }
 
-    result = validate_config(config)
-    assert result == config
+    result = validate_def(def_)
+    assert result == def_
 
 
-def test_validate_config_not_dict():
-    """Test validation error when config is not a dictionary."""
+def test_validate_def_not_dict():
+    """Test validation error when def_ is not a dictionary."""
     with pytest.raises(ConversionError, match="must be a dictionary"):
-        validate_config("not a dict")
+        validate_def("not a dict")
 
 
-def test_validate_config_missing_attributes():
+def test_validate_def_missing_attributes():
     """Test validation error when attributes section is missing."""
     with pytest.raises(ConversionError, match="must include 'attributes'"):
-        validate_config({})
+        validate_def({})
 
 
-def test_validate_config_attributes_not_dict():
+def test_validate_def_attributes_not_dict():
     """Test validation error when attributes is not a dictionary."""
     with pytest.raises(
         ConversionError, match="'attributes' section must be a dictionary"
     ):
-        validate_config({"attributes": "not a dict"})
+        validate_def({"attributes": "not a dict"})
 
 
-def test_validate_config_missing_label():
+def test_validate_def_missing_label():
     """Test validation error when label extraction is not specified."""
     with pytest.raises(
         ConversionError, match="must specify how to extract 'label'"
     ):
-        validate_config({"attributes": {"type": "node_type"}})
+        validate_def({"attributes": {"type": "node_type"}})
 
 
-def test_validate_config_invalid_icon_map():
+def test_validate_def_invalid_icon_map():
     """Test validation error when icon_map is not a dictionary."""
-    config = {"attributes": {"label": "name"}, "icon_map": "not a dict"}
+    def_ = {"attributes": {"label": "name"}, "icon_map": "not a dict"}
 
     with pytest.raises(
         ConversionError, match="'icon_map' must be a dictionary"
     ):
-        validate_config(config)
+        validate_def(def_)
 
 
-def test_validate_config_invalid_type_overrides():
+def test_validate_def_invalid_type_overrides():
     """Test validation error when type_overrides is not a dictionary."""
-    config = {"attributes": {"label": "name"}, "type_overrides": "not a dict"}
+    def_ = {"attributes": {"label": "name"}, "type_overrides": "not a dict"}
 
     with pytest.raises(
         ConversionError, match="'type_overrides' must be a dictionary"
     ):
-        validate_config(config)
+        validate_def(def_)
 
 
-def test_validate_config_invalid_ignore_types():
+def test_validate_def_invalid_ignore_types():
     """Test validation error when ignore_types is not a list."""
-    config = {"attributes": {"label": "name"}, "ignore_types": "not a list"}
+    def_ = {"attributes": {"label": "name"}, "ignore_types": "not a list"}
 
     with pytest.raises(ConversionError, match="'ignore_types' must be a list"):
-        validate_config(config)
+        validate_def(def_)
 
 
-def test_validate_config_invalid_type_override_value():
+def test_validate_def_invalid_type_override_value():
     """Test validation error when type override value is not a dictionary."""
-    config = {
+    def_ = {
         "attributes": {"label": "name"},
         "type_overrides": {"text": "not a dict"},
     }
@@ -184,49 +184,49 @@ def test_validate_config_invalid_type_override_value():
     with pytest.raises(
         ConversionError, match="Type override for 'text' must be a dictionary"
     ):
-        validate_config(config)
+        validate_def(def_)
 
 
-def test_create_sample_config():
-    """Test creation of sample configuration."""
-    config = _load_config_file("sample.json")
+def test_create_sample_def():
+    """Test creation of sample definition."""
+    def_ = _load_def_file("sample.json")
 
-    assert "attributes" in config
-    assert "label" in config["attributes"]
-    assert "icon_map" in config
-    assert "type_overrides" in config
-    assert "ignore_types" in config
+    assert "attributes" in def_
+    assert "label" in def_["attributes"]
+    assert "icon_map" in def_
+    assert "type_overrides" in def_
+    assert "ignore_types" in def_
 
     # Should be valid
-    validate_config(config)
+    validate_def(def_)
 
 
-def test_builtin_configs_exist():
-    """Test that built-in configurations exist and are valid."""
+def test_builtin_defs_exist():
+    """Test that built-in definitions exist and are valid."""
     # Test that we can load known builtin configs
-    mdast_config = get_builtin_config("mdast")
-    assert "attributes" in mdast_config
-    assert "label" in mdast_config["attributes"]
-    json_config = get_builtin_config("json")
-    assert "attributes" in json_config
-    assert "label" in json_config["attributes"]
+    mdast_def = get_builtin_def("mdast")
+    assert "attributes" in mdast_def
+    assert "label" in mdast_def["attributes"]
+    json_def = get_builtin_def("json")
+    assert "attributes" in json_def
+    assert "label" in json_def["attributes"]
 
 
-def test_get_builtin_config():
-    """Test getting built-in configuration."""
-    config = get_builtin_config("json")
+def test_get_builtin_def():
+    """Test getting built-in definition."""
+    def_ = get_builtin_def("json")
 
-    assert "attributes" in config
-    assert "icon_map" in config
-    assert "type_overrides" in config
-    assert "ignore_types" in config
-    # Should include default config elements
-    assert "document" in config["icon_map"]  # From defaults
+    assert "attributes" in def_
+    assert "icon_map" in def_
+    assert "type_overrides" in def_
+    assert "ignore_types" in def_
+    # Should include default def_ elements
+    assert "document" in def_["icon_map"]  # From defaults
 
 
-def test_get_builtin_config_unknown():
-    """Test error when requesting unknown built-in configuration."""
+def test_get_builtin_def_unknown():
+    """Test error when requesting unknown built-in definition."""
     with pytest.raises(
-        ConversionError, match="Failed to load config file 'unknown.json'"
+        ConversionError, match="Failed to load def_ file 'unknown.json'"
     ):
-        get_builtin_config("unknown")
+        get_builtin_def("unknown")
