@@ -22,9 +22,9 @@ Example usage:
 import sys
 from typing import Any, Dict, Optional, Callable
 
-from .model import Node
+from ..model import Node
 from .advanced_extraction import extract_attribute
-from .definitions.model import Definition
+from ..definitions.model import Definition
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:

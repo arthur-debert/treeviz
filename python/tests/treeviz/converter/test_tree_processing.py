@@ -6,7 +6,7 @@ children processing, and hierarchical data conversion.
 """
 
 import pytest
-from treeviz.adapter import (
+from treeviz.adapters import (
     adapt_node,
     adapt_tree,
 )

@@ -6,7 +6,7 @@ when integrated with the main DeclarativeConverter.
 """
 
 import pytest
-from treeviz.adapter import adapt_node
+from treeviz.adapters import adapt_node
 
 
 class TestPhase2Integration:

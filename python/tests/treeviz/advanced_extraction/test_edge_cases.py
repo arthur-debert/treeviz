@@ -5,7 +5,7 @@ This focuses on specific problematic scenarios discovered during testing.
 """
 
 import pytest
-from treeviz.advanced_extraction import (
+from treeviz.adapters.advanced_extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,

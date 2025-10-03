@@ -5,7 +5,7 @@ This test file focuses specifically on how the converter handles various
 definition scenarios, validation, and error cases.
 """
 
-from treeviz.adapter import adapt_node
+from treeviz.adapters import adapt_node
 
 
 class MockNode:

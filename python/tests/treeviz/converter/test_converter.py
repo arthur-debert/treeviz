@@ -3,7 +3,7 @@ Tests for the declarative converter engine.
 """
 
 import pytest
-from treeviz.adapter import (
+from treeviz.adapters import (
     adapt_tree,
     adapt_node,
 )

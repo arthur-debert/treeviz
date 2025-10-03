@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from dataclasses import asdict
 
-from treeviz.adapter import adapt_node
+from treeviz.adapters import adapt_node
 from treeviz.definitions import Lib
 
 

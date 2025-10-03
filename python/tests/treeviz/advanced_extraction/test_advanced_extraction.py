@@ -6,7 +6,7 @@ complex path expressions, transformations, filtering, and fallback chains.
 """
 
 import pytest
-from treeviz.advanced_extraction import (
+from treeviz.adapters.advanced_extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,

@@ -6,7 +6,7 @@ and edge cases for path expressions, transformations, filtering, and combination
 """
 
 import pytest
-from treeviz.advanced_extraction import (
+from treeviz.adapters.advanced_extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,
@@ -1124,7 +1124,7 @@ class TestIntegrationHardcore:
         self, def_, source, expected_label, expected_child_count
     ):
         """Test realistic definition scenarios that combine multiple features."""
-        from treeviz.adapter import adapt_node
+        from treeviz.adapters import adapt_node
 
         result = adapt_node(source, def_)
 
@@ -1133,7 +1133,7 @@ class TestIntegrationHardcore:
 
     def test_performance_with_large_data(self):
         """Test performance with larger data structures."""
-        from treeviz.adapter import adapt_node
+        from treeviz.adapters import adapt_node
 
         # Create a large source structure
         large_source = {
@@ -1206,7 +1206,7 @@ class TestIntegrationHardcore:
     )
     def test_edge_case_data_handling(self, edge_case_data):
         """Test that edge case data is handled gracefully."""
-        from treeviz.adapter import adapt_node
+        from treeviz.adapters import adapt_node
 
         def_ = {
             "label": {"path": "name", "default": "unnamed"},

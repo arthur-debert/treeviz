@@ -6,7 +6,7 @@ icon mapping, and ignored types.
 """
 
 import pytest
-from treeviz.adapter import adapt_node
+from treeviz.adapters import adapt_node
 
 
 class MockNode:
@@ -244,7 +244,7 @@ def test_adapt_tree_with_ignored_root():
         "ignore_types": ["root"],
     }
 
-    from treeviz.adapter import adapt_tree
+    from treeviz.adapters import adapt_tree
 
     source = MockNode(name="Root", node_type="root")
 

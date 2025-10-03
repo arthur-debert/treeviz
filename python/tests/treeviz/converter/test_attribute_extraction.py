@@ -5,7 +5,7 @@ This test file focuses on how the converter extracts various attributes
 from source nodes using different extraction methods.
 """
 
-from treeviz.adapter import adapt_node
+from treeviz.adapters import adapt_node
 
 
 class MockNode:

@@ -226,7 +226,7 @@ See Also
 Examples: examples/standalone_3viz_demo.py
 Tests: tests/treeviz/ for comprehensive usage examples
 def_ Reference: treeviz.definitions module for detailed definition options
-Converter Reference: treeviz.adapter module for advanced extraction features
+Converter Reference: treeviz.adapters module for advanced extraction features
 
 License: MIT
 Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
@@ -234,7 +234,7 @@ Repository: https://github.com/arthur-debert/treeviz/tree/main/src/treeviz
 
 # Main public API exports
 from .model import Node
-from .adapter import (
+from .adapters import (
     adapt_tree,
     adapt_node,
 )
