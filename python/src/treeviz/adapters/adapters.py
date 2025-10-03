@@ -24,7 +24,7 @@ from typing import Any, Dict, Optional, Callable
 
 from ..model import Node
 from .advanced_extraction import extract_attribute
-from ..definitions.model import Definition
+from ..definitions.model import Definition, ChildrenSelector
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
@@ -94,20 +94,52 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     if not icon and node_type and node_type in definition.icons:
         icon = definition.icons[node_type]
 
-    # Extract children using advanced extractor (supports filtering)
+    # Extract children using advanced extractor or node-based filtering
     children = []
-    children_source = extract_attribute(source_node, effective_children)
-    if children_source:
-        if not isinstance(children_source, list):
-            raise TypeError(
-                f"Children attribute must return a list, got {type(children_source).__name__}. "
-                f"Check your 'children' attribute mapping in the definition."
-            )
 
-        for child in children_source:
-            child_node = adapt_node(child, def_)
-            if child_node is not None:  # Skip ignored nodes
-                children.append(child_node)
+    if isinstance(effective_children, ChildrenSelector):
+        # Node-based children selection: filter source_node's direct children
+        # For this to work, we assume source_node has attributes that contain child nodes
+        # We'll look at all attributes and filter nodes based on their type
+        for attr_name in dir(source_node):
+            if attr_name.startswith("_"):
+                continue
+            attr_value = getattr(source_node, attr_name, None)
+            if attr_value is None:
+                continue
+
+            # Check if it's a list of potential child nodes
+            if isinstance(attr_value, list):
+                for potential_child in attr_value:
+                    # Try to get the type of this potential child
+                    child_type = extract_attribute(
+                        potential_child, definition.type
+                    )
+                    if child_type and effective_children.matches(child_type):
+                        child_node = adapt_node(potential_child, def_)
+                        if child_node is not None:
+                            children.append(child_node)
+            else:
+                # Check if it's a single potential child node
+                child_type = extract_attribute(attr_value, definition.type)
+                if child_type and effective_children.matches(child_type):
+                    child_node = adapt_node(attr_value, def_)
+                    if child_node is not None:
+                        children.append(child_node)
+    else:
+        # Traditional attribute-based children extraction
+        children_source = extract_attribute(source_node, effective_children)
+        if children_source:
+            if not isinstance(children_source, list):
+                raise TypeError(
+                    f"Children attribute must return a list, got {type(children_source).__name__}. "
+                    f"Check your 'children' attribute mapping in the definition."
+                )
+
+            for child in children_source:
+                child_node = adapt_node(child, def_)
+                if child_node is not None:  # Skip ignored nodes
+                    children.append(child_node)
 
     return Node(
         label=str(label),
