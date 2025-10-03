@@ -1,0 +1,9 @@
+{
+  "name": "root",
+  "type": "element",
+  "value": "Root content",
+  "children": [
+    {"name": "child1", "type": "text", "value": "First child"},
+    {"name": "child2", "type": "text", "value": "Second child"}
+  ]
+}

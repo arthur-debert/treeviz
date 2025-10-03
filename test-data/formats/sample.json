@@ -1,0 +1,29 @@
+{
+  "type": "document",
+  "title": "Sample Document",
+  "children": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a sample paragraph with some content."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "type": "listItem",
+          "text": "First item"
+        },
+        {
+          "type": "listItem", 
+          "text": "Second item"
+        }
+      ]
+    }
+  ]
+}

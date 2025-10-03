@@ -239,6 +239,15 @@ from .adapters import (
     adapt_node,
 )
 
+# Document format parsing
+from .formats import (
+    parse_document,
+    Format,
+    DocumentFormatError,
+    register_format,
+    get_supported_formats,
+)
+
 # No custom exceptions - we use standard Python exceptions with helpful messages
 from .renderer import (
     render,
@@ -254,10 +263,15 @@ __all__ = [
     # Conversion engine
     "adapt_tree",
     "adapt_node",
+    # Document format parsing
+    "parse_document",
+    "Format",
+    "DocumentFormatError",
+    "register_format",
+    "get_supported_formats",
     # Rendering
     "render",
     "create_render_options",
     "RenderOptions",
     "DEFAULT_SYMBOLS",
-    # Configuration management
 ]
