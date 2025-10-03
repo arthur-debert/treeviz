@@ -12,7 +12,7 @@ This provides a foundation for parsing XML, HTML, and similar markup formats.
 """
 
 import re
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Optional, Tuple, Union
 from dataclasses import dataclass
 
 
@@ -32,9 +32,19 @@ class PformatNode:
 
     tag: str
     attributes: Dict[str, str]
-    text_content: str
-    children: List["PformatNode"]
+    children: List[Union["PformatNode", "TextNode"]]
     is_self_closing: bool = False
+
+
+@dataclass
+class TextNode:
+    """
+    Internal representation of a text node.
+
+    Represents text content that appears between element tags.
+    """
+
+    content: str
 
 
 class PformatParser:
@@ -105,12 +115,10 @@ class PformatParser:
             # Handle text content before this tag
             text_before = self.content[last_pos : match.start()].strip()
             if text_before and self.tag_stack:
-                # Add text to current parent
+                # Add text as a separate TextNode to preserve order
                 _, current_node = self.tag_stack[-1]
-                if current_node.text_content:
-                    current_node.text_content += " " + text_before
-                else:
-                    current_node.text_content = text_before
+                text_node = TextNode(content=text_before)
+                current_node.children.append(text_node)
 
             # Parse the tag
             self._parse_single_tag(match)
@@ -120,10 +128,8 @@ class PformatParser:
         remaining_text = self.content[last_pos:].strip()
         if remaining_text and self.tag_stack:
             _, current_node = self.tag_stack[-1]
-            if current_node.text_content:
-                current_node.text_content += " " + remaining_text
-            else:
-                current_node.text_content = remaining_text
+            text_node = TextNode(content=remaining_text)
+            current_node.children.append(text_node)
 
     def _parse_single_tag(self, match: re.Match) -> None:
         """Parse a single tag match."""
@@ -145,9 +151,7 @@ class PformatParser:
     def _handle_opening_tag(self, tag_name: str, attr_string: str) -> None:
         """Handle opening tag."""
         attributes = self._parse_attributes(attr_string)
-        node = PformatNode(
-            tag=tag_name, attributes=attributes, text_content="", children=[]
-        )
+        node = PformatNode(tag=tag_name, attributes=attributes, children=[])
 
         if self.tag_stack:
             # Add to current parent's children
@@ -182,7 +186,6 @@ class PformatParser:
         node = PformatNode(
             tag=tag_name,
             attributes=attributes,
-            text_content="",
             children=[],
             is_self_closing=True,
         )
@@ -208,22 +211,60 @@ class PformatParser:
 
         return attributes
 
-    def _node_to_dict(self, node: PformatNode) -> Dict[str, Any]:
-        """Convert PformatNode to dict structure."""
+    def _node_to_dict(
+        self, node: Union[PformatNode, TextNode]
+    ) -> Union[Dict[str, Any], str]:
+        """Convert PformatNode or TextNode to dict structure."""
+        if isinstance(node, TextNode):
+            # Text nodes are represented as strings
+            return node.content
+
+        # Handle PformatNode
         result = {
             "type": node.tag,
             **node.attributes,  # Include attributes as top-level properties
         }
 
-        # Add text content if present
-        if node.text_content:
-            result["text"] = node.text_content
-
-        # Add children if present
+        # Process children - mix of elements and text nodes
         if node.children:
-            result["children"] = [
-                self._node_to_dict(child) for child in node.children
+            converted_children = []
+            text_parts = []
+
+            for child in node.children:
+                if isinstance(child, TextNode):
+                    text_parts.append(child.content)
+                else:
+                    # If we have accumulated text, add it first
+                    if text_parts:
+                        # Only add non-empty combined text
+                        combined_text = " ".join(text_parts).strip()
+                        if combined_text:
+                            converted_children.append(combined_text)
+                        text_parts = []
+
+                    # Add the element node
+                    converted_children.append(self._node_to_dict(child))
+
+            # Handle any remaining text at the end
+            if text_parts:
+                combined_text = " ".join(text_parts).strip()
+                if combined_text:
+                    converted_children.append(combined_text)
+
+            # Set children if we have any
+            if converted_children:
+                result["children"] = converted_children
+
+            # Also set text field for backward compatibility (combined text only)
+            text_only_parts = [
+                child.content
+                for child in node.children
+                if isinstance(child, TextNode)
             ]
+            if text_only_parts:
+                combined_text = " ".join(text_only_parts).strip()
+                if combined_text:
+                    result["text"] = combined_text
 
         # Add self-closing indicator if needed
         if node.is_self_closing:

@@ -12,6 +12,7 @@ from treeviz.formats.pformat import (
     PformatParseError,
     parse_pformat,
     PformatNode,
+    TextNode,
 )
 from treeviz.formats import parse_document, get_format_by_name
 
@@ -21,17 +22,19 @@ class TestPformatNode:
 
     def test_pformat_node_creation(self):
         """Test basic PformatNode creation."""
+
+        text_node = TextNode(content="Test content")
         node = PformatNode(
             tag="test",
             attributes={"id": "123"},
-            text_content="Test content",
-            children=[],
+            children=[text_node],
         )
 
         assert node.tag == "test"
         assert node.attributes == {"id": "123"}
-        assert node.text_content == "Test content"
-        assert node.children == []
+        assert len(node.children) == 1
+        assert isinstance(node.children[0], TextNode)
+        assert node.children[0].content == "Test content"
         assert node.is_self_closing is False
 
     def test_pformat_node_self_closing(self):
@@ -39,7 +42,6 @@ class TestPformatNode:
         node = PformatNode(
             tag="img",
             attributes={"src": "image.jpg"},
-            text_content="",
             children=[],
             is_self_closing=True,
         )
@@ -58,7 +60,9 @@ class TestPformatParser:
 
         assert result["type"] == "root"
         assert result["text"] == "Simple content"
-        assert "children" not in result
+        # Now children contains the text node
+        assert len(result["children"]) == 1
+        assert result["children"][0] == "Simple content"
 
     def test_nested_elements(self):
         """Test parsing nested elements."""
@@ -139,15 +143,40 @@ class TestPformatParser:
 
         assert result["type"] == "section"
         assert result["name"] == "test"
-        # Mixed text content should be accumulated
+        # Mixed text content should be accumulated in text field for compatibility
         assert "Some text before" in result["text"]
         assert "Text between elements" in result["text"]
         assert "Final text" in result["text"]
 
-        # Should have two paragraph children
-        assert len(result["children"]) == 2
-        assert result["children"][0]["text"] == "Paragraph content"
-        assert result["children"][1]["text"] == "Another paragraph"
+        # Should now have 5 children preserving document order: text, element, text, element, text
+        assert len(result["children"]) == 5
+        assert result["children"][0] == "Some text before"  # Text node
+        assert result["children"][1]["type"] == "paragraph"  # Element node
+        assert result["children"][1]["text"] == "Paragraph content"
+        assert result["children"][2] == "Text between elements"  # Text node
+        assert result["children"][3]["type"] == "paragraph"  # Element node
+        assert result["children"][3]["text"] == "Another paragraph"
+        assert result["children"][4] == "Final text"  # Text node
+
+    def test_mixed_content_preserves_order(self):
+        """Test that mixed content preserves document order - addresses GitHub comment issue."""
+        content = "<p>text1 <b>bold</b> text2</p>"
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "p"
+        # Should have 3 children in correct order: text1, <b>bold</b>, text2
+        assert len(result["children"]) == 3
+        assert result["children"][0] == "text1"  # Text before bold
+        assert result["children"][1]["type"] == "b"  # Bold element
+        assert result["children"][1]["text"] == "bold"
+        assert (
+            result["children"][2] == "text2"
+        )  # Text after bold - this was lost before!
+
+        # Backward compatibility: text field still contains all text
+        assert result["text"] == "text1 text2"
 
     def test_empty_document_error(self):
         """Test error handling for empty document."""
