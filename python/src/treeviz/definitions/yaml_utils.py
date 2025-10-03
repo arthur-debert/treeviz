@@ -109,9 +109,19 @@ def serialize_dict_to_yaml(
 
     for field_name, doc in field_docs.items():
         if field_name in commented_data:
-            commented_data.yaml_set_comment_before_after_key(
-                field_name, before=doc
-            )
+            # Special handling for children field to show examples
+            if field_name == "children":
+                extended_doc = (
+                    doc
+                    + "\n# Examples:\n# children: children  # traditional attribute\n# children:\n#   include: ['paragraph', 'section', 'h*']\n#   exclude: ['footer']"
+                )
+                commented_data.yaml_set_comment_before_after_key(
+                    field_name, before=extended_doc
+                )
+            else:
+                commented_data.yaml_set_comment_before_after_key(
+                    field_name, before=doc
+                )
 
     stream = StringIO()
     yml.dump(commented_data, stream)

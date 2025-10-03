@@ -6,8 +6,60 @@ replacing the ad-hoc dictionary validation.
 """
 
 from dataclasses import dataclass, field, asdict
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Union
+import fnmatch
 from ..const import ICONS
+
+
+@dataclass
+class ChildrenSelector:
+    """
+    Node-based children selection using include/exclude patterns.
+
+    When children are not in a specific attribute but are nodes themselves,
+    this selector allows filtering which node types should be considered children.
+    """
+
+    include: List[str] = field(
+        default_factory=lambda: ["*"],
+        metadata={
+            "doc": "Node types to include as children (supports '*' wildcard)"
+        },
+    )
+    exclude: List[str] = field(
+        default_factory=list,
+        metadata={
+            "doc": "Node types to exclude from children (supports '*' wildcard)"
+        },
+    )
+
+    def matches(self, node_type: str) -> bool:
+        """
+        Check if a node type should be included as a child.
+
+        Args:
+            node_type: The type of the node to check
+
+        Returns:
+            True if the node should be included as a child
+        """
+        if not node_type:
+            return False
+
+        # Check if included by any include pattern
+        included = any(
+            fnmatch.fnmatch(node_type, pattern) for pattern in self.include
+        )
+
+        if not included:
+            return False
+
+        # Check if excluded by any exclude pattern
+        excluded = any(
+            fnmatch.fnmatch(node_type, pattern) for pattern in self.exclude
+        )
+
+        return not excluded
 
 
 @dataclass
@@ -31,10 +83,10 @@ class Definition:
             "doc": "Field name to extract node type from (e.g., 'node_type', 'kind', 'tag')"
         },
     )
-    children: str = field(
+    children: Union[str, ChildrenSelector] = field(
         default="children",
         metadata={
-            "doc": "Field name to extract child nodes from (e.g., 'children', 'body', 'content')"
+            "doc": "Field name to extract child nodes from (e.g., 'children', 'body', 'content') or ChildrenSelector for node-based filtering"
         },
     )
 
@@ -102,6 +154,13 @@ class Definition:
             ):
                 # For icons only, merge with baseline (special case)
                 merged_data[key].update(value)
+            elif (
+                key == "children"
+                and isinstance(value, dict)
+                and ("include" in value or "exclude" in value)
+            ):
+                # Convert dict to ChildrenSelector only if it has include/exclude keys
+                merged_data[key] = ChildrenSelector(**value)
             else:
                 # For all other fields, replace completely
                 merged_data[key] = value
