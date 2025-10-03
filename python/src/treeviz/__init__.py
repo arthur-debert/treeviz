@@ -246,9 +246,6 @@ from .renderer import (
     RenderOptions,
     DEFAULT_SYMBOLS,
 )
-from .definitions import (
-    load_def,
-)
 
 __version__ = "1.0.0"
 __all__ = [
@@ -263,5 +260,4 @@ __all__ = [
     "RenderOptions",
     "DEFAULT_SYMBOLS",
     # Configuration management
-    "load_def",
 ]

@@ -4,9 +4,6 @@ Built-in definition files for treeviz.
 This package contains JSON definition files for popular AST formats.
 """
 
-from .definitions import (
-    load_def,
-)
 from .schema import Definition
 from .lib import Lib
 

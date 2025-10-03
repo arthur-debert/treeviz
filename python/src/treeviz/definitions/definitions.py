@@ -70,61 +70,7 @@ def_ = load_def()
 ```
 """
 
-import json
-from pathlib import Path
-from typing import Any, Dict, Optional
 
-from .schema import Definition
-from dataclasses import asdict
 
 
 # Deep merge functionality moved to Definition.merge_with() method
-
-
-def load_def(
-    def_path: Optional[str] = None, def_dict: Optional[Dict] = None
-) -> Dict[str, Any]:
-    """
-    Load and validate a 3viz definition.
-
-    Args:
-        def_path: Path to JSON definition file (optional)
-        def_dict: Configuration dictionary (optional, alternative to file)
-
-    Returns:
-        Validated definition dictionary merged with defaults.
-        If no def_ is provided, returns default definition.
-
-    Raises:
-        ValueError: If both def_path and def_dict are provided
-        FileNotFoundError: If definition file doesn't exist
-        json.JSONDecodeError: If JSON is invalid
-        TypeError, KeyError: If definition structure is invalid
-    """
-    # Start with default definition
-    def_ = asdict(Definition.default())
-
-    # Load user definition if provided
-    user_def = None
-    if def_path and def_dict:
-        raise ValueError("Cannot specify both def_path and def_dict")
-
-    if def_path:
-        path = Path(def_path)
-        if not path.exists():
-            raise FileNotFoundError(f"Configuration file not found: {def_path}")
-
-        with open(path, "r") as f:
-            user_def = json.load(f)  # Let JSONDecodeError bubble up naturally
-
-    elif def_dict:
-        user_def = def_dict
-
-    # Merge user def_ with defaults if provided
-    if user_def:
-        default_definition = Definition.from_dict(def_)
-        merged_definition = default_definition.merge_with(user_def)
-        def_ = asdict(merged_definition)
-
-    # Validation happens automatically in Definition.from_dict() via __post_init__
-    return def_

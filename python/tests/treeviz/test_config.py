@@ -8,18 +8,15 @@ import pytest
 from pathlib import Path
 from dataclasses import asdict
 
-from treeviz.definitions import (
-    load_def,
-    Lib,
-)
+from treeviz.definitions import Lib
 from treeviz.definitions.schema import Definition
 
 
 def test_load_def_from_dict():
     """Test loading definition from dictionary."""
     def_dict = {"label": "name", "type": "node_type"}
-
-    result = load_def(def_dict=def_dict)
+    definition = Definition.from_dict(def_dict)
+    result = asdict(definition)
     # Check that user def_ was merged with defaults
     assert result["label"] == "name"  # User override
     assert result["type"] == "node_type"  # User override
@@ -44,13 +41,17 @@ def test_load_def_from_file():
         temp_path = f.name
 
     try:
-        result = load_def(def_path=temp_path)
+        # Load JSON and create Definition
+        with open(temp_path) as f:
+            data = json.load(f)
+        definition = Definition.from_dict(data)
+        result = asdict(definition)
         # Check that user def_ was merged with defaults
         assert result["label"] == "name"  # User override
         assert result["type"] == "node_type"  # User override
         assert result["children"] == "children"  # Default
         assert result["icons"]["test"] == "⧉"  # User override
-        # Note: Default icons are NOT merged in load_def - they're merged in adapter
+        # Note: Default icons are merged in Definition.from_dict
         assert "type_overrides" in result  # Default included
         assert "ignore_types" in result  # Default included
     finally:
@@ -59,8 +60,9 @@ def test_load_def_from_file():
 
 def test_load_def_file_not_found():
     """Test error when definition file doesn't exist."""
-    with pytest.raises(FileNotFoundError, match="Configuration file not found"):
-        load_def(def_path="/nonexistent/path.json")
+    with pytest.raises(FileNotFoundError):
+        with open("/nonexistent/path.json") as f:
+            json.load(f)
 
 
 def test_load_def_invalid_json():
@@ -73,23 +75,16 @@ def test_load_def_invalid_json():
 
     try:
         with pytest.raises(json.JSONDecodeError):
-            load_def(def_path=temp_path)
+            with open(temp_path) as f:
+                json.load(f)
     finally:
         Path(temp_path).unlink()
 
 
-def test_load_def_both_sources():
-    """Test error when both def_path and def_dict are provided."""
-    with pytest.raises(ValueError, match="Cannot specify both"):
-        load_def(
-            def_path="test.json",
-            def_dict={"label": "name"},
-        )
-
-
-def test_load_def_no_sources():
-    """Test that default definition is returned when no sources are provided."""
-    result = load_def()
+def test_definition_default_constructor():
+    """Test that default definition constructor returns proper defaults."""
+    definition = Definition()
+    result = asdict(definition)
     # Should return default definition
     assert "label" in result
     assert "type" in result
