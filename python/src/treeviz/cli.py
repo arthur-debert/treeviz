@@ -5,12 +5,11 @@ This module provides a standalone CLI for the 3viz tool.
 """
 
 import json
+from dataclasses import asdict
 
 import click
 
-from .definitions import (
-    load_format_def,
-)
+from .definitions import Lib
 from .definitions.schema import Definition
 
 
@@ -72,7 +71,7 @@ def def_sample(output, format):
         },
         ignore_types=["comment", "whitespace"],
     )
-    def_data = sample_def.to_dict(merge_icons=False)
+    def_data = asdict(sample_def)
 
     if format == "json":
         content = json.dumps(def_data, indent=2)
@@ -118,7 +117,7 @@ def def_builtin(format_name, output, format):
     FORMAT_NAME: Name of the built-in format (mdast, json, etc.)
     """
     try:
-        def_data = load_format_def(format_name).to_dict()
+        def_data = asdict(Lib.get(format_name))
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
         return

@@ -6,12 +6,13 @@ import json
 import tempfile
 import pytest
 from pathlib import Path
+from dataclasses import asdict
 
 from treeviz.definitions import (
     load_def,
-    validate_def,
-    load_format_def,
+    Lib,
 )
+from treeviz.definitions.schema import Definition
 
 
 def test_load_def_from_dict():
@@ -112,73 +113,77 @@ def test_validate_def_valid():
         "ignore_types": ["comment"],
     }
 
-    result = validate_def(def_)
-    assert result == def_
+    definition = Definition.from_dict(def_)
+    result = asdict(definition)
+    # Icons should now include baseline icons + user icons
+    assert result["attributes"] == def_["attributes"]
+    assert result["type_overrides"] == def_["type_overrides"]
+    assert result["ignore_types"] == def_["ignore_types"]
+    # Check that user icons are preserved
+    assert result["icons"]["test"] == "⧉"
+    # Check that baseline icons are included
+    assert "unknown" in result["icons"]
 
 
-def test_validate_def_not_dict():
-    """Test validation error when def_ is not a dictionary."""
-    with pytest.raises(TypeError, match="must be a dictionary"):
-        validate_def("not a dict")
+def test_definition_from_dict_with_overrides():
+    """Test creating definition with user overrides."""
+    user_data = {
+        "attributes": {"label": "custom_name", "type": "custom_type"},
+        "icons": {"custom": "★"},
+    }
+    definition = Definition.from_dict(user_data)
+
+    # User attributes completely replace defaults
+    assert definition.attributes["label"] == "custom_name"
+    assert definition.attributes["type"] == "custom_type"
+    assert "children" not in definition.attributes  # Default was replaced
+
+    # Icons merge with baseline
+    assert definition.icons["custom"] == "★"
+    assert "unknown" in definition.icons  # baseline icon
 
 
-def test_validate_def_missing_attributes():
-    """Test validation error when attributes section is missing."""
-    with pytest.raises(KeyError, match="must include 'attributes'"):
-        validate_def({})
+def test_definition_from_dict_empty():
+    """Test creating definition from empty dict uses all defaults."""
+    definition = Definition.from_dict({})
+
+    # Should have all default values
+    assert definition.attributes["label"] == "label"
+    assert definition.attributes["type"] == "type"
+    assert definition.attributes["children"] == "children"
+    assert "unknown" in definition.icons
+    assert definition.type_overrides == {}
+    assert definition.ignore_types == []
 
 
-def test_validate_def_attributes_not_dict():
-    """Test validation error when attributes is not a dictionary."""
-    with pytest.raises(
-        TypeError, match="'attributes' section must be a dictionary"
-    ):
-        validate_def({"attributes": "not a dict"})
-
-
-def test_validate_def_missing_label():
-    """Test validation error when label extraction is not specified."""
-    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
-        validate_def({"attributes": {"type": "node_type"}})
-
-
-def test_validate_def_invalid_icons():
-    """Test validation error when icons is not a dictionary."""
-    def_ = {"attributes": {"label": "name"}, "icons": "not a dict"}
-
-    with pytest.raises(TypeError, match="'icons' must be a dictionary"):
-        validate_def(def_)
-
-
-def test_validate_def_invalid_type_overrides():
-    """Test validation error when type_overrides is not a dictionary."""
-    def_ = {"attributes": {"label": "name"}, "type_overrides": "not a dict"}
-
-    with pytest.raises(
-        TypeError, match="'type_overrides' must be a dictionary"
-    ):
-        validate_def(def_)
-
-
-def test_validate_def_invalid_ignore_types():
-    """Test validation error when ignore_types is not a list."""
-    def_ = {"attributes": {"label": "name"}, "ignore_types": "not a list"}
-
-    with pytest.raises(TypeError, match="'ignore_types' must be a list"):
-        validate_def(def_)
-
-
-def test_validate_def_invalid_type_override_value():
-    """Test validation error when type override value is not a dictionary."""
-    def_ = {
-        "attributes": {"label": "name"},
-        "type_overrides": {"text": "not a dict"},
+def test_definition_from_dict_merge_behavior():
+    """Test that from_dict properly merges user data with defaults."""
+    user_data = {
+        "attributes": {
+            "label": "custom_label",
+            "type": "custom_type",
+        },  # Must include all needed attrs
+        "icons": {"paragraph": "§"},  # Override existing
+        "type_overrides": {"text": {"label": "content"}},
+        "ignore_types": ["comment"],
     }
 
-    with pytest.raises(
-        TypeError, match="Type override for 'text' must be a dictionary"
-    ):
-        validate_def(def_)
+    definition = Definition.from_dict(user_data)
+
+    # User attributes completely replace defaults
+    assert definition.attributes["label"] == "custom_label"
+    assert definition.attributes["type"] == "custom_type"
+    assert (
+        "children" not in definition.attributes
+    )  # Default was completely replaced
+
+    # Icons should merge with baseline
+    assert definition.icons["paragraph"] == "§"  # User override
+    assert "unknown" in definition.icons  # Still has baseline
+
+    # Other fields should use user values
+    assert definition.type_overrides == {"text": {"label": "content"}}
+    assert definition.ignore_types == ["comment"]
 
 
 def test_create_sample_def():
@@ -202,31 +207,31 @@ def test_create_sample_def():
     assert "ignore_types" in def_
 
     # Should be valid
-    validate_def(def_)
+    Definition.from_dict(def_)
 
 
 def test_builtin_defs_exist():
     """Test that built-in definitions exist and are valid."""
     # Test that we can load known builtin configs
-    mdast_def = load_format_def("mdast").to_dict()
+    mdast_def = asdict(Lib.get("mdast"))
     assert "attributes" in mdast_def
     assert "label" in mdast_def["attributes"]
-    json_def = load_format_def("json").to_dict()
+    json_def = asdict(Lib.get("json"))
     assert "attributes" in json_def
     assert "label" in json_def["attributes"]
 
 
-def test_load_format_def():
-    """Test loading format definition."""
-    def_ = load_format_def("json").to_dict()
+def test_lib_get_format():
+    """Test loading format definition via Lib.get."""
+    def_ = asdict(Lib.get("json"))
 
     assert "attributes" in def_
     assert "type_overrides" in def_
     assert "ignore_types" in def_
-    # Note: icons is no longer in definitions - icons come from const.py and are merged in adapter
+    # Note: icons come from const.py and are merged automatically
 
 
-def test_load_format_def_unknown():
+def test_lib_get_unknown():
     """Test error when requesting unknown format definition."""
     with pytest.raises(KeyError, match="Unknown format 'unknown'"):
-        load_format_def("unknown")
+        Lib.get("unknown")

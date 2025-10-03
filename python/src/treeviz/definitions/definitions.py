@@ -76,6 +76,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from .schema import Definition
+from dataclasses import asdict
 
 
 # Deep merge functionality moved to Definition.merge_with() method
@@ -102,7 +103,7 @@ def load_def(
         TypeError, KeyError: If definition structure is invalid
     """
     # Start with default definition
-    def_ = get_default_def().to_dict(merge_icons=False)
+    def_ = asdict(Definition.default())
 
     # Load user definition if provided
     user_def = None
@@ -124,56 +125,10 @@ def load_def(
     if user_def:
         default_definition = Definition.from_dict(def_)
         merged_definition = default_definition.merge_with(user_def)
-        def_ = merged_definition.to_dict(merge_icons=False)
+        def_ = asdict(merged_definition)
 
-    # Validate definition
-    return validate_def(def_)
-
-
-def validate_def(def_: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Validate a definition dictionary using the Definition dataclass.
-
-    Args:
-        def_: Configuration to validate
-
-    Returns:
-        Validated definition dictionary (original format)
-
-    Raises:
-        TypeError, KeyError: If definition structure is invalid (with helpful messages)
-    """
-    # Use dataclass for validation but return original format for backwards compatibility
-    definition = Definition.from_dict(def_)
-    return definition.to_dict(merge_icons=False)
-
-
-def get_default_def() -> Definition:
-    """
-    Get the default definition.
-
-    Returns:
-        Default Definition object with baseline configuration
-    """
-    return Definition.default()
-
-
-def load_format_def(format_name: str) -> Definition:
-    """
-    Load a format-specific definition merged with defaults.
-
-    Args:
-        format_name: Name of the format ("mdast", "unist", etc.)
-
-    Returns:
-        Definition object merged with defaults
-
-    Raises:
-        ConversionError: If format is not supported
-    """
-    from .lib import Lib
-
-    return Lib.get(format_name)
+    # Validation happens automatically in Definition.from_dict() via __post_init__
+    return def_
 
 
 def exit_on_def_error(func):

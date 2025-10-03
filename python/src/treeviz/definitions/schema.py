@@ -27,8 +27,8 @@ class Definition:
         }
     )
 
-    # Optional: Icon mappings (merged with baseline from const.py)
-    icons: Dict[str, str] = field(default_factory=dict)
+    # Optional: Icon mappings (defaults to baseline from const.py)
+    icons: Dict[str, str] = field(default_factory=lambda: ICONS.copy())
 
     # Optional: Per-type attribute overrides
     type_overrides: Dict[str, Dict[str, str]] = field(default_factory=dict)
@@ -36,94 +36,36 @@ class Definition:
     # Optional: Node types to skip during conversion
     ignore_types: List[str] = field(default_factory=list)
 
-    def __post_init__(self):
-        """Validate definition after creation."""
-        self._validate()
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "Definition":
+        """Create Definition from dictionary by merging with defaults."""
+        # Start with default definition
+        default = cls.default()
+        merged_data = asdict(default)
 
-    def _validate(self):
-        """Validate the definition structure."""
-        # Check required attributes section
-        if not isinstance(self.attributes, dict):
-            raise TypeError(
-                "'attributes' section must be a dictionary. "
-                "Example: {'attributes': {'label': 'name', 'type': 'node_type', 'children': 'children'}}"
-            )
+        # Simple merge: user data overrides defaults
+        for key, value in data.items():
+            if (
+                key == "icons"
+                and isinstance(merged_data[key], dict)
+                and isinstance(value, dict)
+            ):
+                # For icons only, merge with baseline (special case)
+                merged_data[key].update(value)
+            else:
+                # For all other fields, replace completely
+                merged_data[key] = value
 
-        if "label" not in self.attributes:
+        # Validate business logic: 'label' must exist in final attributes
+        if "label" not in merged_data.get("attributes", {}):
             raise KeyError(
                 "'attributes' must specify how to extract 'label'. "
                 "Example: {'attributes': {'label': 'name', 'type': 'node_type'}}. "
                 "See treeviz documentation for more details."
             )
 
-        # Check optional sections
-        if not isinstance(self.icons, dict):
-            raise TypeError(
-                "'icons' must be a dictionary. "
-                "Example: {'icons': {'paragraph': '¶', 'heading': '⊤'}}"
-            )
-
-        if not isinstance(self.type_overrides, dict):
-            raise TypeError(
-                "'type_overrides' must be a dictionary. "
-                "Example: {'type_overrides': {'paragraph': {'label': 'content'}}}"
-            )
-
-        if not isinstance(self.ignore_types, list):
-            raise TypeError(
-                "'ignore_types' must be a list. "
-                "Example: {'ignore_types': ['comment', 'whitespace']}"
-            )
-
-        # Validate type_overrides structure
-        for type_name, overrides in self.type_overrides.items():
-            if not isinstance(overrides, dict):
-                raise TypeError(
-                    f"Type override for '{type_name}' must be a dictionary. "
-                    f"Example: {{'type_overrides': {{'{type_name}': {{'label': 'custom_field'}}}}}}"
-                )
-
-    def to_dict(self, merge_icons: bool = True) -> Dict[str, Any]:
-        """Convert to dictionary format (for compatibility/serialization)."""
-        result = asdict(self)
-
-        if merge_icons:
-            # Merge baseline icons with definition overrides
-            merged_icons = ICONS.copy()
-            merged_icons.update(result["icons"])
-            result["icons"] = merged_icons
-
-        return result
-
-    @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "Definition":
-        """Create Definition from dictionary (parsing/validation)."""
-        if not isinstance(data, dict):
-            raise TypeError(
-                "Definition must be a dictionary. "
-                "Example: {'attributes': {'label': 'name', 'type': 'node_type'}}"
-            )
-
-        # Check if attributes section exists
-        if "attributes" not in data:
-            raise KeyError(
-                "Configuration must include 'attributes' section. "
-                "Example: {'attributes': {'label': 'name', 'type': 'node_type', 'children': 'children'}}. "
-                "See treeviz documentation for complete schema."
-            )
-
-        # Extract known fields, ignore unknown ones
-        attributes = data.get("attributes", {})
-        icons = data.get("icons", {})
-        type_overrides = data.get("type_overrides", {})
-        ignore_types = data.get("ignore_types", [])
-
-        return cls(
-            attributes=attributes,
-            icons=icons,
-            type_overrides=type_overrides,
-            ignore_types=ignore_types,
-        )
+        # Create new instance with merged data
+        return cls(**merged_data)
 
     @classmethod
     def default(cls) -> "Definition":
@@ -132,7 +74,7 @@ class Definition:
 
     def merge_with(self, other_dict: Dict[str, Any]) -> "Definition":
         """
-        Merge this definition with another definition dict (deep merge).
+        Merge this definition with another definition dict (simple merge).
 
         Args:
             other_dict: Dictionary with definition overrides
@@ -140,52 +82,20 @@ class Definition:
         Returns:
             New Definition with merged values
         """
-        # Start with this definition's values
-        merged_attributes = self.attributes.copy()
-        merged_icons = self.icons.copy()
-        merged_type_overrides = self.type_overrides.copy()
-        merged_ignore_types = self.ignore_types.copy()
+        # Start with this definition's values (copy defaults)
+        merged_data = asdict(self)
 
-        # Deep merge attributes
-        if "attributes" in other_dict and isinstance(
-            other_dict["attributes"], dict
-        ):
-            merged_attributes.update(other_dict["attributes"])
+        # Simple update for each key in user-supplied dict
+        for key, value in other_dict.items():
+            if (
+                key in merged_data
+                and isinstance(merged_data[key], dict)
+                and isinstance(value, dict)
+            ):
+                # For dict fields, update the dict (this preserves baseline values)
+                merged_data[key].update(value)
+            else:
+                # For non-dict fields or complete replacement, just assign
+                merged_data[key] = value
 
-        # Merge icons
-        if "icons" in other_dict and isinstance(other_dict["icons"], dict):
-            merged_icons.update(other_dict["icons"])
-
-        # Deep merge type_overrides
-        if "type_overrides" in other_dict and isinstance(
-            other_dict["type_overrides"], dict
-        ):
-            for type_name, overrides in other_dict["type_overrides"].items():
-                if type_name in merged_type_overrides and isinstance(
-                    overrides, dict
-                ):
-                    merged_type_overrides[type_name] = {
-                        **merged_type_overrides[type_name],
-                        **overrides,
-                    }
-                else:
-                    merged_type_overrides[type_name] = overrides
-
-        # Replace ignore_types (list replacement, not merge)
-        if "ignore_types" in other_dict and isinstance(
-            other_dict["ignore_types"], list
-        ):
-            merged_ignore_types = other_dict["ignore_types"].copy()
-
-        return Definition(
-            attributes=merged_attributes,
-            icons=merged_icons,
-            type_overrides=merged_type_overrides,
-            ignore_types=merged_ignore_types,
-        )
-
-    def get_merged_icons(self) -> Dict[str, str]:
-        """Get icons merged with baseline from const.py."""
-        merged = ICONS.copy()
-        merged.update(self.icons)
-        return merged
+        return Definition.from_dict(merged_data)

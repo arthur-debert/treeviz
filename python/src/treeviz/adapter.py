@@ -29,20 +29,6 @@ from .advanced_extraction import extract_attribute
 from .definitions.schema import Definition
 
 
-def validate_def(def_: Dict[str, Any]) -> None:
-    """
-    Validate converter definition using Definition dataclass.
-
-    Args:
-        def_: Dictionary containing attribute mappings and icon mappings
-
-    Raises:
-        TypeError, KeyError: If definition is invalid (standard Python exceptions with helpful messages)
-    """
-    # Validation is handled by Definition.from_dict() - let exceptions bubble up
-    Definition.from_dict(def_)
-
-
 def get_effective_attributes(
     attributes: Dict[str, Any],
     type_overrides: Dict[str, Any],
@@ -78,7 +64,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     definition = Definition.from_dict(def_)
 
     attributes = definition.attributes
-    icons = definition.get_merged_icons()
+    icons = definition.icons
     type_overrides = definition.type_overrides
     ignore_types = set(definition.ignore_types)
 

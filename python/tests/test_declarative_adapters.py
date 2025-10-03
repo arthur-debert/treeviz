@@ -7,9 +7,10 @@ MDAST and UNIST examples to treeviz Node structures.
 
 import json
 from pathlib import Path
+from dataclasses import asdict
 
 from treeviz.adapter import adapt_node
-from treeviz.definitions import load_format_def
+from treeviz.definitions import Lib
 
 
 class TestDeclarativeAdapters:
@@ -28,7 +29,7 @@ class TestDeclarativeAdapters:
             mdast_data = json.load(f)
 
         # Get MDAST definition
-        mdast_def = load_format_def("mdast").to_dict()
+        mdast_def = asdict(Lib.get("mdast"))
 
         # Adapt the data
         result = adapt_node(mdast_data, mdast_def)
@@ -89,7 +90,7 @@ class TestDeclarativeAdapters:
             unist_data = json.load(f)
 
         # Get UNIST definition
-        unist_def = load_format_def("unist").to_dict()
+        unist_def = asdict(Lib.get("unist"))
 
         # Adapt the data
         result = adapt_node(unist_data, unist_def)
@@ -137,7 +138,7 @@ class TestDeclarativeAdapters:
         with open(test_data_path) as f:
             mdast_data = json.load(f)
 
-        mdast_def = load_format_def("mdast").to_dict()
+        mdast_def = asdict(Lib.get("mdast"))
         result = adapt_node(mdast_data, mdast_def)
 
         # Find a list node and verify its structure
@@ -175,7 +176,7 @@ class TestDeclarativeAdapters:
         with open(test_data_path) as f:
             unist_data = json.load(f)
 
-        unist_def = load_format_def("unist").to_dict()
+        unist_def = asdict(Lib.get("unist"))
         result = adapt_node(unist_data, unist_def)
 
         # Find elements and check their labels use tagName

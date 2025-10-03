@@ -176,11 +176,12 @@ def test_source_location_extraction(assert_node):
 
 def test_invalid_defuration():
     """Test that invalid definitions raise errors."""
-    # No attributes section
-    with pytest.raises(KeyError, match="must include 'attributes'"):
-        adapt_node({}, {})
+    # Empty definition should work (uses defaults)
+    source = {"label": "test", "type": "test"}
+    result = adapt_node(source, {})
+    assert result is not None
 
-    # No label in attributes
+    # No label in attributes should fail
     with pytest.raises(KeyError, match="must specify how to extract 'label'"):
         adapt_node({}, {"attributes": {"type": "node_type"}})
 

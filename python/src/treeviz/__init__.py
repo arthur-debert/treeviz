@@ -42,14 +42,17 @@ Declarative Conversion:
 
 Built-in Format Support:
 
-    from treeviz import load_format_def, adapt_node
+    from treeviz import adapt_node
     
-    # Use pre-built definition for MDAST structures
-    def_ = load_format_def("mdast").to_dict()
+    # Use pre-built definition for MDAST structures  
+    from dataclasses import asdict
+    from treeviz.definitions import Lib
+    def_ = asdict(Lib.get("mdast"))
     result = adapt_node(my_mdast_tree, def_)
     
     # For JSON/dict structures, use default definition (baseline icons work automatically)
-    def_ = load_format_def("json").to_dict()  # Returns default definition with baseline icons
+    from treeviz.definitions import Definition
+    def_ = asdict(Definition.default())  # Returns default definition with baseline icons
     result = adapt_node({"name": "test", "items": [1, 2, 3]}, def_)
 
 Core Concepts
@@ -142,18 +145,19 @@ Built-in Configurations
 
 MDAST: For Markdown Abstract Syntax Trees
     
-    def_ = load_format_def("mdast").to_dict()
+    from treeviz.definitions import Lib
+    def_ = asdict(Lib.get("mdast"))
     # Handles paragraph, heading, list, text nodes with proper icons
 
 UNIST: For Universal Syntax Trees
     
-    def_ = load_format_def("unist").to_dict()
+    def_ = asdict(Lib.get("unist"))
     # Handles element, text, comment nodes with proper element rendering
 
 Generic JSON/Dict Structures:
     
-    def_ = load_format_def("json").to_dict()  # Returns baseline definition
-    # Or just use default definition - both work the same
+    from treeviz.definitions import Definition
+    def_ = asdict(Definition.default())  # Returns baseline definition
     # Baseline icons automatically handle dict, array, str, int, bool, etc.
 
 Error Messages
@@ -193,9 +197,9 @@ Enable detailed error messages:
 
 Test definitions interactively:
     
-    from treeviz import validate_def
+    from treeviz.definitions.schema import Definition
     try:
-        validate_def(my_def)
+        Definition.from_dict(my_def)
         print("Configuration valid!")
     except (TypeError, KeyError, ValueError) as e:
         print(f"Definition error: {e}")
@@ -210,10 +214,11 @@ Generate sample definitions:
     
     # Option 2: Dataclass format (recommended - typed and validated)
     from treeviz.definitions import Definition
-    sample_def = Definition(
+    from dataclasses import asdict
+    sample_def = asdict(Definition(
         attributes={"label": "name", "type": "node_type"},
         icons={"function": "⚡", "class": "🏛"}
-    ).to_dict()
+    ))
 
 See Also
 --------
@@ -232,7 +237,6 @@ from .model import Node
 from .adapter import (
     adapt_tree,
     adapt_node,
-    validate_def,
 )
 
 # No custom exceptions - we use standard Python exceptions with helpful messages
@@ -244,7 +248,6 @@ from .renderer import (
 )
 from .definitions import (
     load_def,
-    load_format_def,
 )
 
 __version__ = "1.0.0"
@@ -254,7 +257,6 @@ __all__ = [
     # Conversion engine
     "adapt_tree",
     "adapt_node",
-    "validate_def",
     # Rendering
     "render",
     "create_render_options",
@@ -262,5 +264,4 @@ __all__ = [
     "DEFAULT_SYMBOLS",
     # Configuration management
     "load_def",
-    "load_format_def",
 ]

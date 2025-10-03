@@ -27,13 +27,14 @@ def test_minimal_valid_defuration():
     assert result is not None
 
 
-def test_defuration_validation_no_attributes():
-    """Test that definition without attributes section raises error."""
+def test_definition_uses_defaults_when_empty():
+    """Test that empty definition uses all defaults."""
     def_ = {}
-    source = MockNode()
+    source = MockNode(label="test", type="unknown", children=[])
 
-    with pytest.raises(KeyError, match="must include 'attributes'"):
-        adapt_node(source, def_)
+    # Should not raise an exception - uses defaults
+    result = adapt_node(source, def_)
+    assert result is not None
 
 
 def test_defuration_validation_no_label():
