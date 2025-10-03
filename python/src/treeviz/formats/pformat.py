@@ -1,19 +1,13 @@
 """
-Pformat (Pseudo Document Format) parser.
+Optimized Pformat (Pseudo Document Format) parser.
 
-This module implements a parser for XML-like document format with simple rules:
-1. Root Element: Single root element containing all other elements
-2. Nesting: Proper start/end tag nesting
-3. Self-Closing Tags: Empty elements as <tag/>
-4. Attributes: key="value" format with quoted values
-5. Text Content: Text between start and end tags
-
-This provides a foundation for parsing XML, HTML, and similar markup formats.
+This module implements a parser for XML-like document format that builds
+dictionary structures directly during parsing, eliminating intermediate
+node classes for better performance and maintainability.
 """
 
 import re
 from typing import Dict, List, Any, Optional, Tuple, Union
-from dataclasses import dataclass
 
 
 class PformatParseError(Exception):
@@ -22,37 +16,12 @@ class PformatParseError(Exception):
     pass
 
 
-@dataclass
-class PformatNode:
-    """
-    Internal representation of a pformat node.
-
-    This gets converted to a Python dict structure that treeviz can process.
-    """
-
-    tag: str
-    attributes: Dict[str, str]
-    children: List[Union["PformatNode", "TextNode"]]
-    is_self_closing: bool = False
-
-
-@dataclass
-class TextNode:
-    """
-    Internal representation of a text node.
-
-    Represents text content that appears between element tags.
-    """
-
-    content: str
-
-
 class PformatParser:
     """
-    Parser for pformat (pseudo document format).
+    Optimized parser for pformat (pseudo document format).
 
-    Parses XML-like syntax into Python dict structures that can be
-    processed by treeviz adapters.
+    Builds Python dict structures directly during parsing without
+    intermediate node representations.
     """
 
     # Regex patterns
@@ -66,8 +35,8 @@ class PformatParser:
         """Reset parser state."""
         self.position = 0
         self.content = ""
-        self.tag_stack: List[Tuple[str, PformatNode]] = []
-        self.root_node: Optional[PformatNode] = None
+        self.element_stack: List[Tuple[str, Dict[str, Any]]] = []
+        self.root_element: Optional[Dict[str, Any]] = None
 
     def parse(self, content: str) -> Dict[str, Any]:
         """
@@ -97,28 +66,26 @@ class PformatParser:
         self._parse_tags(tags)
 
         # Ensure we have exactly one root element
-        if self.root_node is None:
+        if self.root_element is None:
             raise PformatParseError("No root element found")
 
-        if self.tag_stack:
-            unclosed = [tag for tag, _ in self.tag_stack]
+        if self.element_stack:
+            unclosed = [tag for tag, _ in self.element_stack]
             raise PformatParseError(f"Unclosed tags: {', '.join(unclosed)}")
 
-        # Convert to dict structure
-        return self._node_to_dict(self.root_node)
+        return self.root_element
 
     def _parse_tags(self, tags: List[re.Match]) -> None:
-        """Parse tag matches and build node tree."""
+        """Parse tag matches and build dict tree directly."""
         last_pos = 0
 
         for match in tags:
             # Handle text content before this tag
             text_before = self.content[last_pos : match.start()].strip()
-            if text_before and self.tag_stack:
-                # Add text as a separate TextNode to preserve order
-                _, current_node = self.tag_stack[-1]
-                text_node = TextNode(content=text_before)
-                current_node.children.append(text_node)
+            if text_before and self.element_stack:
+                # Add text directly to current parent's children
+                _, current_element = self.element_stack[-1]
+                self._add_child(current_element, text_before)
 
             # Parse the tag
             self._parse_single_tag(match)
@@ -126,10 +93,9 @@ class PformatParser:
 
         # Handle any remaining text
         remaining_text = self.content[last_pos:].strip()
-        if remaining_text and self.tag_stack:
-            _, current_node = self.tag_stack[-1]
-            text_node = TextNode(content=remaining_text)
-            current_node.children.append(text_node)
+        if remaining_text and self.element_stack:
+            _, current_element = self.element_stack[-1]
+            self._add_child(current_element, remaining_text)
 
     def _parse_single_tag(self, match: re.Match) -> None:
         """Parse a single tag match."""
@@ -149,56 +115,61 @@ class PformatParser:
             self._handle_opening_tag(tag_name, attr_string)
 
     def _handle_opening_tag(self, tag_name: str, attr_string: str) -> None:
-        """Handle opening tag."""
+        """Handle opening tag - create dict directly."""
         attributes = self._parse_attributes(attr_string)
-        node = PformatNode(tag=tag_name, attributes=attributes, children=[])
+        element = {
+            "type": tag_name,
+            **attributes,  # Include attributes as top-level properties
+        }
 
-        if self.tag_stack:
+        if self.element_stack:
             # Add to current parent's children
-            _, parent_node = self.tag_stack[-1]
-            parent_node.children.append(node)
+            _, parent_element = self.element_stack[-1]
+            self._add_child(parent_element, element)
         else:
             # This is the root element
-            if self.root_node is not None:
+            if self.root_element is not None:
                 raise PformatParseError("Multiple root elements found")
-            self.root_node = node
+            self.root_element = element
 
         # Push to stack
-        self.tag_stack.append((tag_name, node))
+        self.element_stack.append((tag_name, element))
 
     def _handle_closing_tag(self, tag_name: str) -> None:
         """Handle closing tag."""
-        if not self.tag_stack:
+        if not self.element_stack:
             raise PformatParseError(f"Unexpected closing tag: </{tag_name}>")
 
-        expected_tag, _ = self.tag_stack[-1]
+        expected_tag, current_element = self.element_stack[-1]
         if expected_tag != tag_name:
             raise PformatParseError(
                 f"Mismatched tags: expected </{expected_tag}>, got </{tag_name}>"
             )
 
+        # Finalize the element before popping
+        self._finalize_element(current_element)
+
         # Pop from stack
-        self.tag_stack.pop()
+        self.element_stack.pop()
 
     def _handle_self_closing_tag(self, tag_name: str, attr_string: str) -> None:
-        """Handle self-closing tag."""
+        """Handle self-closing tag - create dict directly."""
         attributes = self._parse_attributes(attr_string)
-        node = PformatNode(
-            tag=tag_name,
-            attributes=attributes,
-            children=[],
-            is_self_closing=True,
-        )
+        element = {
+            "type": tag_name,
+            **attributes,  # Include attributes as top-level properties
+            "self_closing": True,
+        }
 
-        if self.tag_stack:
+        if self.element_stack:
             # Add to current parent's children
-            _, parent_node = self.tag_stack[-1]
-            parent_node.children.append(node)
+            _, parent_element = self.element_stack[-1]
+            self._add_child(parent_element, element)
         else:
             # This is the root element
-            if self.root_node is not None:
+            if self.root_element is not None:
                 raise PformatParseError("Multiple root elements found")
-            self.root_node = node
+            self.root_element = element
 
     def _parse_attributes(self, attr_string: str) -> Dict[str, str]:
         """Parse attribute string into dict."""
@@ -211,66 +182,25 @@ class PformatParser:
 
         return attributes
 
-    def _node_to_dict(
-        self, node: Union[PformatNode, TextNode]
-    ) -> Union[Dict[str, Any], str]:
-        """Convert PformatNode or TextNode to dict structure."""
-        if isinstance(node, TextNode):
-            # Text nodes are represented as strings
-            return node.content
+    def _add_child(
+        self, parent_element: Dict[str, Any], child: Union[str, Dict[str, Any]]
+    ) -> None:
+        """Add a child (text or element) to parent element."""
+        if "children" not in parent_element:
+            parent_element["children"] = []
+        parent_element["children"].append(child)
 
-        # Handle PformatNode
-        result = {
-            "type": node.tag,
-            **node.attributes,  # Include attributes as top-level properties
-        }
-
-        # Process children - mix of elements and text nodes
-        if node.children:
-            converted_children = []
-            text_parts = []
-
-            for child in node.children:
-                if isinstance(child, TextNode):
-                    text_parts.append(child.content)
-                else:
-                    # If we have accumulated text, add it first
-                    if text_parts:
-                        # Only add non-empty combined text
-                        combined_text = " ".join(text_parts).strip()
-                        if combined_text:
-                            converted_children.append(combined_text)
-                        text_parts = []
-
-                    # Add the element node
-                    converted_children.append(self._node_to_dict(child))
-
-            # Handle any remaining text at the end
+    def _finalize_element(self, element: Dict[str, Any]) -> None:
+        """Finalize element by setting text field for backward compatibility."""
+        if "children" in element:
+            # Extract text-only children for backward compatibility
+            text_parts = [
+                child for child in element["children"] if isinstance(child, str)
+            ]
             if text_parts:
                 combined_text = " ".join(text_parts).strip()
                 if combined_text:
-                    converted_children.append(combined_text)
-
-            # Set children if we have any
-            if converted_children:
-                result["children"] = converted_children
-
-            # Also set text field for backward compatibility (combined text only)
-            text_only_parts = [
-                child.content
-                for child in node.children
-                if isinstance(child, TextNode)
-            ]
-            if text_only_parts:
-                combined_text = " ".join(text_only_parts).strip()
-                if combined_text:
-                    result["text"] = combined_text
-
-        # Add self-closing indicator if needed
-        if node.is_self_closing:
-            result["self_closing"] = True
-
-        return result
+                    element["text"] = combined_text
 
 
 def parse_pformat(content: str) -> Any:

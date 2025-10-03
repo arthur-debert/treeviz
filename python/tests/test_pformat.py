@@ -12,8 +12,6 @@ from treeviz.formats.pformat import (
     PformatParser,
     PformatParseError,
     parse_pformat,
-    PformatNode,
-    TextNode,
 )
 from treeviz.formats import parse_document, get_format_by_name
 
@@ -23,38 +21,6 @@ def get_test_data_path(filename: str) -> str:
     return str(
         Path(__file__).parent.parent.parent / "test-data" / "formats" / filename
     )
-
-
-class TestPformatNode:
-    """Test PformatNode dataclass."""
-
-    def test_pformat_node_creation(self):
-        """Test basic PformatNode creation."""
-
-        text_node = TextNode(content="Test content")
-        node = PformatNode(
-            tag="test",
-            attributes={"id": "123"},
-            children=[text_node],
-        )
-
-        assert node.tag == "test"
-        assert node.attributes == {"id": "123"}
-        assert len(node.children) == 1
-        assert isinstance(node.children[0], TextNode)
-        assert node.children[0].content == "Test content"
-        assert node.is_self_closing is False
-
-    def test_pformat_node_self_closing(self):
-        """Test self-closing PformatNode."""
-        node = PformatNode(
-            tag="img",
-            attributes={"src": "image.jpg"},
-            children=[],
-            is_self_closing=True,
-        )
-
-        assert node.is_self_closing is True
 
 
 class TestPformatParser:
