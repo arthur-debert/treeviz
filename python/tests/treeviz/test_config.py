@@ -231,7 +231,5 @@ def test_load_format_def():
 
 def test_load_format_def_unknown():
     """Test error when requesting unknown format definition."""
-    with pytest.raises(
-        ConversionError, match="Failed to load def_ file 'unknown.json'"
-    ):
+    with pytest.raises(ConversionError, match="Unknown format 'unknown'"):
         load_format_def("unknown")

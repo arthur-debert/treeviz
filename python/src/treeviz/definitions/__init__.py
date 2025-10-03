@@ -9,17 +9,20 @@ from .definitions import (
     validate_def,
     get_default_def,
     load_format_def,
-    _load_def_file,
     ConversionError,
 )
 from .schema import Definition
+from .lib import Lib
+
+# Load core libraries on module import
+Lib.load_core_libs()
 
 __all__ = [
     "load_def",
     "validate_def",
     "get_default_def",
     "load_format_def",
-    "_load_def_file",
     "ConversionError",
     "Definition",
+    "Lib",
 ]

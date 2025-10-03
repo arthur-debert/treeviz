@@ -8,10 +8,10 @@ import json
 
 import click
 
-from .treeviz.definitions import (
+from .definitions import (
     load_format_def,
-    _load_def_file,
 )
+from .definitions.schema import Definition
 
 
 @click.group()
@@ -52,7 +52,27 @@ def def_sample(output, format):
     """
     Generate a sample definition file.
     """
-    def_data = _load_def_file("sample.json")
+    # Generate a comprehensive sample definition
+    sample_def = Definition(
+        attributes={
+            "label": "name",
+            "type": "node_type",
+            "children": "children",
+        },
+        icons={
+            "document": "⧉",
+            "paragraph": "¶",
+            "heading": "⊤",
+            "list": "☰",
+            "custom_type": "★",
+        },
+        type_overrides={
+            "paragraph": {"label": "content"},
+            "heading": {"label": "title"},
+        },
+        ignore_types=["comment", "whitespace"],
+    )
+    def_data = sample_def.to_dict(merge_icons=False)
 
     if format == "json":
         content = json.dumps(def_data, indent=2)

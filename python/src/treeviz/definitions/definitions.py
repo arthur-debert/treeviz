@@ -74,7 +74,6 @@ import json
 import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
-import importlib.resources
 
 from ..adapter import ConversionError
 from .schema import Definition
@@ -155,27 +154,6 @@ def validate_def(def_: Dict[str, Any]) -> Dict[str, Any]:
     return definition.to_dict(merge_icons=False)
 
 
-def _load_def_file(filename: str) -> Dict[str, Any]:
-    """
-    Load a definition file from the configs package.
-
-    Args:
-        filename: Name of the def_ file to load
-
-    Returns:
-        Configuration dictionary
-    Raises:
-        ConversionError: If file cannot be loaded
-    """
-    try:
-        with importlib.resources.open_text(
-            "treeviz.definitions", filename
-        ) as f:
-            return json.load(f)
-    except Exception as e:
-        raise ConversionError(f"Failed to load def_ file '{filename}': {e}")
-
-
 def get_default_def() -> Definition:
     """
     Get the default definition.
@@ -199,16 +177,9 @@ def load_format_def(format_name: str) -> Definition:
     Raises:
         ConversionError: If format is not supported
     """
-    # Handle special case - no specific definition needed for JSON
-    if format_name == "json":
-        return get_default_def()
+    from .lib import Lib
 
-    # Load format-specific definition file
-    format_def_dict = _load_def_file(f"{format_name}.json")
-
-    # Merge with defaults
-    default_def = get_default_def()
-    return default_def.merge_with(format_def_dict)
+    return Lib.get(format_name)
 
 
 def exit_on_def_error(func):
