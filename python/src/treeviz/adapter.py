@@ -7,11 +7,9 @@ extract information from their AST using simple attribute mappings.
 
 Example usage:
     def_ = {
-        "attributes": {
-            "label": "name",
-            "type": "node_type",
-            "children": "child_nodes"
-        },
+        "label": "name",
+        "type": "node_type", 
+        "children": "child_nodes",
         "icons": {
             "paragraph": "¶",
             "list": "☰"
@@ -27,23 +25,6 @@ from typing import Any, Dict, Optional, Callable
 from .model import Node
 from .advanced_extraction import extract_attribute
 from .definitions.schema import Definition
-
-
-def get_effective_attributes(
-    attributes: Dict[str, Any],
-    type_overrides: Dict[str, Any],
-    node_type: Optional[str],
-) -> Dict[str, Any]:
-    """Get the effective attribute definition for a given node type."""
-    # Start with default attributes
-    effective = attributes.copy()
-
-    # Apply type-specific overrides
-    if node_type and node_type in type_overrides:
-        overrides = type_overrides[node_type]
-        effective.update(overrides)
-
-    return effective
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
@@ -63,72 +44,70 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     # Parse and validate using dataclass
     definition = Definition.from_dict(def_)
 
-    attributes = definition.attributes
-    icons = definition.icons
-    type_overrides = definition.type_overrides
-    ignore_types = set(definition.ignore_types)
-
     # Check if this node type should be ignored
-    node_type = extract_attribute(source_node, attributes.get("type"))
-    if node_type and node_type in ignore_types:
+    node_type = extract_attribute(source_node, definition.type)
+    if node_type and node_type in definition.ignore_types:
         return None
 
-    # Get the effective attributes for this node type
-    effective_attributes = get_effective_attributes(
-        attributes, type_overrides, node_type
-    )
+    # Get the effective extraction mappings for this node type
+    effective_label = definition.label
+    effective_type = definition.type
+    effective_children = definition.children
+    effective_icon = definition.icon
+    effective_content_lines = definition.content_lines
+    effective_source_location = definition.source_location
+    effective_metadata = definition.metadata
+
+    # Apply type-specific overrides if they exist
+    if node_type and node_type in definition.type_overrides:
+        overrides = definition.type_overrides[node_type]
+        effective_label = overrides.get("label", effective_label)
+        effective_type = overrides.get("type", effective_type)
+        effective_children = overrides.get("children", effective_children)
+        effective_icon = overrides.get("icon", effective_icon)
+        effective_content_lines = overrides.get(
+            "content_lines", effective_content_lines
+        )
+        effective_source_location = overrides.get(
+            "source_location", effective_source_location
+        )
+        effective_metadata = overrides.get("metadata", effective_metadata)
 
     # Extract basic attributes using advanced extractor
-    label = extract_attribute(source_node, effective_attributes["label"])
+    label = extract_attribute(source_node, effective_label)
     if label is None:
         label = str(node_type) if node_type else "Unknown"
 
     # Extract optional attributes using advanced extractor
-    icon = extract_attribute(source_node, effective_attributes.get("icon"))
-    content_lines = extract_attribute(
-        source_node, effective_attributes.get("content_lines", 1)
-    )
-
+    icon = extract_attribute(source_node, effective_icon)
+    content_lines = extract_attribute(source_node, effective_content_lines)
     if not isinstance(content_lines, int):
         content_lines = 1
-
-    # Extract source location if configured
-    source_location = None
-    if "source_location" in effective_attributes:
-        source_location = extract_attribute(
-            source_node, effective_attributes["source_location"]
-        )
-
+    
+    source_location = extract_attribute(source_node, effective_source_location)
+    
     # Extract metadata using advanced extractor
-    metadata = {}
-    if "metadata" in effective_attributes:
-        extracted_metadata = extract_attribute(
-            source_node, effective_attributes["metadata"]
-        )
-        # Metadata can be any type after transformation (string, dict, etc.)
-        metadata = extracted_metadata if extracted_metadata is not None else {}
+    extracted_metadata = extract_attribute(source_node, effective_metadata)
+    metadata = extracted_metadata if extracted_metadata is not None else {}
 
     # Apply icon mapping if no explicit icon
-    if not icon and node_type and node_type in icons:
-        icon = icons[node_type]
+    if not icon and node_type and node_type in definition.icons:
+        icon = definition.icons[node_type]
 
     # Extract children using advanced extractor (supports filtering)
     children = []
-    if "children" in effective_attributes:
-        children_source = extract_attribute(
-            source_node, effective_attributes["children"]
-        )
-        if children_source:
-            if not isinstance(children_source, list):
-                raise TypeError(
-                    f"Children attribute must return a list, got {type(children_source).__name__}. "
-                    f"Check your 'children' attribute mapping in the definition."
-                )
+    children_source = extract_attribute(source_node, effective_children)
+    if children_source:
+        if not isinstance(children_source, list):
+            raise TypeError(
+                f"Children attribute must return a list, got {type(children_source).__name__}. "
+                f"Check your 'children' attribute mapping in the definition."
+            )
 
-            for child in children_source:
-                child_node = adapt_node(child, def_)
-                if child_node is not None:  # Skip ignored nodes
-                    children.append(child_node)
+        for child in children_source:
+            child_node = adapt_node(child, def_)
+            if child_node is not None:  # Skip ignored nodes
+                children.append(child_node)
 
     return Node(
         label=str(label),

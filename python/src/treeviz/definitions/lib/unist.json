@@ -1,9 +1,7 @@
 {
-  "attributes": {
-    "label": "value",
-    "type": "type",
-    "children": "children"
-  },
+  "label": "value",
+  "type": "type",
+  "children": "children",
   "icons": {
     "root": "⧉",
     "element": "⟨⟩",

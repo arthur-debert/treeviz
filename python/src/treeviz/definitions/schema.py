@@ -18,14 +18,16 @@ class Definition:
     A clean, typed representation of how to adapt AST nodes to treeviz format.
     """
 
-    # Required: How to extract core node properties
-    attributes: Dict[str, str] = field(
-        default_factory=lambda: {
-            "label": "label",
-            "type": "type",
-            "children": "children",
-        }
-    )
+    # Core extraction mappings (flattened from attributes)
+    label: str = "label"
+    type: str = "type"
+    children: str = "children"
+
+    # Optional extraction mappings
+    icon: Any = None
+    content_lines: Any = 1
+    source_location: Any = None
+    metadata: Any = field(default_factory=dict)
 
     # Optional: Icon mappings (defaults to baseline from const.py)
     icons: Dict[str, str] = field(default_factory=lambda: ICONS.copy())
@@ -55,14 +57,6 @@ class Definition:
             else:
                 # For all other fields, replace completely
                 merged_data[key] = value
-
-        # Validate business logic: 'label' must exist in final attributes
-        if "label" not in merged_data.get("attributes", {}):
-            raise KeyError(
-                "'attributes' must specify how to extract 'label'. "
-                "Example: {'attributes': {'label': 'name', 'type': 'node_type'}}. "
-                "See treeviz documentation for more details."
-            )
 
         # Create new instance with merged data
         return cls(**merged_data)
