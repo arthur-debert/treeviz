@@ -7,7 +7,12 @@ that can then be processed by adapters.
 """
 
 from .model import Format, DocumentFormatError
-from .parser import parse_document, register_format, get_supported_formats
+from .parser import (
+    parse_document,
+    register_format,
+    get_supported_formats,
+    get_format_by_name,
+)
 
 __all__ = [
     "Format",
@@ -15,4 +20,5 @@ __all__ = [
     "parse_document",
     "register_format",
     "get_supported_formats",
+    "get_format_by_name",
 ]

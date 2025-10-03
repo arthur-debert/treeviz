@@ -159,3 +159,21 @@ try:
 except ImportError:
     # YAML support is optional
     pass
+
+
+# Pformat (Pseudo Document Format) support
+try:
+    from .pformat import parse_pformat
+
+    register_format(
+        Format(
+            name="Pformat",
+            extensions=[".pformat", ".pf"],
+            parse_func=parse_pformat,
+            description="Pseudo Document Format (XML-like)",
+        )
+    )
+
+except ImportError:
+    # This shouldn't happen since pformat is internal
+    pass

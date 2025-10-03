@@ -1,0 +1,16 @@
+<document title="Sample Document" version="1.0">
+    <section name="Introduction">
+        <paragraph>This is the introduction paragraph with some content.</paragraph>
+        <list type="ordered">
+            <item priority="high">First important item</item>
+            <item priority="medium">Second item</item>
+            <item priority="low">Third item</item>
+        </list>
+    </section>
+    <section name="Content">
+        <paragraph>Main content goes here.</paragraph>
+        <image src="example.png" alt="Example image"/>
+        <paragraph>More content after the image.</paragraph>
+    </section>
+    <footer>Copyright 2024</footer>
+</document>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book id="123" author="John Doe">
+    <title>Sample Book</title>
+    <chapter number="1" title="Introduction">
+        <paragraph>This is the first chapter.</paragraph>
+        <paragraph>It contains multiple paragraphs.</paragraph>
+    </chapter>
+    <chapter number="2" title="Main Content">
+        <paragraph>This is the second chapter.</paragraph>
+        <note type="warning">This is an important note.</note>
+    </chapter>
+</book>

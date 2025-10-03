@@ -246,6 +246,7 @@ from .formats import (
     DocumentFormatError,
     register_format,
     get_supported_formats,
+    get_format_by_name,
 )
 
 # No custom exceptions - we use standard Python exceptions with helpful messages
@@ -269,6 +270,7 @@ __all__ = [
     "DocumentFormatError",
     "register_format",
     "get_supported_formats",
+    "get_format_by_name",
     # Rendering
     "render",
     "create_render_options",
