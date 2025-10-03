@@ -177,3 +177,39 @@ try:
 except ImportError:
     # This shouldn't happen since pformat is internal
     pass
+
+
+# XML format support (using xml.etree.ElementTree)
+try:
+    from .xml_format import parse_xml
+
+    register_format(
+        Format(
+            name="XML",
+            extensions=[".xml"],
+            parse_func=parse_xml,
+            description="Extensible Markup Language",
+        )
+    )
+
+except ImportError:
+    # This shouldn't happen since xml_format is internal
+    pass
+
+
+# HTML format support (requires BeautifulSoup4)
+try:
+    from .html_format import parse_html
+
+    register_format(
+        Format(
+            name="HTML",
+            extensions=[".html", ".htm"],
+            parse_func=parse_html,
+            description="HyperText Markup Language",
+        )
+    )
+
+except ImportError:
+    # HTML support is optional (requires BeautifulSoup4)
+    pass
