@@ -25,7 +25,7 @@ def test_load_def_from_dict():
     assert result["attributes"]["label"] == "name"  # User override
     assert result["attributes"]["type"] == "node_type"  # User override
     assert result["attributes"]["children"] == "children"  # Default
-    assert "icon_map" in result  # Default included
+    assert "icons" in result  # Default included
     assert "type_overrides" in result  # Default included
     assert "ignore_types" in result  # Default included
 
@@ -34,7 +34,7 @@ def test_load_def_from_file():
     """Test loading definition from JSON file."""
     def_dict = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"test": "⧉"},
+        "icons": {"test": "⧉"},
     }
 
     with tempfile.NamedTemporaryFile(
@@ -49,8 +49,8 @@ def test_load_def_from_file():
         assert result["attributes"]["label"] == "name"  # User override
         assert result["attributes"]["type"] == "node_type"  # User override
         assert result["attributes"]["children"] == "children"  # Default
-        assert result["icon_map"]["test"] == "⧉"  # User override
-        assert "document" in result["icon_map"]  # Default icons included
+        assert result["icons"]["test"] == "⧉"  # User override
+        assert "document" in result["icons"]  # Default icons included
         assert "type_overrides" in result  # Default included
         assert "ignore_types" in result  # Default included
     finally:
@@ -92,7 +92,7 @@ def test_load_def_no_sources():
     result = load_def()
     # Should return default definition
     assert "attributes" in result
-    assert "icon_map" in result
+    assert "icons" in result
     assert "type_overrides" in result
     assert "ignore_types" in result
     # Check that we got the expected defaults
@@ -109,7 +109,7 @@ def test_validate_def_valid():
             "type": "node_type",
             "children": "child_nodes",
         },
-        "icon_map": {"test": "⧉"},
+        "icons": {"test": "⧉"},
         "type_overrides": {"text": {"label": "content"}},
         "ignore_types": ["comment"],
     }
@@ -146,13 +146,11 @@ def test_validate_def_missing_label():
         validate_def({"attributes": {"type": "node_type"}})
 
 
-def test_validate_def_invalid_icon_map():
-    """Test validation error when icon_map is not a dictionary."""
-    def_ = {"attributes": {"label": "name"}, "icon_map": "not a dict"}
+def test_validate_def_invalid_icons():
+    """Test validation error when icons is not a dictionary."""
+    def_ = {"attributes": {"label": "name"}, "icons": "not a dict"}
 
-    with pytest.raises(
-        ConversionError, match="'icon_map' must be a dictionary"
-    ):
+    with pytest.raises(ConversionError, match="'icons' must be a dictionary"):
         validate_def(def_)
 
 
@@ -193,7 +191,7 @@ def test_create_sample_def():
 
     assert "attributes" in def_
     assert "label" in def_["attributes"]
-    assert "icon_map" in def_
+    assert "icons" in def_
     assert "type_overrides" in def_
     assert "ignore_types" in def_
 
@@ -219,7 +217,7 @@ def test_get_builtin_def():
     assert "attributes" in def_
     assert "type_overrides" in def_
     assert "ignore_types" in def_
-    # Note: icon_map is no longer in definitions - icons come from const.py and are merged in adapter
+    # Note: icons is no longer in definitions - icons come from const.py and are merged in adapter
 
 
 def test_get_builtin_def_unknown():

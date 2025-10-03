@@ -50,11 +50,11 @@ def test_children_conversion(assert_node):
     assert_node(result.children[0]).has_label("Child").has_type("child")
 
 
-def test_icon_mapping(assert_node):
+def test_iconsping(assert_node):
     """Test icon mapping functionality."""
     def_ = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"paragraph": "¶", "list": "☰"},
+        "icons": {"paragraph": "¶", "list": "☰"},
     }
 
     source = MockNode(name="Test", node_type="paragraph")

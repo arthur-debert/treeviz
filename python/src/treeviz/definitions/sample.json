@@ -4,7 +4,7 @@
     "type": "node_type",
     "children": "children"
   },
-  "icon_map": {
+  "icons": {
     "document": "⧉",
     "session": "§",
     "heading": "⊤",

@@ -4,7 +4,7 @@
     "type": "type",
     "children": "children"
   },
-  "icon_map": {
+  "icons": {
     "root": "⧉",
     "paragraph": "¶",
     "text": "◦",

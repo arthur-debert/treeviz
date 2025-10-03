@@ -47,11 +47,11 @@ def test_defuration_validation_no_label():
         adapt_node(source, def_)
 
 
-def test_defuration_with_icon_map():
+def test_defuration_with_icons():
     """Test definition with icon mapping."""
     def_ = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
+        "icons": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
     source = MockNode(name="test", node_type="paragraph")
 
@@ -98,7 +98,7 @@ def test_defuration_with_all_features():
             "source_location": "location",
             "metadata": "meta",
         },
-        "icon_map": {"paragraph": "¶", "list": "☰"},
+        "icons": {"paragraph": "¶", "list": "☰"},
         "type_overrides": {"text": {"label": "content"}},
         "ignore_types": ["comment"],
     }

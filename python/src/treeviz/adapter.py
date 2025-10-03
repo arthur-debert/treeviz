@@ -12,7 +12,7 @@ Example usage:
             "type": "node_type",
             "children": "child_nodes"
         },
-        "icon_map": {
+        "icons": {
             "paragraph": "¶",
             "list": "☰"
         }
@@ -88,9 +88,9 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         attributes = def_.get("attributes", {})
 
         # Merge baseline icons with definition overrides
-        icon_map = ICONS.copy()
-        if "icon_map" in def_:
-            icon_map.update(def_["icon_map"])
+        icons = ICONS.copy()
+        if "icons" in def_:
+            icons.update(def_["icons"])
 
         type_overrides = def_.get("type_overrides", {})
         ignore_types = set(def_.get("ignore_types", []))
@@ -138,8 +138,8 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
             )
 
         # Apply icon mapping if no explicit icon
-        if not icon and node_type and node_type in icon_map:
-            icon = icon_map[node_type]
+        if not icon and node_type and node_type in icons:
+            icon = icons[node_type]
 
         # Extract children using advanced extractor (supports filtering)
         children = []

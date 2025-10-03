@@ -18,7 +18,7 @@ Maps 3viz node properties to source node attributes:
 - `type`: Property containing the node type  
 - `children`: Property containing child nodes
 
-#### 2. icon_map (optional)
+#### 2. icons (optional)
 Maps node types to display symbols using Unicode characters
 
 #### 3. type_overrides (optional)
@@ -65,7 +65,7 @@ from treeviz.definitions import load_def
 def_ = load_def(def_path="my_def.json")
 
 # Load from dictionary
-def_ = load_def(def_dict={"icon_map": {"custom": "★"}})
+def_ = load_def(def_dict={"icons": {"custom": "★"}})
 
 # Use defaults only
 def_ = load_def()
@@ -190,8 +190,8 @@ def validate_def(def_: Dict[str, Any]) -> Dict[str, Any]:
         )
 
     # Validate optional sections
-    if "icon_map" in def_ and not isinstance(def_["icon_map"], dict):
-        raise ConversionError("'icon_map' must be a dictionary")
+    if "icons" in def_ and not isinstance(def_["icons"], dict):
+        raise ConversionError("'icons' must be a dictionary")
 
     if "type_overrides" in def_ and not isinstance(
         def_["type_overrides"], dict
@@ -242,7 +242,7 @@ def get_default_def() -> Dict[str, Any]:
     """
     def_ = _load_def_file("default.json")
     # Add baseline icons from const.py
-    def_["icon_map"] = ICONS.copy()
+    def_["icons"] = ICONS.copy()
     return def_
 
 

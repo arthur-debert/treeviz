@@ -355,7 +355,7 @@ class TestPhase2Integration:
                 "type": "node_type",
                 "children": "child_nodes",
             },
-            "icon_map": {"function": "⚡", "class": "🏛"},
+            "icons": {"function": "⚡", "class": "🏛"},
         }
 
         # No need for converter instance with functional API

@@ -32,7 +32,7 @@ Declarative Conversion:
             "type": "node_type",       # Extract type from node.node_type  
             "children": "child_nodes"  # Extract children from node.child_nodes
         },
-        "icon_map": {
+        "icons": {
             "function": "⚡",           # Map function type to symbol
             "class": "🏛"              # Map class type to symbol
         }
@@ -68,7 +68,7 @@ Node Structure:
 Declarative Configuration:
     Adapt any tree using JSON definition instead of custom code:
     - attributes: Map source fields to Node fields
-    - icon_map: Map types to Unicode symbols
+    - icons: Map types to Unicode symbols
     - type_overrides: Per-type attribute customization
     - ignore_types: Filter out unwanted node types
 
@@ -205,7 +205,7 @@ Generate sample definitions:
     # Create definitions manually using declarative syntax
     sample_def = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"function": "⚡", "class": "🏛"}
+        "icons": {"function": "⚡", "class": "🏛"}
     }
 
 See Also

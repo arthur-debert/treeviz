@@ -17,11 +17,11 @@ class MockNode:
             setattr(self, key, value)
 
 
-def test_icon_mapping_basic(assert_node):
+def test_iconsping_basic(assert_node):
     """Test basic icon mapping functionality."""
     def_ = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
+        "icons": {"paragraph": "¶", "list": "☰", "heading": "⊤"},
     }
 
     source = MockNode(name="Paragraph", node_type="paragraph")
@@ -32,11 +32,11 @@ def test_icon_mapping_basic(assert_node):
     assert_node(result).has_icon("¶")
 
 
-def test_icon_mapping_missing_type():
+def test_iconsping_missing_type():
     """Test icon mapping when type is not in map."""
     def_ = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {"paragraph": "¶"},
+        "icons": {"paragraph": "¶"},
     }
 
     source = MockNode(name="Unknown", node_type="unknown")
@@ -48,11 +48,11 @@ def test_icon_mapping_missing_type():
     assert result.icon == "?"
 
 
-def test_icon_mapping_multiple_types():
+def test_iconsping_multiple_types():
     """Test icon mapping with various node types."""
     def_ = {
         "attributes": {"label": "name", "type": "node_type"},
-        "icon_map": {
+        "icons": {
             "document": "⧉",
             "paragraph": "¶",
             "list": "☰",
@@ -262,7 +262,7 @@ def test_combined_type_features(assert_node):
             "type": "node_type",
             "children": "child_nodes",
         },
-        "icon_map": {"paragraph": "¶", "heading": "⊤"},
+        "icons": {"paragraph": "¶", "heading": "⊤"},
         "type_overrides": {"heading": {"label": "title"}},
         "ignore_types": ["comment"],
     }
