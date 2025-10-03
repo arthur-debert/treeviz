@@ -211,22 +211,10 @@ def test_builtin_defs_exist():
     assert "label" in mdast_def
     assert "type" in mdast_def
     assert "children" in mdast_def
-    json_def = asdict(Lib.get("json"))
+    json_def = asdict(Lib.get("unist"))
     assert "label" in json_def
     assert "type" in json_def
     assert "children" in json_def
-
-
-def test_lib_get_format():
-    """Test loading format definition via Lib.get."""
-    def_ = asdict(Lib.get("json"))
-
-    assert "label" in def_
-    assert "type" in def_
-    assert "children" in def_
-    assert "type_overrides" in def_
-    assert "ignore_types" in def_
-    # Note: icons come from const.py and are merged automatically
 
 
 def test_lib_get_unknown():

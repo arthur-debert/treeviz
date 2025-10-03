@@ -58,10 +58,6 @@ class Lib:
         if not cls._loaded:
             cls.load_core_libs()
 
-        # Handle special case for JSON - return default definition
-        if format_name == "json":
-            return Definition.default()
-
         if format_name not in cls._registry:
             available_formats = list(cls._registry.keys())
             raise KeyError(
