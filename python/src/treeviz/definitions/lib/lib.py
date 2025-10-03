@@ -8,8 +8,15 @@ automatically loading core definitions from the lib directory.
 import json
 import importlib.resources
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Union
 from ..model import Definition
+
+try:
+    from ruamel import yaml
+
+    HAS_YAML = True
+except ImportError:
+    HAS_YAML = False
 
 
 class Lib:
@@ -68,6 +75,63 @@ class Lib:
         return cls._registry[format_name]
 
     @classmethod
+    def load_definition_file(cls, file_path: Union[str, Path]) -> Dict:
+        """
+        Load a definition file, supporting both JSON and YAML based on extension.
+
+        Args:
+            file_path: Path to the definition file
+
+        Returns:
+            Dictionary containing the definition data
+
+        Raises:
+            ValueError: If file format is not supported or parsing fails
+        """
+        file_path = Path(file_path)
+
+        if file_path.suffix.lower() == ".json":
+            try:
+                with open(file_path, "r") as f:
+                    return json.load(f)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid JSON in {file_path}: {e}")
+        elif file_path.suffix.lower() in [".yaml", ".yml"]:
+            if not HAS_YAML:
+                raise ValueError(
+                    "YAML support requires 'ruamel.yaml' package. Install with: pip install ruamel.yaml"
+                )
+            try:
+                yml = yaml.YAML(typ="safe", pure=True)
+                with open(file_path, "r") as f:
+                    return yml.load(f)
+            except yaml.YAMLError as e:
+                raise ValueError(f"Invalid YAML in {file_path}: {e}")
+        else:
+            # Try both formats if extension is unknown
+            try:
+                with open(file_path, "r") as f:
+                    content = f.read()
+
+                # Try JSON first
+                try:
+                    return json.loads(content)
+                except json.JSONDecodeError:
+                    pass
+
+                # Try YAML if JSON fails
+                if HAS_YAML:
+                    try:
+                        yml = yaml.YAML(typ="safe", pure=True)
+                        return yml.load(content)
+                    except yaml.YAMLError:
+                        pass
+
+                raise ValueError(f"Could not parse {file_path} as JSON or YAML")
+            except Exception as e:
+                raise ValueError(f"Error reading {file_path}: {e}")
+
+    @classmethod
     def load_core_libs(cls, reload: bool = False) -> None:
         """
         Load core definitions from the lib directory.
@@ -81,18 +145,27 @@ class Lib:
         if reload:
             cls._registry.clear()
 
-        # Get all JSON files from the lib directory
+        # Get all JSON and YAML files from the lib directory
         lib_files = []
         try:
             # Try to list files in the lib directory
             with importlib.resources.path(
                 "treeviz.definitions.lib", ""
             ) as lib_path:
-                lib_files = list(lib_path.glob("*.json"))
+                lib_files = (
+                    list(lib_path.glob("*.json"))
+                    + list(lib_path.glob("*.yaml"))
+                    + list(lib_path.glob("*.yml"))
+                )
         except (ImportError, FileNotFoundError):
             # Fallback: try to access files directly
             lib_files = []
-            for filename in ["mdast.json", "unist.json"]:
+            for filename in [
+                "mdast.json",
+                "unist.json",
+                "mdast.yaml",
+                "unist.yaml",
+            ]:
                 try:
                     with importlib.resources.open_text(
                         "treeviz.definitions.lib", filename
@@ -101,21 +174,31 @@ class Lib:
                 except (ImportError, FileNotFoundError):
                     continue
 
-        # Load each JSON file - let JSON decode errors and file errors bubble up
+        # Load each definition file - let decode errors and file errors bubble up
         for file_item in lib_files:
             if isinstance(file_item, Path):
                 filename = file_item.name
                 format_name = file_item.stem
-                with open(file_item, "r") as f:
-                    definition_dict = json.load(f)
+                definition_dict = cls.load_definition_file(file_item)
             else:
                 # file_item is a string filename
                 filename = file_item
-                format_name = filename.replace(".json", "")
+                format_name = Path(filename).stem
+                # For resources, we need to read the content and parse it
                 with importlib.resources.open_text(
                     "treeviz.definitions.lib", filename
                 ) as f:
-                    definition_dict = json.load(f)
+                    content = f.read()
+
+                if filename.endswith(".json"):
+                    definition_dict = json.loads(content)
+                elif filename.endswith((".yaml", ".yml")):
+                    if not HAS_YAML:
+                        continue  # Skip YAML files if ruamel.yaml not available
+                    yml = yaml.YAML(typ="safe", pure=True)
+                    definition_dict = yml.load(content)
+                else:
+                    continue  # Skip unknown file types
 
             cls.register(format_name, definition_dict)
 

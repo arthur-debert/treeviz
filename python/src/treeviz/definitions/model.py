@@ -19,24 +19,72 @@ class Definition:
     """
 
     # Core extraction mappings (flattened from attributes)
-    label: str = "label"
-    type: str = "type"
-    children: str = "children"
+    label: str = field(
+        default="label",
+        metadata={
+            "doc": "Field name to extract node label from (e.g., 'name', 'content', 'title')"
+        },
+    )
+    type: str = field(
+        default="type",
+        metadata={
+            "doc": "Field name to extract node type from (e.g., 'node_type', 'kind', 'tag')"
+        },
+    )
+    children: str = field(
+        default="children",
+        metadata={
+            "doc": "Field name to extract child nodes from (e.g., 'children', 'body', 'content')"
+        },
+    )
 
     # Optional extraction mappings
-    icon: Any = None
-    content_lines: Any = 1
-    source_location: Any = None
-    metadata: Any = field(default_factory=dict)
+    icon: Any = field(
+        default=None,
+        metadata={
+            "doc": "Field name for custom icon extraction, or None to use type-based icons"
+        },
+    )
+    content_lines: Any = field(
+        default=1,
+        metadata={
+            "doc": "Field name for line count extraction, or integer for fixed line count"
+        },
+    )
+    source_location: Any = field(
+        default=None,
+        metadata={
+            "doc": "Field name for source location info (line/column numbers)"
+        },
+    )
+    metadata: Any = field(
+        default_factory=dict,
+        metadata={
+            "doc": "Field name for additional metadata extraction, or dict for static metadata"
+        },
+    )
 
     # Optional: Icon mappings (defaults to baseline from const.py)
-    icons: Dict[str, str] = field(default_factory=lambda: ICONS.copy())
+    icons: Dict[str, str] = field(
+        default_factory=lambda: ICONS.copy(),
+        metadata={
+            "doc": "Mapping from node types to Unicode icons for display"
+        },
+    )
 
     # Optional: Per-type attribute overrides
-    type_overrides: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    type_overrides: Dict[str, Dict[str, str]] = field(
+        default_factory=dict,
+        metadata={
+            "doc": "Per-type field overrides (e.g., {'paragraph': {'label': 'content'}})"
+        },
+    )
 
     # Optional: Node types to skip during conversion
-    ignore_types: List[str] = field(default_factory=list)
+    ignore_types: List[str] = field(
+        default_factory=list,
+        metadata={"doc": "List of node types to skip during tree traversal"},
+    )
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Definition":

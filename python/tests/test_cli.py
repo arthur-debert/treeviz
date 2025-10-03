@@ -6,6 +6,13 @@ import json
 import pytest
 from click.testing import CliRunner
 
+try:
+    from ruamel import yaml
+
+    HAS_YAML = True
+except ImportError:
+    HAS_YAML = False
+
 from treeviz.cli import cli
 
 
@@ -44,11 +51,23 @@ class TestGetDefinitionCommand:
         result = runner.invoke(cli, ["get-definition"])
         assert result.exit_code == 0
 
-        # Should output valid JSON
-        output_data = json.loads(result.output)
-        assert "label" in output_data
-        assert "icons" in output_data
-        assert output_data["label"] == "label"  # Definition.default() uses "label"
+        # Output should be YAML with comments (for text/term format)
+        if HAS_YAML:
+            # Parse as YAML and verify the basic structure
+            yml = yaml.YAML(typ="safe", pure=True)
+            output_data = yml.load(result.output)
+            assert "label" in output_data
+            assert "icons" in output_data
+            assert (
+                output_data["label"] == "label"
+            )  # Definition.default() uses "label"
+            # Verify comments are present
+            assert "# Field name to extract node label from" in result.output
+        else:
+            # Fallback to JSON if YAML not available
+            output_data = json.loads(result.output)
+            assert "label" in output_data
+            assert output_data["label"] == "label"
 
     def test_get_definition_3viz_explicit(self):
         """Test getting 3viz definition explicitly."""
@@ -56,10 +75,21 @@ class TestGetDefinitionCommand:
         result = runner.invoke(cli, ["get-definition", "3viz"])
         assert result.exit_code == 0
 
-        output_data = json.loads(result.output)
-        assert output_data["label"] == "label"  # Definition.default() uses "label"
-        assert output_data["type"] == "type"    # Definition.default() uses "type"
-        assert output_data["children"] == "children"
+        # Output should be YAML with comments (for text/term format)
+        if HAS_YAML:
+            yml = yaml.YAML(typ="safe", pure=True)
+            output_data = yml.load(result.output)
+            assert (
+                output_data["label"] == "label"
+            )  # Definition.default() uses "label"
+            assert (
+                output_data["type"] == "type"
+            )  # Definition.default() uses "type"
+            assert output_data["children"] == "children"
+        else:
+            # Fallback to JSON if YAML not available
+            output_data = json.loads(result.output)
+            assert output_data["label"] == "label"
 
     def test_get_definition_mdast(self):
         """Test getting mdast definition."""
@@ -67,9 +97,17 @@ class TestGetDefinitionCommand:
         result = runner.invoke(cli, ["get-definition", "mdast"])
         assert result.exit_code == 0
 
-        output_data = json.loads(result.output)
-        assert "label" in output_data
-        assert "icons" in output_data
+        # Output should be YAML with comments (for text/term format)
+        if HAS_YAML:
+            yml = yaml.YAML(typ="safe", pure=True)
+            output_data = yml.load(result.output)
+            assert "label" in output_data
+            assert "icons" in output_data
+        else:
+            # Fallback to JSON if YAML not available
+            output_data = json.loads(result.output)
+            assert "label" in output_data
+            assert "icons" in output_data
 
     def test_get_definition_unknown_format(self):
         """Test error handling for unknown format."""
@@ -102,9 +140,17 @@ class TestFormatOptions:
         )
         assert result.exit_code == 0
 
-        # For now, text format outputs JSON (as per requirements)
-        output_data = json.loads(result.output)
-        assert "label" in output_data
+        # Text format outputs YAML with comments for get-definition
+        if HAS_YAML:
+            yml = yaml.YAML(typ="safe", pure=True)
+            output_data = yml.load(result.output)
+            assert "label" in output_data
+            # Verify comments are present
+            assert "# Field name to extract node label from" in result.output
+        else:
+            # Fallback to JSON if YAML not available
+            output_data = json.loads(result.output)
+            assert "label" in output_data
 
     def test_format_term_explicit(self):
         """Test explicit term format."""
@@ -114,9 +160,17 @@ class TestFormatOptions:
         )
         assert result.exit_code == 0
 
-        # For now, term format outputs JSON (as per requirements)
-        output_data = json.loads(result.output)
-        assert "label" in output_data
+        # Term format outputs YAML with comments for get-definition
+        if HAS_YAML:
+            yml = yaml.YAML(typ="safe", pure=True)
+            output_data = yml.load(result.output)
+            assert "label" in output_data
+            # Verify comments are present
+            assert "# Field name to extract node label from" in result.output
+        else:
+            # Fallback to JSON if YAML not available
+            output_data = json.loads(result.output)
+            assert "label" in output_data
 
 
 class TestErrorHandling:
