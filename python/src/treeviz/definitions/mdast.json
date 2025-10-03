@@ -10,7 +10,15 @@
     "text": "◦",
     "heading": "⊤",
     "list": "☰",
-    "listItem": "•"
+    "listItem": "•",
+    "strong": "𝐁",
+    "emphasis": "𝐼",
+    "inlineCode": "ƒ",
+    "code": "𝒱",
+    "blockquote": "❝",
+    "link": "🔗",
+    "image": "🖼",
+    "thematicBreak": "⸺"
   },
   "type_overrides": {},
   "ignore_types": []

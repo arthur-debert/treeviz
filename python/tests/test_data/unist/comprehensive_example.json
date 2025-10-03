@@ -1,0 +1,212 @@
+{
+  "type": "root",
+  "data": {
+    "title": "UNIST Example Document"
+  },
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 10,
+      "column": 1,
+      "offset": 250
+    }
+  },
+  "children": [
+    {
+      "type": "element",
+      "tagName": "section",
+      "data": {
+        "id": "intro"
+      },
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 15,
+          "offset": 45
+        }
+      },
+      "children": [
+        {
+          "type": "text",
+          "value": "Introduction section content",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 15
+            },
+            "end": {
+              "line": 2,
+              "column": 29,
+              "offset": 43
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "tagName": "article",
+      "data": {
+        "class": "main-content"
+      },
+      "children": [
+        {
+          "type": "element",
+          "tagName": "h1",
+          "children": [
+            {
+              "type": "text",
+              "value": "Main Title"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "tagName": "p",
+          "children": [
+            {
+              "type": "text",
+              "value": "This is a paragraph with "
+            },
+            {
+              "type": "element",
+              "tagName": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "strong text"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "element",
+              "tagName": "em",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "emphasized text"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "tagName": "ul",
+          "data": {
+            "listType": "unordered"
+          },
+          "children": [
+            {
+              "type": "element",
+              "tagName": "li",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "First list item"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "tagName": "li",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Second list item"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "tagName": "li",
+              "children": [
+                {
+                  "type": "element",
+                  "tagName": "p",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Third item with nested paragraph"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "tagName": "pre",
+      "children": [
+        {
+          "type": "element",
+          "tagName": "code",
+          "data": {
+            "language": "python"
+          },
+          "children": [
+            {
+              "type": "text",
+              "value": "def example():\n    return 'Hello, UNIST!'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "comment",
+      "value": "This is a comment node"
+    },
+    {
+      "type": "element",
+      "tagName": "blockquote",
+      "children": [
+        {
+          "type": "element",
+          "tagName": "p",
+          "children": [
+            {
+              "type": "text",
+              "value": "A quoted section demonstrating nested elements."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "tagName": "div",
+      "data": {
+        "class": "footer",
+        "role": "contentinfo"
+      },
+      "children": [
+        {
+          "type": "text",
+          "value": "Footer content"
+        }
+      ]
+    }
+  ]
+}
