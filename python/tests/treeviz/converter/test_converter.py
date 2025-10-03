@@ -4,7 +4,6 @@ Tests for the declarative converter engine.
 
 import pytest
 from treeviz.adapter import (
-    ConversionError,
     adapt_tree,
     adapt_node,
 )
@@ -178,13 +177,11 @@ def test_source_location_extraction(assert_node):
 def test_invalid_defuration():
     """Test that invalid definitions raise errors."""
     # No attributes section
-    with pytest.raises(ConversionError, match="must include 'attributes'"):
+    with pytest.raises(KeyError, match="must include 'attributes'"):
         adapt_node({}, {})
 
     # No label in attributes
-    with pytest.raises(
-        ConversionError, match="must specify how to extract 'label'"
-    ):
+    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
         adapt_node({}, {"attributes": {"type": "node_type"}})
 
 
@@ -200,7 +197,7 @@ def test_conversion_error_on_bad_children():
     source = MockNode(name="Test", bad_children="not a list")
 
     with pytest.raises(
-        ConversionError, match="Children attribute must return a list"
+        TypeError, match="Children attribute must return a list"
     ):
         adapt_node(source, def_)
 
@@ -226,7 +223,7 @@ def test_adapt_tree_with_ignored_root():
 
     source = MockNode(name="Root", node_type="root")
 
-    with pytest.raises(ConversionError, match="Root node was ignored"):
+    with pytest.raises(ValueError, match="Root node was ignored"):
         adapt_tree(source, def_)
 
 

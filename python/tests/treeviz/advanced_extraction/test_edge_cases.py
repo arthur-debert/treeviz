@@ -11,7 +11,6 @@ from treeviz.advanced_extraction import (
     filter_collection,
     extract_attribute,
 )
-from treeviz.exceptions import ConversionError
 from treeviz import adapt_node
 
 
@@ -282,7 +281,7 @@ class Testadapt_nodeIntegration:
 
         source = {"name": "test"}
 
-        with pytest.raises(ConversionError, match="Unknown transformation"):
+        with pytest.raises(ValueError, match="Unknown transformation"):
             adapt_node(source, def_)
 
     def test_large_collection_filtering_performance(self):
@@ -337,7 +336,7 @@ class TestRegressionTests:
         """Test that empty brackets are handled correctly."""
         data = {"test": [1, 2, 3]}
 
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_by_path(data, "test[]")
 
     def test_transformation_order_in_extraction(self):

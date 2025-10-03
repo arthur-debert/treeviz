@@ -8,7 +8,6 @@ children processing, and hierarchical data conversion.
 import pytest
 from treeviz.adapter import (
     adapt_node,
-    ConversionError,
     adapt_tree,
 )
 from treeviz.model import Node
@@ -136,7 +135,7 @@ def test_children_conversion_error():
     source = MockNode(name="Bad Parent", bad_children="not a list")
 
     with pytest.raises(
-        ConversionError, match="Children attribute must return a list"
+        TypeError, match="Children attribute must return a list"
     ):
         adapt_node(source, def_)
 

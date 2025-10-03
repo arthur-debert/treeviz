@@ -6,7 +6,7 @@ definition scenarios, validation, and error cases.
 """
 
 import pytest
-from treeviz.adapter import adapt_node, ConversionError
+from treeviz.adapter import adapt_node
 
 
 class MockNode:
@@ -32,7 +32,7 @@ def test_defuration_validation_no_attributes():
     def_ = {}
     source = MockNode()
 
-    with pytest.raises(ConversionError, match="must include 'attributes'"):
+    with pytest.raises(KeyError, match="must include 'attributes'"):
         adapt_node(source, def_)
 
 
@@ -41,9 +41,7 @@ def test_defuration_validation_no_label():
     def_ = {"attributes": {"type": "node_type"}}
     source = MockNode(node_type="test")
 
-    with pytest.raises(
-        ConversionError, match="must specify how to extract 'label'"
-    ):
+    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
         adapt_node(source, def_)
 
 
@@ -128,10 +126,10 @@ def test_defuration_error_messages():
 
     try:
         adapt_node(source, {})
-    except ConversionError as e:
+    except KeyError as e:
         assert "attributes" in str(e).lower()
 
     try:
         adapt_node(source, {"attributes": {"type": "node_type"}})
-    except ConversionError as e:
+    except KeyError as e:
         assert "label" in str(e).lower()

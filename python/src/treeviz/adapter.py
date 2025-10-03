@@ -25,7 +25,6 @@ import sys
 from typing import Any, Dict, Optional, Callable
 
 from .model import Node
-from .exceptions import ConversionError
 from .advanced_extraction import extract_attribute
 from .definitions.schema import Definition
 
@@ -38,9 +37,9 @@ def validate_def(def_: Dict[str, Any]) -> None:
         def_: Dictionary containing attribute mappings and icon mappings
 
     Raises:
-        ConversionError: If definition is invalid
+        TypeError, KeyError: If definition is invalid (standard Python exceptions with helpful messages)
     """
-    # Validation is handled by Definition.from_dict()
+    # Validation is handled by Definition.from_dict() - let exceptions bubble up
     Definition.from_dict(def_)
 
 
@@ -73,96 +72,87 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         3viz Node or None if node should be ignored
 
     Raises:
-        ConversionError: If conversion fails
+        Standard Python exceptions: TypeError, KeyError, ValueError, etc. with descriptive messages
     """
-    try:
-        # Parse and validate using dataclass
-        definition = Definition.from_dict(def_)
+    # Parse and validate using dataclass
+    definition = Definition.from_dict(def_)
 
-        attributes = definition.attributes
-        icons = definition.get_merged_icons()
-        type_overrides = definition.type_overrides
-        ignore_types = set(definition.ignore_types)
+    attributes = definition.attributes
+    icons = definition.get_merged_icons()
+    type_overrides = definition.type_overrides
+    ignore_types = set(definition.ignore_types)
 
-        # Check if this node type should be ignored
-        node_type = extract_attribute(source_node, attributes.get("type"))
-        if node_type and node_type in ignore_types:
-            return None
+    # Check if this node type should be ignored
+    node_type = extract_attribute(source_node, attributes.get("type"))
+    if node_type and node_type in ignore_types:
+        return None
 
-        # Get the effective attributes for this node type
-        effective_attributes = get_effective_attributes(
-            attributes, type_overrides, node_type
+    # Get the effective attributes for this node type
+    effective_attributes = get_effective_attributes(
+        attributes, type_overrides, node_type
+    )
+
+    # Extract basic attributes using advanced extractor
+    label = extract_attribute(source_node, effective_attributes["label"])
+    if label is None:
+        label = str(node_type) if node_type else "Unknown"
+
+    # Extract optional attributes using advanced extractor
+    icon = extract_attribute(source_node, effective_attributes.get("icon"))
+    content_lines = extract_attribute(
+        source_node, effective_attributes.get("content_lines", 1)
+    )
+
+    if not isinstance(content_lines, int):
+        content_lines = 1
+
+    # Extract source location if configured
+    source_location = None
+    if "source_location" in effective_attributes:
+        source_location = extract_attribute(
+            source_node, effective_attributes["source_location"]
         )
 
-        # Extract basic attributes using advanced extractor
-        label = extract_attribute(source_node, effective_attributes["label"])
-        if label is None:
-            label = str(node_type) if node_type else "Unknown"
-
-        # Extract optional attributes using advanced extractor
-        icon = extract_attribute(source_node, effective_attributes.get("icon"))
-        content_lines = extract_attribute(
-            source_node, effective_attributes.get("content_lines", 1)
+    # Extract metadata using advanced extractor
+    metadata = {}
+    if "metadata" in effective_attributes:
+        extracted_metadata = extract_attribute(
+            source_node, effective_attributes["metadata"]
         )
+        # Metadata can be any type after transformation (string, dict, etc.)
+        metadata = extracted_metadata if extracted_metadata is not None else {}
 
-        if not isinstance(content_lines, int):
-            content_lines = 1
+    # Apply icon mapping if no explicit icon
+    if not icon and node_type and node_type in icons:
+        icon = icons[node_type]
 
-        # Extract source location if configured
-        source_location = None
-        if "source_location" in effective_attributes:
-            source_location = extract_attribute(
-                source_node, effective_attributes["source_location"]
-            )
-
-        # Extract metadata using advanced extractor
-        metadata = {}
-        if "metadata" in effective_attributes:
-            extracted_metadata = extract_attribute(
-                source_node, effective_attributes["metadata"]
-            )
-            # Metadata can be any type after transformation (string, dict, etc.)
-            metadata = (
-                extracted_metadata if extracted_metadata is not None else {}
-            )
-
-        # Apply icon mapping if no explicit icon
-        if not icon and node_type and node_type in icons:
-            icon = icons[node_type]
-
-        # Extract children using advanced extractor (supports filtering)
-        children = []
-        if "children" in effective_attributes:
-            children_source = extract_attribute(
-                source_node, effective_attributes["children"]
-            )
-            if children_source:
-                if not isinstance(children_source, list):
-                    raise ConversionError(
-                        f"Children attribute must return a list, got {type(children_source)}"
-                    )
-
-                for child in children_source:
-                    child_node = adapt_node(child, def_)
-                    if child_node is not None:  # Skip ignored nodes
-                        children.append(child_node)
-
-        return Node(
-            label=str(label),
-            type=node_type,
-            icon=icon,
-            content_lines=content_lines,
-            source_location=source_location,
-            metadata=metadata,
-            children=children,
+    # Extract children using advanced extractor (supports filtering)
+    children = []
+    if "children" in effective_attributes:
+        children_source = extract_attribute(
+            source_node, effective_attributes["children"]
         )
+        if children_source:
+            if not isinstance(children_source, list):
+                raise TypeError(
+                    f"Children attribute must return a list, got {type(children_source).__name__}. "
+                    f"Check your 'children' attribute mapping in the definition."
+                )
 
-    except Exception as e:
-        # Adapt any error to ConversionError for consistent handling
-        if isinstance(e, ConversionError):
-            raise
-        else:
-            raise ConversionError(f"Failed to adapt node: {e}") from e
+            for child in children_source:
+                child_node = adapt_node(child, def_)
+                if child_node is not None:  # Skip ignored nodes
+                    children.append(child_node)
+
+    return Node(
+        label=str(label),
+        type=node_type,
+        icon=icon,
+        content_lines=content_lines,
+        source_location=source_location,
+        metadata=metadata,
+        children=children,
+    )
 
 
 def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
@@ -177,13 +167,15 @@ def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
         Converted 3viz Node tree
 
     Raises:
-        ConversionError: If conversion fails
+        ValueError: If root node is ignored
+        Standard Python exceptions: From adapt_node if other errors occur
     """
     result = adapt_node(source_tree, def_)
 
     if result is None:
-        raise ConversionError(
-            "Root node was ignored - check ignore_types definition"
+        raise ValueError(
+            "Root node was ignored - check ignore_types definition. "
+            "The root node type may be in the ignore_types list."
         )
 
     return result
@@ -191,16 +183,16 @@ def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
 
 def exit_on_error(func: Callable) -> Callable:
     """
-    Decorator to exit with status 1 on ConversionError.
+    Decorator to exit with status 1 on any exception.
 
-    This implements the "fail fast" principle - any conversion error
+    This implements the "fail fast" principle - any error
     should immediately exit the program with a clear error message.
     """
 
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ConversionError as e:
+        except Exception as e:
             print(f"Error: {e}", file=sys.stderr)
             sys.exit(1)
 

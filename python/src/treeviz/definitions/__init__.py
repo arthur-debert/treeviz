@@ -9,7 +9,6 @@ from .definitions import (
     validate_def,
     get_default_def,
     load_format_def,
-    ConversionError,
 )
 from .schema import Definition
 from .lib import Lib
@@ -22,7 +21,6 @@ __all__ = [
     "validate_def",
     "get_default_def",
     "load_format_def",
-    "ConversionError",
     "Definition",
     "Lib",
 ]

@@ -161,13 +161,13 @@ Error Messages
 
 Common issues and solutions:
 
-ConversionError: "Configuration must include 'attributes' section"
+KeyError: "Configuration must include 'attributes' section"
     → Add attributes mapping: {"attributes": {"label": "name"}}
 
-ConversionError: "Children attribute must return a list, got str"  
+TypeError: "Children attribute must return a list, got str"  
     → Check that children path points to list, not string
 
-ConversionError: "Failed to extract attribute 'missing_field'"
+AttributeError: "Failed to extract attribute 'missing_field'"
     → Verify field exists or add fallback/default values
 
 Performance Guidelines
@@ -193,12 +193,12 @@ Enable detailed error messages:
 
 Test definitions interactively:
     
-    from treeviz import validate_def, ConversionError
+    from treeviz import validate_def
     try:
         validate_def(my_def)
         print("Configuration valid!")
-    except ConversionError as e:
-        print(f"def_ error: {e}")
+    except (TypeError, KeyError, ValueError) as e:
+        print(f"Definition error: {e}")
 
 Generate sample definitions:
     
@@ -234,7 +234,8 @@ from .adapter import (
     adapt_node,
     validate_def,
 )
-from .exceptions import ConversionError
+
+# No custom exceptions - we use standard Python exceptions with helpful messages
 from .renderer import (
     render,
     create_render_options,
@@ -254,7 +255,6 @@ __all__ = [
     "adapt_tree",
     "adapt_node",
     "validate_def",
-    "ConversionError",
     # Rendering
     "render",
     "create_render_options",

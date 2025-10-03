@@ -12,7 +12,6 @@ from treeviz.advanced_extraction import (
     filter_collection,
     extract_attribute,
 )
-from treeviz.exceptions import ConversionError
 
 
 class TestPathExpressionHardcore:
@@ -215,11 +214,11 @@ class TestPathExpressionHardcore:
         ],
     )
     def test_malformed_path_expressions(self, malformed_path):
-        """Test that malformed path expressions raise ConversionError."""
+        """Test that malformed path expressions raise ValueError."""
         # Using functional API
         data = {"items": [1, 2, 3]}
 
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_by_path(data, malformed_path)
 
 
@@ -385,10 +384,10 @@ class TestTransformationHardcore:
         ],
     )
     def test_invalid_transformations(self, invalid_transform):
-        """Test that invalid transformations raise ConversionError."""
+        """Test that invalid transformations raise ValueError."""
         # Using functional API
 
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             apply_transformation("test", invalid_transform)
 
     def test_none_value_handling(self):
@@ -815,12 +814,10 @@ class TestFilterEngineHardcore:
         ],
     )
     def test_non_list_input_error(self, invalid_input):
-        """Test that non-list inputs raise ConversionError."""
+        """Test that non-list inputs raise ValueError."""
         # Using functional API
 
-        with pytest.raises(
-            ConversionError, match="Cannot filter non-list type"
-        ):
+        with pytest.raises(ValueError, match="Cannot filter non-list type"):
             filter_collection(invalid_input, {"type": "any"})
 
     def test_empty_collection_filtering(self):
@@ -1018,11 +1015,11 @@ class TestAdvancedAttributeExtractorHardcore:
         # Using functional API
 
         # Test malformed path
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_attribute({"test": "value"}, {"path": "test[unclosed"})
 
         # Test invalid transformation
-        with pytest.raises(ConversionError):
+        with pytest.raises(ValueError):
             extract_attribute(
                 {"test": "value"},
                 {"path": "test", "transform": "invalid_transform"},
@@ -1231,6 +1228,6 @@ class TestIntegrationHardcore:
             result = adapt_node(edge_case_data, def_)
             assert result is not None
             assert result.label == "unnamed"  # Should use default
-        except ConversionError:
+        except ValueError:
             # Some edge cases might legitimately fail
             pass

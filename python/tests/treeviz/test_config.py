@@ -11,7 +11,6 @@ from treeviz.definitions import (
     load_def,
     validate_def,
     load_format_def,
-    ConversionError,
 )
 
 
@@ -58,7 +57,7 @@ def test_load_def_from_file():
 
 def test_load_def_file_not_found():
     """Test error when definition file doesn't exist."""
-    with pytest.raises(ConversionError, match="Configuration file not found"):
+    with pytest.raises(FileNotFoundError, match="Configuration file not found"):
         load_def(def_path="/nonexistent/path.json")
 
 
@@ -71,7 +70,7 @@ def test_load_def_invalid_json():
         temp_path = f.name
 
     try:
-        with pytest.raises(ConversionError, match="Invalid JSON"):
+        with pytest.raises(json.JSONDecodeError):
             load_def(def_path=temp_path)
     finally:
         Path(temp_path).unlink()
@@ -79,7 +78,7 @@ def test_load_def_invalid_json():
 
 def test_load_def_both_sources():
     """Test error when both def_path and def_dict are provided."""
-    with pytest.raises(ConversionError, match="Cannot specify both"):
+    with pytest.raises(ValueError, match="Cannot specify both"):
         load_def(
             def_path="test.json",
             def_dict={"attributes": {"label": "name"}},
@@ -119,29 +118,27 @@ def test_validate_def_valid():
 
 def test_validate_def_not_dict():
     """Test validation error when def_ is not a dictionary."""
-    with pytest.raises(ConversionError, match="must be a dictionary"):
+    with pytest.raises(TypeError, match="must be a dictionary"):
         validate_def("not a dict")
 
 
 def test_validate_def_missing_attributes():
     """Test validation error when attributes section is missing."""
-    with pytest.raises(ConversionError, match="must include 'attributes'"):
+    with pytest.raises(KeyError, match="must include 'attributes'"):
         validate_def({})
 
 
 def test_validate_def_attributes_not_dict():
     """Test validation error when attributes is not a dictionary."""
     with pytest.raises(
-        ConversionError, match="'attributes' section must be a dictionary"
+        TypeError, match="'attributes' section must be a dictionary"
     ):
         validate_def({"attributes": "not a dict"})
 
 
 def test_validate_def_missing_label():
     """Test validation error when label extraction is not specified."""
-    with pytest.raises(
-        ConversionError, match="must specify how to extract 'label'"
-    ):
+    with pytest.raises(KeyError, match="must specify how to extract 'label'"):
         validate_def({"attributes": {"type": "node_type"}})
 
 
@@ -149,7 +146,7 @@ def test_validate_def_invalid_icons():
     """Test validation error when icons is not a dictionary."""
     def_ = {"attributes": {"label": "name"}, "icons": "not a dict"}
 
-    with pytest.raises(ConversionError, match="'icons' must be a dictionary"):
+    with pytest.raises(TypeError, match="'icons' must be a dictionary"):
         validate_def(def_)
 
 
@@ -158,7 +155,7 @@ def test_validate_def_invalid_type_overrides():
     def_ = {"attributes": {"label": "name"}, "type_overrides": "not a dict"}
 
     with pytest.raises(
-        ConversionError, match="'type_overrides' must be a dictionary"
+        TypeError, match="'type_overrides' must be a dictionary"
     ):
         validate_def(def_)
 
@@ -167,7 +164,7 @@ def test_validate_def_invalid_ignore_types():
     """Test validation error when ignore_types is not a list."""
     def_ = {"attributes": {"label": "name"}, "ignore_types": "not a list"}
 
-    with pytest.raises(ConversionError, match="'ignore_types' must be a list"):
+    with pytest.raises(TypeError, match="'ignore_types' must be a list"):
         validate_def(def_)
 
 
@@ -179,7 +176,7 @@ def test_validate_def_invalid_type_override_value():
     }
 
     with pytest.raises(
-        ConversionError, match="Type override for 'text' must be a dictionary"
+        TypeError, match="Type override for 'text' must be a dictionary"
     ):
         validate_def(def_)
 
@@ -231,5 +228,5 @@ def test_load_format_def():
 
 def test_load_format_def_unknown():
     """Test error when requesting unknown format definition."""
-    with pytest.raises(ConversionError, match="Unknown format 'unknown'"):
+    with pytest.raises(KeyError, match="Unknown format 'unknown'"):
         load_format_def("unknown")

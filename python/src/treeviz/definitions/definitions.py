@@ -75,7 +75,6 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from ..adapter import ConversionError
 from .schema import Definition
 
 
@@ -97,7 +96,10 @@ def load_def(
         If no def_ is provided, returns default definition.
 
     Raises:
-        ConversionError: If definition is invalid
+        ValueError: If both def_path and def_dict are provided
+        FileNotFoundError: If definition file doesn't exist
+        json.JSONDecodeError: If JSON is invalid
+        TypeError, KeyError: If definition structure is invalid
     """
     # Start with default definition
     def_ = get_default_def().to_dict(merge_icons=False)
@@ -105,23 +107,15 @@ def load_def(
     # Load user definition if provided
     user_def = None
     if def_path and def_dict:
-        raise ConversionError("Cannot specify both def_path and def_dict")
+        raise ValueError("Cannot specify both def_path and def_dict")
 
     if def_path:
-        try:
-            path = Path(def_path)
-            if not path.exists():
-                raise ConversionError(
-                    f"Configuration file not found: {def_path}"
-                )
+        path = Path(def_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Configuration file not found: {def_path}")
 
-            with open(path, "r") as f:
-                user_def = json.load(f)
-
-        except json.JSONDecodeError as e:
-            raise ConversionError(f"Invalid JSON in definition file: {e}")
-        except Exception as e:
-            raise ConversionError(f"Failed to load definition file: {e}")
+        with open(path, "r") as f:
+            user_def = json.load(f)  # Let JSONDecodeError bubble up naturally
 
     elif def_dict:
         user_def = def_dict
@@ -147,7 +141,7 @@ def validate_def(def_: Dict[str, Any]) -> Dict[str, Any]:
         Validated definition dictionary (original format)
 
     Raises:
-        ConversionError: If definition is invalid
+        TypeError, KeyError: If definition structure is invalid (with helpful messages)
     """
     # Use dataclass for validation but return original format for backwards compatibility
     definition = Definition.from_dict(def_)
@@ -183,12 +177,12 @@ def load_format_def(format_name: str) -> Definition:
 
 
 def exit_on_def_error(func):
-    """Decorator to exit with status 1 on definition errors."""
+    """Decorator to exit with status 1 on any exception."""
 
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ConversionError as e:
+        except Exception as e:
             print(f"Configuration Error: {e}", file=sys.stderr)
             sys.exit(1)
 

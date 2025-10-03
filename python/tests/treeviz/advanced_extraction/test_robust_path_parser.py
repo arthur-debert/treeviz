@@ -9,7 +9,6 @@ import pytest
 from treeviz.advanced_extraction import (
     parse_path_expression,
 )
-from treeviz.exceptions import ConversionError
 
 
 class TestRobustPathParser:
@@ -140,31 +139,31 @@ class TestRobustPathParser:
     def test_error_cases(self):
         """Test various error conditions with clear error messages."""
         # Empty path
-        with pytest.raises(ConversionError, match="cannot be empty"):
+        with pytest.raises(ValueError, match="cannot be empty"):
             parse_path_expression("")
 
         # Unclosed bracket
-        with pytest.raises(ConversionError, match="Unclosed bracket"):
+        with pytest.raises(ValueError, match="Unclosed bracket"):
             parse_path_expression("items[0")
 
         # Invalid character in identifier position
-        with pytest.raises(ConversionError, match="Expected identifier"):
+        with pytest.raises(ValueError, match="Expected identifier"):
             parse_path_expression("123invalid")
 
         # Empty bracket
-        with pytest.raises(ConversionError, match="Empty key"):
+        with pytest.raises(ValueError, match="Empty key"):
             parse_path_expression("items[]")
 
         # Unclosed string
-        with pytest.raises(ConversionError, match="Unclosed string"):
+        with pytest.raises(ValueError, match="Unclosed string"):
             parse_path_expression('items["unclosed')
 
         # Invalid number
-        with pytest.raises(ConversionError, match="Expected digit"):
+        with pytest.raises(ValueError, match="Expected digit"):
             parse_path_expression("items[-]")
 
         # Unexpected character
-        with pytest.raises(ConversionError, match="Unexpected character"):
+        with pytest.raises(ValueError, match="Unexpected character"):
             parse_path_expression("items[0]@")
 
     def test_edge_cases(self):
@@ -224,11 +223,11 @@ class TestPathParserRobustness:
         """Test that error messages are clear and include position information."""
 
         # Test specific error positions
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             parse_path_expression("items[0@")
         assert "position 7" in str(exc_info.value)
 
-        with pytest.raises(ConversionError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             parse_path_expression("items[")
         assert "Unclosed bracket" in str(exc_info.value)
 

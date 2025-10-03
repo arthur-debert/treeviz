@@ -8,7 +8,6 @@ replacing the ad-hoc dictionary validation.
 from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Any
 from ..const import ICONS
-from ..exceptions import ConversionError
 
 
 @dataclass
@@ -45,28 +44,43 @@ class Definition:
         """Validate the definition structure."""
         # Check required attributes section
         if not isinstance(self.attributes, dict):
-            raise ConversionError("'attributes' section must be a dictionary")
+            raise TypeError(
+                "'attributes' section must be a dictionary. "
+                "Example: {'attributes': {'label': 'name', 'type': 'node_type', 'children': 'children'}}"
+            )
 
         if "label" not in self.attributes:
-            raise ConversionError(
-                "'attributes' must specify how to extract 'label'"
+            raise KeyError(
+                "'attributes' must specify how to extract 'label'. "
+                "Example: {'attributes': {'label': 'name', 'type': 'node_type'}}. "
+                "See treeviz documentation for more details."
             )
 
         # Check optional sections
         if not isinstance(self.icons, dict):
-            raise ConversionError("'icons' must be a dictionary")
+            raise TypeError(
+                "'icons' must be a dictionary. "
+                "Example: {'icons': {'paragraph': '¶', 'heading': '⊤'}}"
+            )
 
         if not isinstance(self.type_overrides, dict):
-            raise ConversionError("'type_overrides' must be a dictionary")
+            raise TypeError(
+                "'type_overrides' must be a dictionary. "
+                "Example: {'type_overrides': {'paragraph': {'label': 'content'}}}"
+            )
 
         if not isinstance(self.ignore_types, list):
-            raise ConversionError("'ignore_types' must be a list")
+            raise TypeError(
+                "'ignore_types' must be a list. "
+                "Example: {'ignore_types': ['comment', 'whitespace']}"
+            )
 
         # Validate type_overrides structure
         for type_name, overrides in self.type_overrides.items():
             if not isinstance(overrides, dict):
-                raise ConversionError(
-                    f"Type override for '{type_name}' must be a dictionary"
+                raise TypeError(
+                    f"Type override for '{type_name}' must be a dictionary. "
+                    f"Example: {{'type_overrides': {{'{type_name}': {{'label': 'custom_field'}}}}}}"
                 )
 
     def to_dict(self, merge_icons: bool = True) -> Dict[str, Any]:
@@ -85,12 +99,17 @@ class Definition:
     def from_dict(cls, data: Dict[str, Any]) -> "Definition":
         """Create Definition from dictionary (parsing/validation)."""
         if not isinstance(data, dict):
-            raise ConversionError("Definition must be a dictionary")
+            raise TypeError(
+                "Definition must be a dictionary. "
+                "Example: {'attributes': {'label': 'name', 'type': 'node_type'}}"
+            )
 
         # Check if attributes section exists
         if "attributes" not in data:
-            raise ConversionError(
-                "Configuration must include 'attributes' section"
+            raise KeyError(
+                "Configuration must include 'attributes' section. "
+                "Example: {'attributes': {'label': 'name', 'type': 'node_type', 'children': 'children'}}. "
+                "See treeviz documentation for complete schema."
             )
 
         # Extract known fields, ignore unknown ones

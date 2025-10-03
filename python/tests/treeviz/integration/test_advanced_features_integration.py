@@ -7,7 +7,6 @@ when integrated with the main DeclarativeConverter.
 
 import pytest
 from treeviz.adapter import adapt_node
-from treeviz.exceptions import ConversionError
 
 
 class TestPhase2Integration:
@@ -387,6 +386,6 @@ class TestPhase2Integration:
         source_data = {"test": "value", "child_nodes": []}
 
         with pytest.raises(
-            ConversionError, match="Failed to evaluate path expression"
+            ValueError, match="Failed to evaluate path expression"
         ):
             adapt_node(source_data, def_)
