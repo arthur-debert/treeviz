@@ -6,6 +6,7 @@ syntax parsing, attribute handling, and integration with the format system.
 """
 
 import pytest
+from pathlib import Path
 
 from treeviz.formats.pformat import (
     PformatParser,
@@ -15,6 +16,13 @@ from treeviz.formats.pformat import (
     TextNode,
 )
 from treeviz.formats import parse_document, get_format_by_name
+
+
+def get_test_data_path(filename: str) -> str:
+    """Get path to test data file."""
+    return str(
+        Path(__file__).parent.parent.parent / "test-data" / "formats" / filename
+    )
 
 
 class TestPformatNode:
@@ -158,6 +166,200 @@ class TestPformatParser:
         assert result["children"][3]["text"] == "Another paragraph"
         assert result["children"][4] == "Final text"  # Text node
 
+    def test_attributes_with_empty_values(self):
+        """Test parsing attributes with empty values."""
+        content = (
+            '<element attr="" empty-attr="" class="non-empty">Content</element>'
+        )
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "element"
+        assert result["attr"] == ""  # Empty string should be preserved
+        assert result["empty-attr"] == ""
+        assert result["class"] == "non-empty"
+        assert result["text"] == "Content"
+
+    def test_tags_with_hyphens_and_numbers(self):
+        """Test parsing tags with hyphens and numbers in names."""
+        content = """
+        <html-5>
+            <custom-element-123>
+                <data-item-001 data-value="test">Content</data-item-001>
+            </custom-element-123>
+            <tag2>Another tag</tag2>
+        </html-5>
+        """
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "html-5"
+        assert len(result["children"]) == 2
+
+        # Check custom element with hyphens and numbers
+        custom_element = result["children"][0]
+        assert custom_element["type"] == "custom-element-123"
+
+        # Check nested data item
+        data_item = custom_element["children"][0]
+        assert data_item["type"] == "data-item-001"
+        assert data_item["data-value"] == "test"
+        assert data_item["text"] == "Content"
+
+        # Check tag with number
+        tag2 = result["children"][1]
+        assert tag2["type"] == "tag2"
+        assert tag2["text"] == "Another tag"
+
+    def test_deep_nesting_scenario(self):
+        """Test parsing deeply nested elements."""
+        content = """
+        <level1 id="1">
+            <level2 id="2">
+                <level3 id="3">
+                    <level4 id="4">
+                        <level5 id="5">
+                            Deep content here
+                            <span>With inline element</span>
+                            And more text
+                        </level5>
+                    </level4>
+                </level3>
+            </level2>
+        </level1>
+        """
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        # Navigate down the nesting
+        current = result
+        for level in range(1, 6):
+            assert current["type"] == f"level{level}"
+            assert current["id"] == str(level)
+            if level < 5:
+                assert len(current["children"]) == 1
+                current = current["children"][0]
+
+        # Check the deepest level has mixed content
+        level5 = current
+        assert len(level5["children"]) == 3  # text, span, text
+        assert level5["children"][0] == "Deep content here"
+        assert level5["children"][1]["type"] == "span"
+        assert level5["children"][1]["text"] == "With inline element"
+        assert level5["children"][2] == "And more text"
+
+    def test_attributes_with_special_characters(self):
+        """Test parsing attributes with various special characters."""
+        content = '<element id="test-123" class="main content active" data-value="special chars: !@#$%^&*()" aria-label="Multi-word label with spaces" custom="value with quotes">Content</element>'
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "element"
+        assert result["id"] == "test-123"
+        assert result["class"] == "main content active"
+        assert result["data-value"] == "special chars: !@#$%^&*()"
+        assert result["aria-label"] == "Multi-word label with spaces"
+        assert result["custom"] == "value with quotes"
+        assert result["text"] == "Content"
+
+    def test_mixed_self_closing_and_regular_tags(self):
+        """Test complex mix of self-closing and regular tags."""
+        content = """
+        <document version="2.0">
+            <metadata>
+                <author>John Doe</author>
+                <created date="2024-01-01"/>
+                <tags>
+                    <tag value="important"/>
+                    <tag value="draft"/>
+                </tags>
+            </metadata>
+            <content>
+                <section title="Introduction">
+                    <p>This is a paragraph.</p>
+                    <br/>
+                    <p>Another paragraph after break.</p>
+                    <img src="diagram.png" alt="Flow diagram"/>
+                </section>
+            </content>
+        </document>
+        """
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "document"
+        assert result["version"] == "2.0"
+        assert len(result["children"]) == 2  # metadata and content
+
+        # Check metadata section
+        metadata = result["children"][0]
+        assert metadata["type"] == "metadata"
+        assert len(metadata["children"]) == 3  # author, created, tags
+
+        # Check self-closing created tag
+        created = metadata["children"][1]
+        assert created["type"] == "created"
+        assert created["date"] == "2024-01-01"
+        assert created["self_closing"] is True
+
+        # Check tags with multiple self-closing children
+        tags = metadata["children"][2]
+        assert tags["type"] == "tags"
+        assert len(tags["children"]) == 2
+        for i, tag in enumerate(tags["children"]):
+            assert tag["type"] == "tag"
+            assert tag["self_closing"] is True
+            assert tag["value"] in ["important", "draft"]
+
+    def test_whitespace_handling(self):
+        """Test handling of various whitespace scenarios."""
+        content = """
+        
+        <root>
+            
+            <child>   Text with spaces   </child>
+            
+            <empty>    </empty>
+            
+            <mixed>
+                Text before
+                <sub>nested</sub>
+                Text after
+            </mixed>
+            
+        </root>
+        
+        """
+
+        parser = PformatParser()
+        result = parser.parse(content)
+
+        assert result["type"] == "root"
+        assert len(result["children"]) == 3
+
+        # Check child with spaces in text
+        child = result["children"][0]
+        assert child["type"] == "child"
+        assert child["text"] == "Text with spaces"  # Should be trimmed
+
+        # Check empty element with only whitespace (should have no text)
+        empty = result["children"][1]
+        assert empty["type"] == "empty"
+        assert "text" not in empty or empty.get("text") == ""
+
+        # Check mixed content with whitespace
+        mixed = result["children"][2]
+        assert mixed["type"] == "mixed"
+        assert len(mixed["children"]) == 3
+        assert mixed["children"][0] == "Text before"
+        assert mixed["children"][1]["type"] == "sub"
+        assert mixed["children"][2] == "Text after"
+
     def test_mixed_content_preserves_order(self):
         """Test that mixed content preserves document order - addresses GitHub comment issue."""
         content = "<p>text1 <b>bold</b> text2</p>"
@@ -297,7 +499,7 @@ class TestPformatIntegration:
 
     def test_parse_pformat_file(self):
         """Test parsing pformat file through format system."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.pformat"
+        test_file = get_test_data_path("sample.pformat")
 
         result = parse_document(test_file)
 
@@ -308,7 +510,7 @@ class TestPformatIntegration:
 
     def test_parse_xml_file_as_pformat(self):
         """Test parsing XML file using pformat parser."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/simple.xml"
+        test_file = get_test_data_path("simple.xml")
 
         # Parse as pformat explicitly
         result = parse_document(test_file, format_name="pformat")
@@ -319,9 +521,7 @@ class TestPformatIntegration:
 
     def test_parse_malformed_pformat(self):
         """Test error handling with malformed pformat file."""
-        test_file = (
-            "/Users/adebert/h/treeviz/test-data/formats/malformed.pformat"
-        )
+        test_file = get_test_data_path("malformed.pformat")
 
         with pytest.raises(Exception) as exc_info:
             parse_document(test_file)
@@ -338,7 +538,7 @@ class TestPformatWithAdapters:
         from treeviz.adapters.adapters import adapt_node
 
         # Parse pformat document
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.pformat"
+        test_file = get_test_data_path("sample.pformat")
         parsed_data = parse_document(test_file)
 
         # Apply adapter
@@ -366,7 +566,7 @@ class TestPformatWithAdapters:
         """Test pformat with ChildrenSelector from issue #9."""
         from treeviz.adapters.adapters import adapt_node
 
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.pformat"
+        test_file = get_test_data_path("sample.pformat")
         parsed_data = parse_document(test_file)
 
         # Use ChildrenSelector to filter only sections
@@ -394,14 +594,12 @@ class TestPformatWithAdapters:
         }
 
         # Parse pformat
-        pformat_data = parse_document(
-            "/Users/adebert/h/treeviz/test-data/formats/sample.pformat"
-        )
+        pformat_data = parse_document(get_test_data_path("sample.pformat"))
         pformat_result = adapt_node(pformat_data, adapter_def)
 
         # Parse XML via pformat
         xml_data = parse_document(
-            "/Users/adebert/h/treeviz/test-data/formats/simple.xml",
+            get_test_data_path("simple.xml"),
             format_name="pformat",
         )
         xml_result = adapt_node(xml_data, adapter_def)

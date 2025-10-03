@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 
 from .model import Format, DocumentFormatError
+from .pformat import parse_pformat
+from .xml_format import parse_xml
 
 # Global format registry
 _FORMATS: Dict[str, Format] = {}
@@ -162,39 +164,27 @@ except ImportError:
 
 
 # Pformat (Pseudo Document Format) support
-try:
-    from .pformat import parse_pformat
 
-    register_format(
-        Format(
-            name="Pformat",
-            extensions=[".pformat", ".pf"],
-            parse_func=parse_pformat,
-            description="Pseudo Document Format (XML-like)",
-        )
+register_format(
+    Format(
+        name="Pformat",
+        extensions=[".pformat", ".pf"],
+        parse_func=parse_pformat,
+        description="Pseudo Document Format (XML-like)",
     )
-
-except ImportError:
-    # This shouldn't happen since pformat is internal
-    pass
+)
 
 
 # XML format support (using xml.etree.ElementTree)
-try:
-    from .xml_format import parse_xml
 
-    register_format(
-        Format(
-            name="XML",
-            extensions=[".xml"],
-            parse_func=parse_xml,
-            description="Extensible Markup Language",
-        )
+register_format(
+    Format(
+        name="XML",
+        extensions=[".xml"],
+        parse_func=parse_xml,
+        description="Extensible Markup Language",
     )
-
-except ImportError:
-    # This shouldn't happen since xml_format is internal
-    pass
+)
 
 
 # HTML format support (requires BeautifulSoup4)

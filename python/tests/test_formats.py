@@ -19,6 +19,13 @@ from treeviz.formats import (
 from treeviz.formats.parser import detect_format, get_format_by_name, _FORMATS
 
 
+def get_test_data_path(filename: str) -> str:
+    """Get path to test data file."""
+    return str(
+        Path(__file__).parent.parent.parent / "test-data" / "formats" / filename
+    )
+
+
 class TestFormat:
     """Test Format dataclass functionality."""
 
@@ -142,7 +149,7 @@ class TestParseDocument:
     def test_parse_json_file(self):
         """Test parsing JSON file."""
         # Use existing test data
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.json"
+        test_file = get_test_data_path("sample.json")
 
         result = parse_document(test_file)
 
@@ -153,7 +160,7 @@ class TestParseDocument:
 
     def test_parse_json_with_explicit_format(self):
         """Test parsing with explicitly specified format."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/simple.json"
+        test_file = get_test_data_path("simple.json")
 
         result = parse_document(test_file, format_name="json")
 
@@ -163,7 +170,7 @@ class TestParseDocument:
 
     def test_parse_yaml_file(self):
         """Test parsing YAML file if YAML is available."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.yaml"
+        test_file = get_test_data_path("sample.yaml")
 
         # Check if YAML format is available
         yaml_format = get_format_by_name("yaml")
@@ -183,7 +190,7 @@ class TestParseDocument:
 
     def test_parse_malformed_json(self):
         """Test parsing malformed JSON."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/malformed.json"
+        test_file = get_test_data_path("malformed.json")
 
         with pytest.raises(DocumentFormatError) as exc_info:
             parse_document(test_file)
@@ -192,7 +199,7 @@ class TestParseDocument:
 
     def test_parse_unsupported_format_name(self):
         """Test parsing with unsupported format name."""
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.json"
+        test_file = get_test_data_path("sample.json")
 
         with pytest.raises(DocumentFormatError) as exc_info:
             parse_document(test_file, format_name="unsupported")
@@ -226,7 +233,7 @@ class TestParseDocument:
             "utf-8", b"\x80", 0, 1, "invalid start byte"
         )
 
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/sample.json"
+        test_file = get_test_data_path("sample.json")
 
         with pytest.raises(DocumentFormatError) as exc_info:
             parse_document(test_file)
@@ -273,7 +280,7 @@ class TestIntegrationWithAdapters:
         from treeviz.adapters.adapters import adapt_node
 
         # Parse document
-        test_file = "/Users/adebert/h/treeviz/test-data/formats/simple.json"
+        test_file = get_test_data_path("simple.json")
         parsed_data = parse_document(test_file)
 
         # Define adapter
@@ -294,15 +301,11 @@ class TestIntegrationWithAdapters:
         from treeviz.adapters.adapters import adapt_node
 
         # Step 1: Parse documents from different formats into pure Python
-        json_data = parse_document(
-            "/Users/adebert/h/treeviz/test-data/formats/sample.json"
-        )
+        json_data = parse_document(get_test_data_path("sample.json"))
 
         yaml_format = get_format_by_name("yaml")
         if yaml_format:
-            yaml_data = parse_document(
-                "/Users/adebert/h/treeviz/test-data/formats/sample.yaml"
-            )
+            yaml_data = parse_document(get_test_data_path("sample.yaml"))
 
             # Both should produce identical pure Python objects
             assert json_data == yaml_data
