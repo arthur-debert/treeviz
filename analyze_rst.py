@@ -1,5 +1,6 @@
 from docutils.core import publish_parts
 
+
 def main():
     """
     Main function to read, parse, and print the AST of a reStructuredText file
@@ -16,18 +17,15 @@ def main():
     # Use docutils to parse the content and output a pseudo-XML representation.
     # report_level=4 suppresses errors about unknown directives (e.g. 'function').
     # output_encoding='unicode' ensures the output is a string.
-    settings_overrides = {
-        'report_level': 4,
-        'output_encoding': 'unicode'
-    }
+    settings_overrides = {"report_level": 4, "output_encoding": "unicode"}
     parts = publish_parts(
         source=content,
-        writer_name='pseudoxml',
-        settings_overrides=settings_overrides
+        writer_name="pseudoxml",
+        settings_overrides=settings_overrides,
     )
 
     # The 'whole' key contains the entire document as pseudo-XML.
-    print(parts['whole'])
+    print(parts["whole"])
 
 
 if __name__ == "__main__":

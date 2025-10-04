@@ -13,66 +13,52 @@ definition = {
     # == Core Attribute Extraction ==
     # These top-level keys define the default way to get fundamental properties
     # from any node in the source tree.
-
     # 'type': Specifies how to determine the type of a source node.
     # Here, we're telling the adapter to look for a property named '__class__'
     # on the node object, and then get its '__name__' attribute.
     # This is how you get the class name of an object in Python, which for
     # docutils nodes corresponds to the node type (e.g., 'section', 'paragraph').
-    "type": {
-        "extractor": "attribute",
-        "name": "__class__.__name__"
-    },
-
+    "type": {"extractor": "attribute", "name": "__class__.__name__"},
     # 'children': Specifies where to find the list of child nodes.
     # For docutils nodes, this is straightforwardly the 'children' attribute.
     "children": "children",
-
     # 'label': Defines the default text to display for a node.
     # We're using a method extractor to call the `astext()` method on the node,
     # which returns the node's text content. We then truncate it for readability.
     "label": {
         "extractor": "method",
         "name": "astext",
-        "transform": "lambda t: (t[:75] + '...') if len(t) > 78 else t"
+        "transform": "lambda t: (t[:75] + '...') if len(t) > 78 else t",
     },
-
     # == Type-Specific Overrides ==
     # The 'type_overrides' dictionary allows us to define different rules for
     # specific node types, which is essential for handling heterogeneous trees.
-
     "type_overrides": {
         # For 'document' nodes, we provide a simpler, static label.
-        "document": {
-            "label": "reStructuredText Document"
-        },
+        "document": {"label": "reStructuredText Document"},
         # Sections are a key structural element.
         "section": {
             # We override the default label extraction for sections.
             # Instead of the full text, we look for the 'names' attribute.
             # Since 'names' is a list, we use a 'transform' lambda to join
             # the list elements into a single string.
-            "label": {"extractor": "attribute", "name": "names", "transform": "lambda n: ' '.join(n) if n else 'Section'"}
+            "label": {
+                "extractor": "attribute",
+                "name": "names",
+                "transform": "lambda n: ' '.join(n) if n else 'Section'",
+            }
         },
         # Titles are simple; their text content is the label.
-        "title": {
-            "label": {"extractor": "method", "name": "astext"}
-        },
+        "title": {"label": {"extractor": "method", "name": "astext"}},
         # For paragraphs, the default truncated text label is good.
         # We don't need an override here unless we wanted something different.
         "paragraph": {
-            "icon": "¶" # We can also override just one property, like the icon.
+            "icon": "¶"  # We can also override just one property, like the icon.
         },
         # For some nodes, we just want a simple, static label.
-        "literal_block": {
-            "label": "Literal Block"
-        },
-        "bullet_list": {
-            "label": "Bullet List"
-        },
-        "list_item": {
-            "label": "List Item"
-        },
+        "literal_block": {"label": "Literal Block"},
+        "bullet_list": {"label": "Bullet List"},
+        "list_item": {"label": "List Item"},
         # Example of a more complex override for function directives
         "function": {
             # The signature is often in the first child's text.
@@ -80,17 +66,15 @@ definition = {
             "label": {
                 "extractor": "attribute",
                 "name": "children",
-                "transform": "lambda c: c[0].astext() if c else 'function'"
+                "transform": "lambda c: c[0].astext() if c else 'function'",
             }
-        }
+        },
     },
-
     # == Ignoring Node Types ==
     # 'ignore_types' is a list of node types that should be completely
     # skipped during the tree traversal. This is useful for filtering out
     # noise or irrelevant information.
     "ignore_types": ["system_message", "comment", "target", "problematic"],
-
     # == Icon Mapping ==
     # 'icons' provides a mapping from node types to Unicode icons.
     # This makes the final visualization much easier to understand at a glance.
@@ -107,6 +91,6 @@ definition = {
         "reference": "🔗",
         "function": "ƒ",
         "data": "💾",
-        "method": "M"
-    }
+        "method": "M",
+    },
 }

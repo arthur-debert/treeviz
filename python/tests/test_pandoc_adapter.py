@@ -50,7 +50,15 @@ def test_pandoc_adapter_integration():
     node_types = {n.type for n in all_nodes}
 
     # Check for expected node types
-    expected_types = {"Pandoc", "Header", "Para", "BulletList", "OrderedList", "ListItem", "CodeBlock"}
+    expected_types = {
+        "Pandoc",
+        "Header",
+        "Para",
+        "BulletList",
+        "OrderedList",
+        "ListItem",
+        "CodeBlock",
+    }
     assert expected_types.issubset(node_types)
 
     # Check for specific content
@@ -73,7 +81,11 @@ def test_pandoc_list_item_creation():
     bullet_lists = [n for n in all_nodes if n.type == "BulletList"]
     assert len(bullet_lists) > 0, "No BulletList nodes found"
 
-    list_item_children = [child for child in bullet_lists[0].children if child.type == "ListItem"]
-    assert len(list_item_children) > 0, "No ListItem children found in BulletList"
+    list_item_children = [
+        child for child in bullet_lists[0].children if child.type == "ListItem"
+    ]
+    assert (
+        len(list_item_children) > 0
+    ), "No ListItem children found in BulletList"
     assert "Item 1" in list_item_children[0].label
     assert "Item 2" in list_item_children[1].label

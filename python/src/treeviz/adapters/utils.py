@@ -1,23 +1,28 @@
 """
-Utility functions for the adapter system.
+This module provides utility functions for treeviz adapters.
 """
 
 import sys
-from typing import Callable, Tuple, Dict, Any, Optional
+from typing import Any, Dict, Optional, Tuple, Callable
+from functools import wraps
+
+
 from dataclasses import asdict
 
-from ..definitions import AdapterLib, AdapterDef
-from ..formats import load_document, DocumentFormatError
+from ..definitions.model import AdapterDef
+from ..definitions import AdapterLib
+from ..formats import DocumentFormatError, load_document as load_doc_file
+from ..icon_pack import get_icon_pack, IconPack
+from ..const import DEFAULT_ICON_PACK, ICONS
+from ..model import Node
 
 
 def exit_on_error(func: Callable) -> Callable:
     """
-    Decorator to exit with status 1 on any exception.
-
-    This implements the "fail fast" principle - any error
-    should immediately exit the program with a clear error message.
+    Decorator that catches exceptions, prints a formatted error, and exits.
     """
 
+    @wraps(func)
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
@@ -29,7 +34,8 @@ def exit_on_error(func: Callable) -> Callable:
 
 
 def load_adapter(
-    adapter_spec, adapter_format: Optional[str] = None
+    adapter_spec: str | Dict[str, Any] | AdapterDef,
+    adapter_format: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, str]]:
     """
     Load adapter definition and icons from name, file, or object.
@@ -53,6 +59,8 @@ def load_adapter(
         return _load_adapter_from_dict(adapter_spec)
     elif hasattr(adapter_spec, "__dict__") and hasattr(adapter_spec, "icons"):
         # AdapterDef object (or similar) - convert to dict
+        from dataclasses import asdict
+
         adapter_dict = (
             asdict(adapter_spec)
             if hasattr(adapter_spec, "__dict__")
@@ -105,7 +113,7 @@ def _load_adapter_from_file(
     """Load adapter from file path."""
     try:
         # Load the adapter definition file
-        adapter_dict = load_document(file_path, format_name=adapter_format)
+        adapter_dict = load_doc_file(file_path, format_name=adapter_format)
 
         if not isinstance(adapter_dict, dict):
             raise ValueError(
@@ -156,20 +164,85 @@ def _load_adapter_from_dict(
         raise ValueError(f"Invalid adapter definition: {str(e)}") from e
 
 
-def convert_document(document: Any, adapter_def: Dict[str, Any]) -> Any:
+def convert_document(
+    document: Any, adapter_def: Dict[str, Any]
+) -> Optional[Node]:
     """
-    Convert a document to 3viz Node format using adapter definition.
-
-    Args:
-        document: The parsed document (usually dict or list)
-        adapter_def: Adapter definition dictionary
-
-    Returns:
-        3viz Node object
-
-    Raises:
-        Standard Python exceptions from adapt_node (TypeError, KeyError, ValueError, etc.)
+    Convert a document using a given adapter definition.
     """
     from .core import adapt_node
 
     return adapt_node(document, adapter_def)
+
+
+def _find_icon_in_pack(node_type: str, pack: IconPack) -> str | None:
+    """Finds an icon for a node_type in a given pack, checking name and
+    aliases."""
+    for icon_name, icon_def in pack.icons.items():
+        if node_type == icon_name or node_type in icon_def.aliases:
+            return icon_def.icon
+    return None
+
+
+def resolve_icon(node_type: str, icons_map: dict[str, str]) -> str:
+    """
+    Resolves an icon for a given node type using the icons map from the
+    adapter definition.
+    """
+    if not node_type:
+        return ICONS.get("unknown", "?")
+
+    # 1. Check for a direct mapping for the node_type in icons_map
+    icon_ref = icons_map.get(node_type)
+
+    if icon_ref:
+        if "." not in icon_ref:
+            # It's a direct icon, use as is
+            return icon_ref
+
+        # It's a pack reference, e.g., "pack.icon"
+        pack_name, icon_name = icon_ref.split(".", 1)
+        try:
+            pack = get_icon_pack(pack_name)
+            if icon_name in pack.icons:
+                return pack.icons[icon_name].icon
+        except KeyError:
+            # Pack not found, fall through to default pack logic for the
+            # icon_name
+            pass
+
+        # If icon not found in specified pack, try finding `icon_name` in
+        # default pack
+        default_pack_ref = icons_map.get("") or icons_map.get("*")
+        if default_pack_ref:
+            try:
+                default_pack = get_icon_pack(default_pack_ref)
+                if icon_name in default_pack.icons:
+                    return default_pack.icons[icon_name].icon
+            except KeyError:
+                pass  # Default pack not found, fall through
+
+        # Fallback to treeviz pack for the icon_name
+        if icon_name in DEFAULT_ICON_PACK.icons:
+            return DEFAULT_ICON_PACK.icons[icon_name].icon
+
+    # 2. No direct mapping, check for default pack configured in the
+    # adapter
+    default_pack_ref = icons_map.get("") or icons_map.get("*")
+    if default_pack_ref:
+        try:
+            pack = get_icon_pack(default_pack_ref)
+            icon = _find_icon_in_pack(node_type, pack)
+            if icon:
+                return icon
+        except KeyError:
+            # Default pack not found, fall through to treeviz pack
+            pass
+
+    # 3. Fallback to the global default "treeviz" icon pack
+    icon = _find_icon_in_pack(node_type, DEFAULT_ICON_PACK)
+    if icon:
+        return icon
+
+    # 4. Final fallback to ICONS mapping (from original implementation)
+    return ICONS.get(node_type, ICONS.get("unknown", "?"))
