@@ -53,7 +53,7 @@ class Lib:
         Get a definition from the library.
 
         Args:
-            format_name: Name of the format (e.g., "mdast", "unist", "json")
+            format_name: Name of the format (e.g., "mdast", "unist", "json", "3viz")
 
         Returns:
             Definition object for the format
@@ -61,12 +61,16 @@ class Lib:
         Raises:
             KeyError: If format is not found
         """
+        # Handle special case for 3viz (default definition)
+        if format_name == "3viz":
+            return Definition.default()
+
         # Ensure core libraries are loaded
         if not cls._loaded:
             cls.load_core_libs()
 
         if format_name not in cls._registry:
-            available_formats = list(cls._registry.keys())
+            available_formats = list(cls._registry.keys()) + ["3viz"]
             raise KeyError(
                 f"Unknown format '{format_name}'. Available formats: {available_formats}. "
                 f"To add a new format, place a JSON definition file in the lib/ directory."
@@ -210,7 +214,7 @@ class Lib:
         List all available format names.
 
         Returns:
-            List of available format names including 'json'
+            List of available format names including 'json' and '3viz'
         """
         if not cls._loaded:
             cls.load_core_libs()
@@ -218,6 +222,8 @@ class Lib:
         formats = list(cls._registry.keys())
         if "json" not in formats:
             formats.append("json")
+        if "3viz" not in formats:
+            formats.append("3viz")
         return sorted(formats)
 
     @classmethod

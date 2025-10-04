@@ -38,3 +38,33 @@ class Node:
         default_factory=dict
     )  # Extensible key-value data
     children: List["Node"] = field(default_factory=list)  # Child nodes
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "Node":
+        """
+        Create a Node from a dictionary (e.g., from JSON deserialization).
+
+        This handles the recursive conversion of children dictionaries to Node objects.
+
+        Args:
+            data: Dictionary containing node data
+
+        Returns:
+            Node object with properly converted children
+        """
+        if not isinstance(data, dict):
+            raise TypeError(f"Expected dict, got {type(data)}")
+
+        # Extract children and convert them recursively
+        children_data = data.get("children", [])
+        children = [cls.from_dict(child) for child in children_data]
+
+        return cls(
+            label=data.get("label", ""),
+            type=data.get("type"),
+            icon=data.get("icon"),
+            content_lines=data.get("content_lines", 1),
+            source_location=data.get("source_location"),
+            extra=data.get("extra", {}),
+            children=children,
+        )

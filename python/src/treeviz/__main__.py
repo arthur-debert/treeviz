@@ -9,7 +9,8 @@ import json
 import sys
 import os
 from dataclasses import asdict
-from typing import Optional
+from typing import Optional, Union, Dict, Any
+from pathlib import Path
 
 from .definitions import Lib, Definition
 from .definitions.yaml_utils import serialize_dataclass_to_yaml
@@ -47,27 +48,27 @@ def get_definition(format_name, output_format):
 
 
 def generate_viz(
-    document_path: str,
-    adapter_spec: str = "3viz",
+    document_path: Union[str, Path, Dict, list, Any],
+    adapter_spec: Union[str, Dict, Any] = "3viz",
     document_format: Optional[str] = None,
     adapter_format: Optional[str] = None,
     output_format: str = "term",
-) -> str:
+) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
 
     Main orchestration function that coordinates document loading, adapter loading,
-    conversion, and rendering.
+    conversion, and rendering. Supports both file paths and Python objects.
 
     Args:
-        document_path: Path to document file or '-' for stdin
-        adapter_spec: Adapter name or file path (default: "3viz")
+        document_path: Path to document file, '-' for stdin, or Python object (dict/list/Node)
+        adapter_spec: Adapter name, file path, or adapter dict/object (default: "3viz")
         document_format: Override document format detection (default: auto-detect)
         adapter_format: Override adapter format detection (default: auto-detect)
-        output_format: Output format - json/yaml/text/term (default: "term")
+        output_format: Output format - json/yaml/text/term/obj (default: "term")
 
     Returns:
-        String output in the specified format
+        String output in the specified format, or Node object if output_format="obj"
 
     Raises:
         Various exceptions from sub-functions (DocumentFormatError, ValueError, etc.)
@@ -84,7 +85,10 @@ def generate_viz(
     node = convert_document(document, adapter_def)
 
     # Handle output format
-    if output_format in ["json", "yaml"]:
+    if output_format == "obj":
+        # For obj output, return Node object directly
+        return node
+    elif output_format in ["json", "yaml"]:
         # For data formats, convert Node to dict and serialize
         if node is None:
             result_data = None
