@@ -324,9 +324,9 @@ class TestLibLoadCoreLibs:
             mock_file.__exit__ = Mock(return_value=None)
             mock_file.read.return_value = '{"label": "mdast_test"}'
 
-            # Mock open_text to succeed for mdast.json, fail for others
+            # Mock open_text to succeed for mdast.yaml, fail for others
             def open_text_side_effect(package, filename):
-                if filename == "mdast.json":
+                if filename == "mdast.yaml":
                     return mock_file
                 else:
                     raise FileNotFoundError()
@@ -369,9 +369,9 @@ class TestLibLoadCoreLibs:
             mock_file.__exit__ = Mock(return_value=None)
             mock_file.read.return_value = '{"label": "mdast"}'
 
-            # Mock open_text to succeed for mdast.json only
+            # Mock open_text to succeed for mdast.yaml only
             def open_text_side_effect(package, filename):
-                if filename == "mdast.json":
+                if filename == "mdast.yaml":
                     return mock_file
                 else:
                     raise FileNotFoundError()

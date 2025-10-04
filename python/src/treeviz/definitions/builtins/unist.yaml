@@ -1,0 +1,46 @@
+# Universal Syntax Tree (unist) adapter definition  
+# Defines how to render HTML/XML-like AST nodes in treeviz format
+# Based on the unist specification: https://github.com/syntax-tree/unist
+
+# Field mappings for extracting data from unist nodes
+label: value        # Extract node content from 'value' field
+type: type          # Extract node type from 'type' field
+children: children  # Extract child nodes from 'children' field
+
+# Icon mappings for different HTML/XML node types
+icons:
+  root: "⧉"              # Document root
+  element: "⟨⟩"           # Generic HTML elements
+  text: "◦"              # Text content nodes
+  comment: "💬"           # HTML comments
+  
+  # HTML heading elements
+  h1: "⊤"                # Level 1 heading
+  h2: "⊤"                # Level 2 heading
+  h3: "⊤"                # Level 3 heading
+  h4: "⊤"                # Level 4 heading
+  h5: "⊤"                # Level 5 heading
+  h6: "⊤"                # Level 6 heading
+  
+  # HTML content elements
+  p: "¶"                 # Paragraphs
+  ul: "☰"                # Unordered lists
+  ol: "№"                # Ordered lists
+  li: "•"                # List items
+  strong: "𝐁"            # Bold text
+  em: "𝐼"                # Emphasized text
+  code: "ƒ"              # Inline code
+  pre: "𝒱"               # Preformatted code blocks
+  blockquote: "❝"        # Quote blocks
+  div: "⊡"               # Generic containers
+  section: "§"           # Document sections
+  article: "📄"          # Article content
+
+# Type-specific field overrides
+# Elements use tagName instead of value for their label
+type_overrides:
+  element:
+    label: tagName
+
+# Node types to ignore during rendering
+ignore_types: []
