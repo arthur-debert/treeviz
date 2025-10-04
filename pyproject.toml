@@ -1,33 +1,43 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
-
-[project]
-dynamic = ["version", "dependencies"]
-
-description = "visuazlizes ast for document formats"
-name = "treeviz-py"
-readme = { file = "README.txt", content-type = "text/plaintxt" }
-requires-python = ">=3.12"
-license = "MIT"
-authors = [{ name = "Arthur Debert", email = "arthur@debert.xyz" }]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
-]
-urls = { "Homepage" = "https://github.com/arthur-debert/treeviz-py" }
-
-[project.scripts]
-3viz = "treeviz.__main__:main"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 ###############################################################################
 ### poetry
 ###############################################################################
 [tool.poetry]
-version = "0.0.1"
+name = "treeviz-py"
+version = "0.0.2"
+description = "Terminal AST visualizer for document trees"
+authors = ["Arthur Debert <arthur@debert.xyz>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/arthur-debert/treeviz"
+repository = "https://github.com/arthur-debert/treeviz"
+documentation = "https://github.com/arthur-debert/treeviz"
+keywords = ["ast", "visualization", "terminal", "document", "tree"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License", 
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Utilities",
+]
+
 packages = [{ include = "treeviz", from = "python/src" }]
-include = ["docs/shell-help/*.md", "LICENSE", "README.txt"]
-exclude = ["tests"]
+include = [
+    "LICENSE",
+    "README.md"
+]
+
+[tool.poetry.scripts]
+"3viz" = "treeviz.__main__:main"
 
 
 

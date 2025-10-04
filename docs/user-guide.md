@@ -54,10 +54,10 @@ $ 3viz document.json my-adapter.yaml
 ### Library Usage
 
 ```python
-from threeviz import threeviz
+from treeviz import generate_viz
 
 # Using built-in adapter
-result = threeviz.render("document.md", "mdast")
+result = generate_viz("document.md", "mdast")
 print(result)
 
 # Using custom definition
@@ -66,7 +66,7 @@ custom_def = {
     "label": "text",
     "children": "children"
 }
-result = threeviz.render(document_data, custom_def)
+result = generate_viz(document_data, custom_def)
 ```
 
 ## Custom Adapters

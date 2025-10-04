@@ -28,10 +28,10 @@ This is a sample output:
 
 ## Installing
 
-3viz is available on PyPI as threeviz-py, and can be installed with your preferred Python package manager:
+3viz is available on PyPI as treeviz-py, and can be installed with your preferred Python package manager:
 
 ```bash
-$ pipx install threeviz-py  # recommended for global availability
+$ pipx install treeviz-py  # recommended for global availability
 ```
 
 ## Using 3viz
@@ -45,10 +45,10 @@ $ 3viz <tree_path> <tree_format>
 Or as a library:
 
 ```python
-from threeviz import threeviz
+from treeviz import generate_viz
 
 # Both document and format can be a path to a file, strings, or Python objects
-threeviz.render(document, format)
+generate_viz(document, format)
 ```
 
 ### Built-in adapters
