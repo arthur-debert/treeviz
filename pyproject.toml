@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 dynamic = ["version", "dependencies"]
 
 description = "visuazlizes ast for document formats"
-name = "treeviz"
+name = "treeviz-py"
 readme = { file = "README.txt", content-type = "text/plaintxt" }
 requires-python = ">=3.12"
 license = { text = "MIT" }
