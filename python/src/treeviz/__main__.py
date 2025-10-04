@@ -175,7 +175,20 @@ def _output_data(data, output_format):
 
 def main():
     """Main entry point that delegates to CLI argument parsing."""
+    import sys
     from .cli import cli
+
+    # If no arguments or first argument doesn't look like a subcommand, inject 'render'
+    if len(sys.argv) > 1 and sys.argv[1] not in [
+        "render",
+        "get-definition",
+        "--help",
+        "--version",
+    ]:
+        # Handle special case for stdin '-' or file paths
+        if sys.argv[1] == "-" or not sys.argv[1].startswith("-"):
+            # First argument looks like a document path, prepend 'render'
+            sys.argv.insert(1, "render")
 
     cli()
 

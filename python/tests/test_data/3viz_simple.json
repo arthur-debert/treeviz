@@ -1,0 +1,48 @@
+{
+  "label": "Project Root",
+  "type": "directory",
+  "icon": "📁",
+  "content_lines": 1,
+  "children": [
+    {
+      "label": "src/",
+      "type": "directory",
+      "children": [
+        {
+          "label": "main.py",
+          "type": "file",
+          "icon": "🐍",
+          "content_lines": 45,
+          "extra": {
+            "size": "1.2KB",
+            "modified": "2024-01-15"
+          }
+        },
+        {
+          "label": "utils.py", 
+          "type": "file",
+          "icon": "🐍",
+          "content_lines": 23
+        }
+      ]
+    },
+    {
+      "label": "tests/",
+      "type": "directory", 
+      "children": [
+        {
+          "label": "test_main.py",
+          "type": "file",
+          "icon": "🧪",
+          "content_lines": 67
+        }
+      ]
+    },
+    {
+      "label": "README.md",
+      "type": "file",
+      "icon": "📄",
+      "content_lines": 15
+    }
+  ]
+}
