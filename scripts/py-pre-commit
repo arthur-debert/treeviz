@@ -228,6 +228,42 @@ run_phase_i() {
 		log_info "shfmt not available, skipping shell formatting"
 	fi
 
+	# Markdown: markdownlint with auto-fix
+	if command -v markdownlint >/dev/null 2>&1; then
+		log_info "Running markdownlint (Markdown linter and formatter)..."
+		if [[ "$ALL_FILES" == "true" ]]; then
+			local md_files
+			md_files=$(get_all_files "md")
+			if [[ -n "$md_files" ]]; then
+				# First check if markdownlint would make changes
+				local lint_output
+				lint_output=$(echo "$md_files" | xargs markdownlint 2>&1 || true)
+				if [[ -n "$lint_output" ]]; then
+					log_info "markdownlint found fixable issues, applying fixes..."
+					echo "$md_files" | xargs markdownlint --fix 2>/dev/null || true
+					PHASE_I_CHANGES=true
+				fi
+			fi
+		else
+			local staged_md_files
+			staged_md_files=$(get_staged_files "md")
+			if [[ -n "$staged_md_files" ]]; then
+				# First check if markdownlint would make changes
+				local lint_output
+				lint_output=$(echo "$staged_md_files" | xargs markdownlint 2>&1 || true)
+				if [[ -n "$lint_output" ]]; then
+					log_info "markdownlint found fixable issues, applying fixes..."
+					echo "$staged_md_files" | xargs markdownlint --fix 2>/dev/null || true
+					PHASE_I_CHANGES=true
+				fi
+			else
+				log_info "No staged Markdown files to lint"
+			fi
+		fi
+	else
+		log_info "markdownlint not available, skipping markdown formatting"
+	fi
+
 	# Stage any changes made by automated fixes
 	if [[ "$PHASE_I_CHANGES" == "true" ]]; then
 		log_info "Staging all changes made by automated fixes..."
@@ -327,6 +363,32 @@ run_phase_ii() {
 		fi
 	else
 		log_info "shellcheck not available, skipping shell linting"
+	fi
+
+	# Markdown: markdownlint final check (non-fixable issues)
+	if command -v markdownlint >/dev/null 2>&1; then
+		log_info "Running markdownlint final check (Markdown linter)..."
+		if [[ "$ALL_FILES" == "true" ]]; then
+			local md_files
+			md_files=$(get_all_files "md")
+			if [[ -n "$md_files" ]]; then
+				if ! echo "$md_files" | xargs markdownlint >/dev/null 2>&1; then
+					log_warning "markdownlint found remaining issues (after auto-fix)"
+				fi
+			fi
+		else
+			local staged_md_files
+			staged_md_files=$(get_staged_files "md")
+			if [[ -n "$staged_md_files" ]]; then
+				if ! echo "$staged_md_files" | xargs markdownlint >/dev/null 2>&1; then
+					log_warning "markdownlint found remaining issues in staged files (after auto-fix)"
+				fi
+			else
+				log_info "No staged Markdown files for final check"
+			fi
+		fi
+	else
+		log_info "markdownlint not available, skipping markdown final check"
 	fi
 
 	# Poetry check (final validation - warnings only)
