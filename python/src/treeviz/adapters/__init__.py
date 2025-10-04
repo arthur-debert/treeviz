@@ -20,7 +20,7 @@ Example usage:
 """
 
 from .core import adapt_node, adapt_tree
-from .utils import exit_on_error
+from .utils import exit_on_error, load_adapter
 from .extraction import (
     extract_attribute,
     extract_by_path,
@@ -32,6 +32,7 @@ __all__ = [
     "adapt_node",
     "adapt_tree",
     "exit_on_error",
+    "load_adapter",
     "extract_attribute",
     "extract_by_path",
     "apply_transformation",
