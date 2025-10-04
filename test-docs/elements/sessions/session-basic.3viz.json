@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 3,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Section Title {{session}}",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Content in section {{paragraph.textLine, _parent=paragraph}}",
@@ -36,7 +36,7 @@
                   "icon": null,
                   "content_lines": 64,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Another paragraph {{paragraph, _parent=session}}",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Another paragraph {{paragraph, _parent=session}}",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 52,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -80,7 +80,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "And now we wil test the session wihtouth markers",
@@ -88,7 +88,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "And now we wil test the session wihtouth markers",
@@ -96,7 +96,7 @@
               "icon": null,
               "content_lines": 48,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -109,7 +109,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Session Another (session}})",
@@ -117,7 +117,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Session Another (session}})",
@@ -125,7 +125,7 @@
               "icon": null,
               "content_lines": 27,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

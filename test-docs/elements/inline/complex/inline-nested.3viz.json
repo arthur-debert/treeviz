@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This has  text.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This has bold with {{strong}} text.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This has ",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 9,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -37,7 +37,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "bold with ",
@@ -45,7 +45,7 @@
                   "icon": null,
                   "content_lines": 10,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -54,7 +54,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "nested italic {{emphasis}}",
@@ -62,7 +62,7 @@
                       "icon": null,
                       "content_lines": 26,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -73,7 +73,7 @@
                   "icon": null,
                   "content_lines": 10,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -84,7 +84,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -97,7 +97,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Paragraph with emphasis {{paragraph.strong}}.",
@@ -105,7 +105,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Paragraph with ",
@@ -113,7 +113,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -122,7 +122,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "emphasis {{paragraph.strong}}",
@@ -130,7 +130,7 @@
                   "icon": null,
                   "content_lines": 29,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -141,7 +141,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

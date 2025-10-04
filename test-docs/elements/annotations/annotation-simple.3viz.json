@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 10,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Basic annotation examples (paragraph)",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Basic annotation examples (paragraph)",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Basic annotation examples (paragraph)",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 37,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Single Annotatio:",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Single Annotatio:",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 17,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: author :: John Doe",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -89,7 +89,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Block:",
@@ -97,7 +97,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Block:",
@@ -105,7 +105,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -116,7 +116,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: author :: John Doe",
@@ -124,7 +124,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -135,7 +135,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: title :: Test Document ",
@@ -143,7 +143,7 @@
               "icon": null,
               "content_lines": 26,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -156,7 +156,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Empty label annotation:",
@@ -164,7 +164,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Empty label annotation:",
@@ -172,7 +172,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -183,7 +183,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "::  :: Empty label (annotation, label=\"\", value=\"Empty label\")",
@@ -191,7 +191,7 @@
               "icon": null,
               "content_lines": 62,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -204,7 +204,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Empty value annotation:",
@@ -212,7 +212,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Empty value annotation:",
@@ -220,7 +220,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -231,7 +231,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: status :: (annotation, label=\"status\", value=\"\")",
@@ -239,7 +239,7 @@
               "icon": null,
               "content_lines": 51,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -252,7 +252,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Multi-word label:",
@@ -260,7 +260,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Multi-word label:",
@@ -268,7 +268,7 @@
               "icon": null,
               "content_lines": 17,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -279,7 +279,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: release notes :: Version 1.0 (annotation, label=\"release notes\", value=\"Version 1.0\")",
@@ -287,7 +287,7 @@
               "icon": null,
               "content_lines": 88,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -300,7 +300,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Annotation with parameters:",
@@ -308,7 +308,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Annotation with parameters:",
@@ -316,7 +316,7 @@
               "icon": null,
               "content_lines": 27,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -327,7 +327,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: meta:version=2.0 :: Document metadata (annotation, label=\"meta\", value=\"Document metadata\")",
@@ -335,7 +335,7 @@
               "icon": null,
               "content_lines": 94,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -348,7 +348,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Multiple parameters:",
@@ -356,7 +356,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Multiple parameters:",
@@ -364,7 +364,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -375,7 +375,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: config:mode=debug,level=verbose :: Configuration (annotation, label=\"config\", value=\"Configuration\")",
@@ -383,7 +383,7 @@
               "icon": null,
               "content_lines": 103,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -396,7 +396,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Quoted parameter values:",
@@ -404,7 +404,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Quoted parameter values:",
@@ -412,7 +412,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -423,7 +423,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: author:name=\"Jane Smith\",role=\"Editor\" :: Author info (annotation, label=\"author\", value=\"Author info\")",
@@ -431,7 +431,7 @@
               "icon": null,
               "content_lines": 106,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -444,7 +444,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Annotation-like content that isn't annotation:",
@@ -452,7 +452,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Annotation-like content that isn't annotation:",
@@ -460,7 +460,7 @@
               "icon": null,
               "content_lines": 46,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -471,7 +471,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is not :: an annotation :: because it's mid-line (paragraph)",
@@ -479,7 +479,7 @@
               "icon": null,
               "content_lines": 65,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

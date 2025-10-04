@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 9,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This document tests all escape sequences in txxt.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This document tests all escape sequences in txxt.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This document tests all escape sequences in txxt.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 49,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Testing escaped inline markers:",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Testing escaped inline markers:",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Testing escaped inline markers:",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 35,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 8,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -89,7 +89,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -99,7 +99,7 @@
                   "icon": null,
                   "content_lines": 35,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -110,7 +110,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -120,7 +120,7 @@
                   "icon": null,
                   "content_lines": 39,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -131,7 +131,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -141,7 +141,7 @@
                   "icon": null,
                   "content_lines": 35,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -152,7 +152,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -162,7 +162,7 @@
                   "icon": null,
                   "content_lines": 28,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -171,7 +171,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "real italic",
@@ -179,7 +179,7 @@
                       "icon": null,
                       "content_lines": 11,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -190,7 +190,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -201,7 +201,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -211,7 +211,7 @@
                   "icon": null,
                   "content_lines": 30,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -222,7 +222,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -232,7 +232,7 @@
                   "icon": null,
                   "content_lines": 28,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -243,7 +243,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -253,7 +253,7 @@
                   "icon": null,
                   "content_lines": 22,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -262,7 +262,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "this should show backslash and asterisk",
@@ -270,7 +270,7 @@
                       "icon": null,
                       "content_lines": 39,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -283,7 +283,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -293,7 +293,7 @@
                   "icon": null,
                   "content_lines": 64,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -306,7 +306,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Edge cases:",
@@ -314,7 +314,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Edge cases:",
@@ -322,7 +322,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -337,7 +337,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Not a reference: not a link    Mixed: escaped but     Partial escapes: open only and close only",
@@ -345,7 +345,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Not a reference: not a link",
@@ -353,7 +353,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Not a reference: not a link",
@@ -361,7 +361,7 @@
                   "icon": null,
                   "content_lines": 33,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -372,7 +372,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Mixed: escaped but ",
@@ -380,7 +380,7 @@
                   "icon": null,
                   "content_lines": 25,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -389,7 +389,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -400,7 +400,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Partial escapes: open only and close only",
@@ -408,7 +408,7 @@
                   "icon": null,
                   "content_lines": 47,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -423,7 +423,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "1 Colon at End of Line",
@@ -431,7 +431,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        This line does not start a verbatim block        This one does:",
@@ -439,7 +439,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        This line does not start a verbatim block",
@@ -447,7 +447,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        This line does not start a verbatim block",
@@ -455,7 +455,7 @@
                       "icon": null,
                       "content_lines": 50,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -466,7 +466,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        This one does:",
@@ -474,7 +474,7 @@
                       "icon": null,
                       "content_lines": 22,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -485,7 +485,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "            verbatim content here",
@@ -493,7 +493,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            verbatim content here",
@@ -501,7 +501,7 @@
                           "icon": null,
                           "content_lines": 33,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -516,7 +516,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        (python)",
@@ -524,7 +524,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        (python)",
@@ -532,7 +532,7 @@
                       "icon": null,
                       "content_lines": 16,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -547,7 +547,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        : not a annotation ::        : also not :: a annotation        :: real_annotation :: This is a real annotation",
@@ -555,7 +555,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        : not a annotation ::",
@@ -563,7 +563,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        : not a annotation ::",
@@ -571,7 +571,7 @@
                       "icon": null,
                       "content_lines": 30,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -582,7 +582,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        : also not :: a annotation",
@@ -590,7 +590,7 @@
                       "icon": null,
                       "content_lines": 35,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -601,7 +601,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        :: real_annotation :: This is a real annotation",
@@ -609,7 +609,7 @@
                       "icon": null,
                       "content_lines": 55,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -624,7 +624,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "         This is not a list item         Neither is this        But these are real list items:",
@@ -632,7 +632,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "         This is not a list item",
@@ -640,7 +640,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "         This is not a list item",
@@ -648,7 +648,7 @@
                       "icon": null,
                       "content_lines": 33,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -659,7 +659,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "         Neither is this",
@@ -667,7 +667,7 @@
                       "icon": null,
                       "content_lines": 25,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -678,7 +678,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        But these are real list items:",
@@ -686,7 +686,7 @@
                       "icon": null,
                       "content_lines": 38,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -699,7 +699,7 @@
               "icon": null,
               "content_lines": 4,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": false,
                 "style": "unordered"
               },
@@ -710,7 +710,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -720,7 +720,7 @@
                       "icon": null,
                       "content_lines": 21,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -731,7 +731,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -741,7 +741,7 @@
                       "icon": null,
                       "content_lines": 21,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -752,7 +752,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "1."
                   },
                   "children": [
@@ -762,7 +762,7 @@
                       "icon": null,
                       "content_lines": 30,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -773,7 +773,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "1."
                   },
                   "children": [
@@ -783,7 +783,7 @@
                       "icon": null,
                       "content_lines": 22,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -796,7 +796,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Numbered lists:",
@@ -804,7 +804,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Numbered lists:",
@@ -812,7 +812,7 @@
                       "icon": null,
                       "content_lines": 23,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -829,7 +829,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Testing comma in parameters:    media:src=,alt=\"A wide shot with clouds\":",
@@ -837,7 +837,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Testing comma in parameters:",
@@ -845,7 +845,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Testing comma in parameters:",
@@ -853,7 +853,7 @@
                   "icon": null,
                   "content_lines": 32,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -864,7 +864,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    media:src=",
@@ -872,7 +872,7 @@
                   "icon": null,
                   "content_lines": 14,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -881,7 +881,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -890,7 +890,7 @@
                   "icon": null,
                   "content_lines": 32,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -903,7 +903,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Testing equals in parameters:",
@@ -911,7 +911,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Testing equals in parameters:",
@@ -919,7 +919,7 @@
                   "icon": null,
                   "content_lines": 33,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -930,7 +930,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    code:lang=python,equation=\"ab+c\":",
@@ -938,7 +938,7 @@
                   "icon": null,
                   "content_lines": 38,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -949,7 +949,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "title": "def calculate(a, b, c)",
                 "label": "",
                 "parameters": {},
@@ -965,7 +965,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    (python)",
@@ -973,7 +973,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    (python)",
@@ -981,7 +981,7 @@
                   "icon": null,
                   "content_lines": 12,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -996,7 +996,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Literal backslash:     Multiple:  (should show two backslashes)    Before normal char: a (should show just 'a')    Windows path: C:UsersDocumentsfile.txt",
@@ -1004,7 +1004,7 @@
           "icon": null,
           "content_lines": 4,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Literal backslash: ",
@@ -1012,7 +1012,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Literal backslash: ",
@@ -1020,7 +1020,7 @@
                   "icon": null,
                   "content_lines": 24,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1031,7 +1031,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Multiple:  (should show two backslashes)",
@@ -1039,7 +1039,7 @@
                   "icon": null,
                   "content_lines": 46,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1050,7 +1050,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Before normal char: a (should show just 'a')",
@@ -1058,7 +1058,7 @@
                   "icon": null,
                   "content_lines": 48,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1069,7 +1069,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Windows path: C:UsersDocumentsfile.txt",
@@ -1077,7 +1077,7 @@
                   "icon": null,
                   "content_lines": 45,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1092,7 +1092,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "",
@@ -1100,7 +1100,7 @@
           "icon": null,
           "content_lines": 0,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Code with escapes",
             "label": "python",
             "parameters": {
@@ -1117,7 +1117,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    (python)",
@@ -1125,7 +1125,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    (python)",
@@ -1133,7 +1133,7 @@
                   "icon": null,
                   "content_lines": 12,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1146,7 +1146,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Dialog with escaped ending",
@@ -1154,7 +1154,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Dialog with escaped ending",
@@ -1162,7 +1162,7 @@
                   "icon": null,
                   "content_lines": 31,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1175,7 +1175,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -1186,7 +1186,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -1196,7 +1196,7 @@
                   "icon": null,
                   "content_lines": 19,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1207,7 +1207,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -1217,7 +1217,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1232,7 +1232,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    These should just remove the backslash:",
@@ -1240,7 +1240,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    These should just remove the backslash:",
@@ -1248,7 +1248,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    These should just remove the backslash:",
@@ -1256,7 +1256,7 @@
                   "icon": null,
                   "content_lines": 43,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1269,7 +1269,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -1280,7 +1280,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -1290,7 +1290,7 @@
                   "icon": null,
                   "content_lines": 17,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1301,7 +1301,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -1311,7 +1311,7 @@
                   "icon": null,
                   "content_lines": 17,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1322,7 +1322,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -1332,7 +1332,7 @@
                   "icon": null,
                   "content_lines": 17,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1347,7 +1347,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Escaped Unicode: u00A9 (should show u00A9, not ©)    Tab normalization still works:    This has a real tab    But escaped tab: t (should show 't')",
@@ -1355,7 +1355,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Escaped Unicode: u00A9 (should show u00A9, not ©)",
@@ -1363,7 +1363,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Escaped Unicode: u00A9 (should show u00A9, not ©)",
@@ -1371,7 +1371,7 @@
                   "icon": null,
                   "content_lines": 53,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1382,7 +1382,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Tab normalization still works:    This has a real tab",
@@ -1390,7 +1390,7 @@
                   "icon": null,
                   "content_lines": 57,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1401,7 +1401,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    But escaped tab: t (should show 't')",
@@ -1409,7 +1409,7 @@
                   "icon": null,
                   "content_lines": 40,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]

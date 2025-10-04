@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Basic Escaping",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    This tests escaped asterisks and escaped underscores.    Also escaped backticks and escaped brackets.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    This tests escaped asterisks and escaped underscores.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This tests escaped asterisks and escaped underscores.",
@@ -36,7 +36,7 @@
                   "icon": null,
                   "content_lines": 61,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Also escaped backticks and escaped brackets.",
@@ -55,7 +55,7 @@
                   "icon": null,
                   "content_lines": 52,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -70,7 +70,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Normal  and  and .    But escaped not bold and not italic.",
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Normal bold and italic and code.",
@@ -86,7 +86,7 @@
               "icon": null,
               "content_lines": 7,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Normal ",
@@ -94,7 +94,7 @@
                   "icon": null,
                   "content_lines": 11,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -103,7 +103,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "bold",
@@ -111,7 +111,7 @@
                       "icon": null,
                       "content_lines": 4,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -122,7 +122,7 @@
                   "icon": null,
                   "content_lines": 5,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -131,7 +131,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "italic",
@@ -139,7 +139,7 @@
                       "icon": null,
                       "content_lines": 6,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -150,7 +150,7 @@
                   "icon": null,
                   "content_lines": 5,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -159,7 +159,7 @@
                   "icon": null,
                   "content_lines": 4,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -168,7 +168,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -179,7 +179,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    But escaped not bold and not italic.",
@@ -187,7 +187,7 @@
                   "icon": null,
                   "content_lines": 44,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]

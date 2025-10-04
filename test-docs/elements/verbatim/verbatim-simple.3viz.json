@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Bogus session",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 12,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    in order to test a streched verbatim, we will include all the content in a session.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    in order to test a streched verbatim, we will include all the content in a session.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    in order to test a streched verbatim, we will include all the content in a session.",
@@ -36,7 +36,7 @@
                   "icon": null,
                   "content_lines": 87,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Basic verbatim examples (paragraph)",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Basic verbatim examples (paragraph)",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 39,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Simple verbatim with title and label",
             "label": "python",
             "parameters": {},
@@ -92,7 +92,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Anonymous verbatim (no title or label)",
@@ -100,7 +100,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Anonymous verbatim (no title or label)",
@@ -108,7 +108,7 @@
                   "icon": null,
                   "content_lines": 42,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -121,7 +121,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "",
             "label": "",
             "parameters": {},
@@ -135,7 +135,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Title only",
             "label": "",
             "parameters": {},
@@ -149,7 +149,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Label only. ",
@@ -157,7 +157,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Label only. ",
@@ -165,7 +165,7 @@
                   "icon": null,
                   "content_lines": 16,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -178,7 +178,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "",
             "label": "sql",
             "parameters": {},
@@ -192,7 +192,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "",
             "label": "",
             "parameters": {},
@@ -206,7 +206,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "First block",
             "label": "",
             "parameters": {},
@@ -220,7 +220,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Second block",
             "label": "",
             "parameters": {},
@@ -234,7 +234,7 @@
           "icon": null,
           "content_lines": 4,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Strecthed verbatim",
             "label": "",
             "parameters": {},

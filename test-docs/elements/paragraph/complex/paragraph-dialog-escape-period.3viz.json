@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 9,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark This file has several such cases, they all should be parsed as pargraphs. and that each one is a pargraph",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark This file has several such cases, they all should be parsed as pargraphs. and that each one is a pargraph",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark This file has several such cases, they all should be parsed as pargraphs. and that each one is a pargraph",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 275,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is actually a dialog, hence, paragraph, not a list.. ",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is actually a dialog, hence, paragraph, not a list.. ",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 58,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -70,7 +70,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -86,7 +86,7 @@
               "icon": null,
               "content_lines": 73,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -99,7 +99,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is actually a dialog, hence, paragraph, not a list!.",
@@ -107,7 +107,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is actually a dialog, hence, paragraph, not a list!.",
@@ -115,7 +115,7 @@
               "icon": null,
               "content_lines": 57,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -128,7 +128,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -136,7 +136,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -144,7 +144,7 @@
               "icon": null,
               "content_lines": 73,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -157,7 +157,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is actually a dialog, hence, paragraph, not a list?!!!.",
@@ -165,7 +165,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is actually a dialog, hence, paragraph, not a list?!!!.",
@@ -173,7 +173,7 @@
               "icon": null,
               "content_lines": 60,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -186,7 +186,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -194,7 +194,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -202,7 +202,7 @@
               "icon": null,
               "content_lines": 73,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -215,7 +215,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is actually a dialog, hence, paragraph, not a list!...",
@@ -223,7 +223,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is actually a dialog, hence, paragraph, not a list!...",
@@ -231,7 +231,7 @@
               "icon": null,
               "content_lines": 59,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -244,7 +244,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -252,7 +252,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Because it ended in a period after the end-punctuation mark {{paragraph}}",
@@ -260,7 +260,7 @@
               "icon": null,
               "content_lines": 73,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

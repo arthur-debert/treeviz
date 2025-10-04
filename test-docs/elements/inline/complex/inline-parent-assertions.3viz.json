@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 4,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing various assertion styles",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing various assertion styles",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing various assertion styles",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 32,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This has bold text {{strong}} in a paragraph.",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This has ",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 9,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "bold text {{strong}}",
@@ -74,7 +74,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -85,7 +85,7 @@
               "icon": null,
               "content_lines": 16,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -98,7 +98,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "List item with emphasis {{emphasis}} text",
@@ -106,7 +106,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "List item with ",
@@ -114,7 +114,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -123,7 +123,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "emphasis {{emphasis}}",
@@ -131,7 +131,7 @@
                   "icon": null,
                   "content_lines": 21,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -142,7 +142,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -155,7 +155,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing attributes on annotations:",
@@ -163,7 +163,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing attributes on annotations:",
@@ -171,7 +171,7 @@
               "icon": null,
               "content_lines": 34,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

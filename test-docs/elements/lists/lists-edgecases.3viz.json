@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 11,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This document will test variations on list parsing. And can be run as an auto test (see conftest.py), where the content ends with <parens><element name><parens> and can be verified automatically (paragraph)",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This document will test variations on list parsing. ",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This document will test variations on list parsing. ",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 52,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "And can be run as an auto test (see conftest.py), where the content ends with <parens><element name><parens> and can be verified automatically (paragraph)",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 154,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -60,7 +60,7 @@
       "icon": null,
       "content_lines": 6,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -71,7 +71,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -81,7 +81,7 @@
               "icon": null,
               "content_lines": 65,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -92,7 +92,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -102,7 +102,7 @@
               "icon": null,
               "content_lines": 42,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -113,7 +113,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -123,7 +123,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -134,7 +134,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -144,7 +144,7 @@
               "icon": null,
               "content_lines": 61,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -153,7 +153,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -163,7 +163,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -174,7 +174,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -184,7 +184,7 @@
                           "icon": null,
                           "content_lines": 28,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -201,7 +201,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -211,7 +211,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -222,7 +222,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -232,7 +232,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -245,7 +245,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
@@ -253,7 +253,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
@@ -261,7 +261,7 @@
               "icon": null,
               "content_lines": 76,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -274,7 +274,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
@@ -282,7 +282,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "A list that has no blank line from a paragraph is still a list:  (paragraph)",
@@ -290,7 +290,7 @@
               "icon": null,
               "content_lines": 76,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -303,7 +303,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -314,7 +314,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -324,7 +324,7 @@
               "icon": null,
               "content_lines": 32,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -333,7 +333,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -343,7 +343,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -354,7 +354,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -364,7 +364,7 @@
                           "icon": null,
                           "content_lines": 31,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -381,7 +381,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -391,7 +391,7 @@
               "icon": null,
               "content_lines": 65,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -402,7 +402,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -412,7 +412,7 @@
               "icon": null,
               "content_lines": 58,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -423,7 +423,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -433,7 +433,7 @@
               "icon": null,
               "content_lines": 98,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -446,7 +446,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "But the single element rule still applies (paragraph)",
@@ -454,7 +454,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "But the single element rule still applies (paragraph)",
@@ -462,7 +462,7 @@
               "icon": null,
               "content_lines": 53,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -475,7 +475,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark (paragraph)",
@@ -483,7 +483,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "We allow an escape hatch, a way to represent dialogs without them being interpreted as lists. This is done by adding a period after the first line's end-punctuation mark (paragraph)",
@@ -491,7 +491,7 @@
               "icon": null,
               "content_lines": 181,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -504,7 +504,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "For all end-punctuations, just add a period, like in !!. ",
@@ -512,7 +512,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "For all end-punctuations, just add a period, like in !!. ",
@@ -520,7 +520,7 @@
               "icon": null,
               "content_lines": 57,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -533,7 +533,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This should be a paragraph too (paragraph)",
@@ -541,7 +541,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This should be a paragraph too (paragraph)",
@@ -549,7 +549,7 @@
               "icon": null,
               "content_lines": 42,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -562,7 +562,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "this should be a list",
@@ -570,7 +570,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "this should be a list",
@@ -578,7 +578,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -591,7 +591,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "yes (list-item)",
@@ -599,7 +599,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "yes (list-item)",
@@ -607,7 +607,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

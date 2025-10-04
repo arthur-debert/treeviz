@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing parameter assertions in annotations",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing parameter assertions in annotations",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing parameter assertions in annotations",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 43,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

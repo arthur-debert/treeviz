@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Definition",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 5,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -30,7 +30,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Definitions has at least one line of content.",
@@ -38,7 +38,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    Definitions has at least one line of content.",
@@ -46,7 +46,7 @@
                       "icon": null,
                       "content_lines": 49,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -59,7 +59,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    But can have more.",
@@ -67,7 +67,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    But can have more.",
@@ -75,7 +75,7 @@
                       "icon": null,
                       "content_lines": 22,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -88,7 +88,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Including other types: ",
@@ -96,7 +96,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    Including other types: ",
@@ -104,7 +104,7 @@
                       "icon": null,
                       "content_lines": 27,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -117,7 +117,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": false,
                 "style": "unordered"
               },
@@ -128,7 +128,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -138,7 +138,7 @@
                       "icon": null,
                       "content_lines": 17,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -149,7 +149,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -159,7 +159,7 @@
                       "icon": null,
                       "content_lines": 11,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     },
                     {
@@ -168,7 +168,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "indent": 5
                       },
                       "children": [
@@ -178,7 +178,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "ordered": false,
                             "style": "unordered"
                           },
@@ -189,7 +189,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "marker": "-"
                               },
                               "children": [
@@ -199,7 +199,7 @@
                                   "icon": null,
                                   "content_lines": 33,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -216,7 +216,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -226,7 +226,7 @@
                       "icon": null,
                       "content_lines": 17,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -239,7 +239,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "Content",
@@ -247,7 +247,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "indent": 5
                   },
                   "children": [
@@ -257,7 +257,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "        This is a nested definition inside the outer definition",
@@ -265,7 +265,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        This is a nested definition inside the outer definition",
@@ -273,7 +273,7 @@
                               "icon": null,
                               "content_lines": 63,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]

@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 11,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is a paragraph:This documenent is the micro spec, showing all elemetns, but not covering their full variations.This will not cover all permutations, but cover all variations.  Aside from parsing ambiguities this does excercises the full synstax swath",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a paragraph:",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a paragraph:",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This documenent is the micro spec, showing all elemetns, but not covering their full variations.",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 96,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -58,7 +58,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This will not cover all permutations, but cover all variations.  Aside from parsing ambiguities this does excercises the full synstax swath",
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 139,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -79,7 +79,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -90,7 +90,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -100,7 +100,7 @@
               "icon": null,
               "content_lines": 11,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -109,7 +109,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -119,7 +119,7 @@
                   "icon": null,
                   "content_lines": 4,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    :: status ::  status-style=RFC :: ",
@@ -127,7 +127,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "    :: status ::  status-style=RFC :: ",
@@ -135,7 +135,7 @@
                           "icon": null,
                           "content_lines": 38,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -146,7 +146,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "        Proposal. ",
@@ -154,7 +154,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        Proposal. ",
@@ -162,7 +162,7 @@
                               "icon": null,
                               "content_lines": 18,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -175,7 +175,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "        Annotations can be multi-line for longer notes, and also support, live verbatim, parameters.",
@@ -183,7 +183,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        Annotations can be multi-line for longer notes, and also support, live verbatim, parameters.",
@@ -191,7 +191,7 @@
                               "icon": null,
                               "content_lines": 100,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -202,7 +202,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        They support the whole txxt lang , excetp new sessions of course. And this goodie is not unique to annotations.",
@@ -210,7 +210,7 @@
                               "icon": null,
                               "content_lines": 119,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -223,7 +223,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "ordered": false,
                         "style": "unordered"
                       },
@@ -234,7 +234,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "marker": "-"
                           },
                           "children": [
@@ -244,7 +244,7 @@
                               "icon": null,
                               "content_lines": 109,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -255,7 +255,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "marker": "-"
                           },
                           "children": [
@@ -265,7 +265,7 @@
                               "icon": null,
                               "content_lines": 134,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -286,7 +286,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Core Elements {{session}}",
@@ -294,7 +294,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        Which should have at least one item.",
@@ -302,7 +302,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Which should have at least one item.",
@@ -310,7 +310,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Which should have at least one item.",
@@ -318,7 +318,7 @@
                       "icon": null,
                       "content_lines": 44,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -333,7 +333,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        But every session has to have something in it",
@@ -341,7 +341,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        But every session has to have something in it",
@@ -349,7 +349,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        But every session has to have something in it",
@@ -357,7 +357,7 @@
                       "icon": null,
                       "content_lines": 53,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -374,7 +374,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "List",
@@ -382,7 +382,7 @@
           "icon": null,
           "content_lines": 5,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -393,7 +393,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -403,7 +403,7 @@
                   "icon": null,
                   "content_lines": 51,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -414,7 +414,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -424,7 +424,7 @@
                   "icon": null,
                   "content_lines": 42,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -435,7 +435,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -445,7 +445,7 @@
                   "icon": null,
                   "content_lines": 58,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -456,7 +456,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "1."
               },
               "children": [
@@ -466,7 +466,7 @@
                   "icon": null,
                   "content_lines": 46,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -477,7 +477,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "2."
               },
               "children": [
@@ -487,7 +487,7 @@
                   "icon": null,
                   "content_lines": 47,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -496,7 +496,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "indent": 5
                   },
                   "children": [
@@ -506,7 +506,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "ordered": false,
                         "style": "unordered"
                       },
@@ -517,7 +517,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "marker": "a)"
                           },
                           "children": [
@@ -527,7 +527,7 @@
                               "icon": null,
                               "content_lines": 35,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -538,7 +538,7 @@
                           "icon": null,
                           "content_lines": 2,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "marker": "b)"
                           },
                           "children": [
@@ -548,7 +548,7 @@
                               "icon": null,
                               "content_lines": 39,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             },
                             {
@@ -557,7 +557,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "indent": 9
                               },
                               "children": [
@@ -567,7 +567,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {
+                                  "extra": {
                                     "ordered": true,
                                     "style": "ordered-alpha"
                                   },
@@ -578,7 +578,7 @@
                                       "icon": null,
                                       "content_lines": 1,
                                       "source_location": null,
-                                      "metadata": {
+                                      "extra": {
                                         "marker": "i."
                                       },
                                       "children": [
@@ -588,7 +588,7 @@
                                           "icon": null,
                                           "content_lines": 54,
                                           "source_location": null,
-                                          "metadata": {},
+                                          "extra": {},
                                           "children": []
                                         }
                                       ]
@@ -607,7 +607,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "Content",
@@ -615,7 +615,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "indent": 9
                           },
                           "children": [
@@ -625,7 +625,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "            A list who is part of a list litem, it's parent's.",
@@ -633,7 +633,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "            A list who is part of a list litem, it's parent's.",
@@ -641,7 +641,7 @@
                                       "icon": null,
                                       "content_lines": 62,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -666,7 +666,7 @@
       "icon": null,
       "content_lines": 14,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "4. Verbatim",
         "label": "",
         "parameters": {},
@@ -680,7 +680,7 @@
       "icon": null,
       "content_lines": 5,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "| Name | Age | ",
@@ -688,7 +688,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "| Name | Age | ",
@@ -696,7 +696,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -707,7 +707,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "|---------|----|",
@@ -715,7 +715,7 @@
               "icon": null,
               "content_lines": 16,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -726,7 +726,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "| Jen | 24 |",
@@ -734,7 +734,7 @@
               "icon": null,
               "content_lines": 12,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -745,7 +745,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "| Bob | 20 |",
@@ -753,7 +753,7 @@
               "icon": null,
               "content_lines": 12,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -764,7 +764,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    (markdown table)",
@@ -772,7 +772,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    (markdown table)",
@@ -780,7 +780,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -795,7 +795,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "            Not mandatory, but the block content is taken to represent the media, could be used as alt.",
@@ -803,7 +803,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "A beautiful landscape",
             "label": "image",
             "parameters": {
@@ -820,7 +820,7 @@
           "icon": null,
           "content_lines": 0,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "The Greattes",
             "label": "video src=https",
             "parameters": {
@@ -836,7 +836,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": true,
             "style": "ordered-numeric"
           },
@@ -847,7 +847,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "6."
               },
               "children": [
@@ -857,7 +857,7 @@
                   "icon": null,
                   "content_lines": 18,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -866,7 +866,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "indent": 5
                   },
                   "children": [
@@ -876,7 +876,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "Content",
@@ -884,7 +884,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "indent": 9
                           },
                           "children": [
@@ -894,7 +894,7 @@
                               "icon": null,
                               "content_lines": 2,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "            The explanation or definition of the term goes here. It can span ",
@@ -902,7 +902,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "            The explanation or definition of the term goes here. It can span ",
@@ -910,7 +910,7 @@
                                       "icon": null,
                                       "content_lines": 77,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -921,7 +921,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "            multiple lines and contain any txxt content.",
@@ -929,7 +929,7 @@
                                       "icon": null,
                                       "content_lines": 56,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -954,7 +954,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Inlines are formats whiting a body of text:  asterisks for  ,  underscores for  ,  backticks for  , Math is supported:  , citations:  or with pages  ",
@@ -962,7 +962,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Inlines are formats whiting a body of text:  asterisks for bold ,  underscores for italic ,  backticks for monospace , Math is supported:  , citations:  or with pages  ",
@@ -970,7 +970,7 @@
               "icon": null,
               "content_lines": 13,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Inlines are formats whiting a body of text:  asterisks for ",
@@ -978,7 +978,7 @@
                   "icon": null,
                   "content_lines": 63,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -987,7 +987,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "bold",
@@ -995,7 +995,7 @@
                       "icon": null,
                       "content_lines": 4,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1006,7 +1006,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1015,7 +1015,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "italic",
@@ -1023,7 +1023,7 @@
                       "icon": null,
                       "content_lines": 6,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1034,7 +1034,7 @@
                   "icon": null,
                   "content_lines": 18,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1043,7 +1043,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1052,7 +1052,7 @@
                   "icon": null,
                   "content_lines": 22,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1061,7 +1061,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1070,7 +1070,7 @@
                   "icon": null,
                   "content_lines": 14,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1079,7 +1079,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1088,7 +1088,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1097,7 +1097,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1106,7 +1106,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1121,7 +1121,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -1132,7 +1132,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "8."
           },
           "children": [
@@ -1142,7 +1142,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -1151,7 +1151,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -1161,7 +1161,7 @@
                   "icon": null,
                   "content_lines": 7,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -1172,7 +1172,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1182,7 +1182,7 @@
                           "icon": null,
                           "content_lines": 37,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1191,7 +1191,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1200,7 +1200,7 @@
                           "icon": null,
                           "content_lines": 15,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1211,7 +1211,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1221,7 +1221,7 @@
                           "icon": null,
                           "content_lines": 25,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1230,7 +1230,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1239,7 +1239,7 @@
                           "icon": null,
                           "content_lines": 15,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1250,7 +1250,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1260,7 +1260,7 @@
                           "icon": null,
                           "content_lines": 32,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1269,7 +1269,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1278,7 +1278,7 @@
                           "icon": null,
                           "content_lines": 15,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1289,7 +1289,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1299,7 +1299,7 @@
                           "icon": null,
                           "content_lines": 18,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1308,7 +1308,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1317,7 +1317,7 @@
                           "icon": null,
                           "content_lines": 30,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1328,7 +1328,7 @@
                       "icon": null,
                       "content_lines": 6,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1338,7 +1338,7 @@
                           "icon": null,
                           "content_lines": 14,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1347,7 +1347,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1356,7 +1356,7 @@
                           "icon": null,
                           "content_lines": 10,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1365,7 +1365,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1374,7 +1374,7 @@
                           "icon": null,
                           "content_lines": 25,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1383,7 +1383,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1394,7 +1394,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1404,7 +1404,7 @@
                           "icon": null,
                           "content_lines": 25,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1413,7 +1413,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1422,7 +1422,7 @@
                           "icon": null,
                           "content_lines": 40,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1433,7 +1433,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -1443,7 +1443,7 @@
                           "icon": null,
                           "content_lines": 21,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -1452,7 +1452,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1471,7 +1471,7 @@
       "icon": null,
       "content_lines": 8,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Can be single lined. {{paragraph}}",
@@ -1479,7 +1479,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Can be single lined. {{paragraph}}",
@@ -1487,7 +1487,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Can be single lined. {{paragraph}}",
@@ -1495,7 +1495,7 @@
                   "icon": null,
                   "content_lines": 38,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1508,7 +1508,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Can be single line but. Multi sentence. {{paragraph}}",
@@ -1516,7 +1516,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Can be single line but. Multi sentence. {{paragraph}}",
@@ -1524,7 +1524,7 @@
                   "icon": null,
                   "content_lines": 57,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1537,7 +1537,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Can be multiline. ",
@@ -1545,7 +1545,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Can be multiline. ",
@@ -1553,7 +1553,7 @@
                   "icon": null,
                   "content_lines": 22,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1564,7 +1564,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Like this, many times the result of hard wrapping editors {{pargraph}}",
@@ -1572,7 +1572,7 @@
                   "icon": null,
                   "content_lines": 74,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1585,7 +1585,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Dialog could look exactly like a list. To force the parser to treat this as a dialog, add and aditional period after the firts's line end-punctuation, as in: ",
@@ -1593,7 +1593,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Dialog could look exactly like a list. To force the parser to treat this as a dialog, add and aditional period after the firts's line end-punctuation, as in: ",
@@ -1601,7 +1601,7 @@
                   "icon": null,
                   "content_lines": 162,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1614,7 +1614,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    - Ma, this is not alist , but a dialog!.",
@@ -1622,7 +1622,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    - Ma, this is not alist , but a dialog!.",
@@ -1630,7 +1630,7 @@
                   "icon": null,
                   "content_lines": 44,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1643,7 +1643,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    - Yup kiddo, I see it. Because the first line added a \".\" after the end-punctuation {{!}}",
@@ -1651,7 +1651,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    - Yup kiddo, I see it. Because the first line added a \".\" after the end-punctuation {{!}}",
@@ -1659,7 +1659,7 @@
                   "icon": null,
                   "content_lines": 93,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1672,7 +1672,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    - That's right Ma and this is true for  any end-punctuatio ( ?., !., !!., ??., ....)",
@@ -1680,7 +1680,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    - That's right Ma and this is true for  any end-punctuatio ( ?., !., !!., ??., ....)",
@@ -1688,7 +1688,7 @@
                   "icon": null,
                   "content_lines": 88,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1701,7 +1701,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    - Well said, son, oh, and you only need to mark the first line. {{paragraph}}",
@@ -1709,7 +1709,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    - Well said, son, oh, and you only need to mark the first line. {{paragraph}}",
@@ -1717,7 +1717,7 @@
                   "icon": null,
                   "content_lines": 81,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1732,7 +1732,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    1. This is that first footnote.",
@@ -1740,7 +1740,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    1. This is that first footnote.",
@@ -1748,7 +1748,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    1. This is that first footnote.",
@@ -1756,7 +1756,7 @@
                   "icon": null,
                   "content_lines": 35,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1769,7 +1769,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    You can reference sessions by their numbers, and session 0 is taken to be the last one in the document.",
@@ -1777,7 +1777,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    You can reference sessions by their numbers, and session 0 is taken to be the last one in the document.",
@@ -1785,7 +1785,7 @@
                   "icon": null,
                   "content_lines": 107,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1796,7 +1796,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    If you don't use a # for the number, it's taken to mean 0, hence the last one.",
@@ -1804,7 +1804,7 @@
                   "icon": null,
                   "content_lines": 82,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1815,7 +1815,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Then in this case, this item is ",
@@ -1823,7 +1823,7 @@
                   "icon": null,
                   "content_lines": 36,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1832,7 +1832,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1841,7 +1841,7 @@
                   "icon": null,
                   "content_lines": 52,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1850,7 +1850,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -1859,7 +1859,7 @@
                   "icon": null,
                   "content_lines": 6,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]

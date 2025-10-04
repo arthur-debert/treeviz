@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 5,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is only one inline ",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is only one inline bold {{strong}}",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is only one inline ",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -37,7 +37,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "bold {{strong}}",
@@ -45,7 +45,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -60,7 +60,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is only one inline italic {{emphasis}}",
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is only one inline ",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -85,7 +85,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "italic {{emphasis}}",
@@ -93,7 +93,7 @@
                   "icon": null,
                   "content_lines": 19,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -108,7 +108,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is only one inline code {{code}}",
@@ -116,7 +116,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is only one inline ",
@@ -124,7 +124,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -133,7 +133,7 @@
               "icon": null,
               "content_lines": 13,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -146,7 +146,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This one is only math ",
@@ -154,7 +154,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This one is only math ",
@@ -162,7 +162,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -171,7 +171,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -184,7 +184,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This has bold {{strong}} and italic {{emphasis}} text.",
@@ -192,7 +192,7 @@
           "icon": null,
           "content_lines": 5,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This has ",
@@ -200,7 +200,7 @@
               "icon": null,
               "content_lines": 9,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -209,7 +209,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "bold {{strong}}",
@@ -217,7 +217,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -228,7 +228,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -237,7 +237,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "italic {{emphasis}}",
@@ -245,7 +245,7 @@
                   "icon": null,
                   "content_lines": 19,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -256,7 +256,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

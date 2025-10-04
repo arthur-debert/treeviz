@@ -44,7 +44,7 @@ def assert_node_properties(
     icon: Optional[str] = None,
     content_lines: Optional[int] = None,
     source_location: Optional[Dict] = None,
-    metadata: Optional[Dict] = None,
+    extra: Optional[Dict] = None,
     children: Optional[List[Node]] = None,
     children_count: Optional[int] = None,
 ) -> None:
@@ -83,10 +83,8 @@ def assert_node_properties(
             node.source_location == source_location
         ), f"Expected source_location {source_location}, got {node.source_location}"
 
-    if metadata is not None:
-        assert (
-            node.metadata == metadata
-        ), f"Expected metadata {metadata}, got {node.metadata}"
+    if extra is not None:
+        assert node.extra == extra, f"Expected extra {extra}, got {node.extra}"
 
     if children is not None:
         assert (
@@ -130,7 +128,7 @@ def sample_node():
         icon="⧉",
         content_lines=5,
         source_location={"line": 10, "column": 5},
-        metadata={"key": "value"},
+        extra={"key": "value"},
         children=[child],
     )
 

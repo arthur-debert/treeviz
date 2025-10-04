@@ -109,10 +109,10 @@ class Definition:
             "doc": "Field name for source location info (line/column numbers)"
         },
     )
-    metadata: Any = field(
+    extra: Any = field(
         default_factory=dict,
         metadata={
-            "doc": "Field name for additional metadata extraction, or dict for static metadata"
+            "doc": "Field name for additional extra extraction, or dict for static extra"
         },
     )
 

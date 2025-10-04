@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 7,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "    print(\"Hello, World!\")",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Simple parameter example",
         "label": "python",
         "parameters": {
@@ -28,7 +28,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Multiple parameters example",
         "label": "yaml",
         "parameters": {
@@ -45,7 +45,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Parameters with spaces in values",
         "label": "xml",
         "parameters": {
@@ -63,7 +63,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Label without parameters",
         "label": "sql",
         "parameters": {},
@@ -77,7 +77,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Empty label with parameters",
         "label": "",
         "parameters": {
@@ -94,7 +94,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Complex label with parameters",
         "label": "Debug Info",
         "parameters": {
@@ -111,7 +111,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "Edge case - single character keys (treated as math)",
         "label": "equation: a=1,b=2",
         "parameters": {},

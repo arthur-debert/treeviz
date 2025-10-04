@@ -100,7 +100,7 @@ class TestEssentialIntegration:
                 {"type": "include_me", "value": "keep"},
                 {"type": "exclude_me", "value": "remove"},
                 {"type": "include_me", "value": "also_keep"},
-                {"type": "meta", "value": "metadata"},
+                {"type": "meta", "value": "extra"},
             ],
         }
 

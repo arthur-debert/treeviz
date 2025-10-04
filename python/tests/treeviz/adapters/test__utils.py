@@ -110,15 +110,15 @@ class TestExitOnErrorDecorator:
             in stderr_output
         )
 
-    def test_decorator_preserves_function_metadata(self):
-        """Test that decorator preserves original function metadata."""
+    def test_decorator_preserves_function_extra(self):
+        """Test that decorator preserves original function extra."""
 
         @exit_on_error
         def documented_func(x):
             """This function has documentation."""
             return x * 2
 
-        # Note: Basic decorator doesn't preserve metadata,
+        # Note: Basic decorator doesn't preserve extra,
         # but we can test that it's still callable
         assert callable(documented_func)
 

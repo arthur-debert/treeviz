@@ -54,11 +54,11 @@ class NodeAssertion:
         ), f"Expected source_location {expected}, got {self.node.source_location}"
         return self
 
-    def has_metadata(self, expected: Dict) -> "NodeAssertion":
-        """Assert node has expected metadata."""
+    def has_extra(self, expected: Dict) -> "NodeAssertion":
+        """Assert node has expected extra."""
         assert (
-            self.node.metadata == expected
-        ), f"Expected metadata {expected}, got {self.node.metadata}"
+            self.node.extra == expected
+        ), f"Expected extra {expected}, got {self.node.extra}"
         return self
 
     def has_children_count(self, expected: int) -> "NodeAssertion":
@@ -146,7 +146,7 @@ def sample_node():
         icon="⧉",
         content_lines=5,
         source_location={"line": 10, "column": 5},
-        metadata={"key": "value"},
+        extra={"key": "value"},
         children=[child],
     )
 

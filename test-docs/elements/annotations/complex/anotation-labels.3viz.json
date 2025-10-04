@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Special characters in labels::: label-with-hyphens :: Hyphenated (annotation, label=\"label-with-hyphens\", value=\"Hyphenated\"):: labelunderscores :: Underscored (annotation, label=\"labelunderscores\", value=\"Underscored\") :: label.with.dots :: Dotted namespace (annotation, label=\"label.with.dots\", value=\"Dotted namespace\"):: UPPERCASE :: All caps (annotation, label=\"UPPERCASE\", value=\"All caps\"):: mixedCase123 :: Mixed with numbers (annotation, label=\"mixedCase123\", value=\"Mixed with numbers\")",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 6,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Special characters in labels:",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Special characters in labels:",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 29,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: label-with-hyphens :: Hyphenated (annotation, label=\"label-with-hyphens\", value=\"Hyphenated\")",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 96,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -58,7 +58,7 @@
           "icon": null,
           "content_lines": 5,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: label",
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 8,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -75,7 +75,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "with",
@@ -83,7 +83,7 @@
                   "icon": null,
                   "content_lines": 4,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -94,7 +94,7 @@
               "icon": null,
               "content_lines": 52,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -103,7 +103,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "with",
@@ -111,7 +111,7 @@
                   "icon": null,
                   "content_lines": 4,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -122,7 +122,7 @@
               "icon": null,
               "content_lines": 35,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -133,7 +133,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: label.with.dots :: Dotted namespace (annotation, label=\"label.with.dots\", value=\"Dotted namespace\")",
@@ -141,7 +141,7 @@
               "icon": null,
               "content_lines": 102,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -152,7 +152,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: UPPERCASE :: All caps (annotation, label=\"UPPERCASE\", value=\"All caps\")",
@@ -160,7 +160,7 @@
               "icon": null,
               "content_lines": 74,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -171,7 +171,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: mixedCase123 :: Mixed with numbers (annotation, label=\"mixedCase123\", value=\"Mixed with numbers\")",
@@ -179,7 +179,7 @@
               "icon": null,
               "content_lines": 100,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

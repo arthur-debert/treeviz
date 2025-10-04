@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 7,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "The most complex part of txxt to parse is the structure being derived from the indentation.The indentation itself is not the problem, but the lack of explicit syntax for most elements is, which generates various ambiguities.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "The most complex part of txxt to parse is the structure being derived from the indentation.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "The most complex part of txxt to parse is the structure being derived from the indentation.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 91,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "The indentation itself is not the problem, but the lack of explicit syntax for most elements is, which generates various ambiguities.",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 133,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -60,7 +60,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This document aggregates most of these issues, both for reference and tests. Do not add cases to it.",
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This document aggregates most of these issues, both for reference and tests. Do not add cases to it.",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 100,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -89,7 +89,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
@@ -97,7 +97,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
@@ -105,7 +105,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    There are three elements that cannot be identified by themselves, that is, by only looking at the line they are in. These are: ",
@@ -113,7 +113,7 @@
                   "icon": null,
                   "content_lines": 131,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -126,7 +126,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -137,7 +137,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -147,7 +147,7 @@
                   "icon": null,
                   "content_lines": 37,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -158,7 +158,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -168,7 +168,7 @@
                   "icon": null,
                   "content_lines": 16,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -179,7 +179,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -189,7 +189,7 @@
                   "icon": null,
                   "content_lines": 16,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -202,7 +202,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    All these can have similar forms. While list items do require a list marker (- or 1.), session titles and paragraphs do not and can contain them. Hence, for some variants you can write list items off these three as consistently intertwined. ",
@@ -210,7 +210,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    All these can have similar forms. While list items do require a list marker (- or 1.), session titles and paragraphs do not and can contain them. Hence, for some variants you can write list items off these three as consistently intertwined. ",
@@ -218,7 +218,7 @@
                   "icon": null,
                   "content_lines": 245,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -233,7 +233,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented.     Like here, the \"2. General Idea\" line itself could be any one of the three. How do you tell them apart?     The key is that session and lists require other features in the text, if you can't find them, by exclusion the element will be the paragraph.",
@@ -241,7 +241,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented. ",
@@ -249,7 +249,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    The general idea is that sessions create a new , deeper level, thus +1 indented. ",
@@ -257,7 +257,7 @@
                   "icon": null,
                   "content_lines": 85,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -268,7 +268,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Like here, the \"2. General Idea\" line itself could be any one of the three. How do you tell them apart? ",
@@ -276,7 +276,7 @@
                   "icon": null,
                   "content_lines": 108,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -287,7 +287,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    The key is that session and lists require other features in the text, if you can't find them, by exclusion the element will be the paragraph.",
@@ -295,7 +295,7 @@
                   "icon": null,
                   "content_lines": 145,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -308,7 +308,7 @@
           "icon": null,
           "content_lines": 6,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "            Foo \n\n            Bar",
@@ -316,7 +316,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "title": "A session's title has to be preceded by a blank line, it's content is +1 Indented and Sessions cannot be empty. Hence",
                 "label": "txxt",
                 "parameters": {},
@@ -330,7 +330,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Foo and Bar can only be paragraphs.",
@@ -338,7 +338,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Foo and Bar can only be paragraphs.",
@@ -346,7 +346,7 @@
                       "icon": null,
                       "content_lines": 43,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -359,7 +359,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Any valid session child would be +1 indented. ",
@@ -367,7 +367,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Any valid session child would be +1 indented. ",
@@ -375,7 +375,7 @@
                       "icon": null,
                       "content_lines": 54,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -388,7 +388,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "title": "Here is the edge Case",
                 "label": "txxt",
                 "parameters": {},
@@ -402,7 +402,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        What is each element in this example?  The way to decide is this: ",
@@ -410,7 +410,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        What is each element in this example?  The way to decide is this: ",
@@ -418,7 +418,7 @@
                       "icon": null,
                       "content_lines": 74,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -431,7 +431,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": false,
                 "style": "unordered"
               },
@@ -442,7 +442,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -452,7 +452,7 @@
                       "icon": null,
                       "content_lines": 111,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -463,7 +463,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -473,7 +473,7 @@
                       "icon": null,
                       "content_lines": 38,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -484,7 +484,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -494,7 +494,7 @@
                       "icon": null,
                       "content_lines": 285,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -511,7 +511,7 @@
       "icon": null,
       "content_lines": 7,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
@@ -519,7 +519,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
@@ -527,7 +527,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Note that in the example above we don't consider c. Foo to be a possible list. That is because lists cannot contain only one element (nesting included, that is, child-lists's items do count as one). So: ",
@@ -535,7 +535,7 @@
                   "icon": null,
                   "content_lines": 207,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -548,7 +548,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -559,7 +559,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -569,7 +569,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -580,7 +580,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -590,7 +590,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -601,7 +601,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -611,7 +611,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -620,7 +620,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "indent": 5
                   },
                   "children": [
@@ -630,7 +630,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "ordered": true,
                         "style": "ordered-numeric"
                       },
@@ -641,7 +641,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "marker": "1."
                           },
                           "children": [
@@ -651,7 +651,7 @@
                               "icon": null,
                               "content_lines": 14,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -670,7 +670,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Is a list, so it",
@@ -678,7 +678,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Is a list, so it",
@@ -686,7 +686,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -699,7 +699,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Because, including nested lists, we have 2 items here.",
@@ -707,7 +707,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Because, including nested lists, we have 2 items here.",
@@ -715,7 +715,7 @@
                   "icon": null,
                   "content_lines": 58,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -728,7 +728,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Now,: ",
@@ -736,7 +736,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Now,: ",
@@ -744,7 +744,7 @@
                   "icon": null,
                   "content_lines": 10,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -757,7 +757,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -768,7 +768,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -778,7 +778,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -791,7 +791,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Is not a list, is a paragraph, as lists cannot be single items.",
@@ -799,7 +799,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Is not a list, is a paragraph, as lists cannot be single items.",
@@ -807,7 +807,7 @@
                   "icon": null,
                   "content_lines": 67,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -818,7 +818,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This fact, together with sessions requiring a preceding blank line, pretty much disambiguates all cases, but one.",
@@ -826,7 +826,7 @@
                   "icon": null,
                   "content_lines": 117,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -841,7 +841,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
@@ -849,7 +849,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
@@ -857,7 +857,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    While txxt is geared towards technical writing, it should be able to correctly represent dialogs, which, as one expects, uses the same initial characters as some lists, the dash. Hence:",
@@ -865,7 +865,7 @@
                   "icon": null,
                   "content_lines": 189,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -878,7 +878,7 @@
           "icon": null,
           "content_lines": 4,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -889,7 +889,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -899,7 +899,7 @@
                   "icon": null,
                   "content_lines": 26,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -910,7 +910,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -920,7 +920,7 @@
                   "icon": null,
                   "content_lines": 16,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -931,7 +931,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -941,7 +941,7 @@
                   "icon": null,
                   "content_lines": 27,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -952,7 +952,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -962,7 +962,7 @@
                   "icon": null,
                   "content_lines": 16,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -975,7 +975,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Could be a perfectly fine list, but in this example it's a dialog. ",
@@ -983,7 +983,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Could be a perfectly fine list, but in this example it's a dialog. ",
@@ -991,7 +991,7 @@
                   "icon": null,
                   "content_lines": 71,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1002,7 +1002,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    The way to tell txxt that such line is a paragraph is by adding a period to the end-punctuation",
@@ -1010,7 +1010,7 @@
                   "icon": null,
                   "content_lines": 99,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1023,7 +1023,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Here since the first line ends with \".\" and the preceding character is a valid end punctuation mark (?, ., !, .. and others) it's a dialog. Note that only the first line needs to have the extra period.",
@@ -1031,7 +1031,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Here since the first line ends with \".\" and the preceding character is a valid end punctuation mark (?, ., !, .. and others) it's a dialog. Note that only the first line needs to have the extra period.",
@@ -1039,7 +1039,7 @@
                   "icon": null,
                   "content_lines": 205,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1054,7 +1054,7 @@
       "icon": null,
       "content_lines": 14,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
@@ -1062,7 +1062,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
@@ -1070,7 +1070,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    As we've seen indentation always denotes the structure, the parent-child relationship, but it's not technically how this is implemented.",
@@ -1078,7 +1078,7 @@
                   "icon": null,
                   "content_lines": 140,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1091,7 +1091,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    As we've seen in both these: ",
@@ -1099,7 +1099,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    As we've seen in both these: ",
@@ -1107,7 +1107,7 @@
                   "icon": null,
                   "content_lines": 33,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1120,7 +1120,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        A paragraph, followed by a list",
@@ -1128,7 +1128,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        A paragraph, followed by a list",
@@ -1136,7 +1136,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        A paragraph, followed by a list",
@@ -1144,7 +1144,7 @@
                       "icon": null,
                       "content_lines": 39,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1157,7 +1157,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": true,
                 "style": "ordered-numeric"
               },
@@ -1168,7 +1168,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "1."
                   },
                   "children": [
@@ -1178,7 +1178,7 @@
                       "icon": null,
                       "content_lines": 24,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     },
                     {
@@ -1187,7 +1187,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "indent": 9
                       },
                       "children": [
@@ -1197,7 +1197,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "ordered": true,
                             "style": "ordered-numeric"
                           },
@@ -1208,7 +1208,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "marker": "1."
                               },
                               "children": [
@@ -1218,7 +1218,7 @@
                                   "icon": null,
                                   "content_lines": 23,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -1239,7 +1239,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    The title, and the outer list (pack for trip) are not indented +1, although they denote the relationship. The reason for this is containers. ",
@@ -1247,7 +1247,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    The title, and the outer list (pack for trip) are not indented +1, although they denote the relationship. The reason for this is containers. ",
@@ -1255,7 +1255,7 @@
                   "icon": null,
                   "content_lines": 145,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1268,7 +1268,7 @@
           "icon": null,
           "content_lines": 7,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Containers is how any element that can have children work. Their form is",
             "label": "txxt",
             "parameters": {},
@@ -1282,7 +1282,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    In this case lists look like this: ",
@@ -1290,7 +1290,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    In this case lists look like this: ",
@@ -1298,7 +1298,7 @@
                   "icon": null,
                   "content_lines": 39,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1311,7 +1311,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    <list-item>",
@@ -1319,7 +1319,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    <list-item>",
@@ -1327,7 +1327,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1338,7 +1338,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        <text line>",
@@ -1346,7 +1346,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        <text line>",
@@ -1354,7 +1354,7 @@
                       "icon": null,
                       "content_lines": 19,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1365,7 +1365,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        <container>",
@@ -1373,7 +1373,7 @@
                       "icon": null,
                       "content_lines": 19,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1384,7 +1384,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        </container>",
@@ -1392,7 +1392,7 @@
                       "icon": null,
                       "content_lines": 20,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1407,7 +1407,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    </list-item",
@@ -1415,7 +1415,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    </list-item",
@@ -1423,7 +1423,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1436,7 +1436,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    If a list has no children the text line is aligned with the parent. When a nested list exists, then it will be like this: ",
@@ -1444,7 +1444,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    If a list has no children the text line is aligned with the parent. When a nested list exists, then it will be like this: ",
@@ -1452,7 +1452,7 @@
                   "icon": null,
                   "content_lines": 126,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1465,7 +1465,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    <list>",
@@ -1473,7 +1473,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    <list>",
@@ -1481,7 +1481,7 @@
                   "icon": null,
                   "content_lines": 10,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1492,7 +1492,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        <outter-list-item>",
@@ -1500,7 +1500,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        <outter-list-item>",
@@ -1508,7 +1508,7 @@
                       "icon": null,
                       "content_lines": 26,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1519,7 +1519,7 @@
                   "icon": null,
                   "content_lines": 4,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "            <text-line>",
@@ -1527,7 +1527,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            <text-line>",
@@ -1535,7 +1535,7 @@
                           "icon": null,
                           "content_lines": 23,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1546,7 +1546,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            <container>",
@@ -1554,7 +1554,7 @@
                           "icon": null,
                           "content_lines": 23,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1565,7 +1565,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "                <list>",
@@ -1573,7 +1573,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "                <list>",
@@ -1581,7 +1581,7 @@
                               "icon": null,
                               "content_lines": 22,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -1592,7 +1592,7 @@
                           "icon": null,
                           "content_lines": 2,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "                    <inner-list-item>",
@@ -1600,7 +1600,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "                    <inner-list-item>",
@@ -1608,7 +1608,7 @@
                                   "icon": null,
                                   "content_lines": 37,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -1619,7 +1619,7 @@
                               "icon": null,
                               "content_lines": 2,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "                        <text line>",
@@ -1627,7 +1627,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "                        <text line>",
@@ -1635,7 +1635,7 @@
                                       "icon": null,
                                       "content_lines": 35,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -1646,7 +1646,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "                        </container>",
@@ -1654,7 +1654,7 @@
                                       "icon": null,
                                       "content_lines": 36,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -1669,7 +1669,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "                    </inner-list-item>",
@@ -1677,7 +1677,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "                    </inner-list-item>",
@@ -1685,7 +1685,7 @@
                                   "icon": null,
                                   "content_lines": 38,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -1700,7 +1700,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "                </list>",
@@ -1708,7 +1708,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "                </list>",
@@ -1716,7 +1716,7 @@
                               "icon": null,
                               "content_lines": 23,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": []
                             }
                           ]
@@ -1731,7 +1731,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "            </container>",
@@ -1739,7 +1739,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            </container>",
@@ -1747,7 +1747,7 @@
                           "icon": null,
                           "content_lines": 24,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -1762,7 +1762,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        </outter-list-item>",
@@ -1770,7 +1770,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        </outter-list-item>",
@@ -1778,7 +1778,7 @@
                       "icon": null,
                       "content_lines": 27,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1793,7 +1793,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    </list>",
@@ -1801,7 +1801,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    </list>",
@@ -1809,7 +1809,7 @@
                   "icon": null,
                   "content_lines": 11,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1822,7 +1822,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    There are two types of containers: ContentContainers and Session Containers.",
@@ -1830,7 +1830,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    There are two types of containers: ContentContainers and Session Containers.",
@@ -1838,7 +1838,7 @@
                   "icon": null,
                   "content_lines": 80,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -1851,7 +1851,7 @@
           "icon": null,
           "content_lines": 4,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        The following elements have them, that is, they can have multiple children; ",
@@ -1859,7 +1859,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        The following elements have them, that is, they can have multiple children; ",
@@ -1867,7 +1867,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        The following elements have them, that is, they can have multiple children; ",
@@ -1875,7 +1875,7 @@
                       "icon": null,
                       "content_lines": 84,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1888,7 +1888,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": false,
                 "style": "unordered"
               },
@@ -1899,7 +1899,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -1909,7 +1909,7 @@
                       "icon": null,
                       "content_lines": 21,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1920,7 +1920,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -1930,7 +1930,7 @@
                       "icon": null,
                       "content_lines": 21,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1941,7 +1941,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -1951,7 +1951,7 @@
                       "icon": null,
                       "content_lines": 15,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1962,7 +1962,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -1972,7 +1972,7 @@
                       "icon": null,
                       "content_lines": 40,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -1983,7 +1983,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "-"
                   },
                   "children": [
@@ -1993,7 +1993,7 @@
                       "icon": null,
                       "content_lines": 99,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -2006,7 +2006,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        These elements cannot host children: ",
@@ -2014,7 +2014,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        These elements cannot host children: ",
@@ -2022,7 +2022,7 @@
                       "icon": null,
                       "content_lines": 45,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -2035,7 +2035,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Content containers can attach any element type but one Session. ",
@@ -2043,7 +2043,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Content containers can attach any element type but one Session. ",
@@ -2051,7 +2051,7 @@
                       "icon": null,
                       "content_lines": 72,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -2062,7 +2062,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        It makes sense, right? You don't want an inner list item creating a new session, from a navigation point of view it would not make any sense, hence:",
@@ -2070,7 +2070,7 @@
                       "icon": null,
                       "content_lines": 156,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -2085,7 +2085,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
@@ -2093,7 +2093,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
@@ -2101,7 +2101,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        These are and behave just like the Content ones, with the exception that they can hold another sessions. Hence the document's root is a session container of its own. ",
@@ -2109,7 +2109,7 @@
                       "icon": null,
                       "content_lines": 174,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -2122,7 +2122,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        ps: currently the implementation still has session as having a title attribute then children node not the container here described. This is temporary so we're documenting the correct information.",
@@ -2130,7 +2130,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        ps: currently the implementation still has session as having a title attribute then children node not the container here described. This is temporary so we're documenting the correct information.",
@@ -2138,7 +2138,7 @@
                       "icon": null,
                       "content_lines": 203,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
