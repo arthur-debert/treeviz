@@ -6,7 +6,7 @@ and edge cases for path expressions, transformations, filtering, and combination
 """
 
 import pytest
-from treeviz.adapters.advanced_extraction import (
+from treeviz.adapters.extraction import (
     extract_by_path,
     apply_transformation,
     filter_collection,

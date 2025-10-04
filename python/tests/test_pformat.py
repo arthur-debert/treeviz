@@ -501,7 +501,7 @@ class TestPformatWithAdapters:
 
     def test_pformat_with_adapter(self):
         """Test complete workflow: pformat -> adapter -> treeviz."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         # Parse pformat document
         test_file = get_test_data_path("sample.pformat")
@@ -530,7 +530,7 @@ class TestPformatWithAdapters:
 
     def test_pformat_with_children_selector(self):
         """Test pformat with ChildrenSelector from issue #9."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         test_file = get_test_data_path("sample.pformat")
         parsed_data = parse_document(test_file)
@@ -550,7 +550,7 @@ class TestPformatWithAdapters:
 
     def test_xml_html_pformat_equivalence(self):
         """Test that XML and HTML can be parsed via pformat."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         # Parse different formats with same adapter
         adapter_def = {

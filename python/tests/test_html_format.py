@@ -192,7 +192,7 @@ class TestHTMLWithAdapters:
 
     def test_html_with_adapter(self):
         """Test complete workflow: HTML -> adapter -> treeviz."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         test_file = (
             Path(__file__).parent.parent.parent
@@ -223,7 +223,7 @@ class TestHTMLWithAdapters:
 
     def test_html_with_children_selector(self):
         """Test HTML with ChildrenSelector filtering."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         test_file = (
             Path(__file__).parent.parent.parent

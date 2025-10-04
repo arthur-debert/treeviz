@@ -1,29 +1,15 @@
 """
-Declarative Converter Engine for 3viz
+Core Adapter Engine for 3viz
 
-This module provides a declarative way to adapt any tree structure to the 3viz
-Node format. Instead of writing custom adapter code, users can specify how to
-extract information from their AST using simple attribute mappings.
-
-Example usage:
-    def_ = {
-        "label": "name",
-        "type": "node_type", 
-        "children": "child_nodes",
-        "icons": {
-            "paragraph": "¶",
-            "list": "☰"
-        }
-    }
-    
-    node = adapt_node(my_ast_node, def_)
+This module provides the main node adaptation functionality, converting
+source AST nodes to 3viz Node format using declarative definitions.
 """
 
 import sys
-from typing import Any, Dict, Optional, Callable
+from typing import Any, Dict, Optional
 
 from ..model import Node
-from .advanced_extraction import extract_attribute
+from .extraction import extract_attribute
 from ..definitions.model import Definition, ChildrenSelector
 
 
@@ -188,21 +174,3 @@ def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
         )
 
     return result
-
-
-def exit_on_error(func: Callable) -> Callable:
-    """
-    Decorator to exit with status 1 on any exception.
-
-    This implements the "fail fast" principle - any error
-    should immediately exit the program with a clear error message.
-    """
-
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            print(f"Error: {e}", file=sys.stderr)
-            sys.exit(1)
-
-    return wrapper

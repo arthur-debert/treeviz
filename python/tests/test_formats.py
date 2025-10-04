@@ -277,7 +277,7 @@ class TestIntegrationWithAdapters:
 
     def test_parse_and_adapt_workflow(self):
         """Test the complete workflow: parse document -> adapt with adapter."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         # Parse document
         test_file = get_test_data_path("simple.json")
@@ -298,7 +298,7 @@ class TestIntegrationWithAdapters:
 
     def test_orthogonality_principle(self):
         """Test that format parsing is orthogonal to adapter selection."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         # Step 1: Parse documents from different formats into pure Python
         json_data = parse_document(get_test_data_path("sample.json"))

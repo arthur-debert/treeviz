@@ -183,7 +183,7 @@ class TestXMLWithAdapters:
 
     def test_xml_with_adapter(self):
         """Test complete workflow: XML -> adapter -> treeviz."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         test_file = (
             Path(__file__).parent.parent.parent
@@ -215,7 +215,7 @@ class TestXMLWithAdapters:
 
     def test_xml_with_children_selector(self):
         """Test XML with ChildrenSelector filtering."""
-        from treeviz.adapters.adapters import adapt_node
+        from treeviz.adapters import adapt_node
 
         test_file = (
             Path(__file__).parent.parent.parent

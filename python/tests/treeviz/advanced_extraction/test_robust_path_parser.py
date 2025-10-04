@@ -6,7 +6,7 @@ than the previous regex-based approach, addressing the code review feedback.
 """
 
 import pytest
-from treeviz.adapters.advanced_extraction import (
+from treeviz.adapters.extraction import (
     parse_path_expression,
 )
 
