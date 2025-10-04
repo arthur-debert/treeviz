@@ -31,7 +31,7 @@ class TestEssentialIntegration:
         # Test basic help works
         result = runner.invoke(cli, ["--help"])
         assert result.exit_code == 0
-        assert "3viz AST visualization tool" in result.output
+        assert "Terminal AST visualizer for document trees" in result.output
 
         # Test get-definition command works
         result = runner.invoke(cli, ["get-definition", "3viz"])
