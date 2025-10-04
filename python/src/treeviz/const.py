@@ -54,6 +54,6 @@ DEFAULT_ICONS = {
     "unknown": Icon(icon="?"),
 }
 
-DEFAULT_ICON_PACK = IconPack(name="3viz", icons=DEFAULT_ICONS)
+DEFAULT_ICON_PACK = IconPack(name="treeviz", icons=DEFAULT_ICONS)
 
 register_icon_pack(DEFAULT_ICON_PACK)
