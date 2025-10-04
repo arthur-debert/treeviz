@@ -45,6 +45,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     effective_extra = definition.extra
 
     # Apply type-specific overrides if they exist
+    final_node_type = node_type  # Default to original extracted type
     if node_type and node_type in definition.type_overrides:
         overrides = definition.type_overrides[node_type]
         effective_label = overrides.get("label", effective_label)
@@ -59,10 +60,20 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         )
         effective_extra = overrides.get("extra", effective_extra)
 
+        # If the override specifies a new type, use it for the final node
+        if "type" in overrides:
+            # The override "type" value could be a string literal or extraction spec
+            override_type = extract_attribute(source_node, effective_type)
+            if override_type is not None:
+                final_node_type = override_type
+            elif isinstance(overrides["type"], str):
+                # If it's a literal string, use it directly
+                final_node_type = overrides["type"]
+
     # Extract basic attributes using advanced extractor
     label = extract_attribute(source_node, effective_label)
     if label is None:
-        label = str(node_type) if node_type else "Unknown"
+        label = str(final_node_type) if final_node_type else "Unknown"
 
     # Extract optional attributes using advanced extractor
     icon = extract_attribute(source_node, effective_icon)
@@ -78,7 +89,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
 
     # Resolve icon using the new icon pack system
     if not icon:
-        icon = resolve_icon(node_type, definition.icons)
+        icon = resolve_icon(final_node_type, definition.icons)
 
     # Extract children using advanced extractor or node-based filtering
     children = []
@@ -141,7 +152,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
 
     return Node(
         label=str(label),
-        type=node_type,
+        type=final_node_type,
         icon=icon,
         content_lines=content_lines,
         source_location=source_location,

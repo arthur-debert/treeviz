@@ -55,11 +55,25 @@ fi
 echo
 echo
 
+# Test 3: Pandoc Adapter Reliability
+echo "Running Test 3: Pandoc Adapter Reliability..."
+echo "=============================================="
+if "$SHELL_E2E_DIR/test-pandoc-adapter-reliability.sh"; then
+	echo "✅ Test 3 PASSED"
+else
+	echo "❌ Test 3 FAILED"
+	exit 1
+fi
+
+echo
+echo
+
 # Summary
 echo "🎉 All End-to-End Tests Passed!"
 echo "==============================="
 echo "✅ mdast adapter handles CommonMark and GFM specs correctly"
 echo "✅ YAML adapter format migration successful"
+echo "✅ pandoc adapter handles official pandoc test files correctly"
 echo "✅ All built-in adapters function properly"
 echo "✅ Icon mappings and field extractions working"
 echo

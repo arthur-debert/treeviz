@@ -13,7 +13,9 @@
 # declarative patterns that can be applied to other complex AST formats.
 
 # Default extraction patterns for all node types
-type: "t"                # Pandoc nodes have their type in the 't' field
+type:                   # Pandoc nodes have their type in the 't' field, with fallback to "Unknown"
+  path: "t"
+  default: "Unknown"
 children: "c"           # Child content is typically in the 'c' field  
 label: "t"              # Default label is just the node type
 
@@ -21,7 +23,14 @@ label: "t"              # Default label is just the node type
 # These demonstrate various declarative patterns for complex AST processing
 type_overrides:
 
-  # Root document node - uses static label
+  # Handle the root document case - when no 't' field exists, system uses default "Unknown"
+  # This is the clever part: we override the bogus "Unknown" type to handle pandoc root
+  Unknown:
+    type: "Pandoc"       # Override the type to be "Pandoc"
+    children: "blocks"   # Root pandoc JSON has blocks in 'blocks', not 'c'
+    label: "Pandoc Document"
+    
+  # Keep the Pandoc override for cases where the data is pre-processed with 't': 'Pandoc'
   Pandoc:
     children: "blocks"   # Root blocks are in 'blocks', not 'c'
     label: "Pandoc Document"
