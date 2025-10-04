@@ -14,63 +14,108 @@ from .definitions import Lib
 
 @click.group()
 @click.option(
-    "--format",
-    type=click.Choice(["text", "json", "term"]),
+    "--output-format",
+    type=click.Choice(["text", "json", "yaml", "term"]),
     default=None,
     help="Output format (default: term for terminals, text for pipes)",
 )
 @click.pass_context
-def cli(ctx, format):
+def cli(ctx, output_format):
     """
     A standalone CLI for the 3viz AST visualization tool.
+
+    Examples:
+      3viz doc.json                           # Use 3viz adapter, auto-detect format
+      3viz doc.md mdast                       # Use built-in mdast adapter
+      3viz doc.xml my-adapter.yaml            # Use custom adapter file
+      3viz - mdast < input.json               # Read from stdin with mdast adapter
+      cat data.json | 3viz -                  # Read from stdin with default adapter
+      3viz get-definition mdast               # Get mdast adapter definition
     """
     # Ensure context dict exists
     ctx.ensure_object(dict)
 
     # Auto-detect format if not specified
-    if format is None:
-        format = "term" if sys.stdout.isatty() else "text"
+    if output_format is None:
+        output_format = "term" if sys.stdout.isatty() else "text"
 
-    ctx.obj["format"] = format
-
-
-# Note: render command removed due to missing parsers module
-# TODO: Re-enable when parsers module is available
+    ctx.obj["output_format"] = output_format
 
 
-# Create the get-definition command dynamically
-def _make_get_definition_command():
-    """Create get-definition command with proper dynamic docstring."""
-    # Get available formats dynamically
-    available_formats = ["3viz"] + Lib.list_formats()
-    format_list = ", ".join(available_formats)
+@cli.command()
+@click.argument("document", type=click.Path(exists=False))
+@click.argument("adapter", default="3viz")
+@click.option(
+    "--document-format",
+    type=click.Choice(["json", "yaml", "xml", "html"]),
+    help="Override document format detection",
+)
+@click.option(
+    "--adapter-format",
+    type=click.Choice(["json", "yaml"]),
+    help="Override adapter format detection (only for file-based adapters)",
+)
+@click.option(
+    "--output-format",
+    type=click.Choice(["text", "json", "yaml", "term"]),
+    help="Output format (overrides global setting)",
+)
+@click.pass_context
+def render(
+    ctx, document, adapter, document_format, adapter_format, output_format
+):
+    """
+    Render a document using 3viz.
 
-    def get_definition_impl(ctx, format_name):
-        """Call the main business logic for get-definition."""
-        from . import __main__
-        
-        output_format = ctx.obj["format"]
-        __main__.get_definition(format_name, output_format)
+    DOCUMENT: Path to document file or '-' for stdin
+    ADAPTER: Adapter name (3viz, mdast, unist) or path to adapter file (default: 3viz)
+    """
+    # Use command-specific output format if provided, otherwise use global setting
+    if output_format is None:
+        output_format = ctx.obj["output_format"]
 
-    # Set the docstring before applying decorators
-    get_definition_impl.__doc__ = f"""
+    # Run the render logic
+    from . import __main__
+
+    try:
+        result = __main__.generate_viz(
+            document_path=document,
+            adapter_spec=adapter,
+            document_format=document_format,
+            adapter_format=adapter_format,
+            output_format=output_format,
+        )
+
+        # Output result to stdout
+        print(result, end="")
+
+    except Exception as e:
+        if output_format == "json":
+            import json
+
+            print(json.dumps({"error": str(e)}))
+        else:
+            print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+@cli.command("get-definition")
+@click.argument(
+    "format_name",
+    type=click.Choice(["3viz"] + Lib.list_formats()),
+    default="3viz",
+)
+@click.pass_context
+def get_definition(ctx, format_name):
+    """
     Get a definition for the specified format.
 
-    FORMAT_NAME: Name of the format ({format_list})
+    FORMAT_NAME: Name of the format (3viz, mdast, unist)
     """
+    from . import __main__
 
-    # Apply decorators
-    return cli.command("get-definition")(
-        click.argument(
-            "format_name",
-            type=click.Choice(Lib.list_formats() + ["3viz"]),
-            default="3viz",
-        )(click.pass_context(get_definition_impl))
-    )
-
-
-# Create the command
-get_definition = _make_get_definition_command()
+    output_format = ctx.obj["output_format"]
+    __main__.get_definition(format_name, output_format)
 
 
 if __name__ == "__main__":

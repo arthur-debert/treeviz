@@ -1,12 +1,12 @@
 3viz, a terminal ast vizualizer for document based ASTs.
 
 3viz is designed to simplify reasing about document tree. The 1-line per node and colunar layout makes
-scanning and grokking structure easy, while the texttual represntations, icons and extra give 
+scanning and grokking structure easy, while the texttual represntations, icons and extra give
 additional informattion at a glance.
 
 Being line based, it makes diffing trees useful and can be invaluable in debugging these parse trees.
 
-This is a sample output: 
+This is a sample output:
 
 ⧉ Document                                                                                                                                         7L
   ¶ This is a paragraph:                                                                                                                         2L
@@ -25,21 +25,19 @@ This is a sample output:
                 ↵ Which should have at least one item.                                                                                1L
   𝒱 4. A simple code block: (-)                                                                                              13L
 
-
 1. Using 3viz
 
-3viz can be used as a cli: 
+3viz can be used as a cli:
 
   $ 3viz <path>
 
-Or as a library. 
+Or as a library.
 
   from 3viz import render(data)
 
 2. Data for 3viz
 
-
-  2.1  The Native 3Viz Node 
+  2.1  The Native 3Viz Node
 
     3Viz intakes data structure: 
       label: str  
@@ -54,16 +52,15 @@ Or as a library.
 
   Chances are your ast is not structured exactly like this,  hence you'll need to format your data to a format that 3viz can render. 3viz comes with some handly helpers which make adapting the data be a few lines of configuration most of the time.
 
-  2.2 Ready made adapters 
-
+  2.2 Ready made adapters
 
 1. Codebase rules:
   
-  1. Let's keep the repo clean, do not:
+1. Let's keep the repo clean, do not:
       - create status md files. Ideally we should use git commit, gh issues (if you're working on one) or pr requests (ifor you branch) to document it, anything BUT these. They do not belong under source control and they do not register correctly the history of the work being done.
       - same for temporary scripts: if you need , put them in $PROJECT_ROOT/local (which don't get source controlled and are periodically purged)
-    
-  2. Code Comments
+
+2. Code Comments
       We love comments and they are essential, but only the useful ones.
       Restating what the fucntion or variable name already tells you is useless, the code already has this information.
       Here are worth while comments that:
@@ -71,7 +68,7 @@ Or as a library.
         - That document design decisions or use cases for that code and that explains why that code is there.
         - That explain a few of very cryptics lines (very rate in python)
 
-  3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING NOT FALLBACKS unless explicitly requestd
+3. NO BACKWARDS COMPATIBILITY NOR ADAPTERS NOR DEPRECATED ANYTHING NOT FALLBACKS unless explicitly requestd
 
     This is a pre-release software, there is no client app usage, there is nothing to keep backwards compatibility.
     Tasks that require refactoring , reorganizzing and renaming things INCLUDE updating callers AND tests.
@@ -101,8 +98,8 @@ Or as a library.
 - After the task is done, submit the pr, and using gh cli, verify the pr is clean (checks pass and is mergeable), using the cli to debug wofklows if needed.
 
   10. Writing Style and documentation
-    - NO MARKDOWN, anywhere.  Use plain text, no **bold**o
-    - No emojis (unicode symbols that aid in comprehension are are monochrome: yes!)
+  - NO MARKDOWN, anywhere.  Use plain text, no **bold**o
+  - No emojis (unicode symbols that aid in comprehension are are monochrome: yes!)
 
 - No need to be enterprise or tout generalities about benefits (Modularized code is more scalable! etc) , we are experienced developers and we understand this.
 - We like compact , informational and readable writing. You can follow the general feel in this document  (humor is good, though)

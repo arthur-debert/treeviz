@@ -6,6 +6,7 @@ for handling multiple document formats.
 """
 
 import json
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
@@ -113,6 +114,63 @@ def parse_document(file_path: str, format_name: Optional[str] = None) -> Any:
         raise DocumentFormatError(
             f"Failed to read file as UTF-8: {file_path}"
         ) from e
+
+
+def load_document(file_path: str, format_name: Optional[str] = None) -> Any:
+    """
+    Load a document from file or stdin into a Python object.
+
+    This function extends parse_document to support stdin input via '-' as file_path.
+    For stdin, it attempts JSON parsing first, then falls back to error with format hint.
+
+    Args:
+        file_path: Path to document file, or '-' for stdin
+        format_name: Optional format name. If None, auto-detects from extension
+                    (stdin defaults to JSON if format_name not specified)
+
+    Returns:
+        Parsed Python object (usually dict or list)
+
+    Raises:
+        DocumentFormatError: If parsing fails or format is unsupported
+        FileNotFoundError: If file doesn't exist (not applicable for stdin)
+    """
+    # Handle stdin input
+    if file_path == "-":
+        content = sys.stdin.read()
+
+        if format_name:
+            # Use specified format for stdin
+            format_obj = get_format_by_name(format_name)
+            if not format_obj:
+                raise DocumentFormatError(
+                    f"Unsupported format: {format_name}. "
+                    f"Supported formats: {', '.join(get_supported_formats())}"
+                )
+        else:
+            # Default to JSON for stdin
+            format_obj = get_format_by_name("json")
+            if not format_obj:
+                raise DocumentFormatError(
+                    "JSON format not available for stdin parsing"
+                )
+
+        try:
+            return format_obj.parse(content)
+        except Exception as e:
+            if not format_name:
+                # If we defaulted to JSON and it failed, give helpful error
+                raise DocumentFormatError(
+                    f"Failed to parse stdin as JSON. Use --document-format to specify format. "
+                    f"Supported formats: {', '.join(get_supported_formats())}"
+                ) from e
+            else:
+                raise DocumentFormatError(
+                    f"Failed to parse stdin as {format_name}: {str(e)}"
+                ) from e
+
+    # Use existing parse_document for regular files
+    return parse_document(file_path, format_name)
 
 
 def _get_all_extensions() -> List[str]:

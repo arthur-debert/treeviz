@@ -1,0 +1,73 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Code Examples"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Here are some code examples in different languages:"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Python Example"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "meta": null,
+      "value": "def hello_world():\n    print(\"Hello, World!\")\n    return True\n\nif __name__ == \"__main__\":\n    hello_world()"
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "JavaScript Example"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "javascript",
+      "meta": "highlight-line=\"2\"",
+      "value": "function greet(name) {\n  console.log(`Hello, ${name}!`);\n  return name.toUpperCase();\n}\n\ngreet('world');"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "You can also use inline code like "
+        },
+        {
+          "type": "inlineCode",
+          "value": "const x = 42"
+        },
+        {
+          "type": "text",
+          "value": " within paragraphs."
+        }
+      ]
+    }
+  ]
+}
