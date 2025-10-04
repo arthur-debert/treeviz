@@ -77,13 +77,13 @@ def load_adapter(
 def _load_adapter_by_name(
     adapter_name: str,
 ) -> Tuple[Dict[str, Any], Dict[str, str]]:
-    """Load built-in adapter by name."""
+    """Load adapter by name (built-in or user-defined)."""
     try:
         if adapter_name == "3viz":
             # Use default 3viz definition
             definition = AdapterDef.default()
         else:
-            # Get from library
+            # Get from library (includes both built-in and user-defined)
             definition = AdapterLib.get(adapter_name)
     except Exception as e:
         available_formats = ["3viz"] + AdapterLib.list_formats()
