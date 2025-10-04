@@ -1,0 +1,809 @@
+<document ids="mod-os-miscellaneous-operating-system-interfaces" names=":mod:`!os`\ ---\ miscellaneous\ operating\ system\ interfaces" source="<string>" title=":mod:`!os` --- Miscellaneous operating system interfaces">
+    <title>
+        :mod:`!os`
+         --- Miscellaneous operating system interfaces
+    <paragraph>
+        <strong>
+            Source code:
+
+        :source:`Lib/os.py`
+    <transition>
+    <paragraph>
+        This module provides a portable way of using operating system dependent
+        functionality.  If you just want to read or write a file see
+        :func:`open`
+        , if
+        you want to manipulate paths, see the
+        :mod:`os.path`
+         module, and if you want to
+        read all the lines in all the files on the command line see the
+        :mod:`fileinput`
+
+        module.  For creating temporary files and directories see the
+        :mod:`tempfile`
+
+        module, and for high-level file and directory handling see the
+        :mod:`shutil`
+
+        module.
+    <paragraph>
+        Notes on the availability of these functions:
+    <bullet_list bullet="*">
+        <list_item>
+            <paragraph>
+                The design of all built-in operating system dependent modules of Python is
+                such that as long as the same functionality is available, it uses the same
+                interface; for example, the function
+                <literal>
+                    os.stat(path)
+                 returns stat
+                information about
+                <emphasis>
+                    path
+                 in the same format (which happens to have originated
+                with the POSIX interface).
+        <list_item>
+            <paragraph>
+                Extensions peculiar to a particular operating system are also available
+                through the
+                :mod:`os`
+                 module, but using them is of course a threat to
+                portability.
+        <list_item>
+            <paragraph>
+                All functions accepting path or file names accept both bytes and string
+                objects, and result in an object of the same type, if a path or file name is
+                returned.
+        <list_item>
+            <paragraph>
+                On VxWorks, os.popen, os.fork, os.execv and os.spawn*p* are not supported.
+        <list_item>
+            <paragraph>
+                On WebAssembly platforms, Android and iOS, large parts of the
+                :mod:`os`
+                 module are
+                not available or behave differently. APIs related to processes (e.g.
+                :func:`~os.fork`
+                ,
+                :func:`~os.execve`
+                ) and resources (e.g.
+                :func:`~os.nice`
+                )
+                are not available. Others like
+                :func:`~os.getuid`
+                 and
+                :func:`~os.getpid`
+                 are
+                emulated or stubs. WebAssembly platforms also lack support for signals (e.g.
+                :func:`~os.kill`
+                ,
+                :func:`~os.wait`
+                ).
+    <note>
+        <paragraph>
+            All functions in this module raise
+            :exc:`OSError`
+             (or subclasses thereof) in
+            the case of invalid or inaccessible file names and paths, or other arguments
+            that have the correct type, but are not accepted by the operating system.
+    <target refid="os-filenames">
+    <target refid="filesystem-encoding">
+    <section ids="file-names-command-line-arguments-and-environment-variables filesystem-encoding os-filenames" names="file\ names,\ command\ line\ arguments,\ and\ environment\ variables filesystem-encoding os-filenames">
+        <title>
+            File Names, Command Line Arguments, and Environment Variables
+        <paragraph>
+            In Python, file names, command line arguments, and environment variables are
+            represented using the string type. On some systems, decoding these strings to
+            and from bytes is necessary before passing them to the operating system. Python
+            uses the
+            :term:`filesystem encoding and error handler`
+             to perform this
+            conversion (see
+            :func:`sys.getfilesystemencoding`
+            ).
+        <paragraph>
+            The
+            :term:`filesystem encoding and error handler`
+             are configured at Python
+            startup by the
+            :c:func:`PyConfig_Read`
+             function: see
+            :c:member:`~PyConfig.filesystem_encoding`
+             and
+            :c:member:`~PyConfig.filesystem_errors`
+             members of
+            :c:type:`PyConfig`
+            .
+        <paragraph>
+            The
+            :term:`file system encoding <filesystem encoding and error handler>`
+             must
+            guarantee to successfully decode all bytes below 128. If the file system
+            encoding fails to provide this guarantee, API functions can raise
+            :exc:`UnicodeError`
+            .
+        <paragraph>
+            See also the
+            :term:`locale encoding`
+            .
+        <target refid="utf8-mode">
+    <section ids="python-utf-8-mode utf8-mode" names="python\ utf-8\ mode utf8-mode">
+        <title>
+            Python UTF-8 Mode
+        <paragraph>
+            The Python UTF-8 Mode ignores the
+            :term:`locale encoding`
+             and forces the usage
+            of the UTF-8 encoding:
+        <bullet_list bullet="*">
+            <list_item>
+                <paragraph>
+                    Use UTF-8 as the
+                    :term:`filesystem encoding <filesystem encoding and error
+                    handler>`
+                    .
+            <list_item>
+                <paragraph>
+                    :func:`sys.getfilesystemencoding`
+                     returns
+                    <literal>
+                        'utf-8'
+                    .
+            <list_item>
+                <paragraph>
+                    :func:`locale.getpreferredencoding`
+                     returns
+                    <literal>
+                        'utf-8'
+                     (the
+                    <emphasis>
+                        do_setlocale
+
+                    argument has no effect).
+            <list_item>
+                <paragraph>
+                    :data:`sys.stdin`
+                    ,
+                    :data:`sys.stdout`
+                    , and
+                    :data:`sys.stderr`
+                     all use
+                    UTF-8 as their text encoding, with the
+                    <literal>
+                        surrogateescape
+
+                    :ref:`error handler <error-handlers>`
+                     being enabled for
+                    :data:`sys.stdin`
+
+                    and
+                    :data:`sys.stdout`
+                     (
+                    :data:`sys.stderr`
+                     continues to use
+                    <literal>
+                        backslashreplace
+                     as it does in the default locale-aware mode)
+            <list_item>
+                <paragraph>
+                    On Unix,
+                    :func:`os.device_encoding`
+                     returns
+                    <literal>
+                        'utf-8'
+                     rather than the
+                    device encoding.
+        <paragraph>
+            Note that the standard stream settings in UTF-8 mode can be overridden by
+            :envvar:`PYTHONIOENCODING`
+             (just as they can be in the default locale-aware
+            mode).
+        <paragraph>
+            As a consequence of the changes in those lower level APIs, other higher
+            level APIs also exhibit different default behaviours:
+        <bullet_list bullet="*">
+            <list_item>
+                <paragraph>
+                    Command line arguments, environment variables and filenames are decoded
+                    to text using the UTF-8 encoding.
+            <list_item>
+                <paragraph>
+                    :func:`os.fsdecode`
+                     and
+                    :func:`os.fsencode`
+                     use the UTF-8 encoding.
+            <list_item>
+                <paragraph>
+                    :func:`open`
+                    ,
+                    :func:`io.open`
+                    , and
+                    :func:`codecs.open`
+                     use the UTF-8
+                    encoding by default. However, they still use the strict error handler by
+                    default so that attempting to open a binary file in text mode is likely
+                    to raise an exception rather than producing nonsense data.
+        <paragraph>
+            The
+            :ref:`Python UTF-8 Mode <utf8-mode>`
+             is enabled by default.
+            It can be disabled using the
+            :option:`-X utf8=0 <-X>`
+             command line
+            option or the
+            :envvar:`PYTHONUTF8=0 <PYTHONUTF8>`
+             environment variable.
+            The Python UTF-8 Mode can only be disabled at Python startup. Its value
+            can be read from
+            :data:`sys.flags.utf8_mode <sys.flags>`
+            .
+        <paragraph>
+            If the UTF-8 mode is disabled, the interpreter defaults to using
+            the current locale settings,
+            <emphasis>
+                unless
+             the current locale is identified
+            as a legacy ASCII-based locale (as described for
+            :envvar:`PYTHONCOERCECLOCALE`
+            ),
+            and locale coercion is either disabled or fails.
+            In such legacy locales, the interpreter will default to enabling UTF-8 mode
+            unless explicitly instructed not to do so.
+        <paragraph>
+            See also the
+            :ref:`UTF-8 mode on Windows <win-utf8-mode>`
+
+            and the
+            :term:`filesystem encoding and error handler`
+            .
+        <target refid="os-procinfo">
+    <section ids="process-parameters os-procinfo" names="process\ parameters os-procinfo">
+        <title>
+            Process Parameters
+        <paragraph>
+            These functions and data items provide information and operate on the current
+            process and user.
+        <paragraph classes="pathlike">
+            An
+            :term:`abstract base class`
+             for objects representing a file system path,
+            e.g.
+            :class:`pathlib.PurePath`
+            .
+        <comment xml:space="preserve">
+            placed in this section since it relates to errno.... a little weak
+        <target refid="os-unshare-clone-flags">
+        <paragraph ids="os-unshare-clone-flags" names="os-unshare-clone-flags">
+            Flags to the
+            :func:`unshare`
+             function, if the implementation supports them.
+            See
+            :manpage:`unshare(2)`
+             in the Linux manual
+            for their exact effect and availability.
+        <target refid="os-newstreams">
+    <section ids="file-object-creation os-newstreams" names="file\ object\ creation os-newstreams">
+        <title>
+            File Object Creation
+        <paragraph>
+            These functions create new
+            :term:`file objects <file object>`
+            .  (See also
+            :func:`~os.open`
+             for opening file descriptors.)
+        <target refid="os-fd-ops">
+    <section ids="file-descriptor-operations os-fd-ops" names="file\ descriptor\ operations os-fd-ops">
+        <title>
+            File Descriptor Operations
+        <paragraph>
+            These functions operate on I/O streams referenced using file descriptors.
+        <paragraph>
+            File descriptors are small integers corresponding to a file that has been opened
+            by the current process.  For example, standard input is usually file descriptor
+            0, standard output is 1, and standard error is 2.  Further files opened by a
+            process will then be assigned 3, 4, 5, and so forth.  The name "file descriptor"
+            is slightly deceptive; on Unix platforms, sockets and pipes are also referenced
+            by file descriptors.
+        <paragraph>
+            The
+            :meth:`~io.IOBase.fileno`
+             method can be used to obtain the file descriptor
+            associated with a
+            :term:`file object`
+             when required.  Note that using the file
+            descriptor directly will bypass the file object methods, ignoring aspects such
+            as internal buffering of data.
+        <paragraph>
+            The following constants are options for the
+            <emphasis>
+                flags
+             parameter to the
+            :func:`~os.open`
+             function.  They can be combined using the bitwise OR operator
+            <literal>
+                |
+            .  Some of them are not available on all platforms.  For descriptions of
+            their availability and use, consult the
+            :manpage:`open(2)`
+             manual page on Unix
+            or
+            <reference name="the MSDN" refuri="https://msdn.microsoft.com/en-us/library/z0kc8e3z.aspx">
+                the MSDN
+            <target ids="the-msdn" names="the\ msdn" refuri="https://msdn.microsoft.com/en-us/library/z0kc8e3z.aspx">
+             on Windows.
+        <target refid="terminal-size">
+        <section ids="querying-the-size-of-a-terminal terminal-size" names="querying\ the\ size\ of\ a\ terminal terminal-size">
+            <title>
+                Querying the size of a terminal
+            <paragraph classes="terminal-size">
+                A subclass of tuple, holding
+                <literal>
+                    (columns, lines)
+                 of the terminal window size.
+            <target refid="fd-inheritance">
+        <section ids="inheritance-of-file-descriptors fd-inheritance" names="inheritance\ of\ file\ descriptors fd_inheritance">
+            <title>
+                Inheritance of File Descriptors
+            <paragraph>
+                A file descriptor has an "inheritable" flag which indicates if the file descriptor
+                can be inherited by child processes.  Since Python 3.4, file descriptors
+                created by Python are non-inheritable by default.
+            <paragraph>
+                On UNIX, non-inheritable file descriptors are closed in child processes at the
+                execution of a new program, other file descriptors are inherited.
+            <paragraph>
+                On Windows, non-inheritable handles and file descriptors are closed in child
+                processes, except for standard streams (file descriptors 0, 1 and 2: stdin, stdout
+                and stderr), which are always inherited.  Using
+                :func:`spawn\* <spawnl>`
+                 functions,
+                all inheritable handles and all inheritable file descriptors are inherited.
+                Using the
+                :mod:`subprocess`
+                 module, all file descriptors except standard
+                streams are closed, and inheritable handles are only inherited if the
+                <emphasis>
+                    close_fds
+                 parameter is
+                <literal>
+                    False
+                .
+            <paragraph>
+                On WebAssembly platforms, the file descriptor cannot be modified.
+            <target refid="os-file-dir">
+    <section ids="files-and-directories os-file-dir" names="files\ and\ directories os-file-dir">
+        <title>
+            Files and Directories
+        <paragraph>
+            On some Unix platforms, many of these functions support one or more of these
+            features:
+        <target refid="path-fd">
+        <bullet_list bullet="*" ids="path-fd" names="path_fd">
+            <list_item>
+                <paragraph>
+                    <strong>
+                        specifying a file descriptor:
+
+                    Normally the
+                    <emphasis>
+                        path
+                     argument provided to functions in the
+                    :mod:`os`
+                     module
+                    must be a string specifying a file path.  However, some functions now
+                    alternatively accept an open file descriptor for their
+                    <emphasis>
+                        path
+                     argument.
+                    The function will then operate on the file referred to by the descriptor.
+                    For POSIX systems, Python will call the variant of the function prefixed
+                    with
+                    <literal>
+                        f
+                     (e.g. call
+                    <literal>
+                        fchdir
+                     instead of
+                    <literal>
+                        chdir
+                    ).
+                <paragraph>
+                    You can check whether or not
+                    <emphasis>
+                        path
+                     can be specified as a file descriptor
+                    for a particular function on your platform using
+                    :data:`os.supports_fd`
+                    .
+                    If this functionality is unavailable, using it will raise a
+                    :exc:`NotImplementedError`
+                    .
+                <paragraph>
+                    If the function also supports
+                    <emphasis>
+                        dir_fd
+                     or
+                    <emphasis>
+                        follow_symlinks
+                     arguments, it's
+                    an error to specify one of those when supplying
+                    <emphasis>
+                        path
+                     as a file descriptor.
+        <target refid="dir-fd">
+        <bullet_list bullet="*" ids="dir-fd" names="dir_fd">
+            <list_item>
+                <paragraph>
+                    <strong>
+                        paths relative to directory descriptors:
+                     If
+                    <emphasis>
+                        dir_fd
+                     is not
+                    <literal>
+                        None
+                    , it
+                    should be a file descriptor referring to a directory, and the path to operate
+                    on should be relative; path will then be relative to that directory.  If the
+                    path is absolute,
+                    <emphasis>
+                        dir_fd
+                     is ignored.  For POSIX systems, Python will call
+                    the variant of the function with an
+                    <literal>
+                        at
+                     suffix and possibly prefixed with
+                    <literal>
+                        f
+                     (e.g. call
+                    <literal>
+                        faccessat
+                     instead of
+                    <literal>
+                        access
+                    ).
+                <paragraph>
+                    You can check whether or not
+                    <emphasis>
+                        dir_fd
+                     is supported for a particular function
+                    on your platform using
+                    :data:`os.supports_dir_fd`
+                    .  If it's unavailable,
+                    using it will raise a
+                    :exc:`NotImplementedError`
+                    .
+        <target refid="follow-symlinks">
+        <bullet_list bullet="*" ids="follow-symlinks" names="follow_symlinks">
+            <list_item>
+                <paragraph>
+                    <strong>
+                        not following symlinks:
+                     If
+                    <emphasis>
+                        follow_symlinks
+                     is
+                    <literal>
+                        False
+                    , and the last element of the path to operate on is a symbolic link,
+                    the function will operate on the symbolic link itself rather than the file
+                    pointed to by the link.  For POSIX systems, Python will call the
+                    <literal>
+                        l...
+
+                    variant of the function.
+                <paragraph>
+                    You can check whether or not
+                    <emphasis>
+                        follow_symlinks
+                     is supported for a particular
+                    function on your platform using
+                    :data:`os.supports_follow_symlinks`
+                    .
+                    If it's unavailable, using it will raise a
+                    :exc:`NotImplementedError`
+                    .
+        <paragraph classes="direntry">
+            Object yielded by
+            :func:`scandir`
+             to expose the file path and other file
+            attributes of a directory entry.
+        <paragraph classes="direntry">
+            :func:`scandir`
+             will provide as much of this information as possible without
+            making additional system calls. When a
+            <literal>
+                stat()
+             or
+            <literal>
+                lstat()
+             system call
+            is made, the
+            <literal>
+                os.DirEntry
+             object will cache the result.
+        <paragraph classes="direntry">
+            <literal>
+                os.DirEntry
+             instances are not intended to be stored in long-lived data
+            structures; if you know the file metadata has changed or if a long time has
+            elapsed since calling
+            :func:`scandir`
+            , call
+            <literal>
+                os.stat(entry.path)
+             to fetch
+            up-to-date information.
+        <paragraph classes="direntry">
+            Because the
+            <literal>
+                os.DirEntry
+             methods can make operating system calls, they may
+            also raise
+            :exc:`OSError`
+            . If you need very fine-grained
+            control over errors, you can catch
+            :exc:`OSError`
+             when calling one of the
+            <literal>
+                os.DirEntry
+             methods and handle as appropriate.
+        <paragraph classes="direntry">
+            To be directly usable as a
+            :term:`path-like object`
+            ,
+            <literal>
+                os.DirEntry
+
+            implements the
+            :class:`PathLike`
+             interface.
+        <paragraph classes="direntry">
+            Attributes and methods on a
+            <literal>
+                os.DirEntry
+             instance are as follows:
+        <paragraph classes="direntry">
+            Note that there is a nice correspondence between several attributes
+            and methods of
+            <literal>
+                os.DirEntry
+             and of
+            :class:`pathlib.Path`
+            .  In
+            particular, the
+            <literal>
+                name
+             attribute has the same
+            meaning, as do the
+            <literal>
+                is_dir()
+            ,
+            <literal>
+                is_file()
+            ,
+            <literal>
+                is_symlink()
+            ,
+            <literal>
+                is_junction()
+            , and
+            <literal>
+                stat()
+             methods.
+        <paragraph classes="stat-result">
+            Object whose attributes correspond roughly to the members of the
+            :c:struct:`stat`
+             structure. It is used for the result of
+            :func:`os.stat`
+            ,
+            :func:`os.fstat`
+             and
+            :func:`os.lstat`
+            .
+        <paragraph classes="stat-result">
+            Attributes:
+        <paragraph classes="stat-result">
+            Timestamps:
+        <note classes="stat-result">
+            <paragraph>
+                The exact meaning and resolution of the
+                :attr:`st_atime`
+                ,
+                :attr:`st_mtime`
+                ,
+                :attr:`st_ctime`
+                 and
+                :attr:`st_birthtime`
+                 attributes
+                depend on the operating system and the file system. For example, on
+                Windows systems using the FAT32 file systems,
+                :attr:`st_mtime`
+                 has
+                2-second resolution, and
+                :attr:`st_atime`
+                 has only 1-day resolution.
+                See your operating system documentation for details.
+            <paragraph>
+                Similarly, although
+                :attr:`st_atime_ns`
+                ,
+                :attr:`st_mtime_ns`
+                ,
+                :attr:`st_ctime_ns`
+                 and
+                :attr:`st_birthtime_ns`
+                 are always expressed in
+                nanoseconds, many systems do not provide nanosecond precision.  On
+                systems that do provide nanosecond precision, the floating-point object
+                used to store
+                :attr:`st_atime`
+                ,
+                :attr:`st_mtime`
+                ,
+                :attr:`st_ctime`
+                 and
+                :attr:`st_birthtime`
+                 cannot preserve all of it, and as such will be
+                slightly inexact. If you need the exact timestamps you should always use
+                :attr:`st_atime_ns`
+                ,
+                :attr:`st_mtime_ns`
+                ,
+                :attr:`st_ctime_ns`
+                 and
+                :attr:`st_birthtime_ns`
+                .
+        <paragraph classes="stat-result">
+            On some Unix systems (such as Linux), the following attributes may also be
+            available:
+        <paragraph classes="stat-result">
+            On other Unix systems (such as FreeBSD), the following attributes may be
+            available (but may be only filled out if root tries to use them):
+        <paragraph classes="stat-result">
+            On Solaris and derivatives, the following attributes may also be
+            available:
+        <paragraph classes="stat-result">
+            On macOS systems, the following attributes may also be available:
+        <paragraph classes="stat-result">
+            On Windows systems, the following attributes are also available:
+        <paragraph classes="stat-result">
+            The standard module
+            :mod:`stat`
+             defines functions and constants that are
+            useful for extracting information from a
+            :c:struct:`stat`
+             structure. (On
+            Windows, some items are filled with dummy values.)
+        <paragraph classes="stat-result">
+            For backward compatibility, a
+            :class:`stat_result`
+             instance is also
+            accessible as a tuple of at least 10 integers giving the most important (and
+            portable) members of the
+            :c:struct:`stat`
+             structure, in the order
+            :attr:`st_mode`
+            ,
+            :attr:`st_ino`
+            ,
+            :attr:`st_dev`
+            ,
+            :attr:`st_nlink`
+            ,
+            :attr:`st_uid`
+            ,
+            :attr:`st_gid`
+            ,
+            :attr:`st_size`
+            ,
+            :attr:`st_atime`
+            ,
+            :attr:`st_mtime`
+            ,
+            :attr:`st_ctime`
+            . More items may be added at the end by
+            some implementations. For compatibility with older Python versions,
+            accessing
+            :class:`stat_result`
+             as a tuple always returns integers.
+        <target refid="os-timerfd">
+        <section ids="timer-file-descriptors os-timerfd" names="timer\ file\ descriptors os-timerfd">
+            <title>
+                Timer File Descriptors
+            <paragraph>
+                These functions provide support for Linux's
+                <emphasis>
+                    timer file descriptor
+                 API.
+                Naturally, they are all only available on Linux.
+        <section ids="linux-extended-attributes" names="linux\ extended\ attributes">
+            <title>
+                Linux extended attributes
+            <paragraph>
+                These functions are all available on Linux only.
+            <target refid="os-process">
+    <section ids="process-management os-process" names="process\ management os-process">
+        <title>
+            Process Management
+        <paragraph>
+            These functions may be used to create and manage processes.
+        <paragraph>
+            The various
+            :func:`exec\* <execl>`
+             functions take a list of arguments for the new
+            program loaded into the process.  In each case, the first of these arguments is
+            passed to the new program as its own name rather than as an argument a user may
+            have typed on a command line.  For the C programmer, this is the
+            <literal>
+                argv[0]
+
+            passed to a program's
+            :c:func:`main`
+            .  For example,
+            <literal>
+                os.execv('/bin/echo',
+                ['foo', 'bar'])
+             will only print
+            <literal>
+                bar
+             on standard output;
+            <literal>
+                foo
+             will seem
+            to be ignored.
+        <paragraph>
+            The following exit codes are defined and can be used with
+            :func:`_exit`
+            ,
+            although they are not required.  These are typically used for system programs
+            written in Python, such as a mail server's external command delivery program.
+        <note>
+            <paragraph>
+                Some of these may not be available on all Unix platforms, since there is some
+                variation.  These constants are defined where they are defined by the underlying
+                platform.
+        <paragraph>
+            The following functions take a process status code as returned by
+            :func:`system`
+            ,
+            :func:`wait`
+            , or
+            :func:`waitpid`
+             as a parameter.  They may be
+            used to determine the disposition of a process.
+    <section ids="interface-to-the-scheduler" names="interface\ to\ the\ scheduler">
+        <title>
+            Interface to the scheduler
+        <paragraph>
+            These functions control how a process is allocated CPU time by the operating
+            system. They are only available on some Unix platforms. For more detailed
+            information, consult your Unix manpages.
+        <paragraph>
+            The following scheduling policies are exposed if they are supported by the
+            operating system.
+        <target refid="os-scheduling-policy">
+        <paragraph classes="sched-param-sched-priority" ids="os-scheduling-policy" names="os-scheduling-policy">
+            This class represents tunable scheduling parameters used in
+            :func:`sched_setparam`
+            ,
+            :func:`sched_setscheduler`
+            , and
+            :func:`sched_getparam`
+            . It is immutable.
+        <paragraph classes="sched-param-sched-priority">
+            At the moment, there is only one possible parameter:
+        <target refid="os-path">
+    <section ids="miscellaneous-system-information os-path" names="miscellaneous\ system\ information os-path">
+        <title>
+            Miscellaneous System Information
+        <paragraph>
+            The following data values are used to support path manipulation operations.  These
+            are defined for all platforms.
+        <paragraph>
+            Higher-level operations on pathnames are defined in the
+            :mod:`os.path`
+             module.
+    <section ids="random-numbers" names="random\ numbers">
+        <title>
+            Random numbers
