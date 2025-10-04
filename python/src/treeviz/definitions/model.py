@@ -9,6 +9,7 @@ from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Any, Union
 import fnmatch
 from ..const import ICONS
+from ..icon_pack import Icon, IconPack, register_icon_pack
 
 
 @dataclass
@@ -124,6 +125,12 @@ class AdapterDef:
         },
     )
 
+    # Optional: User-defined icon packs
+    icon_packs: List[Dict[str, Any]] = field(
+        default_factory=list,
+        metadata={"doc": "List of custom icon packs to register for this adapter (uses ICON_PACKS key)"},
+    )
+
     # Optional: Per-type attribute overrides
     type_overrides: Dict[str, Dict[str, str]] = field(
         default_factory=dict,
@@ -141,12 +148,42 @@ class AdapterDef:
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "AdapterDef":
         """Create AdapterDef from dictionary by merging with defaults."""
+        # Handle icon packs registration from "ICON_PACKS" key
+        if "ICON_PACKS" in data:
+            for pack_data in data.get("ICON_PACKS", []):
+                if not isinstance(pack_data, dict) or "name" not in pack_data or "icons" not in pack_data:
+                    raise ValueError(f"Invalid icon pack definition: {pack_data}")
+
+                icons = {}
+                for icon_name, icon_def in pack_data.get("icons", {}).items():
+                    if isinstance(icon_def, dict) and "icon" in icon_def:
+                        if not icon_name.isidentifier():
+                            raise ValueError(f"Icon name '{icon_name}' is not a valid identifier.")
+                        icons[icon_name] = Icon(
+                            icon=icon_def.get("icon", "?"),
+                            aliases=icon_def.get("aliases", [])
+                        )
+                    else:
+                        raise ValueError(f"Invalid icon definition for '{icon_name}': {icon_def}")
+
+                pack_name = pack_data["name"]
+                if not pack_name.isidentifier() or "." in pack_name:
+                    raise ValueError(f"Icon pack name '{pack_name}' is not valid.")
+
+                icon_pack = IconPack(name=pack_name, icons=icons)
+                register_icon_pack(icon_pack)
+
         # Start with default definition
         default = cls.default()
         merged_data = asdict(default)
 
+        # Create a clean data copy for merging, mapping ICON_PACKS to icon_packs
+        data_for_merging = data.copy()
+        if 'ICON_PACKS' in data_for_merging:
+            data_for_merging['icon_packs'] = data_for_merging.pop('ICON_PACKS')
+
         # Simple merge: user data overrides defaults
-        for key, value in data.items():
+        for key, value in data_for_merging.items():
             if (
                 key == "icons"
                 and isinstance(merged_data[key], dict)
@@ -168,10 +205,17 @@ class AdapterDef:
         # Create new instance with merged data
         return cls(**merged_data)
 
+
     @classmethod
     def default(cls) -> "AdapterDef":
         """Get the default definition."""
         return cls()  # Uses default field values
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Convert the AdapterDef to a dictionary.
+        """
+        return asdict(self)
 
     def merge_with(self, other_dict: Dict[str, Any]) -> "AdapterDef":
         """

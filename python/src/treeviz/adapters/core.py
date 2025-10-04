@@ -10,6 +10,7 @@ from typing import Any, Dict, Optional
 from ..model import Node
 from .extraction import extract_attribute
 from ..definitions.model import AdapterDef, ChildrenSelector
+from .utils import resolve_icon
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
@@ -75,9 +76,9 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     extracted_extra = extract_attribute(source_node, effective_extra)
     extra = extracted_extra if extracted_extra is not None else {}
 
-    # Apply icon mapping if no explicit icon
-    if not icon and node_type and node_type in definition.icons:
-        icon = definition.icons[node_type]
+    # Resolve icon using the new icon pack system
+    if not icon:
+        icon = resolve_icon(node_type, definition.icons)
 
     # Extract children using advanced extractor or node-based filtering
     children = []
