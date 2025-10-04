@@ -5,6 +5,7 @@ Adapters are configuration files that tell 3viz how to interpret different AST f
 ## How Adapters Work
 
 An adapter defines:
+
 - **Field mappings**: Which fields contain labels, types, children, etc.
 - **Icon mappings**: Visual icons for different node types
 - **Type overrides**: Special handling for specific node types
@@ -13,15 +14,18 @@ An adapter defines:
 ## Built-in Adapters
 
 **3viz**: The native format, no adaptation needed
+
 - Direct mapping to 3viz Node structure
 - Supports all 3viz features out of the box
 
 **mdast**: Markdown Abstract Syntax Tree
+
 - Maps markdown elements to visual representations
 - Handles headings, paragraphs, lists, code blocks, etc.
 - Icons: ⧉ (root), ⊤ (heading), ¶ (paragraph), 𝒱 (code)
 
 **unist**: Universal Syntax Tree
+
 - Generic adapter for Unist-based formats
 - Minimal mapping suitable for many tree formats
 
@@ -43,6 +47,7 @@ Create JSON or YAML files with adapter definitions:
 ```
 
 Save as `my-adapter.json` and use with:
+
 ```bash
 3viz document.ast my-adapter.json
 ```

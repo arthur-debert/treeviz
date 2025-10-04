@@ -5,24 +5,28 @@
 ## Output Formats
 
 **term**: Terminal-friendly with icons and colors (default for terminals)
+
 - Uses Unicode icons for visual distinction
 - Automatic width detection
 - Color coding for different elements
 - Best for interactive exploration
 
 **text**: Plain text without special formatting (default for pipes)
+
 - ASCII-safe output
 - No Unicode icons or colors
 - Suitable for logs, emails, documentation
 - Consistent across all environments
 
 **json**: Machine-readable JSON structure
+
 - Complete data preservation
 - Easy to parse programmatically
 - Includes all metadata and source locations
 - Perfect for further processing
 
 **yaml**: Human-readable YAML format
+
 - Structured but readable
 - Good for configuration files
 - Preserves hierarchical relationships
@@ -42,6 +46,7 @@ Each line represents a node in the tree:
 ```
 
 **Structure**:
+
 - Indentation shows hierarchy
 - Icons indicate node types  
 - Labels show node content or type
@@ -49,6 +54,7 @@ Each line represents a node in the tree:
 - Extra metadata appears after labels
 
 **Common Icons**:
+
 - ⧉ Document/Root
 - ⊤ Heading
 - ¶ Paragraph  

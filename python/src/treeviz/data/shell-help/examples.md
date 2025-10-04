@@ -19,6 +19,7 @@ echo '{"type": "root", "children": [{"type": "heading", "depth": 1, "children": 
 Create a simple adapter for JavaScript ASTs:
 
 **js-adapter.json:**
+
 ```json
 {
   "label": "name",
@@ -35,6 +36,7 @@ Create a simple adapter for JavaScript ASTs:
 ```
 
 **Usage:**
+
 ```bash
 3viz ast.json js-adapter.json --output-format term
 ```
