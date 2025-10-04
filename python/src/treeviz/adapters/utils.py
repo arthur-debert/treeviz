@@ -3,11 +3,14 @@ This module provides utility functions for treeviz adapters.
 """
 
 import sys
-from pathlib import Path
 from typing import Any, Dict, Optional, Tuple, Callable
 from functools import wraps
 
+
+from dataclasses import asdict
+
 from ..definitions.model import AdapterDef
+from ..definitions import AdapterLib
 from ..formats import DocumentFormatError, load_document as load_doc_file
 from ..icon_pack import get_icon_pack, IconPack
 from ..const import DEFAULT_ICON_PACK, ICONS
@@ -35,65 +38,130 @@ def load_adapter(
     adapter_format: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, str]]:
     """
-    Load an adapter definition from a file, built-in name, dict, or
-    AdapterDef object.
-    """
-    if isinstance(adapter_spec, AdapterDef):
-        adapter_def_dict = adapter_spec.to_dict()
-    elif isinstance(adapter_spec, dict):
-        adapter_def_dict = adapter_spec
-    elif isinstance(adapter_spec, str) and (
-        Path(adapter_spec).suffix in [".json", ".yaml", ".yml"]
-        or Path(adapter_spec).is_file()
-    ):
-        if not Path(adapter_spec).exists():
-            raise ValueError(f"Adapter file not found: {adapter_spec}")
-        try:
-            adapter_def_dict = load_doc_file(
-                adapter_spec, format_name=adapter_format
-            )
-        except DocumentFormatError as e:
-            raise DocumentFormatError(
-                f"Failed to parse adapter file: {e}"
-            ) from e
-        except Exception as e:
-            raise ValueError(f"Failed to load adapter file: {e}") from e
-    elif isinstance(adapter_spec, str):
-        try:
-            from ..data import BUILTIN_ADAPTERS
+    Load adapter definition and icons from name, file, or object.
 
-            if adapter_spec not in BUILTIN_ADAPTERS:
-                raise KeyError
-            adapter_def_dict = BUILTIN_ADAPTERS[adapter_spec]
-        except (ImportError, KeyError):
-            raise ValueError(f"Unknown adapter '{adapter_spec}'")
+    Args:
+        adapter_spec: Adapter name (e.g., "mdast", "3viz"), file path, dict, or AdapterDef object
+        adapter_format: Optional format for file-based adapters (json/yaml)
+                       If None, auto-detects from file extension
+
+    Returns:
+        Tuple of (adapter_definition_dict, icons_dict)
+
+    Raises:
+        ValueError: If adapter name not found or file doesn't exist
+        DocumentFormatError: If adapter file parsing fails
+        TypeError: If adapter_spec is not a supported type
+    """
+    # Handle different input types
+    if isinstance(adapter_spec, dict):
+        # Dictionary object - process directly
+        return _load_adapter_from_dict(adapter_spec)
+    elif hasattr(adapter_spec, "__dict__") and hasattr(adapter_spec, "icons"):
+        # AdapterDef object (or similar) - convert to dict
+        from dataclasses import asdict
+
+        adapter_dict = (
+            asdict(adapter_spec)
+            if hasattr(adapter_spec, "__dict__")
+            else adapter_spec.__dict__
+        )
+        return _load_adapter_from_dict(adapter_dict)
+    elif isinstance(adapter_spec, str):
+        # String - could be name or file path
+        # Check if it's a file path (contains path separators or has extension)
+        if "/" in adapter_spec or "\\" in adapter_spec or "." in adapter_spec:
+            # File-based adapter
+            return _load_adapter_from_file(adapter_spec, adapter_format)
+        else:
+            # Built-in adapter by name
+            return _load_adapter_by_name(adapter_spec)
     else:
         raise TypeError(
-            f"adapter_spec must be a str, dict, or AdapterDef, not "
-            f"{type(adapter_spec).__name__}"
+            f"adapter_spec must be string, dict, or AdapterDef object, got {type(adapter_spec)}"
         )
 
-    if not isinstance(adapter_def_dict, dict):
-        raise ValueError("Adapter definition must contain a dictionary.")
 
-    if not any(k in adapter_def_dict for k in ["label", "type", "children"]):
-        if "label" not in adapter_def_dict:
+def _load_adapter_by_name(
+    adapter_name: str,
+) -> Tuple[Dict[str, Any], Dict[str, str]]:
+    """Load adapter by name (built-in or user-defined)."""
+    try:
+        if adapter_name == "3viz":
+            # Use default 3viz definition
+            definition = AdapterDef.default()
+        else:
+            # Get from library (includes both built-in and user-defined)
+            definition = AdapterLib.get(adapter_name)
+    except Exception as e:
+        available_formats = ["3viz"] + AdapterLib.list_formats()
+        raise ValueError(
+            f"Unknown adapter '{adapter_name}'. "
+            f"Available adapters: {', '.join(available_formats)}"
+        ) from e
+
+    # Convert to dict and extract icons
+    definition_dict = asdict(definition)
+    icons_dict = definition.icons.copy()
+
+    return definition_dict, icons_dict
+
+
+def _load_adapter_from_file(
+    file_path: str, adapter_format: Optional[str] = None
+) -> Tuple[Dict[str, Any], Dict[str, str]]:
+    """Load adapter from file path."""
+    try:
+        # Load the adapter definition file
+        adapter_dict = load_doc_file(file_path, format_name=adapter_format)
+
+        if not isinstance(adapter_dict, dict):
             raise ValueError(
-                "Invalid adapter definition: must contain at least a "
-                "'label' field."
+                f"Adapter file must contain a dictionary, got {type(adapter_dict).__name__}"
             )
 
-    processed_def = AdapterDef.from_dict(adapter_def_dict)
+        # Create AdapterDef from the loaded dict to validate and apply defaults
+        definition = AdapterDef.from_dict(adapter_dict)
 
-    adapter_dict = processed_def.__dict__
-    # asdict is not recursive, so we need to convert the children
-    # selector manually
-    if isinstance(adapter_dict["children"], AdapterDef):
-        adapter_dict["children"] = adapter_dict["children"].to_dict()
+        # Convert back to dict and extract icons
+        definition_dict = asdict(definition)
+        icons_dict = definition.icons.copy()
 
-    icons_dict = adapter_dict.get("icons", {}).copy()
+        return definition_dict, icons_dict
 
-    return adapter_dict, icons_dict
+    except FileNotFoundError:
+        raise ValueError(f"Adapter file not found: {file_path}")
+    except DocumentFormatError as e:
+        raise DocumentFormatError(
+            f"Failed to parse adapter file '{file_path}': {str(e)}"
+        ) from e
+    except Exception as e:
+        raise ValueError(
+            f"Invalid adapter definition in '{file_path}': {str(e)}"
+        ) from e
+
+
+def _load_adapter_from_dict(
+    adapter_dict: Dict[str, Any]
+) -> Tuple[Dict[str, Any], Dict[str, str]]:
+    """Load adapter from dictionary object."""
+    try:
+        if not isinstance(adapter_dict, dict):
+            raise ValueError(
+                f"Adapter dict must be a dictionary, got {type(adapter_dict).__name__}"
+            )
+
+        # Create AdapterDef from the dict to validate and apply defaults
+        definition = AdapterDef.from_dict(adapter_dict)
+
+        # Convert back to dict and extract icons
+        definition_dict = asdict(definition)
+        icons_dict = definition.icons.copy()
+
+        return definition_dict, icons_dict
+
+    except Exception as e:
+        raise ValueError(f"Invalid adapter definition: {str(e)}") from e
 
 
 def convert_document(

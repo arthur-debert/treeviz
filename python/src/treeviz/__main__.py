@@ -15,6 +15,10 @@ import click
 
 from .definitions import AdapterLib, AdapterDef
 from .definitions.yaml_utils import serialize_dataclass_to_yaml
+from .definitions.user_lib_commands import (
+    list_user_definitions,
+    validate_user_definitions,
+)
 from .formats import load_document
 from .adapters import load_adapter, convert_document
 from .renderer import render as render_nodes, create_render_options
@@ -311,6 +315,110 @@ def get_definition_cmd(ctx, format_name):
     """
     output_format = ctx.obj["output_format"]
     get_definition(format_name, output_format)
+
+
+@cli.command("list-user-defs")
+@click.pass_context
+def list_user_defs_cmd(ctx):
+    """
+    List all user configuration directories and definitions.
+
+    Shows discovered directories and their definition files from:
+    - ./.3viz (current directory)
+    - XDG_CONFIG_HOME/3viz or ~/.config/3viz
+    - ~/.3viz (home directory)
+    """
+    output_format = ctx.obj["output_format"]
+
+    # Get the data using pure Python function
+    data = list_user_definitions()
+
+    # Format output based on requested format
+    if output_format == "json":
+        print(json.dumps(data, indent=2))
+    else:
+        # Terminal-friendly format
+        directories = data["directories"]
+        definitions = data["definitions"]
+
+        # Show directory status
+        print("User configuration directories:")
+        for dir_info in directories:
+            status_indicator = {
+                "found": "✓",
+                "found_no_definitions": "○",
+                "not_found": "✗",
+            }.get(dir_info["status"], "?")
+
+            print(f"  {status_indicator} {dir_info['path']}", end="")
+            if dir_info["status"] == "found":
+                print(f" ({dir_info['file_count']} definitions)")
+            elif dir_info["status"] == "found_no_definitions":
+                print(" (found, no definitions)")
+            else:
+                print(" (not found)")
+
+        print()
+
+        # Show available definitions
+        if definitions:
+            print("Available user definitions:")
+            for def_info in definitions:
+                print(
+                    f"  • {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
+                )
+        else:
+            print("No user definitions found.")
+
+
+@cli.command("validate-user-defs")
+@click.pass_context
+def validate_user_defs_cmd(ctx):
+    """
+    Validate all user definition files.
+
+    Checks all discovered user definition files for syntax and structure errors.
+    """
+    output_format = ctx.obj["output_format"]
+
+    # Get validation results using pure Python function
+    data = validate_user_definitions()
+
+    # Format output based on requested format
+    if output_format == "json":
+        print(json.dumps(data, indent=2))
+    else:
+        # Terminal-friendly format
+        summary = data["summary"]
+        valid_defs = data["valid_definitions"]
+        invalid_defs = data["invalid_definitions"]
+
+        print("Validation Summary:")
+        print(f"  Total files: {summary['total_files']}")
+        print(f"  Valid: {summary['valid_count']}")
+        print(f"  Invalid: {summary['invalid_count']}")
+        print(f"  Success rate: {summary['success_rate']:.1%}")
+        print()
+
+        if valid_defs:
+            print("Valid definitions:")
+            for def_info in valid_defs:
+                print(
+                    f"  ✓ {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
+                )
+            print()
+
+        if invalid_defs:
+            print("Invalid definitions:")
+            for def_info in invalid_defs:
+                print(
+                    f"  ✗ {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
+                )
+                print(f"    Error: {def_info['error']}")
+            print()
+
+        if not valid_defs and not invalid_defs:
+            print("No user definitions found to validate.")
 
 
 class HelpGroup(click.Group):

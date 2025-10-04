@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch, Mock
 
-from treeviz.definitions.lib.lib import AdapterLib, HAS_YAML
+from treeviz.definitions.lib import AdapterLib, HAS_YAML
 from treeviz.definitions.model import AdapterDef
 
 
@@ -178,7 +178,7 @@ class TestLibLoadDefinitionFile:
             yaml_file = f.name
 
         try:
-            with patch("treeviz.definitions.lib.lib.HAS_YAML", False):
+            with patch("treeviz.definitions.lib.HAS_YAML", False):
                 with pytest.raises(ValueError, match="YAML support requires"):
                     AdapterLib.load_definition_file(yaml_file)
         finally:
@@ -291,25 +291,19 @@ class TestLibLoadCoreLibs:
 
     def test_load_core_libs_resource_access_success(self):
         """Test successful resource access and file loading."""
-        # Mock successful resource access
-        mock_lib_path = Mock()
-        mock_lib_path.glob.side_effect = [
-            [Path("mdast.json")],  # JSON files
-            [],  # YAML files
-            [],  # YML files
-        ]
-
         with (
             patch("importlib.resources.path") as mock_path,
-            patch.object(AdapterLib, "load_definition_file") as mock_load_file,
+            patch.object(AdapterLib, "load_definitions_from_dir") as mock_load_dir,
         ):
-
-            mock_path.return_value.__enter__.return_value = mock_lib_path
-            mock_load_file.return_value = {"label": "test"}
+            # Mock the context manager
+            mock_builtins_path = Path("/fake/builtins")
+            mock_path.return_value.__enter__.return_value = mock_builtins_path
+            mock_path.return_value.__exit__.return_value = None
 
             AdapterLib.load_core_libs()
 
-            mock_load_file.assert_called_once_with(Path("mdast.json"))
+            mock_path.assert_called_once_with("treeviz.definitions.builtins", "")
+            mock_load_dir.assert_called_once_with(mock_builtins_path)
             assert AdapterLib._loaded is True
 
     def test_load_core_libs_resource_access_fallback(self):
@@ -347,7 +341,7 @@ class TestLibLoadCoreLibs:
         with (
             patch("importlib.resources.path", side_effect=ImportError),
             patch("importlib.resources.open_text") as mock_open,
-            patch("treeviz.definitions.lib.lib.HAS_YAML", False),
+            patch("treeviz.definitions.lib.HAS_YAML", False),
         ):
 
             # Mock open_text to fail for all files (simulating no usable files)
@@ -399,9 +393,9 @@ class TestLibLoadCoreLibs:
             mock_file.__exit__ = Mock(return_value=None)
             mock_file.read.return_value = "label: mdast_yaml"
 
-            # Mock open_text to succeed for mdast.yaml only
+            # Mock open_text to succeed for pandoc.yaml only
             def open_text_side_effect(package, filename):
-                if filename == "mdast.yaml":
+                if filename == "pandoc.yaml":
                     return mock_file
                 else:
                     raise FileNotFoundError()
@@ -410,7 +404,7 @@ class TestLibLoadCoreLibs:
 
             AdapterLib.load_core_libs()
 
-            assert "mdast" in AdapterLib._registry
+            assert "pandoc" in AdapterLib._registry
             assert AdapterLib._loaded is True
 
 
@@ -481,9 +475,9 @@ class TestLibImportErrorHandling:
     def test_has_yaml_false_branch(self):
         """Test the import error handling when ruamel.yaml is not available."""
         # This tests the except ImportError branch (lines 18-19)
-        with patch("treeviz.definitions.lib.lib.HAS_YAML", False):
+        with patch("treeviz.definitions.lib.HAS_YAML", False):
             # Should be able to import the module and access HAS_YAML
-            from treeviz.definitions.lib.lib import HAS_YAML as patched_has_yaml
+            from treeviz.definitions.lib import HAS_YAML as patched_has_yaml
 
             assert patched_has_yaml is False
 
@@ -493,7 +487,7 @@ class TestLibImportErrorHandling:
         with (
             patch("importlib.resources.path", side_effect=ImportError),
             patch("importlib.resources.open_text") as mock_open,
-            patch("treeviz.definitions.lib.lib.HAS_YAML", False),
+            patch("treeviz.definitions.lib.HAS_YAML", False),
         ):
 
             # Create mock for files
@@ -538,12 +532,12 @@ class TestLibImportErrorHandling:
                 "sys.modules", {"ruamel": None, "ruamel.yaml": None}
             ):
                 # Force reload of the module to trigger the import logic
-                import treeviz.definitions.lib.lib
+                import treeviz.definitions.lib
 
-                importlib.reload(treeviz.definitions.lib.lib)
+                importlib.reload(treeviz.definitions.lib)
 
                 # This should have set HAS_YAML to False due to ImportError
-                assert not treeviz.definitions.lib.lib.HAS_YAML
+                assert not treeviz.definitions.lib.HAS_YAML
 
         finally:
             # Restore original modules
@@ -558,7 +552,7 @@ class TestLibImportErrorHandling:
                 del sys.modules["ruamel.yaml"]
 
             # Reload to restore normal state
-            importlib.reload(treeviz.definitions.lib.lib)
+            importlib.reload(treeviz.definitions.lib)
 
 
 class TestLibEdgeCases:
@@ -596,23 +590,18 @@ class TestLibEdgeCases:
 
     def test_load_core_libs_file_processing_error_handling(self):
         """Test error handling during file processing in load_core_libs."""
-        mock_lib_path = Mock()
-        mock_lib_path.glob.side_effect = [
-            [Path("broken.json")],  # JSON files
-            [],  # YAML files
-            [],  # YML files
-        ]
-
         with (
             patch("importlib.resources.path") as mock_path,
             patch.object(
                 AdapterLib,
-                "load_definition_file",
+                "load_definitions_from_dir",
                 side_effect=ValueError("Parse error"),
             ),
         ):
-
-            mock_path.return_value.__enter__.return_value = mock_lib_path
+            # Mock the context manager
+            mock_builtins_path = Path("/fake/builtins")
+            mock_path.return_value.__enter__.return_value = mock_builtins_path
+            mock_path.return_value.__exit__.return_value = None
 
             # Should not raise error - errors should bubble up naturally but test continues
             with pytest.raises(ValueError, match="Parse error"):

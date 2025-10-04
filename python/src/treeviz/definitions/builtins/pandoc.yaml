@@ -1,0 +1,196 @@
+# Pandoc AST Adapter Definition (Declarative)
+#
+# This adapter demonstrates the full power of the 3viz declarative format
+# by handling Pandoc's complex JSON AST structure without any lambda functions.
+# 
+# It showcases:
+# - Transform pipelines for multi-step text processing
+# - Collection mapping for list synthesis
+# - Complex nested extraction patterns
+# - Conditional fallbacks using defaults
+#
+# This serves as both a working adapter and documentation for advanced
+# declarative patterns that can be applied to other complex AST formats.
+
+# Default extraction patterns for all node types
+type: "t"                # Pandoc nodes have their type in the 't' field
+children: "c"           # Child content is typically in the 'c' field  
+label: "t"              # Default label is just the node type
+
+# Type-specific extraction overrides
+# These demonstrate various declarative patterns for complex AST processing
+type_overrides:
+
+  # Root document node - uses static label
+  Pandoc:
+    children: "blocks"   # Root blocks are in 'blocks', not 'c'
+    label: "Pandoc Document"
+
+  # Headers - complex text extraction with level prefixing
+  # Demonstrates: array access, filtering, extraction pipeline, string templating
+  Header:
+    children: 
+      path: "c[2]"       # Header text content is in c[2]
+    label:
+      # Create header label with level: "H1: content text"
+      # Note: This is a simplified version - we can't easily extract level + text in one pipeline
+      # For now, we'll use a format that works with current transforms
+      path: "c[2]"
+      transform:
+        - name: "filter"
+          t: "Str"       # Keep only String nodes
+        - name: "extract"
+          field: "c"     # Extract the text content
+        - name: "join"
+          separator: " " # Join text pieces
+        - name: "prefix"
+          prefix: "H"    # Add "H" prefix (level would need custom transform)
+      default: "Header"
+
+  # Paragraphs - text extraction with truncation
+  # Demonstrates: nested collection processing, fallback handling
+  Para:
+    label:
+      path: "c"
+      transform:
+        - name: "filter"
+          t: "Str"       # Filter to text nodes only
+        - name: "extract"
+          field: "c"     # Extract text content
+        - name: "join"
+          separator: " " # Join with spaces
+        - name: "truncate"
+          max_length: 60
+          suffix: "..."
+      default: "Paragraph"
+
+  # Code blocks - conditional language detection
+  # Demonstrates: nested path access with fallback
+  CodeBlock:
+    children: []         # No children for leaf nodes
+    label:
+      path: "c[0][1][0]" # Language is deeply nested
+      transform:
+        - name: "prefix"
+          prefix: "CodeBlock("
+        - name: "str"
+        - name: "prefix"
+          prefix: ")"
+      default: "CodeBlock(text)"
+
+  # Bullet lists - collection mapping for synthetic nodes
+  # Demonstrates: the most complex pattern - transforming raw arrays into structured nodes
+  BulletList:
+    children:
+      path: "c"          # Raw array of list items
+      map:
+        template:
+          t: "ListItem"  # Create synthetic ListItem nodes
+          c: "${item}"   # Wrap each raw item
+        variable: "item"
+    label: "Bullet List"
+
+  # Ordered lists - similar to bullet lists but with different source path
+  # Demonstrates: accessing nested arrays for mapping
+  OrderedList:
+    children:
+      path: "c[1]"       # Ordered list items are in c[1], not c[0]
+      map:
+        template:
+          t: "ListItem"
+          c: "${item}"
+        variable: "item"
+    label: "Ordered List"
+
+  # List items - recursive text extraction from nested structure
+  # Demonstrates: complex nested processing for generated nodes
+  ListItem:
+    label:
+      path: "c[0].c"     # First child's content
+      transform:
+        - name: "filter"
+          t: "Str"
+        - name: "extract"
+          field: "c"
+        - name: "join"
+          separator: " "
+        - name: "truncate"
+          max_length: 60
+          suffix: "..."
+      default: "List Item"
+
+  # Plain text blocks - similar to paragraphs
+  Plain:
+    label:
+      path: "c"
+      transform:
+        - name: "filter"
+          t: "Str"
+        - name: "extract"
+          field: "c"
+        - name: "join"
+          separator: " "
+        - name: "truncate"
+          max_length: 60
+          suffix: "..."
+      default: "Plain"
+
+  # String nodes - direct content extraction
+  Str:
+    children: []
+    label: "c"           # Simple field access
+
+  # Inline code - nested content access
+  Code:
+    children: []
+    label:
+      path: "c[1]"       # Code content is in second element
+      default: "code"
+
+  # Emphasis and strong - static labels for formatting nodes
+  Emph:
+    label: "Emph"
+
+  Strong:
+    label: "Strong"
+
+  # Links - URL extraction
+  Link:
+    label:
+      path: "c[2][0]"    # URL is deeply nested
+      default: "Link"
+
+  # Block quotes - static label
+  BlockQuote:
+    label: "BlockQuote"
+
+  # Tables - simplified as leaf nodes
+  Table:
+    children: []
+    label: "Table"
+
+# Node types to ignore during tree traversal
+# These are typically whitespace or formatting nodes that don't add value to visualization
+ignore_types:
+  - "Space"           # Whitespace between words
+  - "SoftBreak"       # Soft line breaks
+  - "LineBreak"       # Hard line breaks
+
+# Unicode icons for visual distinction
+# These make the tree structure immediately recognizable
+icons:
+  Pandoc: "📄"         # Document
+  Header: "H"          # Header levels
+  Para: "¶"            # Paragraph symbol
+  CodeBlock: "```"     # Code block indicator
+  BulletList: "•"      # Bullet point
+  OrderedList: "1."    # Numbered list
+  ListItem: "›"        # List item arrow
+  BlockQuote: ">"      # Quote indicator
+  Table: "▦"           # Table grid
+  Str: "T"             # Text
+  Code: "`"            # Inline code
+  Emph: "𝑖"            # Italic indicator
+  Strong: "💪"         # Bold indicator  
+  Link: "🔗"           # Link symbol
+  Plain: "p"           # Plain text
