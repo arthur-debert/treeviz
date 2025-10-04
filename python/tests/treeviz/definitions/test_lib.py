@@ -293,7 +293,9 @@ class TestLibLoadCoreLibs:
         """Test successful resource access and file loading."""
         with (
             patch("importlib.resources.path") as mock_path,
-            patch.object(AdapterLib, "load_definitions_from_dir") as mock_load_dir,
+            patch.object(
+                AdapterLib, "load_definitions_from_dir"
+            ) as mock_load_dir,
         ):
             # Mock the context manager
             mock_builtins_path = Path("/fake/builtins")
@@ -302,7 +304,9 @@ class TestLibLoadCoreLibs:
 
             AdapterLib.load_core_libs()
 
-            mock_path.assert_called_once_with("treeviz.definitions.builtins", "")
+            mock_path.assert_called_once_with(
+                "treeviz.definitions.builtins", ""
+            )
             mock_load_dir.assert_called_once_with(mock_builtins_path)
             assert AdapterLib._loaded is True
 
@@ -320,9 +324,9 @@ class TestLibLoadCoreLibs:
             mock_file.__exit__ = Mock(return_value=None)
             mock_file.read.return_value = '{"label": "mdast_test"}'
 
-            # Mock open_text to succeed for mdast.json, fail for others
+            # Mock open_text to succeed for mdast.yaml, fail for others
             def open_text_side_effect(package, filename):
-                if filename == "mdast.json":
+                if filename == "mdast.yaml":
                     return mock_file
                 else:
                     raise FileNotFoundError()
@@ -365,9 +369,9 @@ class TestLibLoadCoreLibs:
             mock_file.__exit__ = Mock(return_value=None)
             mock_file.read.return_value = '{"label": "mdast"}'
 
-            # Mock open_text to succeed for mdast.json only
+            # Mock open_text to succeed for mdast.yaml only
             def open_text_side_effect(package, filename):
-                if filename == "mdast.json":
+                if filename == "mdast.yaml":
                     return mock_file
                 else:
                     raise FileNotFoundError()

@@ -56,30 +56,46 @@ ignore_types: [...]
 
 ### Problem: Inconsistent Root Structure
 
-Pandoc's root document doesn't follow the standard `{t, c}` pattern:
+Pandoc's root document doesn't follow the standard `{t, c}` pattern and lacks a type field entirely:
 
 ```json
 {
   "pandoc-api-version": [...],
   "meta": {...},
   "blocks": [...]  // ← Children are here, not in 'c'
+  // ← No 't' field at all!
 }
 ```
 
-### Solution: Custom Root Handling
+### Solution: Type Override with Default Fallback
 
 ```yaml
+# Default type extraction with fallback
+type:
+  path: "t"
+  default: "Unknown"          # Use "Unknown" when 't' field missing
+
 type_overrides:
-  Pandoc:
+  # Handle the "Unknown" case for native AST
+  Unknown:
+    type: "Pandoc"            # Override the type itself
     children: "blocks"        # Override default 'c' field
-    label: "Pandoc Document" # Static label instead of type
+    label: "Pandoc Document"  # Static label instead of type
+    
+  # Keep this for pre-processed data compatibility
+  Pandoc:
+    children: "blocks"
+    label: "Pandoc Document"
 ```
 
 **Key Features Demonstrated:**
 
+- **Default value handling** for missing fields
+- **Type transformation** via type overrides
+- **Native AST processing** without data preprocessing
+- **Backward compatibility** with processed data
 - Static label assignment
 - Custom children field mapping
-- Type override system
 
 ## Header Processing
 
@@ -450,24 +466,51 @@ ignore_types:
 
 ## Advanced Patterns Demonstrated
 
-### 1. Multi-Stage Processing
+### 1. Type Override System Mastery
+
+The adapter showcases the full power of the type override system:
+
+**Type Transformation:**
+
+```yaml
+type_overrides:
+  Unknown:
+    type: "Pandoc"            # Change the node type itself
+    children: "blocks"        # Override extraction patterns
+    label: "Pandoc Document"  # Override label generation
+```
+
+**Handling Missing Type Fields:**
+
+- Use `default` values in type extraction specs
+- Transform "Unknown" fallback types into meaningful types
+- Maintain compatibility with different data formats
+
+**Icon Resolution After Type Changes:**
+
+- Icons are resolved using the final overridden type
+- Ensures visual consistency even with transformed types
+
+### 2. Multi-Stage Processing
 
 The adapter demonstrates sophisticated multi-stage processing:
 
-1. **Collection Mapping** - Transform raw arrays into structured nodes
-2. **Type Override Processing** - Apply type-specific rules to synthetic nodes
-3. **Transform Pipelines** - Multi-step data processing
-4. **Fallback Handling** - Graceful degradation
+1. **Type Extraction with Defaults** - Handle missing type fields gracefully
+2. **Type Override Processing** - Transform types and apply custom rules
+3. **Collection Mapping** - Transform raw arrays into structured nodes
+4. **Transform Pipelines** - Multi-step data processing
+5. **Fallback Handling** - Graceful degradation at every level
 
-### 2. Path Expression Mastery
+### 3. Path Expression Mastery
 
 Complex path expressions navigate Pandoc's nested structure:
 
 - `c[2]` - Array indexing
 - `c[0][1][0]` - Deep nested access
 - `c[0].c` - Mixed object and array access
+- `{path: "t", default: "Unknown"}` - Fallback for missing fields
 
-### 3. Transform Pipeline Sophistication
+### 4. Transform Pipeline Sophistication
 
 Demonstrates every type of transform:
 
@@ -476,11 +519,13 @@ Demonstrates every type of transform:
 - **Text Processing** - `join`, `truncate`, `prefix`
 - **Type Conversion** - `str` for type safety
 
-### 4. Error Resilience
+### 5. Error Resilience
 
-Comprehensive error handling:
+Comprehensive error handling at multiple levels:
 
-- **Default Values** - Every complex extraction has fallbacks
+- **Field-Level Defaults** - `{path: "field", default: "fallback"}`
+- **Transform-Level Defaults** - `default: "Header"` after transforms
+- **Type-Level Fallbacks** - `Unknown` type handling
 - **Graceful Degradation** - System continues with meaningful defaults
 - **Path Validation** - Robust handling of missing fields
 
@@ -525,6 +570,114 @@ H Introduction to 3viz                               (Icon: H)
    - Prefix → `"HIntroduction to 3viz"`
 4. Icon applied from mapping: "H"
 5. Children processed recursively
+
+## Handling Challenging AST Formats
+
+The Pandoc adapter demonstrates key techniques for dealing with problematic AST structures:
+
+### 1. Inconsistent Root Nodes
+
+**Problem:** Root nodes that don't follow the same pattern as other nodes.
+
+**Solution:**
+
+```yaml
+type:
+  path: "t"
+  default: "Unknown"          # Fallback for missing type fields
+
+type_overrides:
+  Unknown:
+    type: "Document"          # Transform the fallback into meaningful type
+    children: "content"       # Use different field for children
+    label: "Document Root"    # Provide meaningful label
+```
+
+### 2. Missing or Inconsistent Type Fields
+
+**Problem:** Some nodes lack type identification or use different field names.
+
+**Solution:**
+
+```yaml
+# Handle multiple possible type field locations
+type:
+  path: "nodeType"           # Try primary field
+  fallback: "kind"           # Try alternative field
+  default: "Unknown"         # Final fallback
+
+type_overrides:
+  Unknown:
+    type: "GenericNode"      # Give fallbacks meaningful types
+    label:
+      path: "name"
+      default: "Unnamed Node"
+```
+
+### 3. Deeply Nested Critical Information
+
+**Problem:** Important data buried deep in nested structures.
+
+**Solution:**
+
+```yaml
+type_overrides:
+  ComplexNode:
+    label:
+      path: "data.attributes.metadata.title"  # Navigate deep paths
+      fallback: "data.name"                   # Multiple fallback levels
+      default: "Complex Node"                 # Final fallback
+    children:
+      path: "data.content.items"              # Complex child locations
+```
+
+### 4. Mixed Data Types in Collections
+
+**Problem:** Arrays containing different types of objects that need different handling.
+
+**Solution:**
+
+```yaml
+type_overrides:
+  Container:
+    children:
+      path: "items"
+      map:
+        template:
+          t: "Item"           # Normalize to consistent type
+          data: "${item}"     # Preserve original data
+        variable: "item"
+  
+  Item:
+    type:                     # Extract real type from wrapped data
+      path: "data.type"
+      default: "GenericItem"
+    label:
+      path: "data.label"
+      default: "Item"
+```
+
+### 5. Format Evolution and Compatibility
+
+**Problem:** AST formats that change over time or have multiple versions.
+
+**Solution:**
+
+```yaml
+# Support multiple format versions
+type:
+  path: "type"              # New format
+  fallback: "nodeType"      # Legacy format
+  default: "Unknown"        # Unrecognized format
+
+type_overrides:
+  # Handle version-specific structures
+  Document:
+    children:
+      path: "content"       # New format
+      fallback: "body"      # Legacy format
+      default: []           # Empty if neither exists
+```
 
 ## Lessons for Other Adapters
 

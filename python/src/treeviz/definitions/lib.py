@@ -188,8 +188,8 @@ class AdapterLib:
         except (ImportError, FileNotFoundError):
             # Fallback: try to access files directly
             for filename in [
-                "mdast.json",
-                "unist.json",
+                "mdast.yaml",
+                "unist.yaml",
                 "pandoc.yaml",
             ]:
                 try:

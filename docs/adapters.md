@@ -253,7 +253,9 @@ children:
 
 ## Type Overrides
 
-Type overrides specify different extraction rules for specific node types:
+Type overrides specify different extraction rules for specific node types and can even change the node type itself:
+
+### Basic Type Overrides
 
 ```yaml
 type_overrides:
@@ -289,6 +291,39 @@ type_overrides:
           suffix: ")"
       default: "CodeBlock"
 ```
+
+### Advanced Type Transformation
+
+Type overrides can transform node types for challenging AST formats:
+
+```yaml
+# Handle inconsistent type fields
+type:
+  path: "t"                   # Primary type field
+  fallback: "nodeType"        # Alternative field name
+  default: "Unknown"          # Fallback for missing types
+
+type_overrides:
+  # Transform fallback types into meaningful ones
+  Unknown:
+    type: "Document"          # Override the type itself
+    children: "blocks"        # Use different children field
+    label: "Document Root"    # Provide meaningful label
+    
+  # Handle format variations
+  LegacyNode:
+    type: "ModernNode"        # Transform to new type system
+    children: 
+      path: "content"
+      fallback: "body"        # Support multiple format versions
+```
+
+### Type Override Features
+
+- **Type Transformation**: Change `Unknown` → `Document`
+- **Field Remapping**: Override any extraction pattern
+- **Icon Resolution**: Icons use the final transformed type
+- **Backward Compatibility**: Support multiple format versions
 
 ## Children Selection
 
@@ -419,6 +454,235 @@ extra:
       fields: ["id", "class", "data-*"]
 ```
 
+## Challenging AST Format Patterns
+
+The declarative system includes sophisticated patterns for handling problematic AST structures without custom code:
+
+### 1. Inconsistent Root Nodes
+
+Many AST formats have root nodes that don't follow the same patterns as other nodes.
+
+**Problem**: Root lacks type field or uses different structure:
+
+```json
+{
+  "pandoc-api-version": [1, 23, 1],
+  "meta": {},
+  "blocks": [...],  // ← No 't' field, children in 'blocks' not 'c'
+}
+```
+
+**Solution**: Use type defaults and overrides:
+
+```yaml
+type:
+  path: "t"
+  default: "Unknown"          # Fallback when 't' missing
+
+type_overrides:
+  Unknown:
+    type: "Document"          # Transform Unknown → Document
+    children: "blocks"        # Override children field
+    label: "Document Root"    # Meaningful label
+```
+
+### 2. Missing or Inconsistent Type Fields
+
+**Problem**: Different nodes use different type field names or lack them entirely.
+
+**Solution**: Multi-level fallback strategy:
+
+```yaml
+type:
+  path: "type"              # Try primary field
+  fallback: "nodeType"      # Try alternative field
+  default: "GenericNode"    # Final fallback
+
+type_overrides:
+  GenericNode:
+    type: "ProcessedNode"   # Give meaningful type
+    label:
+      path: "name"
+      fallback: "id"
+      default: "Unnamed"
+```
+
+### 3. Deeply Nested Critical Information
+
+**Problem**: Important data buried deep in nested structures.
+
+**Solution**: Complex path navigation with fallbacks:
+
+```yaml
+type_overrides:
+  ComplexNode:
+    label:
+      path: "data.meta.display.title"     # Primary deep path
+      fallback: "attributes.name"         # Alternative location
+      default: "Complex Node"             # Safe fallback
+    children:
+      path: "content.sections.items"      # Navigate to children
+      fallback: "body"                    # Alternative structure
+```
+
+### 4. Mixed Collections Requiring Normalization
+
+**Problem**: Arrays containing different object types that need uniform handling.
+
+**Solution**: Collection mapping with type normalization:
+
+```yaml
+type_overrides:
+  MixedContainer:
+    children:
+      path: "items"
+      map:
+        template:
+          type: "NormalizedItem"          # Consistent type
+          original_type: "${item.kind}"   # Preserve original
+          data: "${item}"                 # Full original data
+        variable: "item"
+  
+  NormalizedItem:
+    type:                                 # Extract real type
+      path: "original_type"
+      default: "GenericItem"
+    label:
+      path: "data.title"
+      fallback: "data.name"
+      default: "Item"
+```
+
+### 5. Format Evolution and Version Support
+
+**Problem**: AST formats change over time or have multiple versions.
+
+**Solution**: Version-aware field mapping:
+
+```yaml
+# Support multiple format versions gracefully
+type:
+  path: "node_type"         # v2 format
+  fallback: "type"          # v1 format
+  default: "LegacyNode"     # Pre-v1 format
+
+type_overrides:
+  Document:
+    children:
+      path: "content"       # v2 format
+      fallback: "body"      # v1 format
+      default: []           # No children in legacy
+    label:
+      path: "metadata.title"     # v2 location
+      fallback: "title"          # v1 location
+      default: "Document"        # No title available
+```
+
+### 6. Native AST Processing Without Preprocessing
+
+**Problem**: Need to handle raw AST format without data transformation.
+
+**Solution**: Complete declarative transformation:
+
+```yaml
+# Handle Pandoc's native format without preprocessing
+type:
+  path: "t"
+  default: "Unknown"              # Root has no 't' field
+
+type_overrides:
+  Unknown:
+    type: "Pandoc"                # Transform to meaningful type
+    children: "blocks"            # Root children in 'blocks'
+    label: "Pandoc Document"      # Static label
+  
+  Header:
+    children:
+      path: "c[2]"                # Content in third array element
+    label:
+      path: "c[2]"                # Same content for label
+      transform:
+        - name: "filter"          # Keep only String nodes
+          t: "Str"
+        - name: "extract"         # Extract text content
+          field: "c"
+        - name: "join"            # Combine words
+          separator: " "
+        - name: "prefix"          # Add indicator
+          prefix: "H"
+      default: "Header"
+```
+
+### 7. Collection Synthesis for Structural Gaps
+
+**Problem**: Source has raw arrays that need to become structured nodes.
+
+**Solution**: Multi-stage collection mapping:
+
+```yaml
+type_overrides:
+  List:
+    children:
+      path: "items"               # Raw array of list items
+      map:
+        template:
+          t: "ListItem"           # Create synthetic type
+          content: "${item}"      # Wrap original content
+        variable: "item"
+  
+  ListItem:                       # Process synthetic nodes
+    label:
+      path: "content[0].text"     # Navigate wrapped structure
+      transform:
+        - name: "filter"
+          type: "text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "truncate"
+          max_length: 40
+          suffix: "..."
+      default: "List Item"
+```
+
+### 8. Multi-Level Error Resilience
+
+**Problem**: Complex formats with many potential failure points.
+
+**Solution**: Comprehensive fallback strategy:
+
+```yaml
+# Error handling at every level
+type:
+  path: "nodeType"
+  fallback: "type"
+  default: "Unknown"
+
+type_overrides:
+  ComplexNode:
+    label:
+      path: "title"               # Primary source
+      fallback: "name"            # First fallback
+      transform:                  # Process if found
+        - name: "strip"
+        - name: "truncate"
+          max_length: 50
+      default: "Unnamed"          # Final fallback
+    
+    children:
+      path: "content"             # Primary children
+      fallback: "body"            # Alternative location
+      transform:                  # Clean if found
+        - name: "filter"
+          valid: true
+      default: []                 # Empty if nothing works
+    
+    icon:
+      path: "meta.icon"           # Custom icon
+      default: "📄"               # Fallback icon
+```
+
 ## Error Handling
 
 The system provides robust error handling:
@@ -510,12 +774,28 @@ adapter = AdapterDef(
 
 ## Best Practices
 
+### Development Approach
+
 1. **Start Simple** - Begin with basic field mappings, add complexity as needed
-2. **Use Transforms** - Prefer transform pipelines over custom functions
-3. **Handle Errors** - Always provide fallbacks and defaults
-4. **Test Thoroughly** - Test with various input structures
-5. **Document Intent** - Use comments to explain complex extraction logic
-6. **Performance** - Consider caching for expensive transformations
+2. **Use Transform Pipelines** - Prefer declarative transforms over custom functions  
+3. **Handle Errors Gracefully** - Always provide fallbacks and defaults at multiple levels
+4. **Test with Real Data** - Test with various input structures and edge cases
+5. **Document Complex Logic** - Use YAML comments to explain sophisticated patterns
+
+### Handling Challenging Formats
+
+6. **Use Type Defaults** - Leverage `{path: "field", default: "fallback"}` for missing fields
+7. **Transform Types When Needed** - Use type overrides to convert `Unknown` to meaningful types
+8. **Support Format Evolution** - Use fallback chains for different format versions
+9. **Process Native AST** - Avoid data preprocessing; handle raw formats declaratively
+10. **Layer Your Fallbacks** - Provide fallbacks at field, transform, and type levels
+
+### Performance and Maintenance
+
+11. **Cache Expensive Operations** - The system caches transform results automatically
+12. **Use Collection Mapping** - Prefer collection mapping over preprocessing for structural changes
+13. **Test Edge Cases** - Verify behavior with missing fields, empty collections, and malformed data
+14. **Version Your Adapters** - Document format compatibility and migration paths
 
 ## Examples Repository
 

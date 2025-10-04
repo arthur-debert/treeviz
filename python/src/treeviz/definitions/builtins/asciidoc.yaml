@@ -1,0 +1,294 @@
+# AsciiDoc DocBook XML Adapter Definition (Declarative)
+#
+# This adapter processes AsciiDoc documents converted to DocBook XML format,
+# demonstrating advanced declarative patterns for handling XML-based AST structures.
+#
+# It showcases:
+# - Robust text extraction with fallback chains for missing content
+# - Transform pipelines for content processing and formatting
+# - Error-resilient path navigation for nested XML structures
+# - Comprehensive icon mapping for visual document structure understanding
+#
+# The adapter handles the complete DocBook XML schema produced by AsciiDoc,
+# providing clean visualization of document structure and content hierarchy.
+
+# --- Base Configuration ---
+# These are the default rules for all nodes unless overridden.
+type: "type"          # The node's type is its XML tag name (e.g., "section", "para").
+children: "children"  # Children are in the "children" list.
+label: "type"         # By default, the label is just the node's type.
+
+# --- Icon Mappings ---
+# Provides a quick visual reference for different node types in the tree.
+icons:
+  article: "📄"
+  articleinfo: "ℹ️"
+  section: "§"
+  title: "T"
+  para: "¶"
+  simpara: "¶"
+  itemizedlist: "•"
+  orderedlist: "1."
+  listitem: "›"
+  link: "🔗"
+  ulink: "🔗"
+  variablelist: "dl"
+  varlistentry: "dt"
+  term: "t"
+  literallayout: "```"
+  emphasis: "i"
+  blockquote: "”"
+  tip: "💡"
+  note: "📝"
+  figure: "🖼️"
+  screen: "💻"
+
+# --- Type-Specific Overrides ---
+# These rules provide more detailed extraction logic for specific XML tags.
+type_overrides:
+  # Document root with robust title extraction
+  article:
+    label:
+      # Extract title from nested articleinfo structure with multiple fallbacks
+      # Primary: articleinfo/title/text, fallback to any title in children
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "articleinfo"      # Find articleinfo sections
+        - name: "extract"
+          field: "children"        # Get their children
+        - name: "flatten"          # Flatten nested children
+        - name: "filter"
+          type: "title"            # Find title elements
+        - name: "extract"
+          field: "text"            # Extract text content
+        - name: "first"            # Get first title found
+      fallback:                   # Fallback: search all children for any title
+        path: "children"
+        transform:
+          - name: "filter"
+            type: "title"
+          - name: "extract"
+            field: "text"
+          - name: "first"
+      default: "AsciiDoc Document" # Final fallback
+
+  # Document sections with robust title extraction
+  section:
+    label:
+      # Extract section title with resilient navigation
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "title"            # Find title children
+        - name: "extract"
+          field: "text"            # Extract text content
+        - name: "first"            # Get first title
+        - name: "strip"            # Clean whitespace
+        - name: "prefix"
+          prefix: "§ "             # Add section indicator
+      default: "§ Section"         # Fallback with section indicator
+
+  # Text-containing elements: These nodes hold the document's content.
+  title:
+    label: "text" # The label is the direct text content of the <title> tag.
+    children: []   # Titles have no children in the visualized tree.
+  simpara:
+    label:
+      path: "text" # The label is the direct text content of the <simpara> tag.
+      transform:
+        - name: "strip"      # Remove leading/trailing whitespace.
+        - name: "truncate"   # Shorten long paragraphs for readability.
+          max_length: 70
+          suffix: "..."
+    children: []
+  term:
+    label: "text"
+    children: []
+  emphasis:
+    label:
+      path: "text"
+      transform:
+        - name: "prefix"
+          prefix: "_"
+        - name: "suffix"
+          suffix: "_"
+    children: []
+  literallayout:
+    label:
+      path: "text"
+      transform:
+        - name: "truncate"
+          max_length: 60
+    children: []
+
+  # Links and Cross-References
+  ulink:
+    label:
+      # The label for a ulink is its URL, which is stored in the 'url' attribute.
+      path: "url"
+      transform:
+        - name: "prefix"
+          prefix: "🔗 "
+    children: []
+  xref:
+    label:
+      path: "linkend"
+      transform:
+        - name: "prefix"
+          prefix: "XRef: "
+    children: []
+
+  # List structures with smart content extraction
+  itemizedlist:
+    label:
+      # Extract list title or count items for description
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "title"            # Look for list title first
+        - name: "extract"
+          field: "text"
+        - name: "first"
+      fallback:                   # If no title, count items
+        path: "children"
+        transform:
+          - name: "filter"
+            type: "listitem"
+          - name: "length"         # Count list items
+          - name: "format"
+            format_spec: "Itemized List ({} items)"
+      default: "Itemized List"
+      
+  orderedlist:
+    label:
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "title"
+        - name: "extract"
+          field: "text"
+        - name: "first"
+      fallback:
+        path: "children"
+        transform:
+          - name: "filter"
+            type: "listitem"
+          - name: "length"
+          - name: "format"
+            format_spec: "Ordered List ({} items)"
+      default: "Ordered List"
+      
+  variablelist:
+    label:
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "title"
+        - name: "extract" 
+          field: "text"
+        - name: "first"
+      fallback:
+        path: "children"
+        transform:
+          - name: "filter"
+            type: "varlistentry"
+          - name: "length"
+          - name: "format"
+            format_spec: "Definition List ({} entries)"
+      default: "Definition List"
+      
+  listitem:
+    label:
+      # Extract meaningful content from list item
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "simpara"          # Look for paragraph content first
+        - name: "extract"
+          field: "text"
+        - name: "first"
+        - name: "strip"
+        - name: "truncate"
+          max_length: 60
+          suffix: "..."
+      fallback:                   # Fallback to direct text
+        path: "text"
+        transform:
+          - name: "strip"
+          - name: "truncate"
+            max_length: 60
+            suffix: "..."
+      default: "List Item"
+
+  # Admonitions (Notes, Tips, etc.)
+  tip:
+    label: "Tip"
+  note:
+    label: "Note"
+
+  # Media and display elements
+  figure:
+    label:
+      # Extract figure title or caption
+      path: "children"
+      transform:
+        - name: "filter"
+          type: "title"            # Look for figure title
+        - name: "extract"
+          field: "text"
+        - name: "first"
+        - name: "strip"
+      fallback:                   # Fallback to any text content
+        path: "children"
+        transform:
+          - name: "extract"
+            field: "text"
+          - name: "filter"         # Remove empty/whitespace-only strings
+          - name: "first"
+          - name: "strip"
+          - name: "truncate"
+            max_length: 50
+            suffix: "..."
+      default: "Figure"
+      
+  screen:
+    label:
+      # Extract screen content preview
+      path: "text"
+      transform:
+        - name: "strip"
+        - name: "truncate"
+          max_length: 40
+          suffix: "..."
+        - name: "prefix"
+          prefix: "Screen: "
+      default: "Screen Output"
+    children: []
+
+# --- Ignored Types ---
+# These XML elements are excluded from the final tree to reduce noise and
+# focus on the document's structure. Many of these are container elements
+# whose content is extracted by their parents.
+ignore_types:
+  - "articleinfo"
+  - "author"
+  - "authorinitials"
+  - "date"
+  - "revhistory"
+  - "revision"
+  - "inlinemediaobject"
+  - "imageobject"
+  - "imagedata"
+  - "textobject"
+  - "phrase"
+  - "mediaobject"
+  - "formalpara"
+  - "sidebar" # Can be noisy, ignoring for now
+  - "blockquote"
+  - "attribution"
+  - "citetitle"
+  - "anchor"
+  - "firstname"
+  - "surname"
+  - "email"

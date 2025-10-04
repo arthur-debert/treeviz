@@ -42,8 +42,10 @@ class TestApplyTransformation:
 
     def test_callable_transformation(self):
         """Test custom callable transformations."""
+
         def custom_func(x):
             return f"custom_{x}"
+
         result = apply_transformation("test", custom_func)
         assert result == "custom_test"
 

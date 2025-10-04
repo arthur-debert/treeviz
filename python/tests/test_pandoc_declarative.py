@@ -12,23 +12,16 @@ from .conftest import load_test_data
 
 
 def _get_test_data():
-    """Load Pandoc test data with root node hack."""
-    original_data = load_test_data("pandoc/pandoc_test.json")
-
-    # Add 't' key to root for consistency
-    return {
-        "t": "Pandoc",
-        "blocks": original_data["blocks"],
-        "meta": original_data["meta"],
-        "pandoc-api-version": original_data["pandoc-api-version"],
-    }
+    """Load raw Pandoc test data - no modifications needed for declarative adapter."""
+    # The declarative adapter should handle the raw pandoc JSON format directly
+    return load_test_data("pandoc/pandoc_test.json")
 
 
 def test_declarative_pandoc_adapter_loads():
     """Test that the YAML Pandoc adapter loads correctly."""
     adapter_def = AdapterLib.get("pandoc")
     assert adapter_def is not None
-    assert adapter_def.type == "t"
+    assert adapter_def.type == {"path": "t", "default": "Unknown"}
     assert adapter_def.children == "c"
 
 
@@ -96,17 +89,27 @@ def test_declarative_vs_lambda_equivalence():
 
     This enhanced test compares both structure and labels, documenting known differences
     between the declarative and lambda implementations.
+
+    Note: The lambda adapter requires massaged data while the declarative adapter
+    handles native AST, so we need to provide appropriate data to each.
     """
-    test_data = _get_test_data()
+    raw_data = _get_test_data()
 
-    # Load declarative adapter
+    # Load declarative adapter (handles native AST)
     declarative_def = AdapterLib.get("pandoc")
-    declarative_result = adapt_node(test_data, asdict(declarative_def))
+    declarative_result = adapt_node(raw_data, asdict(declarative_def))
 
-    # Load lambda-based adapter
+    # Load lambda-based adapter (needs massaged data)
     from treeviz.data.pandoc import definition as lambda_def
 
-    lambda_result = adapt_node(test_data, lambda_def)
+    # Massage the data for the lambda adapter (add "t": "Pandoc" to root)
+    massaged_data = {
+        "t": "Pandoc",
+        "blocks": raw_data["blocks"],
+        "meta": raw_data["meta"],
+        "pandoc-api-version": raw_data["pandoc-api-version"],
+    }
+    lambda_result = adapt_node(massaged_data, lambda_def)
 
     # Compare structure (types, labels, and children counts should match)
     def compare_structure(node1, node2, path="root"):

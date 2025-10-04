@@ -68,8 +68,8 @@ class TestUserLibIntegration:
         # Create user config that conflicts with built-in name
         cwd_config = self.mock_cwd / ".3viz"
         cwd_config.mkdir()
-        (cwd_config / "mdast.json").write_text(
-            '{"label": "user_mdast", "type": "user_type"}'
+        (cwd_config / "mdast.yaml").write_text(
+            "label: user_mdast\ntype: user_type"
         )
 
         with (
@@ -220,12 +220,10 @@ class TestLoadAdapterIntegration:
         # Create user adapter with same name as built-in
         cwd_config = self.mock_cwd / ".3viz"
         cwd_config.mkdir()
-        (cwd_config / "mdast.json").write_text(
+        (cwd_config / "mdast.yaml").write_text(
             """
-        {
-            "label": "user_mdast",
-            "type": "user_type"
-        }
+label: user_mdast
+type: user_type
         """
         )
 

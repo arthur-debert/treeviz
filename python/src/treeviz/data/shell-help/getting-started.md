@@ -5,6 +5,7 @@
 ## Quick Start
 
 **Basic Usage:**
+
 ```bash
 # Visualize a JSON AST with default adapter
 3viz document.json
@@ -29,6 +30,7 @@ cat document.json | 3viz - mdast
 ## What You'll See
 
 3viz shows your AST as an indented tree with:
+
 - Visual icons for different node types
 - Content size indicators (line counts)
 - Hierarchical structure through indentation

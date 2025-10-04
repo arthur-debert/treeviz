@@ -128,7 +128,9 @@ class AdapterDef:
     # Optional: User-defined icon packs
     icon_packs: List[Dict[str, Any]] = field(
         default_factory=list,
-        metadata={"doc": "List of custom icon packs to register for this adapter (uses ICON_PACKS key)"},
+        metadata={
+            "doc": "List of custom icon packs to register for this adapter (uses ICON_PACKS key)"
+        },
     )
 
     # Optional: Per-type attribute overrides
@@ -151,24 +153,36 @@ class AdapterDef:
         # Handle icon packs registration from "ICON_PACKS" key
         if "ICON_PACKS" in data:
             for pack_data in data.get("ICON_PACKS", []):
-                if not isinstance(pack_data, dict) or "name" not in pack_data or "icons" not in pack_data:
-                    raise ValueError(f"Invalid icon pack definition: {pack_data}")
+                if (
+                    not isinstance(pack_data, dict)
+                    or "name" not in pack_data
+                    or "icons" not in pack_data
+                ):
+                    raise ValueError(
+                        f"Invalid icon pack definition: {pack_data}"
+                    )
 
                 icons = {}
                 for icon_name, icon_def in pack_data.get("icons", {}).items():
                     if isinstance(icon_def, dict) and "icon" in icon_def:
                         if not icon_name.isidentifier():
-                            raise ValueError(f"Icon name '{icon_name}' is not a valid identifier.")
+                            raise ValueError(
+                                f"Icon name '{icon_name}' is not a valid identifier."
+                            )
                         icons[icon_name] = Icon(
                             icon=icon_def.get("icon", "?"),
-                            aliases=icon_def.get("aliases", [])
+                            aliases=icon_def.get("aliases", []),
                         )
                     else:
-                        raise ValueError(f"Invalid icon definition for '{icon_name}': {icon_def}")
+                        raise ValueError(
+                            f"Invalid icon definition for '{icon_name}': {icon_def}"
+                        )
 
                 pack_name = pack_data["name"]
                 if not pack_name.isidentifier() or "." in pack_name:
-                    raise ValueError(f"Icon pack name '{pack_name}' is not valid.")
+                    raise ValueError(
+                        f"Icon pack name '{pack_name}' is not valid."
+                    )
 
                 icon_pack = IconPack(name=pack_name, icons=icons)
                 register_icon_pack(icon_pack)
@@ -179,8 +193,8 @@ class AdapterDef:
 
         # Create a clean data copy for merging, mapping ICON_PACKS to icon_packs
         data_for_merging = data.copy()
-        if 'ICON_PACKS' in data_for_merging:
-            data_for_merging['icon_packs'] = data_for_merging.pop('ICON_PACKS')
+        if "ICON_PACKS" in data_for_merging:
+            data_for_merging["icon_packs"] = data_for_merging.pop("ICON_PACKS")
 
         # Simple merge: user data overrides defaults
         for key, value in data_for_merging.items():
@@ -204,7 +218,6 @@ class AdapterDef:
 
         # Create new instance with merged data
         return cls(**merged_data)
-
 
     @classmethod
     def default(cls) -> "AdapterDef":

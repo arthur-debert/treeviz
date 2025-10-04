@@ -101,6 +101,7 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
         "strip": lambda v, **k: _text_strip(v),
         "truncate": lambda v, **k: _truncate_text(v, **k),
         "prefix": lambda v, **k: _prefix_text(v, **k),
+        "suffix": lambda v, **k: _suffix_text(v, **k),
         # Numeric transformations
         "abs": lambda v, **k: _numeric_abs(v),
         "round": lambda v, **k: _numeric_round(v, **k),
@@ -327,6 +328,16 @@ def _prefix_text(value: Any, prefix: str = "", **kwargs) -> str:
         )
     text = str(value)
     return prefix + text
+
+
+def _suffix_text(value: Any, suffix: str = "", **kwargs) -> str:
+    """Add suffix to text value with type checking."""
+    if not isinstance(suffix, str):
+        raise ValueError(
+            f"suffix transformation requires string suffix, got {type(suffix).__name__}"
+        )
+    text = str(value)
+    return text + suffix
 
 
 def _collection_extract(value: Any, field: str, **kwargs) -> list:

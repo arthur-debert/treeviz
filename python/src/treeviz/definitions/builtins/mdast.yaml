@@ -1,0 +1,49 @@
+# Markdown Abstract Syntax Tree (mdast) adapter definition
+# Defines how to render markdown AST nodes in treeviz format
+# Based on the mdast specification: https://github.com/syntax-tree/mdast
+# Includes GitHub Flavored Markdown (GFM) extensions
+
+# Field mappings for extracting data from mdast nodes
+label: value        # Extract node content from 'value' field
+type: type          # Extract node type from 'type' field  
+children: children  # Extract child nodes from 'children' field
+
+# Icon mappings for different markdown node types
+icons:
+  # Core mdast node types
+  root: "⧉"              # Document root
+  paragraph: "¶"          # Text paragraphs
+  text: "◦"              # Raw text nodes
+  heading: "⊤"            # Headings (h1-h6)
+  list: "☰"              # Lists (ordered/unordered)
+  listItem: "•"           # Individual list items
+  strong: "𝐁"            # Bold/strong text
+  emphasis: "𝐼"           # Italic/emphasized text
+  inlineCode: "ƒ"         # Inline code spans
+  code: "𝒱"              # Code blocks
+  blockquote: "❝"         # Quote blocks
+  link: "🔗"             # Links
+  image: "🖼"            # Images
+  thematicBreak: "⸺"      # Horizontal rules/breaks
+  
+  # GitHub Flavored Markdown (GFM) extensions
+  table: "⊞"              # GFM tables
+  tableRow: "⊟"           # Table rows
+  tableCell: "⊡"          # Table cells
+  delete: "⧹"             # Strikethrough text (~~text~~)
+  
+  # Additional mdast node types
+  html: "⟨⟩"             # Raw HTML
+  yaml: "⚙"              # YAML frontmatter
+  toml: "⚙"              # TOML frontmatter  
+  break: "↵"              # Hard line breaks
+  definition: "🔖"         # Link/image definitions
+  footnoteDefinition: "📝" # Footnote definitions
+  footnoteReference: "¹"   # Footnote references
+
+# Type-specific field overrides
+# Used when different node types need different field mappings
+type_overrides: {}
+
+# Node types to ignore during rendering
+ignore_types: []
