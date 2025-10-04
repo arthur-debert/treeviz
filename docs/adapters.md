@@ -420,42 +420,70 @@ label:
       max_length: 100       # Prevent overly long labels
 ```
 
-## File Formats
+## Adapter Definition Formats
 
-Adapters can be defined in multiple formats:
+The 3viz system supports declarative adapter definitions in two formats that can be used with both the CLI and library, plus a programmatic Python API format for library-only usage.
 
-### YAML Format (Recommended)
+### Declarative Formats (CLI and Library)
+
+Both declarative formats are fully supported, with YAML recommended due to its support for comments:
+
+#### YAML Format (Recommended)
 ```yaml
-# Clean, readable format for complex definitions
-type: "nodeType"
-children: "childNodes"
+# YAML supports comments for better documentation
+type: "t"
+children: "c"
+icons:
+  Header: "H"
+  Para: "¶"
 type_overrides:
   Header:
+    # Complex processing with inline documentation
     label:
-      path: "content"
-      transform: [...]
+      path: "c[2]"
+      transform:
+        - name: "filter"      # Keep only text nodes
+          t: "Str"
+        - name: "join"        # Combine into string
+          separator: " "
 ```
 
-### JSON Format
+#### JSON Format
 ```json
 {
-  "type": "nodeType",
-  "children": "childNodes", 
+  "type": "t",
+  "children": "c",
   "icons": {
-    "header": "H",
-    "paragraph": "¶"
+    "Header": "H",
+    "Para": "¶"
   }
 }
 ```
 
-### Python Format (For Complex Logic)
+### Python API Format (Library Only)
+
+For programmatic adapter definition using the Python library:
+
 ```python
-# For cases requiring custom functions
-definition = {
-    "type": "nodeType",
-    "label": lambda node: complex_label_logic(node),
-    "children": lambda node: filter_children(node)
-}
+from treeviz.adapters.extraction.engine import AdapterDef
+
+# Define adapter programmatically
+adapter = AdapterDef(
+    type="t",
+    children="c",
+    icons={"Header": "H", "Para": "¶"},
+    type_overrides={
+        "Header": {
+            "label": {
+                "path": "c[2]",
+                "transform": [
+                    {"name": "filter", "t": "Str"},
+                    {"name": "join", "separator": " "}
+                ]
+            }
+        }
+    }
+)
 ```
 
 ## Best Practices
