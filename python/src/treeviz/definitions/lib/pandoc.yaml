@@ -32,7 +32,9 @@ type_overrides:
     children: 
       path: "c[2]"       # Header text content is in c[2]
     label:
-      # Extract header level from c[0], then process text content from c[2]
+      # Create header label with level: "H1: content text"
+      # Note: This is a simplified version - we can't easily extract level + text in one pipeline
+      # For now, we'll use a format that works with current transforms
       path: "c[2]"
       transform:
         - name: "filter"
@@ -42,7 +44,7 @@ type_overrides:
         - name: "join"
           separator: " " # Join text pieces
         - name: "prefix"
-          prefix: "H"    # Add "H" prefix
+          prefix: "H"    # Add "H" prefix (level would need custom transform)
       default: "Header"
 
   # Paragraphs - text extraction with truncation

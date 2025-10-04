@@ -6,6 +6,7 @@ path evaluation, transformations, filtering, and collection mapping.
 """
 
 import logging
+import re
 from typing import Any, Dict
 
 from .path_evaluator import extract_by_path
@@ -45,12 +46,34 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
     if isinstance(extraction_spec, str):
         try:
             result = extract_by_path(source_node, extraction_spec)
+            # If path is valid but returns None, we need to decide if it should be a literal
+            if result is None:
+                # Only treat as literal if it contains no path-like characters
+                # This helps catch typos in path expressions like "c[2).transform"
+                path_like_chars = {".", "[", "]"}
+                if any(char in extraction_spec for char in path_like_chars):
+                    logger.warning(
+                        f"Path expression '{extraction_spec}' is valid but returned None. "
+                        f"This might be a missing field or typo. Treating as literal."
+                    )
+                else:
+                    logger.debug(
+                        f"Treating '{extraction_spec}' as literal value (not a valid path)"
+                    )
+                return extraction_spec
             return result
         except ValueError:
-            # If path parsing fails, treat string as literal value
-            logger.debug(
-                f"Treating '{extraction_spec}' as literal value (not a valid path)"
-            )
+            # Path parsing failed - syntax error
+            path_like_chars = {".", "[", "]"}
+            if any(char in extraction_spec for char in path_like_chars):
+                logger.warning(
+                    f"Path expression '{extraction_spec}' failed to parse but contains "
+                    f"path-like characters. This might be a typo. Treating as literal."
+                )
+            else:
+                logger.debug(
+                    f"Treating '{extraction_spec}' as literal value (not a valid path)"
+                )
             return extraction_spec
 
     # Literal values: constants, numbers, booleans in definition
@@ -83,7 +106,13 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
         )
 
     # Step 5: Collection filtering (after transformation, only for lists)
+    # DEPRECATED: Top-level 'filter' key - use transform pipeline instead
     if primary_value is not None and "filter" in extraction_spec:
+        logger.warning(
+            "Top-level 'filter' key is deprecated. Use transform pipeline instead: "
+            "transform: [{name: 'filter', ...conditions...}]. "
+            "The pipeline version is more flexible and can be placed anywhere in the sequence."
+        )
         if isinstance(primary_value, list):
             primary_value = filter_collection(
                 primary_value, extraction_spec["filter"]
@@ -177,9 +206,10 @@ def _substitute_template(template: Any, context: Dict[str, Any]) -> Any:
     """
     Recursively substitute template placeholders with context values.
 
-    Placeholders have the format ${variable_name}.
+    Placeholders have the format ${variable_name} or ${variable_name.path.expression}.
     For string templates, placeholders are replaced with string representation.
     For exact placeholder matches, the actual value is used (preserving type).
+    Path expressions in placeholders are evaluated using the path evaluator.
 
     Args:
         template: Template object (can be dict, list, string, or other)
@@ -200,22 +230,103 @@ def _substitute_template(template: Any, context: Dict[str, Any]) -> Any:
         return [_substitute_template(item, context) for item in template]
 
     elif isinstance(template, str):
+        # Handle placeholders with path expressions: ${variable.path.expression}
+        placeholder_pattern = re.compile(r"\$\{([^}]*)\}")
+
         # Check for exact placeholder match (preserve original type)
-        for var_name, var_value in context.items():
-            placeholder = f"${{{var_name}}}"
-            if template == placeholder:
-                return (
-                    var_value  # Return actual value, not string representation
-                )
+        if placeholder_pattern.fullmatch(template):
+            match = placeholder_pattern.match(template)
+            expression = match.group(1)
+            resolved_value = _resolve_placeholder_expression(
+                expression, context
+            )
+            return resolved_value
 
         # Substitute placeholders within strings (convert to string)
-        result = template
-        for var_name, var_value in context.items():
-            placeholder = f"${{{var_name}}}"
-            if placeholder in result:
-                result = result.replace(placeholder, str(var_value))
+        def replace_placeholder(match):
+            expression = match.group(1)
+            resolved_value = _resolve_placeholder_expression(
+                expression, context
+            )
+            if resolved_value is None:
+                return ""
+            return str(resolved_value)
+
+        result = placeholder_pattern.sub(replace_placeholder, template)
         return result
 
     else:
         # Return other types as-is (numbers, booleans, None, etc.)
         return template
+
+
+def _resolve_placeholder_expression(
+    expression: str, context: Dict[str, Any]
+) -> Any:
+    """
+    Resolve a placeholder expression like 'item' or 'item.c[0]' or 'item[0].c'.
+
+    Args:
+        expression: The expression inside ${...}, e.g., 'item.c[0]'
+        context: Variable context
+
+    Returns:
+        Resolved value or None if resolution fails
+    """
+    # Handle empty expression
+    if not expression.strip():
+        return ""
+
+    # Check if it's a simple variable name (no dots or brackets)
+    if "." not in expression and "[" not in expression:
+        # Simple variable access
+        if expression in context:
+            return context[expression]
+        else:
+            logger.debug(
+                f"Variable '{expression}' not found in context: {list(context.keys())}"
+            )
+            return None
+
+    # Complex path expression - find the variable name and path
+    # Check if expression starts with array access like 'item[0]'
+    if "[" in expression and (
+        expression.find("[") < expression.find(".")
+        if "." in expression
+        else True
+    ):
+        # Find the variable name and first array access
+        bracket_pos = expression.find("[")
+        var_name = expression[:bracket_pos]
+        remaining_path = expression[bracket_pos:]
+    elif "." in expression:
+        # Split on first dot to separate variable name from path
+        var_name, remaining_path = expression.split(".", 1)
+    else:
+        # This case should be handled above, but keeping for safety
+        var_name = expression
+        remaining_path = None
+
+    # Get the base variable value
+    if var_name not in context:
+        logger.debug(
+            f"Variable '{var_name}' not found in context: {list(context.keys())}"
+        )
+        return None
+
+    base_value = context[var_name]
+
+    # If no path expression, return the base value (shouldn't happen due to check above)
+    if not remaining_path:
+        return base_value
+
+    # Apply path expression to the base value
+    try:
+        result = extract_by_path(base_value, remaining_path)
+        logger.debug(f"Resolved ${{{expression}}} -> {result}")
+        return result
+    except Exception as e:
+        logger.debug(
+            f"Failed to resolve path '{remaining_path}' on {var_name}: {e}"
+        )
+        return None

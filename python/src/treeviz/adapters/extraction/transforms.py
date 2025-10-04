@@ -112,6 +112,7 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
         "last": lambda v, **k: _collection_last(v),
         "extract": lambda v, **k: _collection_extract(v, **k),
         "filter": lambda v, **k: _collection_filter(v, **k),
+        "flatten": lambda v, **k: _collection_flatten(v, **k),
         # Type transformations
         "str": lambda v, **k: _convert_to_str(v),
         "int": lambda v, **k: _convert_to_int(v),
@@ -392,3 +393,60 @@ def _collection_filter(value: Any, **filter_conditions) -> list:
             result.append(item)
 
     return result
+
+
+def _collection_flatten(value: Any, depth: int = 1, **kwargs) -> list:
+    """Flatten nested list structures.
+
+    This is useful for handling complex document structures like those
+    common in Pandoc where lists of lists need to be flattened.
+
+    Args:
+        value: Nested list structure to flatten
+        depth: Maximum depth to flatten (default=1, -1 for unlimited)
+
+    Returns:
+        Flattened list
+
+    Examples:
+        [[1, 2], [3, 4]] -> [1, 2, 3, 4]
+        [[[1]], [[2, 3]]] with depth=1 -> [[1], [2, 3]]
+        [[[1]], [[2, 3]]] with depth=2 -> [1, 2, 3]
+    """
+    if not hasattr(value, "__iter__") or isinstance(value, (str, bytes)):
+        raise ValueError(
+            f"flatten transformation requires iterable (non-string), got {type(value).__name__}"
+        )
+
+    if not isinstance(depth, int):
+        raise ValueError(
+            f"flatten transformation requires integer depth, got {type(depth).__name__}"
+        )
+
+    def _flatten_recursive(items, current_depth):
+        """Recursively flatten items up to specified depth."""
+        if current_depth == 0:
+            return list(items)
+
+        result = []
+        for item in items:
+            if hasattr(item, "__iter__") and not isinstance(item, (str, bytes)):
+                # Item is iterable (list-like), flatten it
+                if current_depth == -1:
+                    # Unlimited depth
+                    result.extend(_flatten_recursive(item, -1))
+                else:
+                    # Limited depth
+                    result.extend(_flatten_recursive(item, current_depth - 1))
+            else:
+                # Item is not iterable, add as-is
+                result.append(item)
+
+        return result
+
+    try:
+        return _flatten_recursive(value, depth)
+    except Exception as e:
+        raise ValueError(
+            f"flatten transformation failed for {type(value).__name__}: {e}"
+        ) from e

@@ -92,7 +92,11 @@ def test_declarative_bullet_list_mapping():
 
 
 def test_declarative_vs_lambda_equivalence():
-    """Test that declarative adapter produces same result as lambda version."""
+    """Test that declarative adapter produces structurally equivalent results to lambda version.
+
+    This enhanced test compares both structure and labels, documenting known differences
+    between the declarative and lambda implementations.
+    """
     test_data = _get_test_data()
 
     # Load declarative adapter
@@ -104,11 +108,63 @@ def test_declarative_vs_lambda_equivalence():
 
     lambda_result = adapt_node(test_data, lambda_def)
 
-    # Compare structure (types and children counts should match)
+    # Compare structure (types, labels, and children counts should match)
     def compare_structure(node1, node2, path="root"):
         assert (
             node1.type == node2.type
         ), f"Type mismatch at {path}: {node1.type} vs {node2.type}"
+
+        # Label comparison with known differences documented
+        if node1.type == "Header":
+            # Headers: declarative version doesn't include level number
+            # Both should start with "H" and contain the same text content
+            assert node1.label.startswith(
+                "H"
+            ), f"Header label should start with H at {path}"
+            assert node2.label.startswith(
+                "H"
+            ), f"Header label should start with H at {path}"
+            # Extract text after prefix for comparison
+            text1 = node1.label[1:]  # Remove "H"
+            text2 = (
+                node2.label.split(": ", 1)[1]
+                if ": " in node2.label
+                else node2.label[1:]
+            )
+            assert (
+                text1 == text2
+            ), f"Header text mismatch at {path}: '{text1}' vs '{text2}'"
+        elif node1.type in ["Para", "Plain", "ListItem", "CodeBlock"]:
+            # These types may have slight differences in label formatting
+            # Both should be non-empty and contain similar content
+            assert len(node1.label) > 0, f"Empty label at {path}"
+            assert len(node2.label) > 0, f"Empty label at {path}"
+            # For CodeBlock, just check that both contain "CodeBlock"
+            if node1.type == "CodeBlock":
+                assert (
+                    "CodeBlock" in node1.label
+                ), f"CodeBlock label should contain 'CodeBlock' at {path}"
+                assert (
+                    "CodeBlock" in node2.label
+                ), f"CodeBlock label should contain 'CodeBlock' at {path}"
+            else:
+                # Check that the core content is similar, ignoring truncation suffixes and whitespace differences
+                core1 = " ".join(
+                    node1.label.replace("...", "").split()
+                )  # Normalize whitespace
+                core2 = " ".join(
+                    node2.label.replace("...", "").split()
+                )  # Normalize whitespace
+                # Compare first 40 characters to account for differences in truncation logic
+                assert (
+                    core1[:40] == core2[:40]
+                ), f"Core content mismatch at {path}: '{core1[:40]}' vs '{core2[:40]}'"
+        else:
+            # For other node types, labels should match exactly
+            assert (
+                node1.label == node2.label
+            ), f"Label mismatch at {path}: '{node1.label}' vs '{node2.label}'"
+
         assert len(node1.children) == len(
             node2.children
         ), f"Children count mismatch at {path}"
