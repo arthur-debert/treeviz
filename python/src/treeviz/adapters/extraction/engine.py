@@ -46,34 +46,13 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
     if isinstance(extraction_spec, str):
         try:
             result = extract_by_path(source_node, extraction_spec)
-            # If path is valid but returns None, we need to decide if it should be a literal
-            if result is None:
-                # Only treat as literal if it contains no path-like characters
-                # This helps catch typos in path expressions like "c[2).transform"
-                path_like_chars = {".", "[", "]"}
-                if any(char in extraction_spec for char in path_like_chars):
-                    logger.warning(
-                        f"Path expression '{extraction_spec}' is valid but returned None. "
-                        f"This might be a missing field or typo. Treating as literal."
-                    )
-                else:
-                    logger.debug(
-                        f"Treating '{extraction_spec}' as literal value (not a valid path)"
-                    )
-                return extraction_spec
+            # Path was successfully evaluated, return the result (None if field doesn't exist)
             return result
         except ValueError:
-            # Path parsing failed - syntax error
-            path_like_chars = {".", "[", "]"}
-            if any(char in extraction_spec for char in path_like_chars):
-                logger.warning(
-                    f"Path expression '{extraction_spec}' failed to parse but contains "
-                    f"path-like characters. This might be a typo. Treating as literal."
-                )
-            else:
-                logger.debug(
-                    f"Treating '{extraction_spec}' as literal value (not a valid path)"
-                )
+            # Path parsing failed - treat as literal
+            logger.debug(
+                f"Path expression '{extraction_spec}' failed to parse, treating as literal"
+            )
             return extraction_spec
 
     # Literal values: constants, numbers, booleans in definition

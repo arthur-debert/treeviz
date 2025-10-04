@@ -10,62 +10,46 @@ from treeviz.adapters.extraction.engine import extract_attribute
 
 
 class TestStringLiteralFallback:
-    """Test improved string-to-literal conversion behavior."""
+    """Test string path extraction and literal fallback behavior."""
 
-    def test_simple_literal_string_debug_message(self, caplog):
-        """Test that simple strings without path characters log debug message."""
+    def test_simple_field_name_returns_none_when_missing(self, caplog):
+        """Test that simple field names return None when the field doesn't exist."""
         source_node = {"name": "test"}
 
         with caplog.at_level(logging.DEBUG):
-            result = extract_attribute(source_node, "simple_literal")
+            result = extract_attribute(source_node, "missing_field")
 
-        assert result == "simple_literal"
-        assert (
-            "Treating 'simple_literal' as literal value (not a valid path)"
-            in caplog.text
-        )
-        assert "path-like characters" not in caplog.text
+        assert result is None
+        # Should not log anything special - this is normal behavior
 
-    def test_path_like_string_warning_message(self, caplog):
-        """Test that strings with path characters but invalid syntax log warning."""
+    def test_invalid_path_syntax_treated_as_literal(self, caplog):
+        """Test that strings with invalid path syntax are treated as literals."""
         source_node = {"c": ["item1", "item2"]}
 
-        with caplog.at_level(logging.WARNING):
+        with caplog.at_level(logging.DEBUG):
             # This has a typo: parenthesis instead of bracket
             result = extract_attribute(source_node, "c[2).invalid")
 
         assert result == "c[2).invalid"  # Treated as literal
-        assert (
-            "failed to parse but contains path-like characters" in caplog.text
-        )
-        assert "might be a typo" in caplog.text
+        assert "failed to parse, treating as literal" in caplog.text
 
-    def test_various_path_like_characters_trigger_warning(self, caplog):
-        """Test that different path-like characters trigger the warning."""
+    def test_various_invalid_paths_behavior(self, caplog):
+        """Test behavior of various invalid path expressions."""
         source_node = {"data": "test"}
 
         test_cases = [
-            (
-                "field.invalid",
-                "valid but returned None",
-            ),  # Valid path, missing field
-            ("field[invalid", "failed to parse"),  # Syntax error
-            ("field]invalid", "failed to parse"),  # Syntax error
-            (
-                "field[0.invalid]",
-                "failed to parse",
-            ),  # Syntax error (dots not allowed in brackets)
+            ("field.invalid", None),  # Valid path syntax, missing field -> None
+            ("field[invalid", "field[invalid"),  # Syntax error -> literal
+            ("field]invalid", "field]invalid"),  # Syntax error -> literal
+            ("field[0.invalid]", "field[0.invalid]"),  # Syntax error -> literal
         ]
 
-        for invalid_path, expected_message_fragment in test_cases:
+        for invalid_path, expected_result in test_cases:
             caplog.clear()
-            with caplog.at_level(logging.WARNING):
+            with caplog.at_level(logging.DEBUG):
                 result = extract_attribute(source_node, invalid_path)
 
-            assert result == invalid_path  # Treated as literal
-            assert (
-                expected_message_fragment in caplog.text
-            ), f"Failed for: {invalid_path}, got: {caplog.text}"
+            assert result == expected_result, f"Failed for: {invalid_path}"
 
     def test_valid_paths_dont_trigger_fallback(self):
         """Test that valid paths work normally without fallback."""
@@ -86,16 +70,14 @@ class TestStringLiteralFallback:
             result = extract_attribute(source_node, path)
             assert result == expected
 
-    def test_pure_literals_work_without_warning(self, caplog):
-        """Test that strings clearly intended as literals don't trigger warnings."""
+    def test_literal_values_via_parse_failure(self, caplog):
+        """Test that strings that fail parsing are treated as literals."""
         source_node = {"data": "test"}
 
         literal_strings = [
-            "Plain Text",
-            "123",
-            "hello world",
-            "Title: Something",
-            "value_without_dots_or_brackets",
+            "Plain Text",  # Space makes it unparseable
+            "hello world",  # Space makes it unparseable
+            "Title: Something",  # Colon makes it unparseable
         ]
 
         for literal in literal_strings:
@@ -104,9 +86,15 @@ class TestStringLiteralFallback:
                 result = extract_attribute(source_node, literal)
 
             assert result == literal
-            # Should have debug message but not warning
-            assert (
-                "Treating" in caplog.text and "as literal value" in caplog.text
-            )
-            assert "path-like characters" not in caplog.text
-            assert "might be a typo" not in caplog.text
+            assert "failed to parse, treating as literal" in caplog.text
+
+        # Test that simple identifiers that could be field names return None
+        simple_identifiers = [
+            "value_without_dots_or_brackets",
+            "field_name",
+            "test123",
+        ]
+        for identifier in simple_identifiers:
+            caplog.clear()
+            result = extract_attribute(source_node, identifier)
+            assert result is None  # Field doesn't exist, so None

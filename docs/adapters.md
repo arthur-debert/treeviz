@@ -109,6 +109,7 @@ label:
 ### Available Transforms
 
 #### Text Transforms
+
 - **upper** - Convert to uppercase
 - **lower** - Convert to lowercase  
 - **capitalize** - Capitalize first letter
@@ -126,6 +127,7 @@ transform:
 ```
 
 #### Collection Transforms
+
 - **filter** - Keep items matching conditions
 - **extract** - Extract field from each item
 - **join** - Combine items into string
@@ -144,11 +146,13 @@ transform:
 ```
 
 #### Numeric Transforms
+
 - **abs** - Absolute value
 - **round** - Round to decimals
 - **format** - Format with spec
 
 #### Type Conversions
+
 - **str** - Convert to string
 - **int** - Convert to integer
 - **float** - Convert to float
@@ -156,6 +160,7 @@ transform:
 ### Pipeline Examples
 
 #### Text Extraction and Processing
+
 ```yaml
 # Extract text from nested structure, clean and truncate
 label:
@@ -175,6 +180,7 @@ label:
 ```
 
 #### Numeric Processing
+
 ```yaml
 # Process numeric data with formatting
 content_lines:
@@ -219,6 +225,7 @@ map:
 ### Advanced Mapping Examples
 
 #### Pandoc List Processing
+
 ```yaml
 # Transform Pandoc list items with complex structure
 children:
@@ -231,6 +238,7 @@ children:
 ```
 
 #### Nested Document Processing  
+
 ```yaml
 # Process nested document sections
 children:
@@ -285,11 +293,13 @@ type_overrides:
 ## Children Selection
 
 ### Simple Field Access
+
 ```yaml
 children: "childNodes"      # Extract from field
 ```
 
 ### Node-Based Filtering
+
 ```yaml
 children:
   include: ["*"]            # Include all types (default)
@@ -297,6 +307,7 @@ children:
 ```
 
 ### Advanced Children Processing
+
 ```yaml
 children:
   path: "content"           # Source field
@@ -312,6 +323,7 @@ children:
 ## Icons and Visual Elements
 
 ### Type-Based Icons
+
 ```yaml
 icons:
   Document: "📄"
@@ -323,6 +335,7 @@ icons:
 ```
 
 ### Dynamic Icons
+
 ```yaml
 # Icons can be extracted from data
 icon:
@@ -333,6 +346,7 @@ icon:
 ## Configuration Options
 
 ### Ignore Types
+
 ```yaml
 ignore_types:
   - "Space"         # Whitespace nodes
@@ -341,6 +355,7 @@ ignore_types:
 ```
 
 ### Content Lines
+
 ```yaml
 # Static value
 content_lines: 1
@@ -352,6 +367,7 @@ content_lines:
 ```
 
 ### Source Location
+
 ```yaml
 source_location:
   path: "position"
@@ -363,6 +379,7 @@ source_location:
 ## Advanced Patterns
 
 ### Conditional Processing
+
 ```yaml
 # Use fallback paths for robustness
 label:
@@ -372,6 +389,7 @@ label:
 ```
 
 ### Multi-Step Extraction
+
 ```yaml
 # Complex header processing
 label:
@@ -391,6 +409,7 @@ label:
 ```
 
 ### Data Synthesis
+
 ```yaml
 # Create rich metadata
 extra:
@@ -410,6 +429,7 @@ The system provides robust error handling:
 - **Debug Logging** - Detailed extraction logs for troubleshooting
 
 ### Example Error Handling
+
 ```yaml
 label:
   path: "content.title"     # Primary extraction
@@ -429,6 +449,7 @@ The 3viz system supports declarative adapter definitions in two formats that can
 Both declarative formats are fully supported, with YAML recommended due to its support for comments:
 
 #### YAML Format (Recommended)
+
 ```yaml
 # YAML supports comments for better documentation
 type: "t"
@@ -449,6 +470,7 @@ type_overrides:
 ```
 
 #### JSON Format
+
 ```json
 {
   "type": "t",

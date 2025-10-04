@@ -76,6 +76,7 @@ type_overrides:
 ```
 
 **Key Features Demonstrated:**
+
 - Static label assignment
 - Custom children field mapping
 - Type override system
@@ -124,6 +125,7 @@ Header:
 ```
 
 **Key Features Demonstrated:**
+
 - Array indexing with `c[2]`
 - Multi-step transform pipeline
 - Collection filtering and extraction
@@ -131,6 +133,7 @@ Header:
 - Graceful error handling with defaults
 
 **Pipeline Flow:**
+
 1. Input: `[{"t": "Str", "c": "This"}, {"t": "Space"}, {"t": "Str", "c": "is"}, ...]`
 2. Filter: `[{"t": "Str", "c": "This"}, {"t": "Str", "c": "is"}, ...]`
 3. Extract: `["This", "is", "title"]`
@@ -176,6 +179,7 @@ Para:
 ```
 
 **Key Features Demonstrated:**
+
 - Collection filtering by type
 - Text extraction and cleanup
 - Length management with truncation
@@ -218,12 +222,14 @@ CodeBlock:
 ```
 
 **Key Features Demonstrated:**
+
 - Deep nested path access
 - Multiple path components
 - String formatting
 - Default fallback for missing languages
 
 **Path Breakdown:**
+
 - `c` → `[attributes, code]`
 - `[0]` → `attributes`
 - `[1]` → `["python"]` (classes array)
@@ -276,12 +282,14 @@ ListItem:
 ```
 
 **Key Features Demonstrated:**
+
 - Collection mapping with templates
 - Synthetic node creation
 - Template variable substitution
 - Two-stage processing (map then process)
 
 **Collection Mapping Flow:**
+
 1. Input: `[[{"t": "Plain", "c": [...]}], [{"t": "Plain", "c": [...]}]]`
 2. Map: `[{"t": "ListItem", "c": [...]}, {"t": "ListItem", "c": [...]}]`
 3. Process: Each ListItem is then processed by its own rules
@@ -320,6 +328,7 @@ OrderedList:
 ```
 
 **Key Features Demonstrated:**
+
 - Handling format variations
 - Path adaptation for different structures
 - Consistent output despite input differences
@@ -354,6 +363,7 @@ Strong:
 ```
 
 **Key Features Demonstrated:**
+
 - Simple field access patterns
 - Static label assignment
 - Leaf node handling
@@ -387,6 +397,7 @@ Link:
 ```
 
 **Key Features Demonstrated:**
+
 - Deep nested access for metadata
 - Extracting meaningful information for labels
 - Fallback for malformed links
@@ -415,6 +426,7 @@ icons:
 ```
 
 **Key Features Demonstrated:**
+
 - Type-based icon mapping
 - Unicode symbols for visual clarity
 - Comprehensive coverage of node types
@@ -431,6 +443,7 @@ ignore_types:
 ```
 
 **Key Features Demonstrated:**
+
 - Noise reduction for cleaner visualization
 - Focus on structural elements
 - Improved readability
@@ -502,6 +515,7 @@ H Introduction to 3viz                               (Icon: H)
 ```
 
 **Processing Flow:**
+
 1. Node type identified as "Header"
 2. Children extracted from `c[2]` → inline elements
 3. Label generated through transform pipeline:
