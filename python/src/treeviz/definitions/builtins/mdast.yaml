@@ -1,6 +1,7 @@
 # Markdown Abstract Syntax Tree (mdast) adapter definition
 # Defines how to render markdown AST nodes in treeviz format
 # Based on the mdast specification: https://github.com/syntax-tree/mdast
+# Includes GitHub Flavored Markdown (GFM) extensions
 
 # Field mappings for extracting data from mdast nodes
 label: value        # Extract node content from 'value' field
@@ -9,6 +10,7 @@ children: children  # Extract child nodes from 'children' field
 
 # Icon mappings for different markdown node types
 icons:
+  # Core mdast node types
   root: "⧉"              # Document root
   paragraph: "¶"          # Text paragraphs
   text: "◦"              # Raw text nodes
@@ -23,6 +25,21 @@ icons:
   link: "🔗"             # Links
   image: "🖼"            # Images
   thematicBreak: "⸺"      # Horizontal rules/breaks
+  
+  # GitHub Flavored Markdown (GFM) extensions
+  table: "⊞"              # GFM tables
+  tableRow: "⊟"           # Table rows
+  tableCell: "⊡"          # Table cells
+  delete: "⧹"             # Strikethrough text (~~text~~)
+  
+  # Additional mdast node types
+  html: "⟨⟩"             # Raw HTML
+  yaml: "⚙"              # YAML frontmatter
+  toml: "⚙"              # TOML frontmatter  
+  break: "↵"              # Hard line breaks
+  definition: "🔖"         # Link/image definitions
+  footnoteDefinition: "📝" # Footnote definitions
+  footnoteReference: "¹"   # Footnote references
 
 # Type-specific field overrides
 # Used when different node types need different field mappings
