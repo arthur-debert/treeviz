@@ -1,73 +1,47 @@
 """
 Entry point for treeviz CLI.
 
-This module contains the main business logic for the treeviz command-line interface.
-The CLI module handles argument parsing and calls functions from this module.
+This module contains both the CLI interface and main business logic for treeviz.
 """
 
 import json
 import sys
 import os
 from dataclasses import asdict
-from typing import Optional
+from typing import Optional, Union, Dict, Any
+from pathlib import Path
 
-from .definitions import Lib, Definition
+import click
+
+from .definitions import AdapterLib, AdapterDef
 from .definitions.yaml_utils import serialize_dataclass_to_yaml
 from .formats import load_document
 from .adapters import load_adapter, convert_document
-from .renderer import render, create_render_options
-
-
-def get_definition(format_name, output_format):
-    """
-    Get a definition for the specified format.
-
-    Args:
-        format_name: Name of the format ('3viz' or format from Lib.list_formats())
-        output_format: Output format ('text', 'json', 'term')
-
-    Returns:
-        None (outputs to stdout)
-    """
-    try:
-        if format_name == "3viz":
-            # Use the default 3viz definition
-            definition = Definition.default()
-        else:
-            # Get format from library
-            definition = Lib.get(format_name)
-    except Exception as e:
-        if output_format == "json":
-            print(json.dumps({"error": str(e)}))
-        else:
-            print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-
-    _output_definition(definition, output_format)
+from .renderer import render as render_nodes, create_render_options
 
 
 def generate_viz(
-    document_path: str,
-    adapter_spec: str = "3viz",
+    document_path: Union[str, Path, Dict, list, Any],
+    adapter_spec: Union[str, Dict, Any] = "3viz",
     document_format: Optional[str] = None,
     adapter_format: Optional[str] = None,
     output_format: str = "term",
-) -> str:
+) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
 
     Main orchestration function that coordinates document loading, adapter loading,
-    conversion, and rendering.
+    conversion, and rendering. Supports both file paths and Python objects.
 
     Args:
-        document_path: Path to document file or '-' for stdin
-        adapter_spec: Adapter name or file path (default: "3viz")
+        document_path: Path to document file, '-' for stdin, or Python object (dict/list/Node)
+        adapter_spec: Adapter name, file path, or adapter dict/object (default: "3viz")
         document_format: Override document format detection (default: auto-detect)
         adapter_format: Override adapter format detection (default: auto-detect)
-        output_format: Output format - json/yaml/text/term (default: "term")
+        output_format: Output format - json/yaml/text/term/obj (default: "term")
 
     Returns:
-        String output in the specified format
+        String output in the specified format, or Node object if output_format="obj"
 
     Raises:
         Various exceptions from sub-functions (DocumentFormatError, ValueError, etc.)
@@ -84,7 +58,10 @@ def generate_viz(
     node = convert_document(document, adapter_def)
 
     # Handle output format
-    if output_format in ["json", "yaml"]:
+    if output_format == "obj":
+        # For obj output, return Node object directly
+        return node
+    elif output_format in ["json", "yaml"]:
         # For data formats, convert Node to dict and serialize
         if node is None:
             result_data = None
@@ -124,7 +101,7 @@ def generate_viz(
             symbols=icons_dict, terminal_width=terminal_width
         )
 
-        return render(node, render_options)
+        return render_nodes(node, render_options)
 
     else:
         raise ValueError(f"Unknown output format: {output_format}")
@@ -135,7 +112,7 @@ def _output_definition(definition, output_format):
     Output definition in the specified format.
 
     Args:
-        definition: The Definition object to output
+        definition: The AdapterDef object to output
         output_format: One of 'text', 'json', 'term'
     """
     if output_format == "json":
@@ -173,11 +150,254 @@ def _output_data(data, output_format):
         raise ValueError(f"Unknown output format: {output_format}")
 
 
+def get_definition(format_name: str, output_format: str = "text"):
+    """
+    Get and output an adapter definition for the specified format.
+
+    Args:
+        format_name: Name of the format (3viz, mdast, unist, etc.)
+        output_format: Output format - json/text/term (default: "text")
+    """
+    if format_name == "3viz":
+        # For 3viz, create a default definition
+        definition = AdapterDef()
+    else:
+        # For other formats, get from the library
+        definition = AdapterLib.get(format_name)
+
+    _output_definition(definition, output_format)
+
+
+# CLI functions moved from cli.py to avoid import issues
+
+
+def _get_help_dir() -> Path:
+    """Get the help directory, handling both development and installed scenarios."""
+    # Try development path first (relative to repo root)
+    dev_help_dir = (
+        Path(__file__).parent.parent.parent.parent / "docs" / "shell-help"
+    )
+    if dev_help_dir.exists():
+        return dev_help_dir
+
+    # For installed packages, use package data
+    pkg_help_dir = Path(__file__).parent / "data" / "shell-help"
+    if pkg_help_dir.exists():
+        return pkg_help_dir
+
+    # Last resort: return dev path even if it doesn't exist
+    return dev_help_dir
+
+
+def _load_help_topic(topic_name: str) -> str:
+    """Load help content from markdown file."""
+    help_dir = _get_help_dir()
+    help_file = help_dir / f"{topic_name}.md"
+
+    try:
+        return help_file.read_text()
+    except FileNotFoundError:
+        return f"Help topic '{topic_name}' not found."
+
+
+def _discover_help_topics() -> list:
+    """Discover available help topics from markdown files."""
+    help_dir = _get_help_dir()
+
+    if not help_dir.exists():
+        return []
+
+    topics = []
+    for md_file in help_dir.glob("*.md"):
+        topics.append(md_file.stem)
+
+    return sorted(topics)
+
+
+@click.group()
+@click.option(
+    "--output-format",
+    type=click.Choice(["text", "json", "yaml", "term"]),
+    default=None,
+    help="Output format (default: term for terminals, text for pipes)",
+)
+@click.pass_context
+def cli(ctx, output_format):
+    """
+    A standalone CLI for the 3viz AST visualization tool.
+
+    Examples:
+      3viz doc.json                           # Use 3viz adapter, auto-detect format
+      3viz doc.md mdast                       # Use built-in mdast adapter
+      3viz doc.xml my-adapter.yaml            # Use custom adapter file
+      3viz - mdast < input.json               # Read from stdin with mdast adapter
+      cat data.json | 3viz -                  # Read from stdin with default adapter
+      3viz get-definition mdast               # Get mdast adapter definition
+    """
+    # Ensure context dict exists
+    ctx.ensure_object(dict)
+
+    # Auto-detect format if not specified
+    if output_format is None:
+        output_format = "term" if sys.stdout.isatty() else "text"
+
+    ctx.obj["output_format"] = output_format
+
+
+@cli.command()
+@click.argument("document", type=click.Path(exists=False))
+@click.argument("adapter", default="3viz")
+@click.option(
+    "--document-format",
+    type=click.Choice(["json", "yaml", "xml", "html"]),
+    help="Override document format detection",
+)
+@click.option(
+    "--adapter-format",
+    type=click.Choice(["json", "yaml"]),
+    help="Override adapter format detection (only for file-based adapters)",
+)
+@click.option(
+    "--output-format",
+    type=click.Choice(["text", "json", "yaml", "term"]),
+    help="Output format (overrides global setting)",
+)
+@click.pass_context
+def render(
+    ctx, document, adapter, document_format, adapter_format, output_format
+):
+    """
+    Render a document using 3viz.
+
+    DOCUMENT: Path to document file or '-' for stdin
+    ADAPTER: Adapter name (3viz, mdast, unist) or path to adapter file (default: 3viz)
+    """
+    # Use command-specific output format if provided, otherwise use global setting
+    if output_format is None:
+        output_format = ctx.obj["output_format"]
+
+    try:
+        result = generate_viz(
+            document_path=document,
+            adapter_spec=adapter,
+            document_format=document_format,
+            adapter_format=adapter_format,
+            output_format=output_format,
+        )
+
+        # Output result to stdout
+        print(result, end="")
+
+    except Exception as e:
+        if output_format == "json":
+            print(json.dumps({"error": str(e)}))
+        else:
+            print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+@cli.command("get-definition")
+@click.argument(
+    "format_name",
+    type=click.Choice(["3viz"] + AdapterLib.list_formats()),
+    default="3viz",
+)
+@click.pass_context
+def get_definition_cmd(ctx, format_name):
+    """
+    Get a definition for the specified format.
+
+    FORMAT_NAME: Name of the format (3viz, mdast, unist)
+    """
+    output_format = ctx.obj["output_format"]
+    get_definition(format_name, output_format)
+
+
+class HelpGroup(click.Group):
+    """Custom help group that dynamically discovers help topics."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._dynamic_commands = {}
+        self._load_dynamic_commands()
+
+    def _load_dynamic_commands(self):
+        """Load help topics from markdown files."""
+        topics = _discover_help_topics()
+        for topic in topics:
+            # Create a dynamic command for each topic
+            def make_help_command(topic_name):
+                def help_command():
+                    content = _load_help_topic(topic_name)
+                    click.echo(content)
+
+                return help_command
+
+            # Set up the command
+            cmd = make_help_command(topic)
+            cmd.__name__ = topic.replace("-", "_")
+            cmd.__doc__ = f"Show help for {topic}"
+
+            # Convert to Click command
+            click_cmd = click.command(name=topic)(cmd)
+            self._dynamic_commands[topic] = click_cmd
+
+    def get_command(self, ctx, cmd_name):
+        # First try dynamic commands
+        if cmd_name in self._dynamic_commands:
+            return self._dynamic_commands[cmd_name]
+
+        # Fall back to regular commands
+        return super().get_command(ctx, cmd_name)
+
+    def list_commands(self, ctx):
+        # Only list regular commands in the Commands section
+        # Dynamic commands will be shown in Available Topics section
+        return super().list_commands(ctx)
+
+    def format_help(self, ctx, formatter):
+        """Override help formatting to show available topics."""
+        # Show the basic help first
+        super().format_help(ctx, formatter)
+
+        # Add available topics section
+        topics = _discover_help_topics()
+        if topics:
+            with formatter.section("Available Topics"):
+                formatter.write_paragraph()
+                for topic in topics:
+                    formatter.write_text(f"  3viz help {topic}")
+                formatter.write_paragraph()
+                formatter.write_text(
+                    "Topics are loaded from markdown files in docs/shell-help/"
+                )
+
+
+@cli.group(cls=HelpGroup)
+def help():
+    """Shows help for specific topics.
+
+    Help topics are loaded dynamically from markdown files in docs/shell-help/.
+    """
+    pass
+
+
+@help.command()
+def list():
+    """List all available help topics."""
+    topics = _discover_help_topics()
+    if topics:
+        click.echo("Available help topics:")
+        for topic in topics:
+            click.echo(f"  3viz help {topic}")
+    else:
+        click.echo("No help topics found.")
+
+    click.echo("\nTo add new topics, create markdown files in docs/shell-help/")
+
+
 def main():
     """Main entry point that delegates to CLI argument parsing."""
-    import sys
-    from .cli import cli
-
     # If no arguments or first argument doesn't look like a subcommand, inject 'render'
     if len(sys.argv) > 1 and sys.argv[1] not in [
         "render",

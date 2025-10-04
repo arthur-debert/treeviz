@@ -1,5 +1,5 @@
 """
-Definition library registry for treeviz.
+AdapterDef library registry for treeviz.
 
 This module provides a registry system for format definitions,
 automatically loading core definitions from the lib directory.
@@ -9,7 +9,7 @@ import json
 import importlib.resources
 from pathlib import Path
 from typing import Dict, Union
-from ..model import Definition
+from ..model import AdapterDef
 
 try:
     from ruamel import yaml
@@ -19,7 +19,7 @@ except ImportError:
     HAS_YAML = False
 
 
-class Lib:
+class AdapterLib:
     """
     Registry for definition libraries.
 
@@ -27,7 +27,7 @@ class Lib:
     Provides a clean interface for accessing pre-built definitions.
     """
 
-    _registry: Dict[str, Definition] = {}
+    _registry: Dict[str, AdapterDef] = {}
     _loaded = False
 
     @classmethod
@@ -37,36 +37,40 @@ class Lib:
 
         Args:
             name: Format name (e.g., "mdast", "unist")
-            definition_dict: Definition dictionary to convert and store
+            definition_dict: AdapterDef dictionary to convert and store
 
         Raises:
             Standard Python exceptions: KeyError, ValueError, etc. if definition is invalid
         """
         # Merge with defaults and validate - let exceptions bubble up naturally
-        default_def = Definition.default()
+        default_def = AdapterDef.default()
         merged_def = default_def.merge_with(definition_dict)
         cls._registry[name] = merged_def
 
     @classmethod
-    def get(cls, format_name: str) -> Definition:
+    def get(cls, format_name: str) -> AdapterDef:
         """
         Get a definition from the library.
 
         Args:
-            format_name: Name of the format (e.g., "mdast", "unist", "json")
+            format_name: Name of the format (e.g., "mdast", "unist", "json", "3viz")
 
         Returns:
-            Definition object for the format
+            AdapterDef object for the format
 
         Raises:
             KeyError: If format is not found
         """
+        # Handle special case for 3viz (default definition)
+        if format_name == "3viz":
+            return AdapterDef.default()
+
         # Ensure core libraries are loaded
         if not cls._loaded:
             cls.load_core_libs()
 
         if format_name not in cls._registry:
-            available_formats = list(cls._registry.keys())
+            available_formats = list(cls._registry.keys()) + ["3viz"]
             raise KeyError(
                 f"Unknown format '{format_name}'. Available formats: {available_formats}. "
                 f"To add a new format, place a JSON definition file in the lib/ directory."
@@ -210,7 +214,7 @@ class Lib:
         List all available format names.
 
         Returns:
-            List of available format names including 'json'
+            List of available format names including 'json' and '3viz'
         """
         if not cls._loaded:
             cls.load_core_libs()
@@ -218,6 +222,8 @@ class Lib:
         formats = list(cls._registry.keys())
         if "json" not in formats:
             formats.append("json")
+        if "3viz" not in formats:
+            formats.append("3viz")
         return sorted(formats)
 
     @classmethod

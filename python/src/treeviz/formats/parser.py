@@ -116,15 +116,17 @@ def parse_document(file_path: str, format_name: Optional[str] = None) -> Any:
         ) from e
 
 
-def load_document(file_path: str, format_name: Optional[str] = None) -> Any:
+def load_document(document_input, format_name: Optional[str] = None) -> Any:
     """
-    Load a document from file or stdin into a Python object.
+    Load a document from file, stdin, or Python object.
 
-    This function extends parse_document to support stdin input via '-' as file_path.
-    For stdin, it attempts JSON parsing first, then falls back to error with format hint.
+    This function handles multiple input types:
+    - File paths: Load and parse from file system
+    - Stdin: Use '-' as document_input to read from stdin
+    - Python objects: Return directly (dict, list, etc.)
 
     Args:
-        file_path: Path to document file, or '-' for stdin
+        document_input: Path to document file, '-' for stdin, or Python object (dict/list)
         format_name: Optional format name. If None, auto-detects from extension
                     (stdin defaults to JSON if format_name not specified)
 
@@ -134,7 +136,15 @@ def load_document(file_path: str, format_name: Optional[str] = None) -> Any:
     Raises:
         DocumentFormatError: If parsing fails or format is unsupported
         FileNotFoundError: If file doesn't exist (not applicable for stdin)
+        TypeError: If document_input is not a supported type
     """
+    # Handle Python objects directly
+    if not isinstance(document_input, str):
+        # Already a Python object (dict, list, etc.) - return as-is
+        return document_input
+
+    # Handle string inputs (file paths or stdin)
+    file_path = document_input
     # Handle stdin input
     if file_path == "-":
         content = sys.stdin.read()

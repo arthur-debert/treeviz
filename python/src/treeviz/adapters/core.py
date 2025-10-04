@@ -9,7 +9,7 @@ from typing import Any, Dict, Optional
 
 from ..model import Node
 from .extraction import extract_attribute
-from ..definitions.model import Definition, ChildrenSelector
+from ..definitions.model import AdapterDef, ChildrenSelector
 
 
 def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
@@ -27,7 +27,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         Standard Python exceptions: TypeError, KeyError, ValueError, etc. with descriptive messages
     """
     # Parse and validate using dataclass
-    definition = Definition.from_dict(def_)
+    definition = AdapterDef.from_dict(def_)
 
     # Check if this node type should be ignored
     node_type = extract_attribute(source_node, definition.type)
