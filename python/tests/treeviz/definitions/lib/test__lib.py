@@ -11,7 +11,7 @@ from pathlib import Path
 from unittest.mock import patch, Mock
 
 from treeviz.definitions.lib.lib import Lib, HAS_YAML
-from treeviz.definitions.model import Definition
+from treeviz.definitions.model import AdapterDef
 
 
 class TestLibRegister:
@@ -74,7 +74,7 @@ class TestLibGet:
 
         result = Lib.get("test_format")
 
-        assert isinstance(result, Definition)
+        assert isinstance(result, AdapterDef)
         assert result.label == "test_label"
 
     def test_get_triggers_core_lib_loading(self):

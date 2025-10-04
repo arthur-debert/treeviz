@@ -123,7 +123,6 @@ Repository: https://github.com/arthur-debert/treeviz
 # New primary public API
 from .treeviz import (
     render,
-    Adapter,
     AdapterLib,
     OUTPUT_TEXT,
     OUTPUT_TERM,
@@ -131,6 +130,7 @@ from .treeviz import (
     OUTPUT_YAML,
     OUTPUT_OBJ,
 )
+from .definitions.model import AdapterDef as Adapter
 
 # Core data structures
 from .model import Node

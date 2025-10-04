@@ -6,7 +6,7 @@ Tests the ChildrenSelector dataclass pattern matching methods in isolation.
 
 from dataclasses import asdict
 
-from treeviz.definitions.model import Definition, ChildrenSelector
+from treeviz.definitions.model import AdapterDef, ChildrenSelector
 
 
 class TestChildrenSelector:
@@ -55,7 +55,7 @@ class TestChildrenSelector:
         assert selector.matches(None) is False
 
     def test_definition_from_dict_with_children_selector(self):
-        """Test Definition.from_dict properly converts children dict to ChildrenSelector."""
+        """Test AdapterDef.from_dict properly converts children dict to ChildrenSelector."""
         def_dict = {
             "label": "text",
             "type": "node_type",
@@ -65,21 +65,21 @@ class TestChildrenSelector:
             },
         }
 
-        definition = Definition.from_dict(def_dict)
+        definition = AdapterDef.from_dict(def_dict)
 
         assert isinstance(definition.children, ChildrenSelector)
         assert definition.children.include == ["paragraph", "section", "h*"]
         assert definition.children.exclude == ["footer"]
 
     def test_definition_from_dict_with_string_children(self):
-        """Test Definition.from_dict preserves string children attribute."""
+        """Test AdapterDef.from_dict preserves string children attribute."""
         def_dict = {
             "label": "text",
             "type": "node_type",
             "children": "child_nodes",
         }
 
-        definition = Definition.from_dict(def_dict)
+        definition = AdapterDef.from_dict(def_dict)
 
         assert isinstance(definition.children, str)
         assert definition.children == "child_nodes"
@@ -93,7 +93,7 @@ class TestChildrenSelector:
             }
         }
 
-        definition = Definition.from_dict(def_dict)
+        definition = AdapterDef.from_dict(def_dict)
         serialized = asdict(definition)
 
         assert serialized["children"]["include"] == ["paragraph", "section"]

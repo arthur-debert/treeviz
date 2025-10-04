@@ -1,5 +1,5 @@
 """
-Definition schema for treeviz using dataclasses.
+AdapterDef schema for treeviz using dataclasses.
 
 This module provides a clean, typed interface for treeviz definitions
 replacing the ad-hoc dictionary validation.
@@ -63,7 +63,7 @@ class ChildrenSelector:
 
 
 @dataclass
-class Definition:
+class AdapterDef:
     """
     Treeviz definition schema.
 
@@ -139,8 +139,8 @@ class Definition:
     )
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "Definition":
-        """Create Definition from dictionary by merging with defaults."""
+    def from_dict(cls, data: Dict[str, Any]) -> "AdapterDef":
+        """Create AdapterDef from dictionary by merging with defaults."""
         # Start with default definition
         default = cls.default()
         merged_data = asdict(default)
@@ -169,11 +169,11 @@ class Definition:
         return cls(**merged_data)
 
     @classmethod
-    def default(cls) -> "Definition":
+    def default(cls) -> "AdapterDef":
         """Get the default definition."""
         return cls()  # Uses default field values
 
-    def merge_with(self, other_dict: Dict[str, Any]) -> "Definition":
+    def merge_with(self, other_dict: Dict[str, Any]) -> "AdapterDef":
         """
         Merge this definition with another definition dict (simple merge).
 
@@ -181,7 +181,7 @@ class Definition:
             other_dict: Dictionary with definition overrides
 
         Returns:
-            New Definition with merged values
+            New AdapterDef with merged values
         """
         # Start with this definition's values (copy defaults)
         merged_data = asdict(self)
@@ -199,4 +199,4 @@ class Definition:
                 # For non-dict fields or complete replacement, just assign
                 merged_data[key] = value
 
-        return Definition.from_dict(merged_data)
+        return AdapterDef.from_dict(merged_data)

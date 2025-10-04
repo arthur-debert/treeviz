@@ -6,7 +6,7 @@ import sys
 from typing import Callable, Tuple, Dict, Any, Optional
 from dataclasses import asdict
 
-from ..definitions import Lib, Definition
+from ..definitions import Lib, AdapterDef
 from ..formats import load_document, DocumentFormatError
 
 
@@ -35,7 +35,7 @@ def load_adapter(
     Load adapter definition and icons from name, file, or object.
 
     Args:
-        adapter_spec: Adapter name (e.g., "mdast", "3viz"), file path, dict, or Definition object
+        adapter_spec: Adapter name (e.g., "mdast", "3viz"), file path, dict, or AdapterDef object
         adapter_format: Optional format for file-based adapters (json/yaml)
                        If None, auto-detects from file extension
 
@@ -52,7 +52,7 @@ def load_adapter(
         # Dictionary object - process directly
         return _load_adapter_from_dict(adapter_spec)
     elif hasattr(adapter_spec, "__dict__") and hasattr(adapter_spec, "icons"):
-        # Definition object (or similar) - convert to dict
+        # AdapterDef object (or similar) - convert to dict
         adapter_dict = (
             asdict(adapter_spec)
             if hasattr(adapter_spec, "__dict__")
@@ -70,7 +70,7 @@ def load_adapter(
             return _load_adapter_by_name(adapter_spec)
     else:
         raise TypeError(
-            f"adapter_spec must be string, dict, or Definition object, got {type(adapter_spec)}"
+            f"adapter_spec must be string, dict, or AdapterDef object, got {type(adapter_spec)}"
         )
 
 
@@ -81,7 +81,7 @@ def _load_adapter_by_name(
     try:
         if adapter_name == "3viz":
             # Use default 3viz definition
-            definition = Definition.default()
+            definition = AdapterDef.default()
         else:
             # Get from library
             definition = Lib.get(adapter_name)
@@ -112,8 +112,8 @@ def _load_adapter_from_file(
                 f"Adapter file must contain a dictionary, got {type(adapter_dict).__name__}"
             )
 
-        # Create Definition from the loaded dict to validate and apply defaults
-        definition = Definition.from_dict(adapter_dict)
+        # Create AdapterDef from the loaded dict to validate and apply defaults
+        definition = AdapterDef.from_dict(adapter_dict)
 
         # Convert back to dict and extract icons
         definition_dict = asdict(definition)
@@ -143,8 +143,8 @@ def _load_adapter_from_dict(
                 f"Adapter dict must be a dictionary, got {type(adapter_dict).__name__}"
             )
 
-        # Create Definition from the dict to validate and apply defaults
-        definition = Definition.from_dict(adapter_dict)
+        # Create AdapterDef from the dict to validate and apply defaults
+        definition = AdapterDef.from_dict(adapter_dict)
 
         # Convert back to dict and extract icons
         definition_dict = asdict(definition)

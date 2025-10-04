@@ -5,7 +5,7 @@ Test the extended load_document and load_adapter functions for Python object sup
 import pytest
 from treeviz.formats import load_document
 from treeviz.adapters.utils import load_adapter
-from treeviz.definitions.model import Definition
+from treeviz.definitions.model import AdapterDef
 
 
 class TestLoadDocumentExtensions:
@@ -82,8 +82,8 @@ class TestLoadAdapterExtensions:
         assert def_dict["label"] == "name"
 
     def test_load_adapter_definition_object(self):
-        """Test loading an adapter from a Definition object."""
-        definition_obj = Definition(
+        """Test loading an adapter from a AdapterDef object."""
+        definition_obj = AdapterDef(
             label="title",
             type="kind",
             children="elements",

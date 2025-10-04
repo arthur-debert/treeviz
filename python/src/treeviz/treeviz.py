@@ -5,7 +5,7 @@ This module provides the primary public interface for the treeviz library,
 including the polymorphic render() function and core classes.
 """
 
-from .definitions.model import Definition as Adapter  # noqa: F401
+from .definitions.model import AdapterDef  # noqa: F401
 from .definitions.lib.lib import Lib as AdapterLib  # noqa: F401
 from .__main__ import generate_viz
 

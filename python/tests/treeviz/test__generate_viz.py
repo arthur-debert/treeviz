@@ -18,7 +18,7 @@ class TestGenerateViz:
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render")
+    @patch("treeviz.__main__.render_nodes")
     @patch("treeviz.__main__.create_render_options")
     def test_generate_viz_term_output(
         self,
@@ -187,7 +187,7 @@ class TestGenerateViz:
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render")
+    @patch("treeviz.__main__.render_nodes")
     @patch("treeviz.__main__.create_render_options")
     @patch("sys.stdout.isatty")
     @patch("os.get_terminal_size")
@@ -233,7 +233,7 @@ class TestGenerateViz:
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render")
+    @patch("treeviz.__main__.render_nodes")
     @patch("treeviz.__main__.create_render_options")
     def test_generate_viz_text_vs_term_width(
         self,
@@ -325,7 +325,7 @@ class TestGenerateViz:
         with patch(
             "treeviz.__main__.create_render_options"
         ) as mock_create_options:
-            with patch("treeviz.__main__.render") as mock_render:
+            with patch("treeviz.__main__.render_nodes") as mock_render:
                 mock_render.return_value = "⚡ test"
 
                 generate_viz("test.json", output_format="term")
