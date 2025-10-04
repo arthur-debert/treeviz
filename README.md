@@ -1,10 +1,8 @@
-# 3viz, a terminal ast vizualizer for document based ASTs
+# 3viz, a terminal AST visualizer for document trees
 
-3viz is designed to simplify reasing about document tree. The 1-line per node and colunar layout makes
-scanning and grokking structure easy, while the texttual represntations, icons and extra give
-additional informattion at a glance.
+3viz is designed to simplify reasoning about document trees. The one-line-per-node and columnar layout makes scanning and understanding structure easy, while the textual representations, icons and metadata provide additional information at a glance.
 
-Being line based, it makes diffing trees useful and can be invaluable in debugging these parse trees.
+Being line-based, it makes diffing trees useful and can be invaluable in debugging parse trees.
 
 This is a sample output:
 
@@ -14,7 +12,7 @@ This is a sample output:
   ¶ This is a paragraph:                                                                                                                         2L
     ↵ This is a paragraph:                                                                                                                       1L
     ↵ With two lines.                                                                                                                               1L
-    ↵ This documenent is the nanos spec, showing all elemetns, but not covering their full variation   1L
+    ↵ This document is the nanos spec, showing all elements, but not covering their full variation   1L
   № List                                                                                                                            type=ordered 2L
     §"Session And titles                                                                                                                           2L
       ⊤"Session And titles                                                                                                                        1L
@@ -30,36 +28,39 @@ This is a sample output:
 
 ## Installing
 
-threeviz is available in pypi as threeviz-py, and can be installed however you get your python packages:
+3viz is available on PyPI as threeviz-py, and can be installed with your preferred Python package manager:
 
- ```bash
-$ pipx install threeviz-py # recommended as it's available globally
-  ```
+```bash
+$ pipx install threeviz-py  # recommended for global availability
+```
 
 ## Using 3viz
 
-3viz can be used as a cli:
+3viz can be used as a CLI:
 
- ```bash
-  $ 3viz <tree path> <tree-format>
-  ```
+```bash
+$ 3viz <tree_path> <tree_format>
+```
 
-Or as a library.
+Or as a library:
 
-  ```python
-  from threeviz import threeviz
+```python
+from threeviz import threeviz
 
-# both document and format can be a path to a file, the strings or a python object
+# Both document and format can be a path to a file, strings, or Python objects
+threeviz.render(document, format)
+```
 
-  threeviz.render (document, format)
-  ```
+### Built-in adapters
 
- TODO: add a threw liner example of generating an adapter definition with python for a simple remapping
-
-### Included adapters
-
-  (list each with name and descripton)
+- **mdast**: Markdown Abstract Syntax Tree format used by remark and other Markdown processors
+- **unist**: Universal Syntax Tree format, the base format for unified ecosystem parsers
+- **pandoc**: Pandoc's JSON AST format for converting between markup formats
+- **restructuredtext**: reStructuredText document trees from the docutils library
 
 ### Learn more
 
-Read the docs/user-guide.md for a more complete introduction, learn about the the visual output docs/theui.md or a in-depth doc on docs/adapters.md and learn by example with docs/adapter-walkthrough.md
+- [User Guide](docs/user-guide.md) - Complete introduction to using 3viz
+- [Visual Output Guide](docs/theui.md) - Understanding the visualization format
+- [Adapters Documentation](docs/adapters.md) - In-depth guide to creating custom adapters
+- [Adapter Walkthrough](docs/adapter-walkthrough.md) - Step-by-step examples
