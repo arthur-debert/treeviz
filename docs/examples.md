@@ -1,6 +1,6 @@
 # Adapter Examples
 
-This guide provides practical examples of adapter definitions for common transformation needs, bridging the gap between simple field mapping and complex custom logic.
+This guide provides practical examples of adapter definitions for common transformation needs, showcasing both basic patterns and advanced techniques for handling challenging AST formats using the declarative system.
 
 ## Basic Field Mapping
 
@@ -18,31 +18,40 @@ icons:
   list: "•"
 ```
 
-## Content Extraction with Transforms
+## Content Extraction with Transform Pipelines
 
-Extract and format content from nested structures:
+Extract and format content from nested structures using declarative transforms:
 
 ```yaml
 # content-extraction.yaml
 type: "kind"
 label:
-  extractor: "attribute"
-  name: "data.text"
-  transform: "lambda t: t[:50] + '...' if len(t) > 50 else t"
+  path: "data.text"
+  transform:
+    - name: "truncate"
+      max_length: 50
+      suffix: "..."
 children: "children"
 
 type_overrides:
   header:
     label:
-      extractor: "attribute" 
-      name: "data.level"
-      transform: "lambda level: f'H{level}'"
+      path: "data.level"
+      transform:
+        - name: "str"
+        - name: "prefix"
+          prefix: "H"
   
   code_block:
     label:
-      extractor: "attribute"
-      name: "data.language"
-      transform: "lambda lang: f'Code ({lang})'"
+      path: "data.language"
+      transform:
+        - name: "prefix"
+          prefix: "Code ("
+        - name: "str"
+        - name: "suffix"
+          suffix: ")"
+      default: "Code (text)"
     children: []
 
 icons:
@@ -52,37 +61,44 @@ icons:
   list_item: "›"
 ```
 
-## Conditional Logic
+## Conditional Logic with Fallbacks
 
-Handle nodes that may or may not have certain fields:
+Handle nodes that may or may not have certain fields using fallback chains:
 
 ```yaml
 # conditional-logic.yaml
 type: "type"
 label:
-  extractor: "method"
-  name: "get_display_text"
+  path: "displayText"
+  fallback: "text"
+  default: "Node"
 children: "children"
 
 type_overrides:
   section:
     label:
-      extractor: "attribute"
-      name: "title"
-      transform: "lambda t: t if t else 'Untitled Section'"
+      path: "title"
+      default: "Untitled Section"
   
   link:
     label:
-      extractor: "attribute"
-      name: "href"
-      transform: "lambda url: f'Link: {url[:30]}...' if len(url) > 30 else f'Link: {url}'"
+      path: "href"
+      transform:
+        - name: "prefix"
+          prefix: "Link: "
+        - name: "truncate"
+          max_length: 30
+          suffix: "..."
+      default: "Link"
     children: []
 
   image:
     label:
-      extractor: "attribute"
-      name: "alt"
-      transform: "lambda alt: f'Image: {alt}' if alt else 'Image'"
+      path: "alt"
+      transform:
+        - name: "prefix"
+          prefix: "Image: "
+      default: "Image"
     children: []
 
 ignore_types:
