@@ -9,6 +9,7 @@
 Adapters are the bridge between your document format and 3viz's visualization. They define how to extract information from your specific AST format and map it to 3viz's universal node structure.
 
 3viz comes with built-in adapters for common formats:
+
 - mdast (Markdown)
 - unist (Universal Syntax Tree)
 - pandoc (Pandoc JSON)
@@ -17,6 +18,7 @@ Adapters are the bridge between your document format and 3viz's visualization. T
 ### Definitions
 
 A definition is a configuration that tells 3viz how to interpret nodes in your tree. It specifies:
+
 - How to extract node labels (the text displayed)
 - How to find children nodes
 - How to determine node types
@@ -26,6 +28,7 @@ A definition is a configuration that tells 3viz how to interpret nodes in your t
 ### Visual Elements
 
 Each line in 3viz output represents one node and includes:
+
 - Icon (Unicode character representing node type)
 - Label (descriptive text from the node)
 - Metadata (additional attributes like type=ordered)
