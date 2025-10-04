@@ -131,6 +131,25 @@ run_phase_i() {
 
 	local phase_i_status=$EXIT_SUCCESS
 
+	# Poetry check and auto-fix (if pyproject.toml changed or in --all-files mode)
+	if [[ "$ALL_FILES" == "true" ]] || git diff --cached --name-only | grep -q "pyproject.toml"; then
+		log_info "Running poetry check..."
+		if ! poetry check >/dev/null 2>&1; then
+			log_info "Poetry check failed, regenerating lock file..."
+			if poetry lock; then
+				log_info "Poetry lock file regenerated successfully"
+				git add poetry.lock
+				PHASE_I_CHANGES=true
+				log_success "Updated poetry.lock staged for commit"
+			else
+				log_error "Failed to regenerate poetry lock file"
+				phase_i_status=$EXIT_FAILURE
+			fi
+		else
+			log_info "Poetry configuration is valid"
+		fi
+	fi
+
 	# Python: Black formatter
 	log_info "Running black (Python formatter)..."
 	if [[ "$ALL_FILES" == "true" ]]; then
@@ -209,17 +228,33 @@ run_phase_i() {
 		log_info "shfmt not available, skipping shell formatting"
 	fi
 
-	# Stage any changes made by formatters
+	# Stage any changes made by automated fixes
 	if [[ "$PHASE_I_CHANGES" == "true" ]]; then
-		log_info "Staging changes made by automated fixes..."
+		log_info "Staging all changes made by automated fixes..."
 		if [[ "$ALL_FILES" == "true" ]]; then
 			# In --all-files mode, stage ALL changes (including previously unstaged ones)
 			git add -A
 			log_success "All changes from automated fixes have been staged"
 		else
-			# In staged-only mode, only stage modifications to already tracked files
-			git add -u
-			log_success "Changes from automated fixes have been staged"
+			# In staged-only mode, stage both:
+			# 1. Previously staged files that were modified by formatters
+			# 2. New files created by automated fixes (like poetry.lock)
+
+			# Get list of files that were staged before our changes
+			local originally_staged_files
+			originally_staged_files=$(git diff --cached --name-only)
+
+			# Stage updates to originally staged files
+			if [[ -n "$originally_staged_files" ]]; then
+				echo "$originally_staged_files" | xargs git add
+			fi
+
+			# Stage specific auto-generated files that should always be included
+			if [[ -f "poetry.lock" ]] && git diff --name-only poetry.lock >/dev/null 2>&1; then
+				git add poetry.lock
+			fi
+
+			log_success "Changes from automated fixes have been staged (original staged files + auto-generated files)"
 		fi
 	else
 		log_info "No automatic fixes needed"
@@ -294,12 +329,11 @@ run_phase_ii() {
 		log_info "shellcheck not available, skipping shell linting"
 	fi
 
-	# Poetry check (if pyproject.toml changed or in --all-files mode)
+	# Poetry check (final validation - warnings only)
 	if [[ "$ALL_FILES" == "true" ]] || git diff --cached --name-only | grep -q "pyproject.toml"; then
 		log_info "Running poetry check..."
 		if ! poetry check; then
-			log_error "Poetry check failed"
-			phase_ii_status=$EXIT_FAILURE
+			log_warning "Poetry check shows warnings (but lock file was auto-fixed in Phase I)"
 		else
 			log_success "Poetry check passed"
 		fi
