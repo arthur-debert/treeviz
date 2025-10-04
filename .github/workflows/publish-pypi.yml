@@ -1,0 +1,82 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0, v0.1.2, etc.
+
+permissions:
+  contents: read
+  id-token: write  # For trusted publishing (optional, fallback to token auth)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: 
+      name: pypi
+      url: https://pypi.org/p/treeviz-py
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python with Poetry
+        uses: ./.github/actions/setup-python-poetry
+        with:
+          python-version: "3.13"
+          cache-key-prefix: "publish-env-v1"
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          # Extract version from tag (remove 'v' prefix)
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update version in pyproject.toml
+        run: |
+          # Update version in pyproject.toml to match the tag
+          poetry version ${{ steps.get_version.outputs.version }}
+          echo "Updated pyproject.toml version to: ${{ steps.get_version.outputs.version }}"
+
+      - name: Build package
+        run: |
+          poetry build
+          echo "Built packages:"
+          ls -la dist/
+
+      - name: Run tests before publishing
+        run: |
+          poetry run pytest python/tests/ --no-cov -q
+          echo "All tests passed before publishing"
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_PASSWORD }}
+          verbose: true
+          
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          body: |
+            ## treeviz-py ${{ steps.get_version.outputs.version }}
+            
+            Released to PyPI: https://pypi.org/project/treeviz-py/${{ steps.get_version.outputs.version }}/
+            
+            Install with:
+            ```bash
+            pipx install treeviz-py==${{ steps.get_version.outputs.version }}
+            ```
+            
+            Or upgrade:
+            ```bash
+            pipx upgrade treeviz-py
+            ```
+          draft: false
+          prerelease: false
