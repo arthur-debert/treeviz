@@ -7,7 +7,7 @@ build-backend = "poetry.core.masonry.api"
 ###############################################################################
 [tool.poetry]
 name = "treeviz-py"
-version = "0.0.2"
+version = "0.0.3"
 description = "Terminal AST visualizer for document trees"
 authors = ["Arthur Debert <arthur@debert.xyz>"]
 license = "MIT"
