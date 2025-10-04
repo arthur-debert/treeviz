@@ -7,7 +7,7 @@ have proper type checking and provide clear error messages.
 """
 
 import pytest
-from treeviz.adapters.advanced_extraction import apply_transformation
+from treeviz.adapters.extraction import apply_transformation
 
 
 class TestTypeSafeTextTransformations:
