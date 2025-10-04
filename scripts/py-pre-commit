@@ -3,6 +3,27 @@
 # Custom Pre-commit Hook
 # ======================
 #
+# This script exists because I could never get pre-commit to work like this.
+# The core idea is that automatable fixes should not display your flow nor
+# block commits, that is should be invisible to you. Hard non fixable checks
+# would of course block commits.
+#
+# Hence the gerneral idea is:
+# - You stage your changes
+# - You may have further changes unstaged.
+# - The veriy first thing then is to stash the unstaged changes..
+# -
+# - Phase I
+# - Then ir runs all automated fixes on the staged changeds, that's phase I
+# - When it finishes it stages the changes it made.
+# - By phase I ends you have: your changes + automated fixes, all staged.
+# -
+# - Phase II:
+# - Now it runs all hardd checks, that is , the ones where fails halt the ommit.
+# - If we passed, we commit and then unstash
+# - If we failed, we now lay the stashed changed on top of the staged changes, but the tricky thing here is therem might be conficlist
+# -
+#
 # This script implements a three-phase pre-commit workflow with robust state management:
 # 1. Phase I: Automated fixes (formatters, auto-fixable linters) + auto-staging
 # 2. Phase II: Hard checks (tests, strict linters)
