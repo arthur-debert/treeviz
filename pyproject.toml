@@ -9,17 +9,16 @@ description = "visuazlizes ast for document formats"
 name = "treeviz-py"
 readme = { file = "README.txt", content-type = "text/plaintxt" }
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = "MIT"
 authors = [{ name = "Arthur Debert", email = "arthur@debert.xyz" }]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 urls = { "Homepage" = "https://github.com/arthur-debert/treeviz-py" }
 
-#[project.scripts]
-#treeviz = "treeviz.main"
+[project.scripts]
+3viz = "treeviz.__main__:main"
 
 ###############################################################################
 ### poetry
@@ -30,8 +29,6 @@ packages = [{ include = "treeviz", from = "python/src" }]
 include = ["docs/shell-help/*.md", "LICENSE", "README.txt"]
 exclude = ["tests"]
 
-[tool.poetry.scripts]
-3viz = "treeviz.__main__:main"
 
 
 ###############################################################################
