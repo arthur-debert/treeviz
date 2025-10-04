@@ -7,7 +7,9 @@ adapter definition dictionary.
 """
 
 from .restructuredtext import definition as rst_def
+from .pandoc import definition as pandoc_def
 
 BUILTIN_ADAPTERS = {
     "restructuredtext": rst_def,
+    "pandoc": pandoc_def,
 }
