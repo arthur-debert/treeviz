@@ -27,7 +27,7 @@ urls = { "Homepage" = "https://github.com/arthur-debert/treeviz-py" }
 [tool.poetry]
 version = "0.0.1"
 packages = [{ include = "treeviz", from = "python/src" }]
-include = ["python/src/treeviz/**", "LICENSE", "README.txt"]
+include = ["docs/shell-help/*.md", "LICENSE", "README.txt"]
 exclude = ["tests"]
 
 [tool.poetry.scripts]
