@@ -13,15 +13,16 @@ logger = logging.getLogger(__name__)
 
 
 def apply_transformation(
-    value: Any, transform_spec: Union[str, Dict[str, Any], Callable]
+    value: Any, transform_spec: Union[str, Dict[str, Any], Callable, list]
 ) -> Any:
     """
-    Apply transformation to value based on specification.
+    Apply transformation(s) to value based on specification.
 
     The transform_spec can be:
     - String: name of built-in transformation
     - Dict: transformation with parameters {"name": "truncate", "max_length": 50}
     - Callable: custom transformation function
+    - List: pipeline of transformations applied sequentially
 
     Args:
         value: Value to transform
@@ -40,7 +41,22 @@ def apply_transformation(
     logger.debug(f"Applying transformation {transform_spec} to {value}")
 
     try:
-        if callable(transform_spec):
+        if isinstance(transform_spec, list):
+            # Transform pipeline: apply each transformation sequentially
+            result = value
+            for i, transform_step in enumerate(transform_spec):
+                logger.debug(
+                    f"Pipeline step {i+1}: applying {transform_step} to {result}"
+                )
+                result = apply_transformation(result, transform_step)
+                if result is None:
+                    logger.debug(
+                        f"Pipeline terminated at step {i+1}: result is None"
+                    )
+                    break
+            return result
+
+        elif callable(transform_spec):
             # Custom transformation function
             return transform_spec(value)
 
@@ -84,6 +100,7 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
         "capitalize": lambda v, **k: _text_capitalize(v),
         "strip": lambda v, **k: _text_strip(v),
         "truncate": lambda v, **k: _truncate_text(v, **k),
+        "prefix": lambda v, **k: _prefix_text(v, **k),
         # Numeric transformations
         "abs": lambda v, **k: _numeric_abs(v),
         "round": lambda v, **k: _numeric_round(v, **k),
@@ -93,6 +110,8 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
         "join": lambda v, **k: _collection_join(v, **k),
         "first": lambda v, **k: _collection_first(v),
         "last": lambda v, **k: _collection_last(v),
+        "extract": lambda v, **k: _collection_extract(v, **k),
+        "filter": lambda v, **k: _collection_filter(v, **k),
         # Type transformations
         "str": lambda v, **k: _convert_to_str(v),
         "int": lambda v, **k: _convert_to_int(v),
@@ -297,3 +316,79 @@ def _convert_to_float(value: Any) -> float:
         raise ValueError(
             f"float transformation failed for value '{value}' of type {type(value).__name__}: {e}"
         ) from e
+
+
+def _prefix_text(value: Any, prefix: str = "", **kwargs) -> str:
+    """Add prefix to text value with type checking."""
+    if not isinstance(prefix, str):
+        raise ValueError(
+            f"prefix transformation requires string prefix, got {type(prefix).__name__}"
+        )
+    text = str(value)
+    return prefix + text
+
+
+def _collection_extract(value: Any, field: str, **kwargs) -> list:
+    """Extract field from each item in collection.
+
+    For Pandoc AST processing: extracts a specific field from each dict in a list.
+    Example: [{"t": "Str", "c": "hello"}, {"t": "Space"}] -> ["hello", None]
+    """
+    if not hasattr(value, "__iter__") or isinstance(value, (str, bytes)):
+        raise ValueError(
+            f"extract transformation requires iterable (non-string), got {type(value).__name__}"
+        )
+
+    result = []
+    for item in value:
+        if hasattr(item, "get") and callable(item.get):
+            # Dict-like object
+            result.append(item.get(field))
+        elif hasattr(item, field):
+            # Object with attribute
+            result.append(getattr(item, field))
+        else:
+            # Field not found
+            result.append(None)
+
+    return result
+
+
+def _collection_filter(value: Any, **filter_conditions) -> list:
+    """Filter collection items by field conditions.
+
+    For Pandoc AST processing: filters items where specified fields match conditions.
+    Example: filter(t="Str") keeps only items where item["t"] == "Str"
+    """
+    if not hasattr(value, "__iter__") or isinstance(value, (str, bytes)):
+        raise ValueError(
+            f"filter transformation requires iterable (non-string), got {type(value).__name__}"
+        )
+
+    if not filter_conditions:
+        raise ValueError(
+            "filter transformation requires at least one filter condition"
+        )
+
+    result = []
+    for item in value:
+        matches = True
+        for field, expected_value in filter_conditions.items():
+            if hasattr(item, "get") and callable(item.get):
+                # Dict-like object
+                actual_value = item.get(field)
+            elif hasattr(item, field):
+                # Object with attribute
+                actual_value = getattr(item, field)
+            else:
+                # Field not found
+                actual_value = None
+
+            if actual_value != expected_value:
+                matches = False
+                break
+
+        if matches:
+            result.append(item)
+
+    return result
