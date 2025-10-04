@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>Asciidoctor Demo</title>
+    <date>exercises numerous features of AsciiDoc \</date>
+    <author>
+        <firstname>Dan</firstname>
+        <surname>Allen</surname>
+        <email>thedoc@asciidoctor.org</email>
+    </author>
+    <authorinitials>DA</authorinitials>
+<revhistory><revision><date>exercises numerous features of AsciiDoc \</date><authorinitials>DA</authorinitials></revision></revhistory>
+</articleinfo>
+<literallayout class="monospaced">              to test Asciidoctor compliance.
+:library: Asciidoctor
+:idprefix:
+:numbered:
+:imagesdir: images
+:experimental:
+//:toc: macro
+:toc: preamble
+:toc-title: pass:[&lt;h3&gt;Contents&lt;/h3&gt;]
+:css-signature: demo
+//:max-width: 800px
+//:doctype: book
+//:sectids!:</literallayout>
+<simpara>And this is the preamble of this document.</simpara>
+<sidebar id="purpose">
+<title>Purpose</title>
+<simpara>mplementation.</simpara>
+</sidebar>
+<tip><simpara>If you want the HTML to have the familiar AsciiDoc Python style, load the a
+sciidoc.css stylesheet using the CLI option <literal>-a stylesheet=asciidoc.css</literal>.</simpara></tip>
+<section id="_first_steps_with_asciidoc">
+<title>First Steps with AsciiDoc</title>
+<itemizedlist><title>Inline markup</title>
+<listitem>
+<simpara>
+underlines around a phrase place <emphasis>emphasis</emphasis>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+astericks around a phrase make the text <emphasis role="strong">bold</emphasis>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+double astericks around one or more <emphasis role="strong">l</emphasis>etters in a word make those letters b
+old
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+double underscore around a <emphasis>sub</emphasis>string in a word emphasizes that substring
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+use carrots around characters to make them <superscript>super</superscript>script
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+use tildes around characters to make them <subscript>sub</subscript>script
+ifdef::basebackend-html[* to pass through <b>HTML</b> directly, surround t
+he text with triple plus]
+ifdef::basebackend-docbook[* to pass through <constant>XML</constant> dire
+ctly, surround the text with triple plus]
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>ired)</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+characters can be escaped using a \
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+for instance, you can escape a quote inside emphasized text like <emphasis>Here's John
+ny!</emphasis>
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>
+you can safely use reserved XML characters like &lt;, &gt; and &amp;, which are escaped
+when converting
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+force a space between inline elements using the {sp} attribute
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+hold text together with an intrinsic non-breaking&#160;space attribute, {nbsp
+}
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+handle words with unicode characters like in the name Gregory Romé
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+claim your copyright &#169;, registered trademark &#174; or trademark &#8482;
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+select menu:View[Zoom &gt; Reset] to reset the zoom
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>You can write text <ulink url="http://example.com">with inline links</ulink>, optionally using
+an explicit <ulink url="http://example.com">link prefix</ulink>. In either case, the link can
+have a <ulink url="http://example.com?foo=bar&amp;lang=en">query string</ulink>.</simpara>
+<simpara>If you want to break a line<?asciidoc-br?>
+just end it in a &#43; sign<?asciidoc-br?>
+and continue typing on the next line.</simpara>
+<section id="_lists_upon_lists">
+<title>Lists Upon Lists</title>
+<itemizedlist><title>Adjacent lists</title>
+<listitem>
+<simpara>
+this list
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+should join
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+to have
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+four items
+</simpara>
+</listitem>
+</itemizedlist>
+<orderedlist id="ordered" numeration="arabic"><title>Ordered lists</title>
+<listitem>
+<simpara>
+These items
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+will be auto-numbered
+</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>
+and can be nested
+</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>
+A numbered list can nest
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+unordered
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+list
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+items
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</orderedlist>
+<formalpara><title>Statement</title><para>I swear I left it in <emphasis>Guy's</emphasis> car. Let's go look for it.</para></formalpara>
+<variablelist id="defs">
+<varlistentry>
+<term>
+term
+</term>
+<listitem>
+<simpara>
+  definition
+line two
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<anchor id="another_term" xreflabel="[another_term]"/>another term
+</term>
+<listitem>
+<simpara>
+  another definition, which can be literal (indented) or regular paragraph
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>This should be a standalone paragraph, not grabbed by the definition list.</simpara>
+<itemizedlist id="nested">
+<listitem>
+<simpara>
+first level
+written on two lines
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+first level
+</simpara>
+<literallayout class="monospaced">with this literal text</literallayout>
+</listitem>
+<listitem>
+<simpara>
+first level
+</simpara>
+<literallayout class="monospaced">with more literal text</literallayout>
+<itemizedlist>
+<listitem>
+<simpara>
+second level
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+third level
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+fourth level
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>
+back to<?asciidoc-br?>
+first level
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Let&#8217;s make a horizontal rule&#8230;</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara>then take a break.</simpara>
+</section>
+</section>
+<section id="_8230_and_we_8217_re_back">
+<title>&#8230;and we&#8217;re back!</title>
+<simpara>Do you want to see a <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger</phrase></textobject>
+</inlinemediaobject>?</simpara>
+<simpara>Do you feel safer with the tiger in a box?</simpara>
+<figure><title>Tiger in a box</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>tiger.png</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Fancy some math?</simpara>
+<simpara>$$\sum_{i=1}^N (f_i)^2$$</simpara>
+<simpara>We&#8217;d like to include content, but for now the best we can do is link to it.</simpara>
+<formalpara><title>Asciidoctor usage example. The listing should contain 5 lines.</title><para>
+<screen>require 'asciidoctor'
+
+doc = Asciidoctor.load '*This* is http://asciidoc.org[AsciiDoc]!', header_footer
+: true
+
+puts doc.convert</screen>
+</para></formalpara>
+<formalpara><title>Output of Asciidoctor usage example</title><para>```html
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;meta name="generator" content="Asciidoctor 0.1.4"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;Untitled&lt;/title&gt;
+&lt;link rel="stylesheet" href="./asciidoctor.css"&gt;
+&lt;/head&gt;
+&lt;body class="article"&gt;
+&lt;div id="header"&gt;
+&lt;/div&gt;
+&lt;div id="content"&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;&lt;strong&gt;This&lt;/strong&gt; is &lt;a href="http://asciidoc.org"&gt;AsciiDoc&lt;/a&gt;!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footer"&gt;
+&lt;div id="footer-text"&gt;
+Last updated 2014-01-28 20:11:37 MST
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```</para></formalpara>
+<section id="_block_quotes_and_literal_smart_literal_ones">
+<title>Block Quotes and "<literal>Smart</literal>" Ones</title>
+<blockquote>
+<simpara>AsciiDoc is <emphasis>so</emphasis> <emphasis role="strong">powerful</emphasis>!</simpara>
+</blockquote>
+<simpara>This verse comes to mind.</simpara>
+<blockquote>
+<literallayout>La la la</literallayout>
+</blockquote>
+<simpara>Here&#8217;s another quote:</simpara>
+<blockquote>
+<attribution>
+Sir Arthur Conan Doyle
+<citetitle>The Adventures of Sherlock Holmes</citetitle>
+</attribution>
+<simpara>When you have eliminated all which is impossible, then whatever remains,
+however improbable, must be the truth.</simpara>
+</blockquote>
+<simpara>"<literal>Get moving!</literal>" he shouted.</simpara>
+</section>
+</section>
+<section id="_getting_literal_anchor_id_literally_xreflabel_literally">
+<title>Getting Literal <anchor id="literally" xreflabel="[literally]"/></title>
+<literallayout class="monospaced">Want to get literal? Just prefix a line with a space (just 1 space will do).</literallayout>
+<literallayout class="monospaced">I'll join that party, too.</literallayout>
+<simpara>We forgot to mention in <xref linkend="ordered"/> that you can change the numbering style.</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>
+first item (yeah!)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+second item, looking <literal>so mono</literal>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+third item, <literal>mono</literal> it is!
+</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section id="wrapup">
+<title>Wrap-up</title>
+<note><simpara>AsciiDoc is quite cool, you should try it!</simpara></note>
+<tip>
+<title>Info</title>
+<simpara>Go to this URL to learn more about it:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<ulink url="http://asciidoc.org">http://asciidoc.org</ulink>
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Or you could return to the <xref linkend="first-steps-with-asciidoc"/> or <link linkend="purpose">Purpose</link>.</simpara>
+</tip>
+<simpara>Here&#8217;s a reference to the definition of <xref linkend="another_term"/>, in case you forgot it.</simpara>
+<note><simpara>One more thing. Happy documenting!</simpara></note>
+<simpara><anchor id="google" xreflabel="[google]"/>When all else fails, head over to <ulink url="http://google.com">http://google.com</ulink>.</simpara>
+</section>
+</article>
