@@ -228,15 +228,20 @@ def _discover_help_topics() -> list:
 @click.pass_context
 def cli(ctx, output_format):
     """
-    A standalone CLI for the 3viz AST visualization tool.
+    3viz - Terminal AST visualizer for document trees
 
-    Examples:
-      3viz doc.json                           # Use 3viz adapter, auto-detect format
-      3viz doc.md mdast                       # Use built-in mdast adapter
-      3viz doc.xml my-adapter.yaml            # Use custom adapter file
-      3viz - mdast < input.json               # Read from stdin with mdast adapter
-      cat data.json | 3viz -                  # Read from stdin with default adapter
-      3viz get-definition mdast               # Get mdast adapter definition
+    Transform complex Abstract Syntax Trees into readable, line-based visualizations.
+    Works with Markdown, XML, JSON, Pandoc, reStructuredText and custom formats.
+
+    \b
+    Quick Start:
+      3viz document.json                      # Visualize with auto-detection
+      3viz document.md mdast                  # Use Markdown AST adapter
+      echo '{"type":"root"}' | 3viz - 3viz   # Process from stdin
+
+    \b
+    Available adapters: 3viz, mdast, unist, pandoc, restructuredtext
+    For detailed help: 3viz help getting-started
     """
     # Ensure context dict exists
     ctx.ensure_object(dict)
@@ -271,10 +276,30 @@ def render(
     ctx, document, adapter, document_format, adapter_format, output_format
 ):
     """
-    Render a document using 3viz.
+    Render a document tree using a 3viz adapter.
 
+    \b
     DOCUMENT: Path to document file or '-' for stdin
-    ADAPTER: Adapter name (3viz, mdast, unist) or path to adapter file (default: 3viz)
+    ADAPTER:  Built-in adapter (3viz, mdast, unist, pandoc, restructuredtext),
+              user-defined adapter name, or path to adapter definition file
+
+    \b
+    The adapter defines how to extract and display information from your AST format.
+    Built-in adapters handle common formats automatically. For custom formats,
+    create an adapter definition file or use user-defined adapters.
+
+    \b
+    Examples:
+      3viz document.json                      # Auto-detect format, use 3viz adapter
+      3viz document.md mdast                  # Use Markdown AST adapter
+      3viz data.xml my-custom.yaml            # Use custom adapter definition
+      3viz - mdast < input.json               # Read from stdin
+      3viz data.json --output-format json     # Output as JSON instead of visual
+      3viz doc.xml my-adapter --document-format json  # Force document parsing as JSON
+
+    \b
+    User-defined adapters are discovered from:
+      ./.3viz/, ~/.config/3viz/, ~/.3viz/
     """
     # Use command-specific output format if provided, otherwise use global setting
     if output_format is None:
@@ -309,9 +334,23 @@ def render(
 @click.pass_context
 def get_definition_cmd(ctx, format_name):
     """
-    Get a definition for the specified format.
+    Get the adapter definition for a specific format.
 
-    FORMAT_NAME: Name of the format (3viz, mdast, unist)
+    \b
+    FORMAT_NAME: Built-in adapter name (3viz, mdast, unist, pandoc, restructuredtext)
+                 or user-defined adapter name
+
+    \b
+    Shows the complete adapter definition including field mappings, icons,
+    type overrides, and other configuration. Useful for understanding how
+    an adapter works or as a starting point for creating custom adapters.
+
+    \b
+    Examples:
+      3viz get-definition mdast              # Show Markdown AST adapter
+      3viz get-definition 3viz               # Show default adapter
+      3viz get-definition my-custom          # Show user-defined adapter
+      3viz get-definition mdast --output-format json  # Output as JSON
     """
     output_format = ctx.obj["output_format"]
     get_definition(format_name, output_format)
@@ -321,12 +360,27 @@ def get_definition_cmd(ctx, format_name):
 @click.pass_context
 def list_user_defs_cmd(ctx):
     """
-    List all user configuration directories and definitions.
+    List user-defined adapter configurations and directories.
 
-    Shows discovered directories and their definition files from:
-    - ./.3viz (current directory)
-    - XDG_CONFIG_HOME/3viz or ~/.config/3viz
-    - ~/.3viz (home directory)
+    \b
+    Discovers and displays user-defined adapters from XDG-compliant locations:
+      ./.3viz/                    # Project-specific adapters
+      ~/.config/3viz/             # User configuration directory (XDG)
+      ~/.3viz/                    # Legacy user directory
+
+    \b
+    Shows which directories exist, how many adapter definitions they contain,
+    and lists all discovered user-defined adapters by name and location.
+    User adapters can be referenced by name just like built-in adapters.
+
+    \b
+    Examples:
+      3viz list-user-defs                    # Show user adapters in terminal format
+      3viz list-user-defs --output-format json  # Machine-readable output
+
+    \b
+    User adapters take precedence order: .3viz/ > ~/.config/3viz/ > ~/.3viz/
+    Built-in adapters always take precedence over user-defined ones.
     """
     output_format = ctx.obj["output_format"]
 
@@ -375,9 +429,30 @@ def list_user_defs_cmd(ctx):
 @click.pass_context
 def validate_user_defs_cmd(ctx):
     """
-    Validate all user definition files.
+    Validate user-defined adapter definition files.
 
-    Checks all discovered user definition files for syntax and structure errors.
+    \b
+    Checks all discovered user adapter definition files for:
+      • Valid JSON/YAML syntax
+      • Required adapter definition fields
+      • Proper structure and data types
+      • Icon pack references (if using icon packs)
+
+    \b
+    Reports validation results with detailed error messages for debugging.
+    Use this command to troubleshoot adapter definitions that aren't working.
+
+    \b
+    Examples:
+      3viz validate-user-defs                # Validate all user adapters
+      3viz validate-user-defs --output-format json  # Machine-readable results
+
+    \b
+    Common validation issues:
+      • Missing required fields (label, type, children)
+      • Invalid YAML/JSON syntax
+      • Incorrect field types or values
+      • Malformed icon pack references
     """
     output_format = ctx.obj["output_format"]
 
@@ -483,25 +558,57 @@ class HelpGroup(click.Group):
 
 @cli.group(cls=HelpGroup)
 def help():
-    """Shows help for specific topics.
+    """
+    Show detailed help for specific topics.
 
-    Help topics are loaded dynamically from markdown files in docs/shell-help/.
+    \b
+    Provides comprehensive documentation for 3viz features, including:
+      • Getting started guides and basic usage
+      • Adapter system and custom adapter creation
+      • Advanced extraction and transform pipelines
+      • Visual output format explanation
+      • Examples and real-world use cases
+
+    \b
+    Examples:
+      3viz help getting-started         # Basic usage and concepts
+      3viz help adapters               # Adapter system documentation
+      3viz help examples               # Practical examples and patterns
+
+    \b
+    All help content is loaded from markdown files for rich formatting.
     """
     pass
 
 
 @help.command()
 def list():
-    """List all available help topics."""
+    """
+    List all available help topics.
+
+    \b
+    Shows all discoverable help topics with brief descriptions.
+    Help topics are automatically loaded from documentation files.
+    """
     topics = _discover_help_topics()
     if topics:
         click.echo("Available help topics:")
+        click.echo()
         for topic in topics:
-            click.echo(f"  3viz help {topic}")
+            # Add brief descriptions for common topics
+            descriptions = {
+                "getting-started": "Basic usage, concepts, and quick start guide",
+                "adapters": "Complete adapter system documentation",
+                "examples": "Practical examples and common patterns",
+                "3viz-output": "Understanding the visual output format",
+            }
+            desc = descriptions.get(topic, "Detailed help topic")
+            click.echo(f"  3viz help {topic:<20} # {desc}")
+        click.echo()
+        click.echo("For detailed information: 3viz help <topic>")
     else:
         click.echo("No help topics found.")
-
-    click.echo("\nTo add new topics, create markdown files in docs/shell-help/")
+        click.echo("Help content is loaded from docs/shell-help/ directory.")
 
 
 def main():
@@ -510,6 +617,8 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] not in [
         "render",
         "get-definition",
+        "list-user-defs",
+        "validate-user-defs",
         "help",
         "--help",
         "--version",
