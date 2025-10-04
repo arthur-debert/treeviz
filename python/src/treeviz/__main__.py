@@ -13,7 +13,7 @@ from pathlib import Path
 
 import click
 
-from .definitions import Lib, AdapterDef
+from .definitions import AdapterLib, AdapterDef
 from .definitions.yaml_utils import serialize_dataclass_to_yaml
 from .formats import load_document
 from .adapters import load_adapter, convert_document
@@ -163,7 +163,7 @@ def get_definition(format_name: str, output_format: str = "text"):
         definition = AdapterDef()
     else:
         # For other formats, get from the library
-        definition = Lib.get(format_name)
+        definition = AdapterLib.get(format_name)
 
     _output_definition(definition, output_format)
 
@@ -299,7 +299,7 @@ def render(
 @cli.command("get-definition")
 @click.argument(
     "format_name",
-    type=click.Choice(["3viz"] + Lib.list_formats()),
+    type=click.Choice(["3viz"] + AdapterLib.list_formats()),
     default="3viz",
 )
 @click.pass_context

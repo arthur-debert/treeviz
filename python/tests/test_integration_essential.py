@@ -148,11 +148,11 @@ class TestEssentialIntegration:
     def test_configuration_loading_and_application(self):
         """Test configuration loading and application across components."""
         # Test that configuration can be loaded and applied
-        from treeviz.definitions import Lib
+        from treeviz.definitions import AdapterLib
 
         try:
             # Try to get a definition from the library
-            definition = Lib.get("3viz")
+            definition = AdapterLib.get("3viz")
             assert definition is not None
 
             # Apply the definition as adapter config

@@ -6,7 +6,7 @@ import sys
 from typing import Callable, Tuple, Dict, Any, Optional
 from dataclasses import asdict
 
-from ..definitions import Lib, AdapterDef
+from ..definitions import AdapterLib, AdapterDef
 from ..formats import load_document, DocumentFormatError
 
 
@@ -84,9 +84,9 @@ def _load_adapter_by_name(
             definition = AdapterDef.default()
         else:
             # Get from library
-            definition = Lib.get(adapter_name)
+            definition = AdapterLib.get(adapter_name)
     except Exception as e:
-        available_formats = ["3viz"] + Lib.list_formats()
+        available_formats = ["3viz"] + AdapterLib.list_formats()
         raise ValueError(
             f"Unknown adapter '{adapter_name}'. "
             f"Available adapters: {', '.join(available_formats)}"

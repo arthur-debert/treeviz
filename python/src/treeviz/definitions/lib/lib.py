@@ -19,7 +19,7 @@ except ImportError:
     HAS_YAML = False
 
 
-class Lib:
+class AdapterLib:
     """
     Registry for definition libraries.
 

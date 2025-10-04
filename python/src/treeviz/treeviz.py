@@ -6,7 +6,7 @@ including the polymorphic render() function and core classes.
 """
 
 from .definitions.model import AdapterDef  # noqa: F401
-from .definitions.lib.lib import Lib as AdapterLib  # noqa: F401
+from .definitions.lib.lib import AdapterLib  # noqa: F401
 from .__main__ import generate_viz
 
 

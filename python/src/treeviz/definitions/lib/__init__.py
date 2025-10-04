@@ -4,6 +4,6 @@ Core definition library files for treeviz.
 This package contains JSON definition files for popular AST formats.
 """
 
-from .lib import Lib
+from .lib import AdapterLib
 
-__all__ = ["Lib"]
+__all__ = ["AdapterLib"]

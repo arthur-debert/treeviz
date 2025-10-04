@@ -10,7 +10,7 @@ from dataclasses import asdict
 
 from treeviz.formats import parse_document, get_supported_formats
 from treeviz.adapters import adapt_node
-from treeviz.definitions import Lib
+from treeviz.definitions import AdapterLib
 
 
 def get_test_data_path(filename: str) -> str:
@@ -182,7 +182,7 @@ class TestFormatIntegration:
 
         # Use MDAST definition from library
         try:
-            mdast_def = asdict(Lib.get("mdast"))
+            mdast_def = asdict(AdapterLib.get("mdast"))
             result = adapt_node(parsed_data, mdast_def)
 
             # Verify MDAST integration works

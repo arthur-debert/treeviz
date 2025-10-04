@@ -1,7 +1,7 @@
 """
 Unit tests for definition library registry.
 
-Tests the Lib class registry functionality including loading, caching, and error handling.
+Tests the AdapterLib class registry functionality including loading, caching, and error handling.
 """
 
 import pytest
@@ -10,16 +10,16 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch, Mock
 
-from treeviz.definitions.lib.lib import Lib, HAS_YAML
+from treeviz.definitions.lib.lib import AdapterLib, HAS_YAML
 from treeviz.definitions.model import AdapterDef
 
 
 class TestLibRegister:
-    """Test Lib.register method."""
+    """Test AdapterLib.register method."""
 
     def setup_method(self):
         """Clear registry before each test."""
-        Lib.clear()
+        AdapterLib.clear()
 
     def test_register_valid_definition(self):
         """Test registering a valid definition."""
@@ -29,10 +29,10 @@ class TestLibRegister:
             "children": "children_attr",
         }
 
-        Lib.register("test_format", definition_dict)
+        AdapterLib.register("test_format", definition_dict)
 
-        assert "test_format" in Lib._registry
-        definition = Lib._registry["test_format"]
+        assert "test_format" in AdapterLib._registry
+        definition = AdapterLib._registry["test_format"]
         assert definition.label == "text"
         assert definition.type == "node_type"
         assert definition.children == "children_attr"
@@ -42,9 +42,9 @@ class TestLibRegister:
         # Only provide label, others should come from defaults
         definition_dict = {"label": "custom_label"}
 
-        Lib.register("test_format", definition_dict)
+        AdapterLib.register("test_format", definition_dict)
 
-        definition = Lib._registry["test_format"]
+        definition = AdapterLib._registry["test_format"]
         assert definition.label == "custom_label"
         # Should have default values for other fields
         assert definition.type == "type"  # Default value
@@ -57,34 +57,34 @@ class TestLibRegister:
 
         # This should raise an error during merge_with
         with pytest.raises(Exception):  # Could be KeyError, ValueError, etc.
-            Lib.register("invalid_format", invalid_definition)
+            AdapterLib.register("invalid_format", invalid_definition)
 
 
 class TestLibGet:
-    """Test Lib.get method."""
+    """Test AdapterLib.get method."""
 
     def setup_method(self):
         """Clear registry and reset loaded state before each test."""
-        Lib.clear()
+        AdapterLib.clear()
 
     def test_get_existing_format(self):
         """Test getting an existing format."""
         definition_dict = {"label": "test_label"}
-        Lib.register("test_format", definition_dict)
+        AdapterLib.register("test_format", definition_dict)
 
-        result = Lib.get("test_format")
+        result = AdapterLib.get("test_format")
 
         assert isinstance(result, AdapterDef)
         assert result.label == "test_label"
 
     def test_get_triggers_core_lib_loading(self):
         """Test that get triggers core library loading if not loaded."""
-        with patch.object(Lib, "load_core_libs") as mock_load:
+        with patch.object(AdapterLib, "load_core_libs") as mock_load:
             # Initially not loaded
-            Lib._loaded = False
+            AdapterLib._loaded = False
 
             try:
-                Lib.get("nonexistent")
+                AdapterLib.get("nonexistent")
             except KeyError:
                 pass  # Expected since format doesn't exist
 
@@ -92,12 +92,12 @@ class TestLibGet:
 
     def test_get_skips_loading_if_already_loaded(self):
         """Test that get skips loading if already loaded."""
-        with patch.object(Lib, "load_core_libs") as mock_load:
+        with patch.object(AdapterLib, "load_core_libs") as mock_load:
             # Mark as already loaded
-            Lib._loaded = True
+            AdapterLib._loaded = True
 
             try:
-                Lib.get("nonexistent")
+                AdapterLib.get("nonexistent")
             except KeyError:
                 pass  # Expected since format doesn't exist
 
@@ -106,10 +106,10 @@ class TestLibGet:
     def test_get_nonexistent_format_raises_keyerror(self):
         """Test that getting nonexistent format raises KeyError with helpful message."""
         # Register a format so we have something in available formats list
-        Lib.register("existing_format", {"label": "test"})
+        AdapterLib.register("existing_format", {"label": "test"})
 
         with pytest.raises(KeyError) as exc_info:
-            Lib.get("nonexistent_format")
+            AdapterLib.get("nonexistent_format")
 
         error_msg = str(exc_info.value)
         assert "Unknown format 'nonexistent_format'" in error_msg
@@ -119,7 +119,7 @@ class TestLibGet:
 
 
 class TestLibLoadDefinitionFile:
-    """Test Lib.load_definition_file method."""
+    """Test AdapterLib.load_definition_file method."""
 
     def test_load_json_file(self):
         """Test loading a JSON definition file."""
@@ -132,7 +132,7 @@ class TestLibLoadDefinitionFile:
             json_file = f.name
 
         try:
-            result = Lib.load_definition_file(json_file)
+            result = AdapterLib.load_definition_file(json_file)
             assert result == test_data
         finally:
             Path(json_file).unlink()
@@ -147,7 +147,7 @@ class TestLibLoadDefinitionFile:
 
         try:
             with pytest.raises(ValueError, match="Invalid JSON"):
-                Lib.load_definition_file(invalid_json_file)
+                AdapterLib.load_definition_file(invalid_json_file)
         finally:
             Path(invalid_json_file).unlink()
 
@@ -164,7 +164,7 @@ class TestLibLoadDefinitionFile:
             yaml_file = f.name
 
         try:
-            result = Lib.load_definition_file(yaml_file)
+            result = AdapterLib.load_definition_file(yaml_file)
             assert result == test_data
         finally:
             Path(yaml_file).unlink()
@@ -180,7 +180,7 @@ class TestLibLoadDefinitionFile:
         try:
             with patch("treeviz.definitions.lib.lib.HAS_YAML", False):
                 with pytest.raises(ValueError, match="YAML support requires"):
-                    Lib.load_definition_file(yaml_file)
+                    AdapterLib.load_definition_file(yaml_file)
         finally:
             Path(yaml_file).unlink()
 
@@ -195,7 +195,7 @@ class TestLibLoadDefinitionFile:
 
         try:
             with pytest.raises(ValueError, match="Invalid YAML"):
-                Lib.load_definition_file(invalid_yaml_file)
+                AdapterLib.load_definition_file(invalid_yaml_file)
         finally:
             Path(invalid_yaml_file).unlink()
 
@@ -210,7 +210,7 @@ class TestLibLoadDefinitionFile:
             unknown_file = f.name
 
         try:
-            result = Lib.load_definition_file(unknown_file)
+            result = AdapterLib.load_definition_file(unknown_file)
             assert result == test_data
         finally:
             Path(unknown_file).unlink()
@@ -227,7 +227,7 @@ class TestLibLoadDefinitionFile:
             unknown_file = f.name
 
         try:
-            result = Lib.load_definition_file(unknown_file)
+            result = AdapterLib.load_definition_file(unknown_file)
             assert result["label"] == "fallback_test"
             assert result["type"] == "yaml_fallback"
         finally:
@@ -248,46 +248,46 @@ class TestLibLoadDefinitionFile:
             with pytest.raises(
                 ValueError, match="Could not parse.*as JSON or YAML"
             ):
-                Lib.load_definition_file(invalid_file)
+                AdapterLib.load_definition_file(invalid_file)
         finally:
             Path(invalid_file).unlink()
 
     def test_load_nonexistent_file_raises_error(self):
         """Test loading nonexistent file raises ValueError."""
         with pytest.raises((ValueError, FileNotFoundError)):
-            Lib.load_definition_file("/nonexistent/path/file.json")
+            AdapterLib.load_definition_file("/nonexistent/path/file.json")
 
 
 class TestLibLoadCoreLibs:
-    """Test Lib.load_core_libs method."""
+    """Test AdapterLib.load_core_libs method."""
 
     def setup_method(self):
         """Clear registry before each test."""
-        Lib.clear()
+        AdapterLib.clear()
 
     def test_load_core_libs_skips_if_already_loaded(self):
         """Test that load_core_libs skips loading if already loaded."""
-        Lib._loaded = True
+        AdapterLib._loaded = True
 
         with patch("importlib.resources.path") as mock_path:
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
             mock_path.assert_not_called()
 
     def test_load_core_libs_with_reload_clears_registry(self):
         """Test that load_core_libs with reload=True clears registry."""
         # Add some data to registry
-        Lib._registry["existing"] = Mock()
-        Lib._loaded = True
+        AdapterLib._registry["existing"] = Mock()
+        AdapterLib._loaded = True
 
         with (
             patch("importlib.resources.path"),
             patch("importlib.resources.open_text"),
         ):
-            Lib.load_core_libs(reload=True)
+            AdapterLib.load_core_libs(reload=True)
 
             # Registry should be cleared
-            assert len(Lib._registry) == 0
-            assert Lib._loaded is True
+            assert len(AdapterLib._registry) == 0
+            assert AdapterLib._loaded is True
 
     def test_load_core_libs_resource_access_success(self):
         """Test successful resource access and file loading."""
@@ -301,16 +301,16 @@ class TestLibLoadCoreLibs:
 
         with (
             patch("importlib.resources.path") as mock_path,
-            patch.object(Lib, "load_definition_file") as mock_load_file,
+            patch.object(AdapterLib, "load_definition_file") as mock_load_file,
         ):
 
             mock_path.return_value.__enter__.return_value = mock_lib_path
             mock_load_file.return_value = {"label": "test"}
 
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
 
             mock_load_file.assert_called_once_with(Path("mdast.json"))
-            assert Lib._loaded is True
+            assert AdapterLib._loaded is True
 
     def test_load_core_libs_resource_access_fallback(self):
         """Test fallback resource access when path access fails."""
@@ -335,11 +335,11 @@ class TestLibLoadCoreLibs:
 
             mock_open.side_effect = open_text_side_effect
 
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
 
             # Should have registered mdast format
-            assert "mdast" in Lib._registry
-            assert Lib._loaded is True
+            assert "mdast" in AdapterLib._registry
+            assert AdapterLib._loaded is True
 
     def test_load_core_libs_yaml_files_without_yaml_support(self):
         """Test that YAML files are skipped when ruamel.yaml is not available."""
@@ -353,10 +353,10 @@ class TestLibLoadCoreLibs:
             # Mock open_text to fail for all files (simulating no usable files)
             mock_open.side_effect = FileNotFoundError()
 
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
 
             # Should still mark as loaded even with no files
-            assert Lib._loaded is True
+            assert AdapterLib._loaded is True
 
     def test_load_core_libs_handles_string_filenames(self):
         """Test handling of string filenames in fallback mode."""
@@ -380,10 +380,10 @@ class TestLibLoadCoreLibs:
 
             mock_open.side_effect = open_text_side_effect
 
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
 
-            assert "mdast" in Lib._registry
-            assert Lib._loaded is True
+            assert "mdast" in AdapterLib._registry
+            assert AdapterLib._loaded is True
 
     @pytest.mark.skipif(not HAS_YAML, reason="ruamel.yaml not available")
     def test_load_core_libs_handles_yaml_string_filenames(self):
@@ -408,75 +408,75 @@ class TestLibLoadCoreLibs:
 
             mock_open.side_effect = open_text_side_effect
 
-            Lib.load_core_libs()
+            AdapterLib.load_core_libs()
 
-            assert "mdast" in Lib._registry
-            assert Lib._loaded is True
+            assert "mdast" in AdapterLib._registry
+            assert AdapterLib._loaded is True
 
 
 class TestLibListFormats:
-    """Test Lib.list_formats method."""
+    """Test AdapterLib.list_formats method."""
 
     def setup_method(self):
         """Clear registry before each test."""
-        Lib.clear()
+        AdapterLib.clear()
 
     def test_list_formats_triggers_loading(self):
         """Test that list_formats triggers core library loading."""
-        with patch.object(Lib, "load_core_libs") as mock_load:
-            Lib._loaded = False
+        with patch.object(AdapterLib, "load_core_libs") as mock_load:
+            AdapterLib._loaded = False
 
-            Lib.list_formats()
+            AdapterLib.list_formats()
 
             mock_load.assert_called_once()
 
     def test_list_formats_includes_json(self):
         """Test that list_formats always includes 'json' format."""
-        formats = Lib.list_formats()
+        formats = AdapterLib.list_formats()
 
         assert "json" in formats
         assert isinstance(formats, list)
 
     def test_list_formats_includes_registered_formats(self):
         """Test that list_formats includes registered formats."""
-        Lib.register("custom_format", {"label": "test"})
+        AdapterLib.register("custom_format", {"label": "test"})
 
-        formats = Lib.list_formats()
+        formats = AdapterLib.list_formats()
 
         assert "custom_format" in formats
         assert "json" in formats
 
     def test_list_formats_sorted(self):
         """Test that list_formats returns sorted list."""
-        Lib.register("zebra_format", {"label": "test"})
-        Lib.register("alpha_format", {"label": "test"})
+        AdapterLib.register("zebra_format", {"label": "test"})
+        AdapterLib.register("alpha_format", {"label": "test"})
 
-        formats = Lib.list_formats()
+        formats = AdapterLib.list_formats()
 
         # Should be sorted
         assert formats == sorted(formats)
 
 
 class TestLibClear:
-    """Test Lib.clear method."""
+    """Test AdapterLib.clear method."""
 
     def test_clear_empties_registry(self):
         """Test that clear empties the registry."""
         # Add some data
-        Lib.register("test_format", {"label": "test"})
-        Lib._loaded = True
+        AdapterLib.register("test_format", {"label": "test"})
+        AdapterLib._loaded = True
 
-        assert len(Lib._registry) > 0
-        assert Lib._loaded is True
+        assert len(AdapterLib._registry) > 0
+        assert AdapterLib._loaded is True
 
-        Lib.clear()
+        AdapterLib.clear()
 
-        assert len(Lib._registry) == 0
-        assert Lib._loaded is False
+        assert len(AdapterLib._registry) == 0
+        assert AdapterLib._loaded is False
 
 
 class TestLibImportErrorHandling:
-    """Test import error handling in Lib module."""
+    """Test import error handling in AdapterLib module."""
 
     def test_has_yaml_false_branch(self):
         """Test the import error handling when ruamel.yaml is not available."""
@@ -510,11 +510,11 @@ class TestLibImportErrorHandling:
 
             mock_open.side_effect = open_text_side_effect
 
-            Lib.clear()  # Start fresh
-            Lib.load_core_libs()
+            AdapterLib.clear()  # Start fresh
+            AdapterLib.load_core_libs()
 
             # Should complete without errors but not register YAML files
-            assert Lib._loaded is True
+            assert AdapterLib._loaded is True
 
     def test_import_error_handling_actual(self):
         """Test the actual import error handling for ruamel.yaml."""
@@ -566,7 +566,7 @@ class TestLibEdgeCases:
 
     def setup_method(self):
         """Clear registry before each test."""
-        Lib.clear()
+        AdapterLib.clear()
 
     def test_load_definition_file_with_path_object(self):
         """Test load_definition_file accepts Path objects."""
@@ -579,7 +579,7 @@ class TestLibEdgeCases:
             json_file = Path(f.name)  # Use Path object
 
         try:
-            result = Lib.load_definition_file(json_file)
+            result = AdapterLib.load_definition_file(json_file)
             assert result == test_data
         finally:
             json_file.unlink()
@@ -587,12 +587,12 @@ class TestLibEdgeCases:
     def test_register_updates_existing_format(self):
         """Test that registering same format name updates the definition."""
         # Register initial format
-        Lib.register("test_format", {"label": "original"})
-        assert Lib._registry["test_format"].label == "original"
+        AdapterLib.register("test_format", {"label": "original"})
+        assert AdapterLib._registry["test_format"].label == "original"
 
         # Register again with different definition
-        Lib.register("test_format", {"label": "updated"})
-        assert Lib._registry["test_format"].label == "updated"
+        AdapterLib.register("test_format", {"label": "updated"})
+        assert AdapterLib._registry["test_format"].label == "updated"
 
     def test_load_core_libs_file_processing_error_handling(self):
         """Test error handling during file processing in load_core_libs."""
@@ -606,7 +606,7 @@ class TestLibEdgeCases:
         with (
             patch("importlib.resources.path") as mock_path,
             patch.object(
-                Lib,
+                AdapterLib,
                 "load_definition_file",
                 side_effect=ValueError("Parse error"),
             ),
@@ -616,13 +616,13 @@ class TestLibEdgeCases:
 
             # Should not raise error - errors should bubble up naturally but test continues
             with pytest.raises(ValueError, match="Parse error"):
-                Lib.load_core_libs()
+                AdapterLib.load_core_libs()
 
     def test_fallback_mode_unknown_file_type_skipped(self):
         """Test that unknown file types are skipped in fallback mode (simplified)."""
         # Just test that we achieve good coverage
-        Lib.clear()
-        Lib.load_core_libs()
+        AdapterLib.clear()
+        AdapterLib.load_core_libs()
 
         # Basic test that library loading works
-        assert Lib._loaded is True
+        assert AdapterLib._loaded is True

@@ -11,7 +11,7 @@ from pathlib import Path
 from dataclasses import asdict
 
 from treeviz.adapters import adapt_node
-from treeviz.definitions import Lib
+from treeviz.definitions import AdapterLib
 
 
 class TestDeclarativeAdapterIntegration:
@@ -53,7 +53,7 @@ class TestDeclarativeAdapterIntegration:
             test_data = json.load(f)
 
         # Get format definition
-        format_def = asdict(Lib.get(format_name))
+        format_def = asdict(AdapterLib.get(format_name))
 
         # Adapt the data
         result = adapt_node(test_data, format_def)
@@ -89,7 +89,7 @@ class TestDeclarativeAdapterIntegration:
         with open(test_data_path) as f:
             mdast_data = json.load(f)
 
-        mdast_def = asdict(Lib.get("mdast"))
+        mdast_def = asdict(AdapterLib.get("mdast"))
         result = adapt_node(mdast_data, mdast_def)
 
         # Find a list node and verify its structure

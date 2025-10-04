@@ -125,7 +125,7 @@ class TestAdapterLib:
 
         assert isinstance(adapters, list)
         assert "3viz" in adapters
-        # Should include built-in adapters from the Lib
+        # Should include built-in adapters from the AdapterLib
         assert any(adapter in ["mdast", "unist"] for adapter in adapters)
 
     def test_adapter_lib_get_builtin(self):
