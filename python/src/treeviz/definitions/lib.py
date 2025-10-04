@@ -9,7 +9,7 @@ import json
 import importlib.resources
 from pathlib import Path
 from typing import Dict, Union
-from ..model import AdapterDef
+from .model import AdapterDef
 
 try:
     from ruamel import yaml
@@ -136,9 +136,36 @@ class AdapterLib:
                 raise ValueError(f"Error reading {file_path}: {e}")
 
     @classmethod
+    def load_definitions_from_dir(cls, directory_path: Union[str, Path]) -> None:
+        """
+        Load all definition files from a directory.
+
+        Args:
+            directory_path: Path to directory containing definition files
+
+        Raises:
+            ValueError: If file parsing fails
+        """
+        directory_path = Path(directory_path)
+        if not directory_path.exists():
+            return
+
+        # Get all JSON and YAML files from the directory
+        patterns = ["*.json", "*.yaml", "*.yml"]
+        for pattern in patterns:
+            for file_path in directory_path.glob(pattern):
+                # Skip config files
+                if file_path.stem.lower() in ['config', '3viz']:
+                    continue
+                    
+                format_name = file_path.stem
+                definition_dict = cls.load_definition_file(file_path)
+                cls.register(format_name, definition_dict)
+
+    @classmethod
     def load_core_libs(cls, reload: bool = False) -> None:
         """
-        Load core definitions from the lib directory.
+        Load core definitions from the builtins directory.
 
         Args:
             reload: If True, reload even if already loaded
@@ -149,62 +176,39 @@ class AdapterLib:
         if reload:
             cls._registry.clear()
 
-        # Get all JSON and YAML files from the lib directory
-        lib_files = []
+        # Use importlib.resources to get the builtins directory
         try:
-            # Try to list files in the lib directory
             with importlib.resources.path(
-                "treeviz.definitions.lib", ""
-            ) as lib_path:
-                lib_files = (
-                    list(lib_path.glob("*.json"))
-                    + list(lib_path.glob("*.yaml"))
-                    + list(lib_path.glob("*.yml"))
-                )
+                "treeviz.definitions.builtins", ""
+            ) as builtins_path:
+                cls.load_definitions_from_dir(builtins_path)
         except (ImportError, FileNotFoundError):
             # Fallback: try to access files directly
-            lib_files = []
             for filename in [
                 "mdast.json",
-                "unist.json",
-                "mdast.yaml",
-                "unist.yaml",
+                "unist.json", 
+                "pandoc.yaml",
             ]:
                 try:
                     with importlib.resources.open_text(
-                        "treeviz.definitions.lib", filename
-                    ):
-                        lib_files.append(filename)
+                        "treeviz.definitions.builtins", filename
+                    ) as f:
+                        content = f.read()
+                    
+                    format_name = Path(filename).stem
+                    if filename.endswith(".json"):
+                        definition_dict = json.loads(content)
+                    elif filename.endswith((".yaml", ".yml")):
+                        if not HAS_YAML:
+                            continue
+                        yml = yaml.YAML(typ="safe", pure=True)
+                        definition_dict = yml.load(content)
+                    else:
+                        continue
+                        
+                    cls.register(format_name, definition_dict)
                 except (ImportError, FileNotFoundError):
                     continue
-
-        # Load each definition file - let decode errors and file errors bubble up
-        for file_item in lib_files:
-            if isinstance(file_item, Path):
-                filename = file_item.name
-                format_name = file_item.stem
-                definition_dict = cls.load_definition_file(file_item)
-            else:
-                # file_item is a string filename
-                filename = file_item
-                format_name = Path(filename).stem
-                # For resources, we need to read the content and parse it
-                with importlib.resources.open_text(
-                    "treeviz.definitions.lib", filename
-                ) as f:
-                    content = f.read()
-
-                if filename.endswith(".json"):
-                    definition_dict = json.loads(content)
-                elif filename.endswith((".yaml", ".yml")):
-                    if not HAS_YAML:
-                        continue  # Skip YAML files if ruamel.yaml not available
-                    yml = yaml.YAML(typ="safe", pure=True)
-                    definition_dict = yml.load(content)
-                else:
-                    continue  # Skip unknown file types
-
-            cls.register(format_name, definition_dict)
 
         cls._loaded = True
 
