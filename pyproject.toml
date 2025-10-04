@@ -119,6 +119,7 @@ omit = [
     "python/src/treeviz/main.py",
     "python/src/treeviz/cli.py",
     "python/src/treeviz/api/*",
+    "python/src/treeviz/__main__.py",
 ]
 
 [tool.coverage.report]
