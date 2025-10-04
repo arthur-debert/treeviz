@@ -10,6 +10,7 @@ import importlib.resources
 from pathlib import Path
 from typing import Dict, Union
 from .model import AdapterDef
+from .user_config import discover_user_definitions
 
 try:
     from ruamel import yaml
@@ -23,12 +24,13 @@ class AdapterLib:
     """
     Registry for definition libraries.
 
-    Manages loading and caching of format definitions from the lib directory.
-    Provides a clean interface for accessing pre-built definitions.
+    Manages loading and caching of format definitions from built-in and user directories.
+    Provides a clean interface for accessing pre-built and user-defined definitions.
     """
 
     _registry: Dict[str, AdapterDef] = {}
     _loaded = False
+    _user_loaded = False
 
     @classmethod
     def register(cls, name: str, definition_dict: Dict) -> None:
@@ -65,9 +67,8 @@ class AdapterLib:
         if format_name == "3viz":
             return AdapterDef.default()
 
-        # Ensure core libraries are loaded
-        if not cls._loaded:
-            cls.load_core_libs()
+        # Ensure all libraries are loaded
+        cls.ensure_all_loaded()
 
         if format_name not in cls._registry:
             available_formats = list(cls._registry.keys()) + ["3viz"]
@@ -136,7 +137,9 @@ class AdapterLib:
                 raise ValueError(f"Error reading {file_path}: {e}")
 
     @classmethod
-    def load_definitions_from_dir(cls, directory_path: Union[str, Path]) -> None:
+    def load_definitions_from_dir(
+        cls, directory_path: Union[str, Path]
+    ) -> None:
         """
         Load all definition files from a directory.
 
@@ -155,9 +158,9 @@ class AdapterLib:
         for pattern in patterns:
             for file_path in directory_path.glob(pattern):
                 # Skip config files
-                if file_path.stem.lower() in ['config', '3viz']:
+                if file_path.stem.lower() in ["config", "3viz"]:
                     continue
-                    
+
                 format_name = file_path.stem
                 definition_dict = cls.load_definition_file(file_path)
                 cls.register(format_name, definition_dict)
@@ -186,7 +189,7 @@ class AdapterLib:
             # Fallback: try to access files directly
             for filename in [
                 "mdast.json",
-                "unist.json", 
+                "unist.json",
                 "pandoc.yaml",
             ]:
                 try:
@@ -194,7 +197,7 @@ class AdapterLib:
                         "treeviz.definitions.builtins", filename
                     ) as f:
                         content = f.read()
-                    
+
                     format_name = Path(filename).stem
                     if filename.endswith(".json"):
                         definition_dict = json.loads(content)
@@ -205,7 +208,7 @@ class AdapterLib:
                         definition_dict = yml.load(content)
                     else:
                         continue
-                        
+
                     cls.register(format_name, definition_dict)
                 except (ImportError, FileNotFoundError):
                     continue
@@ -218,10 +221,9 @@ class AdapterLib:
         List all available format names.
 
         Returns:
-            List of available format names including 'json' and '3viz'
+            List of available format names including built-in and user-defined adapters
         """
-        if not cls._loaded:
-            cls.load_core_libs()
+        cls.ensure_all_loaded()
 
         formats = list(cls._registry.keys())
         if "json" not in formats:
@@ -231,7 +233,48 @@ class AdapterLib:
         return sorted(formats)
 
     @classmethod
+    def load_user_libs(cls, reload: bool = False) -> None:
+        """
+        Load user-defined definitions from configuration directories.
+
+        Args:
+            reload: If True, reload even if already loaded
+        """
+        if cls._user_loaded and not reload:
+            return
+
+        # Discover and load user definitions
+        discovered = discover_user_definitions()
+
+        for config_dir, files in discovered.items():
+            for file_path in files:
+                try:
+                    # Load the definition file
+                    definition_dict = cls.load_definition_file(file_path)
+                    format_name = file_path.stem
+
+                    # Only register if not already registered (built-ins have priority)
+                    if format_name not in cls._registry:
+                        cls.register(format_name, definition_dict)
+
+                except Exception:
+                    # Silently skip invalid user definitions
+                    # Users can use validate-user-defs to find issues
+                    continue
+
+        cls._user_loaded = True
+
+    @classmethod
+    def ensure_all_loaded(cls) -> None:
+        """Ensure both built-in and user libraries are loaded."""
+        if not cls._loaded:
+            cls.load_core_libs()
+        if not cls._user_loaded:
+            cls.load_user_libs()
+
+    @classmethod
     def clear(cls) -> None:
         """Clear the registry (mainly for testing)."""
         cls._registry.clear()
         cls._loaded = False
+        cls._user_loaded = False
