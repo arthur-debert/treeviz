@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Definition",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -30,7 +30,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Definition content here",
@@ -38,7 +38,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    Definition content here",
@@ -46,7 +46,7 @@
                       "icon": null,
                       "content_lines": 27,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]

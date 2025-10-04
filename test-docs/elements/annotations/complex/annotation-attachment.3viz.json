@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 4,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "First paragraph.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "First paragraph.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "First paragraph.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 16,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Second paragraph.",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Second paragraph.",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 17,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -70,7 +70,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "We will not test thtat it attaches to a list-item correctly",
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "We will not test thtat it attaches to a list-item correctly",
@@ -86,7 +86,7 @@
               "icon": null,
               "content_lines": 59,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -99,7 +99,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -110,7 +110,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -120,7 +120,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -131,7 +131,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -141,7 +141,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

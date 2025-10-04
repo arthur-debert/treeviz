@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 4,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing text content and TextLine structure",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing text content and TextLine structure",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing text content and TextLine structure",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 43,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This paragraph contains text {{paragraph}}",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This paragraph contains text {{paragraph}}",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 42,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -70,7 +70,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "The textLine structure {{paragraph.textLine}}",
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "The textLine structure {{paragraph.textLine}}",
@@ -86,7 +86,7 @@
               "icon": null,
               "content_lines": 45,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -99,7 +99,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "With formatted {{strong}} content inside {{paragraph}}",
@@ -107,7 +107,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "With ",
@@ -115,7 +115,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -124,7 +124,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "formatted {{strong}}",
@@ -132,7 +132,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -143,7 +143,7 @@
               "icon": null,
               "content_lines": 29,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

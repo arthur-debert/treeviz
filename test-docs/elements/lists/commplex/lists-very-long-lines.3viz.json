@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing very long single-line items for wrapping behavior",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing very long single-line items for wrapping behavior",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing very long single-line items for wrapping behavior",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 57,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -52,7 +52,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -62,7 +62,7 @@
               "icon": null,
               "content_lines": 339,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -73,7 +73,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -83,7 +83,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 6,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is only a preliminary tests for references , and each type should have it's own files.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is only a preliminary tests for references , and each type should have it's own files.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is only a preliminary tests for references , and each type should have it's own files.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 91,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a url reference [UrlRefTarget(type='urlRefTarget', position=None, data={}, raw_content='http://example.com', icon='↗', url='http://example.com', protocol='http')]",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a url reference ",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -79,7 +79,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a path reference [PathRefTarget(type='pathRefTarget', position=None, data={}, raw_content='./path', icon='/', path='./path')]",
@@ -87,7 +87,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a path reference ",
@@ -95,7 +95,7 @@
               "icon": null,
               "content_lines": 25,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -104,7 +104,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -117,7 +117,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a inner sesson reference [SessionRefTarget(type='sessionRefTarget', position=None, data={}, raw_content='#3', icon='§', session_id='3')]",
@@ -125,7 +125,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a inner sesson reference ",
@@ -133,7 +133,7 @@
               "icon": null,
               "content_lines": 33,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -142,7 +142,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -155,7 +155,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a footnote reference (in which a session is 0, which is the last one) , this is the 3rd footnote [FootnoteRefTarget(type='footnoteRefTarget', position=None, data={}, raw_content='3', icon='¹', number=3, has_caret=False)]",
@@ -163,7 +163,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a footnote reference (in which a session is 0, which is the last one) , this is the 3rd footnote ",
@@ -171,7 +171,7 @@
               "icon": null,
               "content_lines": 105,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -180,7 +180,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -193,7 +193,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a citation ",
@@ -201,7 +201,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a citation ",
@@ -209,7 +209,7 @@
               "icon": null,
               "content_lines": 19,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -218,7 +218,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

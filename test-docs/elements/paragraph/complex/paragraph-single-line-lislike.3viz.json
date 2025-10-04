@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Since lines can never be a single item, they should always be a pargraph. All elements in this file should be {{paragraph}}",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Since lines can never be a single item, they should always be a pargraph. All elements in this file should be {{paragraph}}",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Since lines can never be a single item, they should always be a pargraph. All elements in this file should be {{paragraph}}",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 123,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -52,7 +52,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -62,7 +62,7 @@
               "icon": null,
               "content_lines": 25,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -73,7 +73,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -83,7 +83,7 @@
               "icon": null,
               "content_lines": 25,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

@@ -2,7 +2,7 @@
 YAML utilities for treeviz definitions.
 
 This module provides utilities for serializing definitions to YAML 
-with comments extracted from dataclass field metadata using ruamel.yaml.
+with comments extracted from dataclass field extra using ruamel.yaml.
 """
 
 from typing import Dict, Any
@@ -19,7 +19,7 @@ except ImportError:
 
 def get_dataclass_field_docs(dataclass_obj: Any) -> Dict[str, str]:
     """
-    Extract field documentation from any dataclass metadata.
+    Extract field documentation from any dataclass extra.
 
     Args:
         dataclass_obj: Any dataclass instance or class

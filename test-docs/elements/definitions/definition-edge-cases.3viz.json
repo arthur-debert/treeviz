@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 5,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Definition",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -30,7 +30,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This is a definition.",
@@ -38,7 +38,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    This is a definition.",
@@ -46,7 +46,7 @@
                       "icon": null,
                       "content_lines": 25,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -63,7 +63,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -71,7 +71,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -81,7 +81,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Term can contain :: within it.",
@@ -89,7 +89,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    Term can contain :: within it.",
@@ -97,7 +97,7 @@
                       "icon": null,
                       "content_lines": 34,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -114,7 +114,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -122,7 +122,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -132,7 +132,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This definition ends when",
@@ -140,7 +140,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    This definition ends when",
@@ -148,7 +148,7 @@
                       "icon": null,
                       "content_lines": 29,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -159,7 +159,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    we return to lesser indentation.",
@@ -167,7 +167,7 @@
                       "icon": null,
                       "content_lines": 36,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -184,7 +184,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -192,7 +192,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -202,7 +202,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This is separate.",
@@ -210,7 +210,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    This is separate.",
@@ -218,7 +218,7 @@
                       "icon": null,
                       "content_lines": 21,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -235,7 +235,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Content",
@@ -243,7 +243,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "indent": 1
           },
           "children": [
@@ -253,7 +253,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    The term has inline elements.",
@@ -261,7 +261,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    The term has inline elements.",
@@ -269,7 +269,7 @@
                       "icon": null,
                       "content_lines": 33,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]

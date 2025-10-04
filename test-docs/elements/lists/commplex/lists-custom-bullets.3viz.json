@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing custom bullet markers, which should not workt, we want to ensure that the next element is one paragraph (not a list) not many paragraphs.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 145,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "➤ Arrow bullet item ",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "➤ Arrow bullet item ",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "➤ Another arrow item ",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -87,7 +87,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "* Asterisk bullet item ",
@@ -95,7 +95,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -106,7 +106,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "* Another asterisk item  {{paragraph}}",
@@ -114,7 +114,7 @@
               "icon": null,
               "content_lines": 38,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

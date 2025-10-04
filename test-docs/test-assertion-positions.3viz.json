@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 3,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This {{paragraph}} is a paragraph.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This {{paragraph}} is a paragraph.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This {{paragraph}} is a paragraph.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 34,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Paragraphs {{paragraph}} have assertions at the start.",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Paragraphs {{paragraph}} have assertions at the start.",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Paragraphs {{paragraph}} have assertions at the start.",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 58,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Lists have assertions at item start:",
@@ -86,7 +86,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Lists have assertions at item start:",
@@ -94,7 +94,7 @@
                   "icon": null,
                   "content_lines": 40,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -107,7 +107,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -118,7 +118,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -128,7 +128,7 @@
                   "icon": null,
                   "content_lines": 29,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -139,7 +139,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -149,7 +149,7 @@
                   "icon": null,
                   "content_lines": 30,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -162,7 +162,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Inline elements: {{strong}}bold, {{emphasis}}italic, {{code}}code",
@@ -170,7 +170,7 @@
               "icon": null,
               "content_lines": 6,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Inline elements: ",
@@ -178,7 +178,7 @@
                   "icon": null,
                   "content_lines": 21,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -187,7 +187,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "{{strong}}bold",
@@ -195,7 +195,7 @@
                       "icon": null,
                       "content_lines": 14,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -206,7 +206,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -215,7 +215,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "{{emphasis}}italic",
@@ -223,7 +223,7 @@
                       "icon": null,
                       "content_lines": 18,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -234,7 +234,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -243,7 +243,7 @@
                   "icon": null,
                   "content_lines": 12,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -258,7 +258,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Definition",
@@ -266,7 +266,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Content",
@@ -274,7 +274,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 5
               },
               "children": [
@@ -284,7 +284,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        The assertion goes in the term line.",
@@ -292,7 +292,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "        The assertion goes in the term line.",
@@ -300,7 +300,7 @@
                           "icon": null,
                           "content_lines": 44,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -317,7 +317,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    :: label {{annotation}} :: Value",
@@ -325,7 +325,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    :: label {{annotation}} :: Value",
@@ -333,7 +333,7 @@
                   "icon": null,
                   "content_lines": 36,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -344,7 +344,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        For annotations, current implementation expects assertion in value.",
@@ -352,7 +352,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        For annotations, current implementation expects assertion in value.",
@@ -360,7 +360,7 @@
                       "icon": null,
                       "content_lines": 75,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -375,7 +375,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Code block title",
             "label": "",
             "parameters": {},
@@ -389,7 +389,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    javascript: {{verbatim, label=\"javascript\"}}",
@@ -397,7 +397,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    javascript: {{verbatim, label=\"javascript\"}}",
@@ -405,7 +405,7 @@
                   "icon": null,
                   "content_lines": 48,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]

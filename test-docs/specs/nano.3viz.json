@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 7,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is a paragraph: {{paragraph}}This documenent is the nanos spec, showing all elemetns, but not covering their full variations.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a paragraph: {{paragraph}}",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a paragraph: {{paragraph}}",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 34,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This documenent is the nanos spec, showing all elemetns, but not covering their full variations.",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 96,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -60,7 +60,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -71,7 +71,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -81,7 +81,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -90,7 +90,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": []
@@ -103,7 +103,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "2."
           },
           "children": [
@@ -113,7 +113,7 @@
               "icon": null,
               "content_lines": 30,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -122,7 +122,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -132,7 +132,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": true,
                     "style": "ordered-numeric"
                   },
@@ -143,7 +143,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "2."
                       },
                       "children": [
@@ -153,7 +153,7 @@
                           "icon": null,
                           "content_lines": 42,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -162,7 +162,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "indent": 5
                           },
                           "children": [
@@ -172,7 +172,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        Which should have at least one item.",
@@ -180,7 +180,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "        Which should have at least one item.",
@@ -188,7 +188,7 @@
                                       "icon": null,
                                       "content_lines": 44,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -213,7 +213,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -224,7 +224,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "3."
           },
           "children": [
@@ -234,7 +234,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -243,7 +243,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -253,7 +253,7 @@
                   "icon": null,
                   "content_lines": 3,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -264,7 +264,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -274,7 +274,7 @@
                           "icon": null,
                           "content_lines": 50,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -285,7 +285,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "1."
                       },
                       "children": [
@@ -295,7 +295,7 @@
                           "icon": null,
                           "content_lines": 58,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -306,7 +306,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "2."
                       },
                       "children": [
@@ -316,7 +316,7 @@
                           "icon": null,
                           "content_lines": 60,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -325,7 +325,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "indent": 5
                           },
                           "children": [
@@ -335,7 +335,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "ordered": true,
                                 "style": "ordered-numeric"
                               },
@@ -346,7 +346,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {
+                                  "extra": {
                                     "marker": "1."
                                   },
                                   "children": [
@@ -356,7 +356,7 @@
                                       "icon": null,
                                       "content_lines": 34,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -381,7 +381,7 @@
       "icon": null,
       "content_lines": 12,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "title": "4. Verbatim",
         "label": "",
         "parameters": {},
@@ -395,7 +395,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "        A beautiful landscape:        (image: src=, alt=\"Mountain vista\") {{verbatim}}",
@@ -403,7 +403,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        A beautiful landscape:",
@@ -411,7 +411,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        A beautiful landscape:",
@@ -419,7 +419,7 @@
                   "icon": null,
                   "content_lines": 30,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -430,7 +430,7 @@
               "icon": null,
               "content_lines": 3,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        (image: src=",
@@ -438,7 +438,7 @@
                   "icon": null,
                   "content_lines": 20,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -447,7 +447,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -456,7 +456,7 @@
                   "icon": null,
                   "content_lines": 36,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -469,7 +469,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        Term :: {{definition}}",
@@ -477,7 +477,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Term :: {{definition}}",
@@ -485,7 +485,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Term :: {{definition}}",
@@ -493,7 +493,7 @@
                       "icon": null,
                       "content_lines": 30,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -504,7 +504,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "            The explanation or definition of the term goes here. It can span ",
@@ -512,7 +512,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            The explanation or definition of the term goes here. It can span ",
@@ -520,7 +520,7 @@
                           "icon": null,
                           "content_lines": 77,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -531,7 +531,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "            multiple lines and contain any txxt content.",
@@ -539,7 +539,7 @@
                           "icon": null,
                           "content_lines": 56,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -558,7 +558,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Inlines are formats whiting a body of text:  asterisks for  {{strong}} ,  underscores for  {{emphasis}} ,  backticks for  {{code}} , Math is supported:  {{math}} , citations:  or with pages  ",
@@ -566,7 +566,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Inlines are formats whiting a body of text:  asterisks for bold {{strong}} ,  underscores for italic {{emphasis}} ,  backticks for monospace {{code}} , Math is supported:  {{math}} , citations:  or with pages  ",
@@ -574,7 +574,7 @@
               "icon": null,
               "content_lines": 13,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Inlines are formats whiting a body of text:  asterisks for ",
@@ -582,7 +582,7 @@
                   "icon": null,
                   "content_lines": 63,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -591,7 +591,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "bold",
@@ -599,7 +599,7 @@
                       "icon": null,
                       "content_lines": 4,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -610,7 +610,7 @@
                   "icon": null,
                   "content_lines": 31,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -619,7 +619,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "italic",
@@ -627,7 +627,7 @@
                       "icon": null,
                       "content_lines": 6,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -638,7 +638,7 @@
                   "icon": null,
                   "content_lines": 31,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -647,7 +647,7 @@
                   "icon": null,
                   "content_lines": 9,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -656,7 +656,7 @@
                   "icon": null,
                   "content_lines": 31,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -665,7 +665,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -674,7 +674,7 @@
                   "icon": null,
                   "content_lines": 23,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -683,7 +683,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -692,7 +692,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -701,7 +701,7 @@
                   "icon": null,
                   "content_lines": 0,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 },
                 {
@@ -710,7 +710,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -725,7 +725,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -736,7 +736,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "8."
           },
           "children": [
@@ -746,7 +746,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -755,7 +755,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -765,7 +765,7 @@
                   "icon": null,
                   "content_lines": 5,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -776,7 +776,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -786,7 +786,7 @@
                           "icon": null,
                           "content_lines": 37,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -795,7 +795,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -804,7 +804,7 @@
                           "icon": null,
                           "content_lines": 14,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -815,7 +815,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -825,7 +825,7 @@
                           "icon": null,
                           "content_lines": 25,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -834,7 +834,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -843,7 +843,7 @@
                           "icon": null,
                           "content_lines": 14,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -854,7 +854,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -864,7 +864,7 @@
                           "icon": null,
                           "content_lines": 32,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -873,7 +873,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -882,7 +882,7 @@
                           "icon": null,
                           "content_lines": 14,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -893,7 +893,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -903,7 +903,7 @@
                           "icon": null,
                           "content_lines": 18,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -912,7 +912,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -921,7 +921,7 @@
                           "icon": null,
                           "content_lines": 29,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -932,7 +932,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -942,7 +942,7 @@
                           "icon": null,
                           "content_lines": 25,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -951,7 +951,7 @@
                           "icon": null,
                           "content_lines": 0,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -960,7 +960,7 @@
                           "icon": null,
                           "content_lines": 39,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]

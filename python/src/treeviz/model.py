@@ -23,7 +23,7 @@ class Node:
     - Visual hierarchy through children
     - Content preview through label
     - Type identification through type and icon
-    - Metadata extensibility
+    - Extra extensibility
     - Source location tracking
     """
 
@@ -34,7 +34,7 @@ class Node:
     source_location: Optional[Dict[str, Any]] = (
         None  # Line/column info from original source
     )
-    metadata: Dict[str, Any] = field(
+    extra: Dict[str, Any] = field(
         default_factory=dict
     )  # Extensible key-value data
     children: List["Node"] = field(default_factory=list)  # Child nodes

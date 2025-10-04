@@ -25,21 +25,21 @@ class SampleDataclass:
     children: str = field(
         metadata={"doc": "The children field"}, default="child_nodes"
     )
-    no_doc: str = "no_metadata"
+    no_doc: str = "no_extra"
 
 
 class TestGetDataclassFieldDocs:
     """Test get_dataclass_field_docs function."""
 
-    def test_get_field_docs_with_metadata(self):
-        """Test extracting field documentation from dataclass metadata."""
+    def test_get_field_docs_with_extra(self):
+        """Test extracting field documentation from dataclass extra."""
         instance = SampleDataclass(name="test", count=5)
         docs = get_dataclass_field_docs(instance)
 
         assert docs["name"] == "The name field"
         assert docs["count"] == "The count field"
         assert docs["children"] == "The children field"
-        assert "no_doc" not in docs  # No metadata
+        assert "no_doc" not in docs  # No extra
 
     def test_get_field_docs_from_class(self):
         """Test extracting field documentation from dataclass class."""
@@ -56,14 +56,14 @@ class TestGetDataclassFieldDocs:
 
         assert docs == {}
 
-    def test_get_field_docs_no_metadata(self):
-        """Test dataclass with no field metadata."""
+    def test_get_field_docs_no_extra(self):
+        """Test dataclass with no field extra."""
 
         @dataclass
-        class NoMetadata:
+        class NoExtra:
             value: str
 
-        docs = get_dataclass_field_docs(NoMetadata("test"))
+        docs = get_dataclass_field_docs(NoExtra("test"))
         assert docs == {}
 
 

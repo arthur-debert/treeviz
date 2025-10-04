@@ -65,7 +65,7 @@ Node Structure:
     - icon: Explicit Unicode symbol (optional) 
     - content_lines: Number of lines represented (default: 1)
     - source_location: Line/column info from original source (optional)
-    - metadata: Extensible key-value data (optional)
+    - extra: Extensible key-value data (optional)
     - children: Child nodes (optional)
 
 Declarative Configuration:
@@ -85,7 +85,7 @@ Advanced Features (Phase 2)
 Complex Path Expressions:
     
     # Dot notation for nested access
-    "label": "metadata.title"
+    "label": "extra.title"
     
     # Array indexing 
     "label": "children[0].name"
@@ -99,7 +99,7 @@ Conditional Extraction:
     "type_overrides": {
         "function": {
             "label": "name",
-            "metadata": {"params": "parameters", "returns": "return_type"}
+            "extra": {"params": "parameters", "returns": "return_type"}
         },
         "class": {
             "label": {"path": "class_name", "transform": "capitalize"}

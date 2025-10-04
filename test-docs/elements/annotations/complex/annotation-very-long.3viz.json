@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 7,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Namespaced annotation::: txxt.internal:id=123 :: Internal marker (annotation, label=\"txxt.internal\", value=\"Internal marker\")",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Namespaced annotation:",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Namespaced annotation:",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: txxt.internal:id=123 :: Internal marker (annotation, label=\"txxt.internal\", value=\"Internal marker\")",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 103,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -60,7 +60,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Multi-line annotation:",
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Multi-line annotation:",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -87,7 +87,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: note ::",
@@ -95,7 +95,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -106,7 +106,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    This is a longer annotation",
@@ -114,7 +114,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    This is a longer annotation",
@@ -122,7 +122,7 @@
                   "icon": null,
                   "content_lines": 31,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -133,7 +133,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    that spans multiple lines",
@@ -141,7 +141,7 @@
                   "icon": null,
                   "content_lines": 29,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -152,7 +152,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    with indented content",
@@ -160,7 +160,7 @@
                   "icon": null,
                   "content_lines": 25,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -175,7 +175,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Expected: annotation with label=\"note\", value=\"This is a longer annotationnthat spans multiple linesnwith indented content\"",
@@ -183,7 +183,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Expected: annotation with label=\"note\", value=\"This is a longer annotationnthat spans multiple linesnwith indented content\"",
@@ -191,7 +191,7 @@
               "icon": null,
               "content_lines": 123,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -204,7 +204,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Content in the session (paragraph)",
@@ -212,7 +212,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Content in the session (paragraph)",
@@ -220,7 +220,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Content in the session (paragraph)",
@@ -228,7 +228,7 @@
                   "icon": null,
                   "content_lines": 38,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -243,7 +243,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Attached annotations (paragraph)",
@@ -251,7 +251,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Attached annotations (paragraph)",
@@ -259,7 +259,7 @@
               "icon": null,
               "content_lines": 32,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -272,7 +272,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This paragraph has an annotation attached to it. (paragraph)",
@@ -280,7 +280,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This paragraph has an annotation attached to it. (paragraph)",
@@ -288,7 +288,7 @@
               "icon": null,
               "content_lines": 60,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -301,7 +301,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Document-level annotations at end:",
@@ -309,7 +309,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Document-level annotations at end:",
@@ -317,7 +317,7 @@
               "icon": null,
               "content_lines": 34,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

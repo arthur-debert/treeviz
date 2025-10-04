@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 4,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "List",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -23,7 +23,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -33,7 +33,7 @@
               "icon": null,
               "content_lines": 43,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -42,7 +42,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -52,7 +52,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "Content",
@@ -60,7 +60,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "indent": 5
                       },
                       "children": [
@@ -70,7 +70,7 @@
                           "icon": null,
                           "content_lines": 2,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        A definition uses ContentContainer to hold its content.",
@@ -78,7 +78,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        A definition uses ContentContainer to hold its content.",
@@ -86,7 +86,7 @@
                                   "icon": null,
                                   "content_lines": 63,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -97,7 +97,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        This allows for consistent structure across all indented content.",
@@ -105,7 +105,7 @@
                                   "icon": null,
                                   "content_lines": 73,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -122,7 +122,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "Content",
@@ -130,7 +130,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "indent": 5
                       },
                       "children": [
@@ -140,7 +140,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        Definitions can contain multiple block types:",
@@ -148,7 +148,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        Definitions can contain multiple block types:",
@@ -156,7 +156,7 @@
                                   "icon": null,
                                   "content_lines": 53,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -169,7 +169,7 @@
                           "icon": null,
                           "content_lines": 3,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "ordered": false,
                             "style": "unordered"
                           },
@@ -180,7 +180,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "marker": "-"
                               },
                               "children": [
@@ -190,7 +190,7 @@
                                   "icon": null,
                                   "content_lines": 31,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -201,7 +201,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "marker": "-"
                               },
                               "children": [
@@ -211,7 +211,7 @@
                                   "icon": null,
                                   "content_lines": 40,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -222,7 +222,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "marker": "-"
                               },
                               "children": [
@@ -232,7 +232,7 @@
                                   "icon": null,
                                   "content_lines": 44,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -245,7 +245,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        All wrapped in a ContentContainer.",
@@ -253,7 +253,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        All wrapped in a ContentContainer.",
@@ -261,7 +261,7 @@
                                   "icon": null,
                                   "content_lines": 42,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -284,7 +284,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -295,7 +295,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "2."
           },
           "children": [
@@ -305,7 +305,7 @@
               "icon": null,
               "content_lines": 54,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -314,7 +314,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": []
@@ -329,7 +329,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -340,7 +340,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "3."
           },
           "children": [
@@ -350,7 +350,7 @@
               "icon": null,
               "content_lines": 28,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -359,7 +359,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -369,7 +369,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "Content",
@@ -377,7 +377,7 @@
                       "icon": null,
                       "content_lines": 3,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "indent": 5
                       },
                       "children": [
@@ -387,7 +387,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        This definition contains nested structures.",
@@ -395,7 +395,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        This definition contains nested structures.",
@@ -403,7 +403,7 @@
                                   "icon": null,
                                   "content_lines": 51,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -416,7 +416,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "Content",
@@ -424,7 +424,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "indent": 9
                               },
                               "children": [
@@ -434,7 +434,7 @@
                                   "icon": null,
                                   "content_lines": 2,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": [
                                     {
                                       "label": "            Nested definitions work as expected.",
@@ -442,7 +442,7 @@
                                       "icon": null,
                                       "content_lines": 1,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": [
                                         {
                                           "label": "            Nested definitions work as expected.",
@@ -450,7 +450,7 @@
                                           "icon": null,
                                           "content_lines": 48,
                                           "source_location": null,
-                                          "metadata": {},
+                                          "extra": {},
                                           "children": []
                                         }
                                       ]
@@ -461,7 +461,7 @@
                                       "icon": null,
                                       "content_lines": 1,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": [
                                         {
                                           "label": "            Each has its own ContentContainer.",
@@ -469,7 +469,7 @@
                                           "icon": null,
                                           "content_lines": 46,
                                           "source_location": null,
-                                          "metadata": {},
+                                          "extra": {},
                                           "children": []
                                         }
                                       ]
@@ -486,7 +486,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": [
                             {
                               "label": "        Back to the outer definition content.",
@@ -494,7 +494,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {},
+                              "extra": {},
                               "children": [
                                 {
                                   "label": "        Back to the outer definition content.",
@@ -502,7 +502,7 @@
                                   "icon": null,
                                   "content_lines": 45,
                                   "source_location": null,
-                                  "metadata": {},
+                                  "extra": {},
                                   "children": []
                                 }
                               ]
@@ -525,7 +525,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Empty Definition ::",
@@ -533,7 +533,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Empty Definition ::",
@@ -541,7 +541,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Empty Definition ::",
@@ -549,7 +549,7 @@
                   "icon": null,
                   "content_lines": 23,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -562,7 +562,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Content",
@@ -570,7 +570,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 5
               },
               "children": [
@@ -580,7 +580,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Single line content.",
@@ -588,7 +588,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "        Single line content.",
@@ -596,7 +596,7 @@
                           "icon": null,
                           "content_lines": 28,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]

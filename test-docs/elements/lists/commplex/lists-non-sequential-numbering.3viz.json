@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing marker preservation with non-sequential numbering",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing marker preservation with non-sequential numbering",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing marker preservation with non-sequential numbering",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 57,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -52,7 +52,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -62,7 +62,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -73,7 +73,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "3."
           },
           "children": [
@@ -83,7 +83,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -94,7 +94,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "a)"
           },
           "children": [
@@ -104,7 +104,7 @@
               "icon": null,
               "content_lines": 11,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -115,7 +115,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -125,7 +125,7 @@
               "icon": null,
               "content_lines": 9,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

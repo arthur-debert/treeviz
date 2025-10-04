@@ -1,7 +1,7 @@
 3viz, a terminal ast vizualizer for document based ASTs.
 
 3viz is designed to simplify reasing about document tree. The 1-line per node and colunar layout makes
-scanning and grokking structure easy, while the texttual represntations, icons and metadata give 
+scanning and grokking structure easy, while the texttual represntations, icons and extra give 
 additional informattion at a glance.
 
 Being line based, it makes diffing trees useful and can be invaluable in debugging these parse trees.
@@ -47,7 +47,7 @@ Or as a library.
       icon: Optional[str] = None  # Unicode character icon
       content_lines: int = 1  # Number of lines this node represents
       source_location: Optional[Dict[str, Any]] = 
-      metadata: Dict[str, Any] :  node metatdata / attributes for display
+      extra: Dict[str, Any] :  node metatdata / attributes for display
       children: List["Node"] 
 
       Which can be passed both as objects/dicts in the library or in a json file for the cli.

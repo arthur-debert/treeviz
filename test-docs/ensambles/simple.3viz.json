@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 3,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is a simple paragraph with no verbatim blocks.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a simple paragraph with no verbatim blocks.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a simple paragraph with no verbatim blocks.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 51,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Content of section one.",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Content of section one.",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Content of section one.",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 27,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -78,7 +78,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -89,7 +89,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -99,7 +99,7 @@
                   "icon": null,
                   "content_lines": 17,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -110,7 +110,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -120,7 +120,7 @@
                   "icon": null,
                   "content_lines": 17,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -135,7 +135,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    More content here.",
@@ -143,7 +143,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    More content here.",
@@ -151,7 +151,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    More content here.",
@@ -159,7 +159,7 @@
                   "icon": null,
                   "content_lines": 22,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -172,7 +172,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "title": "Code example",
             "label": "python",
             "parameters": {},
@@ -186,7 +186,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    That's all!",
@@ -194,7 +194,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    That's all!",
@@ -202,7 +202,7 @@
                   "icon": null,
                   "content_lines": 15,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]

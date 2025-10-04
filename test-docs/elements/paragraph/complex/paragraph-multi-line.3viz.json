@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "This is a paragraph that has line breaks.We want to ensure this document has only one paragraphThis is the same paragraph {{paragraph}}",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is a paragraph that has line breaks.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is a paragraph that has line breaks.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 41,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -39,7 +39,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "We want to ensure this document has only one paragraph",
@@ -47,7 +47,7 @@
               "icon": null,
               "content_lines": 54,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -58,7 +58,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the same paragraph {{paragraph}}",
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 40,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

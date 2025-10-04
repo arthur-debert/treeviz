@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Since parameters need an element to be in, this file will contain annotation elements with parameters.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Since parameters need an element to be in, this file will contain annotation elements with parameters.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Since parameters need an element to be in, this file will contain annotation elements with parameters.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 102,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

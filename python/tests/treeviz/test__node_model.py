@@ -19,7 +19,7 @@ def test_node_creation(assert_node):
     assert node.icon is None
 
     assert node.source_location is None
-    assert node.metadata == {}
+    assert node.extra == {}
 
 
 def test_node_with_all_fields(assert_node):
@@ -32,7 +32,7 @@ def test_node_with_all_fields(assert_node):
         icon="⧉",
         content_lines=5,
         source_location={"line": 10, "column": 5},
-        metadata={"key": "value"},
+        extra={"key": "value"},
         children=[child],
     )
 
@@ -44,7 +44,7 @@ def test_node_with_all_fields(assert_node):
         .has_icon("⧉")
         .has_content_lines(5)
         .has_source_location({"line": 10, "column": 5})
-        .has_metadata({"key": "value"})
+        .has_extra({"key": "value"})
         .has_children_count(1)
     )
 
@@ -71,22 +71,22 @@ def test_node_tree_structure(assert_node):
     assert branch.children[1] == leaf2
 
 
-def test_node_metadata_extensibility(assert_node):
-    """Test that metadata can store arbitrary data."""
-    metadata = {
+def test_node_extra_extensibility(assert_node):
+    """Test that extra can store arbitrary data."""
+    extra = {
         "custom_field": "value",
         "nested": {"inner": "data"},
         "list_data": [1, 2, 3],
         "boolean": True,
     }
 
-    node = Node(label="Test", metadata=metadata)
+    node = Node(label="Test", extra=extra)
 
-    # Use fluent assertion for metadata check
-    assert_node(node).has_metadata(metadata)
+    # Use fluent assertion for extra check
+    assert_node(node).has_extra(extra)
 
-    # Test individual metadata access
-    assert node.metadata["custom_field"] == "value"
-    assert node.metadata["nested"]["inner"] == "data"
-    assert node.metadata["list_data"] == [1, 2, 3]
-    assert node.metadata["boolean"] is True
+    # Test individual extra access
+    assert node.extra["custom_field"] == "value"
+    assert node.extra["nested"]["inner"] == "data"
+    assert node.extra["list_data"] == [1, 2, 3]
+    assert node.extra["boolean"] is True

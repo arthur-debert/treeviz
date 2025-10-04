@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 1,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Deep Session {{session}}",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "    Content paragraph {{paragraph}}",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "    Content paragraph {{paragraph}}",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "    Content paragraph {{paragraph}}",
@@ -36,7 +36,7 @@
                   "icon": null,
                   "content_lines": 35,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "        Nested paragraph {{paragraph, _ancestors=}}",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "        Nested paragraph {{paragraph, _ancestors=[WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='session, session', icon='⁇')]}}",
@@ -65,7 +65,7 @@
                   "icon": null,
                   "content_lines": 3,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "        Nested paragraph {{paragraph, _ancestors=",
@@ -73,7 +73,7 @@
                       "icon": null,
                       "content_lines": 49,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     },
                     {
@@ -82,7 +82,7 @@
                       "icon": null,
                       "content_lines": 0,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     },
                     {
@@ -91,7 +91,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]

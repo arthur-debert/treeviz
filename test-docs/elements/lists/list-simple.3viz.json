@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 13,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Basic list examples (paragraph)",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Basic list examples (paragraph)",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Basic list examples (paragraph)",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 31,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Simple unordered list:",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Simple unordered list:",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -70,7 +70,7 @@
       "icon": null,
       "content_lines": 6,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -81,7 +81,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -91,7 +91,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -102,7 +102,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -112,7 +112,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -123,7 +123,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -133,7 +133,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -144,7 +144,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -154,7 +154,7 @@
               "icon": null,
               "content_lines": 31,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -165,7 +165,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "2."
           },
           "children": [
@@ -175,7 +175,7 @@
               "icon": null,
               "content_lines": 32,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -186,7 +186,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "3."
           },
           "children": [
@@ -196,7 +196,7 @@
               "icon": null,
               "content_lines": 31,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -209,7 +209,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Simple ordered list:",
@@ -217,7 +217,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Simple ordered list:",
@@ -225,7 +225,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -238,7 +238,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Alphabetic list:",
@@ -246,7 +246,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Alphabetic list:",
@@ -254,7 +254,7 @@
               "icon": null,
               "content_lines": 16,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -267,7 +267,7 @@
       "icon": null,
       "content_lines": 5,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-alpha"
       },
@@ -278,7 +278,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "a."
           },
           "children": [
@@ -288,7 +288,7 @@
               "icon": null,
               "content_lines": 28,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -299,7 +299,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "b."
           },
           "children": [
@@ -309,7 +309,7 @@
               "icon": null,
               "content_lines": 29,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -320,7 +320,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "c."
           },
           "children": [
@@ -330,7 +330,7 @@
               "icon": null,
               "content_lines": 28,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -341,7 +341,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -351,7 +351,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -360,7 +360,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -370,7 +370,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": false,
                     "style": "unordered"
                   },
@@ -381,7 +381,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -391,7 +391,7 @@
                           "icon": null,
                           "content_lines": 33,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -402,7 +402,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "-"
                       },
                       "children": [
@@ -412,7 +412,7 @@
                           "icon": null,
                           "content_lines": 33,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -429,7 +429,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -439,7 +439,7 @@
               "icon": null,
               "content_lines": 31,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -452,7 +452,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "List with nested items:",
@@ -460,7 +460,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "List with nested items:",
@@ -468,7 +468,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -481,7 +481,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Mixed depth list:",
@@ -489,7 +489,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Mixed depth list:",
@@ -497,7 +497,7 @@
               "icon": null,
               "content_lines": 17,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -510,7 +510,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": true,
         "style": "ordered-numeric"
       },
@@ -521,7 +521,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "1."
           },
           "children": [
@@ -531,7 +531,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -540,7 +540,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -550,7 +550,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "ordered": true,
                     "style": "ordered-alpha"
                   },
@@ -561,7 +561,7 @@
                       "icon": null,
                       "content_lines": 2,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "a."
                       },
                       "children": [
@@ -571,7 +571,7 @@
                           "icon": null,
                           "content_lines": 31,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         },
                         {
@@ -580,7 +580,7 @@
                           "icon": null,
                           "content_lines": 1,
                           "source_location": null,
-                          "metadata": {
+                          "extra": {
                             "indent": 5
                           },
                           "children": [
@@ -590,7 +590,7 @@
                               "icon": null,
                               "content_lines": 1,
                               "source_location": null,
-                              "metadata": {
+                              "extra": {
                                 "ordered": false,
                                 "style": "unordered"
                               },
@@ -601,7 +601,7 @@
                                   "icon": null,
                                   "content_lines": 1,
                                   "source_location": null,
-                                  "metadata": {
+                                  "extra": {
                                     "marker": "-"
                                   },
                                   "children": [
@@ -611,7 +611,7 @@
                                       "icon": null,
                                       "content_lines": 33,
                                       "source_location": null,
-                                      "metadata": {},
+                                      "extra": {},
                                       "children": []
                                     }
                                   ]
@@ -628,7 +628,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {
+                      "extra": {
                         "marker": "b."
                       },
                       "children": [
@@ -638,7 +638,7 @@
                           "icon": null,
                           "content_lines": 33,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -655,7 +655,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "2."
           },
           "children": [
@@ -665,7 +665,7 @@
               "icon": null,
               "content_lines": 25,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -678,7 +678,7 @@
       "icon": null,
       "content_lines": 2,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "List",
@@ -686,7 +686,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "ordered": false,
             "style": "unordered"
           },
@@ -697,7 +697,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -707,7 +707,7 @@
                   "icon": null,
                   "content_lines": 33,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -718,7 +718,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "marker": "-"
               },
               "children": [
@@ -728,7 +728,7 @@
                   "icon": null,
                   "content_lines": 30,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -741,7 +741,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "List",
@@ -749,7 +749,7 @@
               "icon": null,
               "content_lines": 2,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "ordered": true,
                 "style": "ordered-numeric"
               },
@@ -760,7 +760,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "1."
                   },
                   "children": [
@@ -770,7 +770,7 @@
                       "icon": null,
                       "content_lines": 47,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -781,7 +781,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {
+                  "extra": {
                     "marker": "2."
                   },
                   "children": [
@@ -791,7 +791,7 @@
                       "icon": null,
                       "content_lines": 38,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -808,7 +808,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Multi-line list items:",
@@ -816,7 +816,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Multi-line list items:",
@@ -824,7 +824,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -837,7 +837,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -848,7 +848,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -858,7 +858,7 @@
               "icon": null,
               "content_lines": 26,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -867,7 +867,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {
+              "extra": {
                 "indent": 1
               },
               "children": [
@@ -877,7 +877,7 @@
                   "icon": null,
                   "content_lines": 2,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "    that spans multiple lines",
@@ -885,7 +885,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "    that spans multiple lines",
@@ -893,7 +893,7 @@
                           "icon": null,
                           "content_lines": 29,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -904,7 +904,7 @@
                       "icon": null,
                       "content_lines": 1,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": [
                         {
                           "label": "    but is still one item (list-item)",
@@ -912,7 +912,7 @@
                           "icon": null,
                           "content_lines": 37,
                           "source_location": null,
-                          "metadata": {},
+                          "extra": {},
                           "children": []
                         }
                       ]
@@ -929,7 +929,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -939,7 +939,7 @@
               "icon": null,
               "content_lines": 33,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -950,7 +950,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -960,7 +960,7 @@
               "icon": null,
               "content_lines": 32,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -971,7 +971,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -981,7 +981,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -994,7 +994,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "List immediately after paragraph:",
@@ -1002,7 +1002,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "List immediately after paragraph:",
@@ -1010,7 +1010,7 @@
               "icon": null,
               "content_lines": 33,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Testing list items with complex inline elements",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Testing list items with complex inline elements",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Testing list items with complex inline elements",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 47,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 4,
       "source_location": null,
-      "metadata": {
+      "extra": {
         "ordered": false,
         "style": "unordered"
       },
@@ -52,7 +52,7 @@
           "icon": null,
           "content_lines": 5,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -62,7 +62,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -71,7 +71,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "emphasis",
@@ -79,7 +79,7 @@
                   "icon": null,
                   "content_lines": 8,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": []
                 }
               ]
@@ -90,7 +90,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -99,7 +99,7 @@
               "icon": null,
               "content_lines": 1,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": [
                 {
                   "label": "strong",
@@ -107,7 +107,7 @@
                   "icon": null,
                   "content_lines": 1,
                   "source_location": null,
-                  "metadata": {},
+                  "extra": {},
                   "children": [
                     {
                       "label": "strong",
@@ -115,7 +115,7 @@
                       "icon": null,
                       "content_lines": 6,
                       "source_location": null,
-                      "metadata": {},
+                      "extra": {},
                       "children": []
                     }
                   ]
@@ -128,7 +128,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -139,7 +139,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -149,7 +149,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -158,7 +158,7 @@
               "icon": null,
               "content_lines": 11,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -167,7 +167,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -178,7 +178,7 @@
           "icon": null,
           "content_lines": 4,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -188,7 +188,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -197,7 +197,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -206,7 +206,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -215,7 +215,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -226,7 +226,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {
+          "extra": {
             "marker": "-"
           },
           "children": [
@@ -236,7 +236,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

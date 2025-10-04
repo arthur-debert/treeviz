@@ -5,7 +5,6 @@ This module provides the main node adaptation functionality, converting
 source AST nodes to 3viz Node format using declarative definitions.
 """
 
-import sys
 from typing import Any, Dict, Optional
 
 from ..model import Node
@@ -42,7 +41,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     effective_icon = definition.icon
     effective_content_lines = definition.content_lines
     effective_source_location = definition.source_location
-    effective_metadata = definition.metadata
+    effective_extra = definition.extra
 
     # Apply type-specific overrides if they exist
     if node_type and node_type in definition.type_overrides:
@@ -57,7 +56,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         effective_source_location = overrides.get(
             "source_location", effective_source_location
         )
-        effective_metadata = overrides.get("metadata", effective_metadata)
+        effective_extra = overrides.get("extra", effective_extra)
 
     # Extract basic attributes using advanced extractor
     label = extract_attribute(source_node, effective_label)
@@ -72,9 +71,9 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
 
     source_location = extract_attribute(source_node, effective_source_location)
 
-    # Extract metadata using advanced extractor
-    extracted_metadata = extract_attribute(source_node, effective_metadata)
-    metadata = extracted_metadata if extracted_metadata is not None else {}
+    # Extract extra using advanced extractor
+    extracted_extra = extract_attribute(source_node, effective_extra)
+    extra = extracted_extra if extracted_extra is not None else {}
 
     # Apply icon mapping if no explicit icon
     if not icon and node_type and node_type in definition.icons:
@@ -145,7 +144,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         icon=icon,
         content_lines=content_lines,
         source_location=source_location,
-        metadata=metadata,
+        extra=extra,
         children=children,
     )
 

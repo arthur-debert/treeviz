@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 2,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Whitespace Handling",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Whitespace Handling",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Whitespace Handling",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 19,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 3,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": ":: spaced : key = value , other = \"with spaces\" :: Spaces around delimiters",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: spaced : key = value , other = \"with spaces\" :: Spaces around delimiters",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 75,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -68,7 +68,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "::padded:    key=value    :: Extra whitespace in parameters",
@@ -76,7 +76,7 @@
               "icon": null,
               "content_lines": 59,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -87,7 +87,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": ":: label:key=value trailing text :: Parameters with trailing content",
@@ -95,7 +95,7 @@
               "icon": null,
               "content_lines": 68,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]

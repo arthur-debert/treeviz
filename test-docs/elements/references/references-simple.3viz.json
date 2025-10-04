@@ -4,7 +4,7 @@
   "icon": null,
   "content_lines": 5,
   "source_location": null,
-  "metadata": {},
+  "extra": {},
   "children": [
     {
       "label": "Each paragraph has a reference by type.",
@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "Each paragraph has a reference by type.",
@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Each paragraph has a reference by type.",
@@ -28,7 +28,7 @@
               "icon": null,
               "content_lines": 39,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -41,7 +41,7 @@
       "icon": null,
       "content_lines": 11,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is the url [WhatRefTarget(type='whatRefTarget', position=None, data={}, raw_content='http:://example.com/ref', icon='⁇')] reference, and the protocol is not required.",
@@ -49,7 +49,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the url ",
@@ -57,7 +57,7 @@
               "icon": null,
               "content_lines": 16,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -66,7 +66,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -75,7 +75,7 @@
               "icon": null,
               "content_lines": 45,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -86,7 +86,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "These are citactions references: ",
@@ -94,7 +94,7 @@
               "icon": null,
               "content_lines": 33,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -105,7 +105,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Author ",
@@ -113,7 +113,7 @@
               "icon": null,
               "content_lines": 7,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -122,7 +122,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -133,7 +133,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Authors ",
@@ -141,7 +141,7 @@
               "icon": null,
               "content_lines": 8,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -150,7 +150,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -161,7 +161,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Author + Page ",
@@ -169,7 +169,7 @@
               "icon": null,
               "content_lines": 14,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -178,7 +178,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -189,7 +189,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Author + Pages ",
@@ -197,7 +197,7 @@
               "icon": null,
               "content_lines": 15,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -206,7 +206,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -217,7 +217,7 @@
           "icon": null,
           "content_lines": 2,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "Author + Page Interval ",
@@ -225,7 +225,7 @@
               "icon": null,
               "content_lines": 23,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -234,7 +234,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -245,7 +245,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the session ",
@@ -253,7 +253,7 @@
               "icon": null,
               "content_lines": 20,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -262,7 +262,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -271,7 +271,7 @@
               "icon": null,
               "content_lines": 11,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -282,7 +282,7 @@
           "icon": null,
           "content_lines": 13,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the page referenct ",
@@ -290,7 +290,7 @@
               "icon": null,
               "content_lines": 27,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -299,7 +299,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -308,7 +308,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -317,7 +317,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -326,7 +326,7 @@
               "icon": null,
               "content_lines": 18,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -335,7 +335,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -344,7 +344,7 @@
               "icon": null,
               "content_lines": 27,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -353,7 +353,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -362,7 +362,7 @@
               "icon": null,
               "content_lines": 22,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -371,7 +371,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -380,7 +380,7 @@
               "icon": null,
               "content_lines": 5,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -389,7 +389,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -398,7 +398,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -409,7 +409,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the footnote ",
@@ -417,7 +417,7 @@
               "icon": null,
               "content_lines": 21,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -426,7 +426,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -435,7 +435,7 @@
               "icon": null,
               "content_lines": 10,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -446,7 +446,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the path ",
@@ -454,7 +454,7 @@
               "icon": null,
               "content_lines": 17,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -463,7 +463,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -472,7 +472,7 @@
               "icon": null,
               "content_lines": 11,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -485,7 +485,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "This is the TK (to come)[TkRefTarget(type='tkRefTarget', position=None, data={}, raw_content='TK', icon='⋯')] reference , and it signals some content will be inserted (lowecase should be valid too)",
@@ -493,7 +493,7 @@
           "icon": null,
           "content_lines": 3,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "This is the TK (to come)",
@@ -501,7 +501,7 @@
               "icon": null,
               "content_lines": 24,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -510,7 +510,7 @@
               "icon": null,
               "content_lines": 0,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             },
             {
@@ -519,7 +519,7 @@
               "icon": null,
               "content_lines": 88,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -532,7 +532,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "The parser should make an effort to validate the reference type, but nor error or warn. To be a vlalid reference all it's needed is at least one alpha numberical character. And it should not do further validation such as validate paths or even sessions or footnotes in this same document.",
@@ -540,7 +540,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "The parser should make an effort to validate the reference type, but nor error or warn. To be a vlalid reference all it's needed is at least one alpha numberical character. And it should not do further validation such as validate paths or even sessions or footnotes in this same document.",
@@ -548,7 +548,7 @@
               "icon": null,
               "content_lines": 288,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
@@ -561,7 +561,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "metadata": {},
+      "extra": {},
       "children": [
         {
           "label": "The precedence order is as it appears in this document,  and if none match, we use a defaut \"something\" (that is it's name) reference.",
@@ -569,7 +569,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "metadata": {},
+          "extra": {},
           "children": [
             {
               "label": "The precedence order is as it appears in this document,  and if none match, we use a defaut \"something\" (that is it's name) reference.",
@@ -577,7 +577,7 @@
               "icon": null,
               "content_lines": 134,
               "source_location": null,
-              "metadata": {},
+              "extra": {},
               "children": []
             }
           ]
