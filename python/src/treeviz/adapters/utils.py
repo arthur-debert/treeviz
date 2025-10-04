@@ -112,3 +112,22 @@ def _load_adapter_from_file(
         raise ValueError(
             f"Invalid adapter definition in '{file_path}': {str(e)}"
         ) from e
+
+
+def convert_document(document: Any, adapter_def: Dict[str, Any]) -> Any:
+    """
+    Convert a document to 3viz Node format using adapter definition.
+
+    Args:
+        document: The parsed document (usually dict or list)
+        adapter_def: Adapter definition dictionary
+
+    Returns:
+        3viz Node object
+
+    Raises:
+        Standard Python exceptions from adapt_node (TypeError, KeyError, ValueError, etc.)
+    """
+    from .core import adapt_node
+
+    return adapt_node(document, adapter_def)
