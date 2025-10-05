@@ -30,6 +30,7 @@ def generate_viz(
     document_format: Optional[str] = None,
     adapter_format: Optional[str] = None,
     output_format: str = "term",
+    terminal_width: Optional[int] = None,
 ) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
@@ -43,6 +44,7 @@ def generate_viz(
         document_format: Override document format detection (default: auto-detect)
         adapter_format: Override adapter format detection (default: auto-detect)
         output_format: Output format - json/yaml/text/term/obj (default: "term")
+        terminal_width: Terminal width for text/term output (default: 80)
 
     Returns:
         String output in the specified format, or Node object if output_format="obj"
@@ -90,14 +92,8 @@ def generate_viz(
         if node is None:
             return ""  # Empty output for ignored nodes
 
-        # Determine terminal width for formatting
-        if output_format == "term":
-            # Auto-detect terminal width
-            terminal_width = (
-                os.get_terminal_size().columns if sys.stdout.isatty() else 80
-            )
-        else:
-            # Use standard width for text output (non-interactive)
+        # Use provided terminal width or default
+        if terminal_width is None:
             terminal_width = 80
 
         # Create options for the template renderer
@@ -249,11 +245,17 @@ def cli(ctx, output_format):
     # Ensure context dict exists
     ctx.ensure_object(dict)
 
-    # Auto-detect format if not specified
+    # Auto-detect format and terminal width if not specified
+    is_tty = sys.stdout.isatty()
     if output_format is None:
-        output_format = "term" if sys.stdout.isatty() else "text"
+        output_format = "term" if is_tty else "text"
+
+    # Determine terminal width once
+    terminal_width = os.get_terminal_size().columns if is_tty else 80
 
     ctx.obj["output_format"] = output_format
+    ctx.obj["terminal_width"] = terminal_width
+    ctx.obj["is_tty"] = is_tty
 
 
 @cli.command()
@@ -315,6 +317,7 @@ def render(
             document_format=document_format,
             adapter_format=adapter_format,
             output_format=output_format,
+            terminal_width=ctx.obj.get("terminal_width", 80),
         )
 
         # Output result to stdout
