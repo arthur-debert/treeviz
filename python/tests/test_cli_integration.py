@@ -21,6 +21,7 @@ class TestCLIIntegration:
         """Get the test data directory path."""
         return Path(__file__).parent / "test_data"
 
+    @pytest.mark.slow
     def test_cli_with_real_mdast_json_output(self, test_data_dir):
         """Test CLI with real MDAST file, JSON output."""
         mdast_file = test_data_dir / "mdast" / "simple_document.json"
@@ -65,6 +66,7 @@ class TestCLIIntegration:
         )
         assert text_child["label"] == "Simple Document"
 
+    @pytest.mark.slow
     def test_cli_with_real_mdast_term_output(self, test_data_dir):
         """Test CLI with real MDAST file, terminal output."""
         mdast_file = test_data_dir / "mdast" / "real_world_example.json"
@@ -98,6 +100,7 @@ class TestCLIIntegration:
         assert "Getting Started with 3viz" in output
         assert "Features" in output
 
+    @pytest.mark.slow
     def test_cli_with_3viz_format_default(self, test_data_dir):
         """Test CLI with 3viz format file using default adapter."""
         viz_file = test_data_dir / "3viz_simple.json"
@@ -127,6 +130,7 @@ class TestCLIIntegration:
         assert "?" in output  # fallback icon for unknown types
         assert "main.py" in output
 
+    @pytest.mark.slow
     def test_cli_with_code_heavy_mdast(self, test_data_dir):
         """Test CLI with code-heavy MDAST example."""
         mdast_file = test_data_dir / "mdast" / "code_heavy_example.json"
@@ -158,6 +162,7 @@ class TestCLIIntegration:
         assert "JavaScript Example" in output
         assert "𝒱" in output  # code block icon
 
+    @pytest.mark.slow
     def test_cli_with_stdin_input(self, test_data_dir):
         """Test CLI with stdin input."""
         mdast_file = test_data_dir / "mdast" / "simple_document.json"
@@ -191,6 +196,7 @@ class TestCLIIntegration:
         output_data = json.loads(result.stdout)
         assert output_data["type"] == "root"
 
+    @pytest.mark.slow
     def test_cli_yaml_output_format(self, test_data_dir):
         """Test CLI with YAML output format."""
         viz_file = test_data_dir / "3viz_simple.json"
@@ -220,6 +226,7 @@ class TestCLIIntegration:
         assert "type: directory" in output
         assert "children:" in output
 
+    @pytest.mark.slow
     def test_cli_document_format_override(self, test_data_dir):
         """Test CLI with document format override."""
         # Create a .data file with JSON content
@@ -258,6 +265,7 @@ class TestCLIIntegration:
         output_data = json.loads(result.stdout)
         assert output_data["type"] == "root"
 
+    @pytest.mark.slow
     def test_cli_error_handling_missing_file(self):
         """Test CLI error handling for missing file."""
         result = subprocess.run(
@@ -270,6 +278,7 @@ class TestCLIIntegration:
         assert result.returncode != 0
         assert "Error:" in result.stderr or "Error:" in result.stdout
 
+    @pytest.mark.slow
     def test_cli_error_handling_invalid_adapter(self, test_data_dir):
         """Test CLI error handling for invalid adapter."""
         viz_file = test_data_dir / "3viz_simple.json"
@@ -284,6 +293,7 @@ class TestCLIIntegration:
         assert result.returncode != 0
         assert "Error:" in result.stderr or "Error:" in result.stdout
 
+    @pytest.mark.slow
     def test_cli_help_command(self):
         """Test CLI help command works."""
         result = subprocess.run(
@@ -302,6 +312,7 @@ class TestCLIIntegration:
             "usage" in result.stdout.lower() or "help" in result.stdout.lower()
         )
 
+    @pytest.mark.slow
     def test_cli_theme_override(self, test_data_dir):
         """Test CLI with --theme option."""
         # Use an existing test file
@@ -315,8 +326,10 @@ class TestCLIIntegration:
                 "treeviz",
                 str(mdast_file),
                 "mdast",
-                "--output-format", "term",
-                "--theme", "dark",
+                "--output-format",
+                "term",
+                "--theme",
+                "dark",
             ],
             capture_output=True,
             text=True,
@@ -335,8 +348,10 @@ class TestCLIIntegration:
                 "treeviz",
                 str(mdast_file),
                 "mdast",
-                "--output-format", "term",
-                "--theme", "light",
+                "--output-format",
+                "term",
+                "--theme",
+                "light",
             ],
             capture_output=True,
             text=True,
@@ -346,7 +361,7 @@ class TestCLIIntegration:
         assert result_light.returncode == 0
         # Should have ANSI codes
         assert "\x1b[" in result_light.stdout
-        
+
         # The outputs should be different due to different color themes
         assert result_dark.stdout != result_light.stdout
 
@@ -359,6 +374,7 @@ class TestCLICornerCases:
         """Get the test data directory path."""
         return Path(__file__).parent / "test_data"
 
+    @pytest.mark.slow
     def test_cli_with_empty_mdast_children(self, test_data_dir):
         """Test CLI handles MDAST with empty children arrays."""
         empty_mdast = {

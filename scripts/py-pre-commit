@@ -347,7 +347,7 @@ run_phase_ii() {
 
 	# Run tests first (most important check)
 	log_info "Running test suite..."
-	if ! poetry run pytest python/tests/; then
+	if ! poetry run pytest -m '' python/tests/; then
 		log_error "Test suite failed"
 		phase_ii_status=$EXIT_FAILURE
 	else
