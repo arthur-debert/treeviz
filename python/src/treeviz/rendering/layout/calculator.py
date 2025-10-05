@@ -153,14 +153,25 @@ def calculate_line_layout(
     """
     columns = []
 
-    # Fixed left: indent + icon
-    if indent or icon:
+    # Fixed left: indent (no separator)
+    if indent:
         columns.append(
             ColumnSpec(
-                content=f"{indent}{icon}",
+                content=indent,
+                align=ColumnAlign.LEFT,
+                style=None,  # No style for indent
+                separator="",  # No separator after indent
+            )
+        )
+
+    # Fixed left: icon
+    if icon:
+        columns.append(
+            ColumnSpec(
+                content=icon,
                 align=ColumnAlign.LEFT,
                 style="icon",
-                separator=" " if icon else "",
+                separator=" ",  # Always one space after icon
             )
         )
 
