@@ -9,6 +9,7 @@ correct style based on the current terminal theme.
 from typing import Dict, Any, Optional
 from rich.theme import Theme as RichTheme
 from .detector import detect_terminal_mode
+from .loader import load_theme, validate_theme
 
 
 class StyleProxy:
@@ -118,7 +119,18 @@ DEFAULT_THEME_CONFIG = {
 
 
 # Initialize the global theme proxy
-theme = ThemeProxy(DEFAULT_THEME_CONFIG)
+_theme_config = DEFAULT_THEME_CONFIG
+
+# Try to load default theme from YAML
+try:
+    loaded_config = load_theme("default")
+    if validate_theme(loaded_config):
+        _theme_config = loaded_config
+except Exception:
+    # Fall back to hardcoded theme if loading fails
+    pass
+
+theme = ThemeProxy(_theme_config)
 
 # Set initial mode based on terminal detection
 set_theme_mode()
@@ -140,3 +152,32 @@ def get_console(force_terminal: bool = False):
         )
 
     return _console_cache[cache_key]
+
+
+def set_theme(theme_name: str):
+    """
+    Load and set a theme by name.
+
+    Args:
+        theme_name: Name of the theme to load
+
+    Raises:
+        ValueError: If theme not found or invalid
+    """
+    global theme, _console_cache
+
+    theme_config = load_theme(theme_name)
+    validate_theme(theme_config)
+
+    # Create new theme proxy
+    theme = ThemeProxy(theme_config)
+
+    # Clear console cache to force recreation with new theme
+    _console_cache.clear()
+
+
+def list_available_themes():
+    """List all available theme names."""
+    from .loader import list_themes
+
+    return list_themes()
