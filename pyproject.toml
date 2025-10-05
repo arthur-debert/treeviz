@@ -97,13 +97,14 @@ exclude = '''
 ### pytest
 ###############################################################################
 [tool.pytest.ini_options]
-addopts = "-v -rN -q"
+addopts = "-v -rN -q -m 'not slow'"
 testpaths = ["python/tests", "python/src"]
 pythonpath = ["python/src"]
 python_files = ["test_*.py"]
 python_functions = ["test_", "it_", "and_", "but_", "they_"]
 markers = [
     "session_refactor_skip: tests that will obviously break during session refactoring",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
 
 
