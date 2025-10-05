@@ -5,10 +5,13 @@ This package provides template-based rendering with theme support
 for tree visualization.
 """
 
+from typing import Optional, Dict, Any
+
 from .engines.template import TemplateRenderer
 from .engines.base import BaseRenderer
-from typing import Optional, Dict, Any
 from ..model import Node
+from ..const import ICONS as DEFAULT_SYMBOLS
+from .options import RenderingOptions, ViewOptions, OutputOptions, StyleLoader
 
 
 # For backward compatibility with the old API
@@ -57,9 +60,6 @@ def create_render_options(
     return options
 
 
-# Re-export from const for compatibility
-from ..const import ICONS as DEFAULT_SYMBOLS
-
 # Simple type for compatibility
 RenderOptions = Dict[str, Any]
 
@@ -71,4 +71,8 @@ __all__ = [
     "create_render_options",
     "DEFAULT_SYMBOLS",
     "RenderOptions",
+    "RenderingOptions",
+    "ViewOptions",
+    "OutputOptions",
+    "StyleLoader",
 ]

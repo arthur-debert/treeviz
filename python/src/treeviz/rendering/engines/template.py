@@ -5,7 +5,10 @@ This renderer uses templates to generate tree output with optional
 Rich formatting for colored terminal output.
 """
 
-from typing import Dict, Optional, Any, Tuple
+from typing import Dict, Optional, Any, Tuple, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..options import RenderingOptions
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -13,7 +16,7 @@ from rich.text import Text
 
 from .base import BaseRenderer
 from ...model import Node
-from ..themes import set_theme_mode, get_console
+from ..themes import set_theme_mode, get_console, set_theme
 from ..layout.calculator import (
     calculate_line_layout,
     calculate_line_layout_with_positions,
@@ -51,41 +54,64 @@ class TemplateRenderer(BaseRenderer):
         # Theme is now accessed globally
 
     def render(
-        self, node: Node, options: Optional[Dict[str, Any]] = None
+        self,
+        node: Node,
+        options: Optional[Union[Dict[str, Any], "RenderingOptions"]] = None,
     ) -> str:
         """
         Render a Node tree using templates.
 
         Args:
             node: Root node to render
-            options: Rendering options including:
-                - symbols: Dict of node type to icon mappings
-                - terminal_width: Width of terminal (default 80)
-                - format: Output format ('term' or 'text')
-                - theme: Theme name or 'dark'/'light'
+            options: Rendering options - either Dict or RenderingOptions object
 
         Returns:
             Formatted string representation of the tree
         """
+        from ..options import RenderingOptions
+
+        # Convert to RenderingOptions if needed
         if options is None:
-            options = {}
+            rendering_opts = RenderingOptions()
+        elif isinstance(options, RenderingOptions):
+            rendering_opts = options
+        else:
+            # Legacy dict-based options
+            rendering_opts = self._convert_legacy_options(options)
 
-        # Extract options
-        symbols = options.get("symbols", {})
-        terminal_width = options.get("terminal_width", 80)
-        output_format = options.get("format", "term")
-        theme_override = options.get("theme")
+        # Apply theme
+        if isinstance(rendering_opts.theme, str):
+            if rendering_opts.theme in ("dark", "light"):
+                set_theme_mode(rendering_opts.theme)
+            else:
+                try:
+                    set_theme(rendering_opts.theme)
+                except Exception:
+                    # Fall back to default if theme not found
+                    pass
 
-        # Override theme mode if specified
-        if theme_override and theme_override in ("dark", "light"):
-            set_theme_mode(theme_override)
+        # Extract view options
+        view_opts = rendering_opts.view
+        terminal_width = view_opts.max_width
 
-        # Determine if we should use color
-        use_color = output_format == "term"
+        # Determine color usage
+        if view_opts.color_output == "auto":
+            use_color = rendering_opts.output.format == "tree"
+        elif view_opts.color_output == "always":
+            use_color = True
+        else:
+            use_color = False
 
-        # Create render options object for template
+        # Create legacy render options for template compatibility
         from .. import create_render_options
+        from ...const import ICONS
 
+        # TODO: In Phase 5, icons will come from style, not adapter
+        symbols = (
+            options.get("symbols", ICONS)
+            if isinstance(options, dict)
+            else ICONS
+        )
         render_options = create_render_options(symbols, terminal_width)
 
         # Get the template
@@ -97,12 +123,41 @@ class TemplateRenderer(BaseRenderer):
             render_options=render_options,
             terminal_width=terminal_width,
             use_color=use_color,
+            view_options=view_opts,  # Pass view options to template
         )
         return result.rstrip()
 
     def supports_format(self, format: str) -> bool:
         """Template renderer supports text and term formats."""
         return format in ("text", "term")
+
+    def _convert_legacy_options(
+        self, options: Dict[str, Any]
+    ) -> "RenderingOptions":
+        """Convert legacy dict-based options to RenderingOptions."""
+        from ..options import RenderingOptions, ViewOptions, OutputOptions
+
+        # Extract legacy options
+        terminal_width = options.get("terminal_width", 80)
+        output_format = options.get("format", "term")
+        theme_override = options.get("theme", "default")
+
+        # Create view options
+        view_opts = ViewOptions(
+            max_width=terminal_width,
+            color_output="always" if output_format == "term" else "never",
+        )
+
+        # Create output options
+        output_opts = OutputOptions(
+            format=(
+                "tree" if output_format in ("term", "text") else output_format
+            )
+        )
+
+        return RenderingOptions(
+            theme=theme_override, view=view_opts, output=output_opts
+        )
 
     def _apply_rich_markup(
         self,

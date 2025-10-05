@@ -1,0 +1,20 @@
+# Compact style for dense output
+# Minimizes visual noise and maximizes information density
+version: "1.0"
+
+theme: minimal  # Use minimal theme for reduced colors
+
+view:
+  max_width: 80               # Narrower for terminal splits
+  show_line_numbers: false    # Hide line counts for compactness
+  show_types: false           # Hide type information
+  show_extras: false          # Hide extra metadata
+  show_positions: false       # No source positions
+  compact_mode: true          # Enable compact spacing
+  indent_size: 1              # Minimal indentation
+  tree_guides: false          # No tree guides
+  color_output: never         # No colors for maximum density
+
+output:
+  format: tree
+  syntax_highlight: false
