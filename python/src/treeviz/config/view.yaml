@@ -1,0 +1,33 @@
+# Default view configuration for 3viz
+# Controls visual rendering options and output appearance
+
+# Maximum output width
+# -1 means use terminal width
+max_width: 120
+
+# Show content line count (e.g., "3L") 
+show_line_count: true
+
+# When to show node types
+# Options: "never", "always", "missing" (only if no icon)
+show_types: "always"
+
+# Show extra metadata for nodes
+show_extras: true
+
+# Show source position information (line/column)
+# Note: Not implemented yet
+show_positions: false
+
+# Handle repetitive content
+# Options:
+# - "off": Show all content (default)
+# - "hide": Hide identical inner lines
+# - "ditto": Show ditto mark for repeated labels
+compact_mode: "off"
+
+# Show tree guide lines for structure visualization
+show_tree_guides: true
+
+# Indentation size for nested nodes
+indent_size: 2

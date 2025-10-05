@@ -232,6 +232,24 @@ class ConfigManager:
             items = self._load_from_directory(search_dir, spec)
             all_items.extend(items)
 
+        # Convert to dataclass if specified
+        if spec.dataclass and all_items:
+            converted_items = []
+            for item in all_items:
+                try:
+                    if hasattr(spec.dataclass, "from_dict"):
+                        converted = spec.dataclass.from_dict(item)
+                    else:
+                        converted = spec.dataclass(**item)
+                    converted_items.append(converted)
+                except Exception as e:
+                    raise ConfigError(
+                        message=f"Failed to create {spec.dataclass.__name__}",
+                        spec_name=spec.name,
+                        cause=e,
+                    )
+            all_items = converted_items
+
         # Apply callback if provided
         if spec.callback and all_items:
             spec.callback(all_items)

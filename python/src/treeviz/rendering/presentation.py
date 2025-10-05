@@ -11,6 +11,7 @@ from typing import Dict, Any, Union, Optional
 from pathlib import Path
 from ruamel.yaml import YAML
 from ..const import ICONS
+from .theme import Theme
 
 
 class ShowTypes(enum.StrEnum):
@@ -82,7 +83,8 @@ class ViewOptions:
 class Presentation:
     """Complete presentation configuration for treeviz visualization."""
 
-    theme: str = "default"  # Theme name to be resolved
+    theme_name: str = "default"  # Theme name to be resolved later
+    theme: Optional[Theme] = None  # Loaded theme object
     icon_pack: str = "treeviz"  # Icon pack name to be resolved
     icons: Dict[str, str] = field(
         default_factory=lambda: ICONS.copy()
@@ -106,7 +108,8 @@ class Presentation:
 
         # Create main options
         return cls(
-            theme=config.get("theme", "default"),
+            theme_name=config.get("theme", "default"),
+            theme=None,  # Will be loaded separately
             icon_pack=config.get("icon_pack", "treeviz"),
             icons=icons,
             view=view,
@@ -134,8 +137,18 @@ class Presentation:
         3. Project options
         4. Command-line options
         """
-        # Merge theme (other takes precedence if not default)
-        theme = other.theme if other.theme != "default" else self.theme
+        # Merge theme name (other takes precedence if not default)
+        theme_name = (
+            other.theme_name
+            if other.theme_name != "default"
+            else self.theme_name
+        )
+
+        # Merge theme objects if both exist
+        if self.theme and other.theme:
+            theme = self.theme.merge(other.theme)
+        else:
+            theme = other.theme or self.theme
 
         # Merge icon pack
         icon_pack = (
@@ -150,6 +163,7 @@ class Presentation:
         view = self.view.merge(other.view)
 
         return Presentation(
+            theme_name=theme_name,
             theme=theme,
             icon_pack=icon_pack,
             icons=icons,
@@ -165,12 +179,21 @@ class Presentation:
         if isinstance(view_dict.get("compact_mode"), CompactMode):
             view_dict["compact_mode"] = view_dict["compact_mode"].value
 
-        return {
-            "theme": self.theme,
+        result = {
+            "theme": self.theme_name,
             "icon_pack": self.icon_pack,
             "icons": self.icons,
             "view": view_dict,
         }
+
+        # Include theme data if loaded
+        if self.theme:
+            result["theme_data"] = {
+                "name": self.theme.name,
+                "styles": self.theme.styles,
+            }
+
+        return result
 
 
 class PresentationLoader:
