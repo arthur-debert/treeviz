@@ -31,6 +31,7 @@ def generate_viz(
     adapter_format: Optional[str] = None,
     output_format: str = "term",
     terminal_width: Optional[int] = None,
+    theme: Optional[str] = None,
 ) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
@@ -45,6 +46,7 @@ def generate_viz(
         adapter_format: Override adapter format detection (default: auto-detect)
         output_format: Output format - json/yaml/text/term/obj (default: "term")
         terminal_width: Terminal width for text/term output (default: 80)
+        theme: Theme override - 'dark' or 'light' (default: auto-detect)
 
     Returns:
         String output in the specified format, or Node object if output_format="obj"
@@ -103,6 +105,10 @@ def generate_viz(
             "terminal_width": terminal_width,
             "format": output_format,
         }
+        
+        # Add theme if specified
+        if theme:
+            options["theme"] = theme
 
         return renderer.render(node, options)
 
@@ -276,9 +282,14 @@ def cli(ctx, output_format):
     type=click.Choice(["text", "json", "yaml", "term"]),
     help="Output format (overrides global setting)",
 )
+@click.option(
+    "--theme",
+    type=click.Choice(["dark", "light"]),
+    help="Color theme for terminal output (overrides auto-detection)",
+)
 @click.pass_context
 def render(
-    ctx, document, adapter, document_format, adapter_format, output_format
+    ctx, document, adapter, document_format, adapter_format, output_format, theme
 ):
     """
     Render a document tree using a 3viz adapter.
@@ -318,6 +329,7 @@ def render(
             adapter_format=adapter_format,
             output_format=output_format,
             terminal_width=ctx.obj.get("terminal_width", 80),
+            theme=theme,
         )
 
         # Output result to stdout
