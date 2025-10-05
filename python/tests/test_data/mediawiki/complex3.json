@@ -1,0 +1,103 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Heading",
+      "level": 1,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Page with a Template "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\nThis page includes a template:\n\n"
+    },
+    {
+      "type": "Template",
+      "name": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "Infobox\n"
+          }
+        ]
+      },
+      "params": [
+        {
+          "type": "Parameter",
+          "name": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " name "
+              }
+            ]
+          },
+          "value": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " Example Template\n"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Parameter",
+          "name": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " data "
+              }
+            ]
+          },
+          "value": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " Some value\n"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Parameter",
+          "name": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " status "
+              }
+            ]
+          },
+          "value": {
+            "type": "Wikicode",
+            "nodes": [
+              {
+                "type": "Text",
+                "value": " testing\n"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "value": "\n\nSome text after the template."
+    }
+  ]
+}

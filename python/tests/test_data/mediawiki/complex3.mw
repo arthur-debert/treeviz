@@ -1,0 +1,11 @@
+= Page with a Template =
+
+This page includes a template:
+
+{{Infobox
+| name = Example Template
+| data = Some value
+| status = testing
+}}
+
+Some text after the template.

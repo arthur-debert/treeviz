@@ -1,0 +1,22 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Heading",
+      "level": 1,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Level 1 Heading "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\nThis is a simple paragraph."
+    }
+  ]
+}

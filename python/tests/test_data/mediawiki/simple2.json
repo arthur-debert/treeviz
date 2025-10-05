@@ -1,0 +1,85 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Heading",
+      "level": 2,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Level 2 Heading "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Item 1\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Item 2\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Item 3"
+    }
+  ]
+}

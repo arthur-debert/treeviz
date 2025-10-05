@@ -1,0 +1,192 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Heading",
+      "level": 1,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Main Heading "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\nThis is a paragraph with "
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "b"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "bold text"
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " and "
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "i"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "italic text"
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": ".\n\n"
+    },
+    {
+      "type": "Heading",
+      "level": 2,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Sub-heading "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " A numbered list\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " With an "
+    },
+    {
+      "type": "Wikilink",
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "internal link"
+          }
+        ]
+      },
+      "text": null
+    },
+    {
+      "type": "Text",
+      "value": "\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " And an "
+    },
+    {
+      "type": "ExternalLink",
+      "url": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "https://www.example.com"
+          }
+        ]
+      },
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "external link"
+          }
+        ]
+      }
+    }
+  ]
+}

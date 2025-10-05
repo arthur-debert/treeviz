@@ -1,0 +1,465 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Heading",
+      "level": 1,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Comprehensive Example "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\nThis page demonstrates a variety of MediaWiki features.\n\n"
+    },
+    {
+      "type": "Heading",
+      "level": 2,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Nested Lists "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Level 1, Item 1\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Level 2, Item 1\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Level 3, Item 1\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Level 2, Item 2\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Level 1, Item 2\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Numbered item within a bulleted list\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "li"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " Another numbered item\n\n"
+    },
+    {
+      "type": "Heading",
+      "level": 2,
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": " Mixed Formatting "
+          }
+        ]
+      }
+    },
+    {
+      "type": "Text",
+      "value": "\n\nA line with "
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "i"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Tag",
+            "tag": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "b"
+                }
+              ]
+            },
+            "contents": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "bold and italic"
+                }
+              ]
+            },
+            "attributes": []
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " text, as well as a "
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "s"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "strikethrough"
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": " and "
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "u"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "underline"
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": ".\n\nThere is also a horizontal rule below this line.\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "hr"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": []
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": "\n\nAnd a preformatted block:\n"
+    },
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "pre"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "\n  This text is preformatted.\n  It preserves spaces and line breaks.\n"
+          }
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "type": "Text",
+      "value": "\n\nFinally, a link to a "
+    },
+    {
+      "type": "Wikilink",
+      "title": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "Category:Examples"
+          }
+        ]
+      },
+      "text": null
+    },
+    {
+      "type": "Text",
+      "value": "."
+    }
+  ]
+}

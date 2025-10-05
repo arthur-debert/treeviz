@@ -1,0 +1,302 @@
+{
+  "type": "Wikicode",
+  "nodes": [
+    {
+      "type": "Tag",
+      "tag": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Text",
+            "value": "table"
+          }
+        ]
+      },
+      "contents": {
+        "type": "Wikicode",
+        "nodes": [
+          {
+            "type": "Tag",
+            "tag": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "td"
+                }
+              ]
+            },
+            "contents": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "+ Caption\n"
+                }
+              ]
+            },
+            "attributes": []
+          },
+          {
+            "type": "Tag",
+            "tag": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "tr"
+                }
+              ]
+            },
+            "contents": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "th"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Header 1\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "th"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Header 2\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "th"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Header 3\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                }
+              ]
+            },
+            "attributes": []
+          },
+          {
+            "type": "Tag",
+            "tag": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "tr"
+                }
+              ]
+            },
+            "contents": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 1, Cell 1\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 1, Cell 2\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 1, Cell 3\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                }
+              ]
+            },
+            "attributes": []
+          },
+          {
+            "type": "Tag",
+            "tag": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Text",
+                  "value": "tr"
+                }
+              ]
+            },
+            "contents": {
+              "type": "Wikicode",
+              "nodes": [
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 2, Cell 1\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 2, Cell 2\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                },
+                {
+                  "type": "Tag",
+                  "tag": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": "td"
+                      }
+                    ]
+                  },
+                  "contents": {
+                    "type": "Wikicode",
+                    "nodes": [
+                      {
+                        "type": "Text",
+                        "value": " Row 2, Cell 3\n"
+                      }
+                    ]
+                  },
+                  "attributes": []
+                }
+              ]
+            },
+            "attributes": []
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "class",
+          "value": "wikitable"
+        }
+      ]
+    }
+  ]
+}

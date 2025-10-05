@@ -1,0 +1,28 @@
+= Comprehensive Example =
+
+This page demonstrates a variety of MediaWiki features.
+
+== Nested Lists ==
+
+* Level 1, Item 1
+** Level 2, Item 1
+*** Level 3, Item 1
+** Level 2, Item 2
+* Level 1, Item 2
+*# Numbered item within a bulleted list
+*# Another numbered item
+
+== Mixed Formatting ==
+
+A line with '''''bold and italic''''' text, as well as a <s>strikethrough</s> and <u>underline</u>.
+
+There is also a horizontal rule below this line.
+----
+
+And a preformatted block:
+<pre>
+  This text is preformatted.
+  It preserves spaces and line breaks.
+</pre>
+
+Finally, a link to a [[Category:Examples]].
