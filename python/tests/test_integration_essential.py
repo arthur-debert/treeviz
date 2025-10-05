@@ -11,7 +11,7 @@ from click.testing import CliRunner
 from treeviz.__main__ import cli
 from treeviz.formats import parse_document
 from treeviz.adapters import adapt_node
-from treeviz.renderer import render
+from treeviz.rendering import render
 
 
 def get_test_data_path(filename: str) -> str:

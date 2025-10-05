@@ -148,7 +148,7 @@ from .formats import (
     get_supported_formats,
     get_format_by_name,
 )
-from .renderer import (
+from .rendering import (
     render as render_nodes,
     create_render_options,
     RenderOptions,

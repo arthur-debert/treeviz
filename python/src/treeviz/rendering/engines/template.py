@@ -79,7 +79,7 @@ class TemplateRenderer(BaseRenderer):
         use_color = output_format == "term"
 
         # Create render options object for template
-        from ..engines.legacy import create_render_options
+        from .. import create_render_options
 
         render_options = create_render_options(symbols, terminal_width)
 

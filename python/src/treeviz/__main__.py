@@ -21,7 +21,7 @@ from .definitions.user_lib_commands import (
 )
 from .formats import load_document
 from .adapters import load_adapter, convert_document
-from .rendering.engines.template import TemplateRenderer
+from .rendering import TemplateRenderer
 
 
 def generate_viz(

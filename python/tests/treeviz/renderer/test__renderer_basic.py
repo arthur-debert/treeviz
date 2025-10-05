@@ -5,7 +5,7 @@ This test file focuses on core rendering behavior, output formatting,
 and basic tree structure rendering using the functional interface.
 """
 
-from treeviz.renderer import render
+from treeviz.rendering import render
 from treeviz.model import Node
 
 

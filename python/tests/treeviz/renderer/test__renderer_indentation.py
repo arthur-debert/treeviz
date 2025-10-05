@@ -5,7 +5,7 @@ This test file focuses on proper indentation of nested structures,
 spacing, and visual formatting of the rendered output.
 """
 
-from treeviz.renderer import render
+from treeviz.rendering import render
 from treeviz.model import Node
 
 

@@ -17,8 +17,11 @@ class TestRendererFormat:
         """Set up test fixtures."""
         self.renderer = TemplateRenderer()
         # Standard test options
+        # Import default symbols for testing
+        from treeviz.const import ICONS
+
         self.options = {
-            "symbols": {},
+            "symbols": ICONS,
             "terminal_width": 80,
             "format": "text",
         }
