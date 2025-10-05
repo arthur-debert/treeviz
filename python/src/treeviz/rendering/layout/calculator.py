@@ -10,6 +10,8 @@ from typing import List
 from .column import ColumnSpec, ColumnAlign
 
 
+from typing import List, Tuple, Dict
+
 def layout_columns(columns: List[ColumnSpec], terminal_width: int) -> List[str]:
     """
     Layout columns with constraint-based positioning.
@@ -241,3 +243,125 @@ def calculate_line_layout(
     # Remove trailing whitespace but don't truncate
     # The layout algorithm should have ensured the line fits
     return result.rstrip()
+
+
+def calculate_line_layout_with_positions(
+    indent: str,
+    icon: str,
+    label: str,
+    extras: str,
+    line_count: str,
+    terminal_width: int,
+) -> Tuple[str, Dict[str, Tuple[int, int]]]:
+    """
+    Calculate the layout for a tree line and return component positions.
+
+    This is an enhanced version of calculate_line_layout that also returns
+    the start and end positions of each component in the formatted line.
+
+    Args:
+        indent: Indentation string
+        icon: Icon character
+        label: Node label (responsive)
+        extras: Extra metadata (optional)
+        line_count: Line count string (e.g., "5L")
+        terminal_width: Available terminal width
+
+    Returns:
+        Tuple of:
+        - Formatted line string
+        - Dictionary mapping component names to (start, end) positions
+    """
+    columns = []
+    component_indices = {}  # Maps component name to column index
+    
+    # Fixed left: indent (no separator)
+    if indent:
+        component_indices["indent"] = len(columns)
+        columns.append(
+            ColumnSpec(
+                content=indent,
+                align=ColumnAlign.LEFT,
+                style=None,  # No style for indent
+                separator="",  # No separator after indent
+            )
+        )
+
+    # Fixed left: icon
+    if icon:
+        component_indices["icon"] = len(columns)
+        columns.append(
+            ColumnSpec(
+                content=icon,
+                align=ColumnAlign.LEFT,
+                style="icon",
+                separator=" ",  # Always one space after icon
+            )
+        )
+
+    # Responsive: label
+    component_indices["label"] = len(columns)
+    columns.append(
+        ColumnSpec(
+            content=label,
+            responsive=True,
+            align=ColumnAlign.LEFT,
+            style="label",
+            separator="  ",  # Double space before right columns
+        )
+    )
+
+    # Fixed right: extras (if present)
+    if extras:
+        component_indices["extras"] = len(columns)
+        columns.append(
+            ColumnSpec(
+                content=extras,
+                max_width=20,
+                align=ColumnAlign.RIGHT,
+                style="extras",
+                separator=" ",
+            )
+        )
+
+    # Fixed right: line count
+    component_indices["numlines"] = len(columns)
+    columns.append(
+        ColumnSpec(
+            content=line_count,
+            width=None if terminal_width < 40 else 6,
+            min_width=len(line_count),
+            align=ColumnAlign.RIGHT,
+            style="numlines",
+            separator="",  # Last column, no separator
+        )
+    )
+
+    # Layout columns
+    formatted = layout_columns(columns, terminal_width)
+
+    # Build result and track positions
+    result = ""
+    positions = {}
+    
+    for i, (col_str, col_spec) in enumerate(zip(formatted, columns)):
+        start_pos = len(result)
+        result += col_str
+        end_pos = len(result)
+        
+        # Find which component this column represents
+        for comp_name, col_idx in component_indices.items():
+            if col_idx == i:
+                # Store actual rendered content and position
+                # Handle truncated content by storing what was actually rendered
+                positions[comp_name] = (start_pos, end_pos)
+                break
+        
+        # Add separator if not last column
+        if i < len(columns) - 1:
+            result += col_spec.separator
+
+    # Remove trailing whitespace
+    result = result.rstrip()
+    
+    return result, positions

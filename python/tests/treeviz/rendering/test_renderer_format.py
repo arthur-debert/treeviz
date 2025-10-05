@@ -461,3 +461,29 @@ class TestRendererFormat:
         # Each line should not exceed terminal width
         for line in lines:
             assert len(line) <= 20, f"Line exceeds terminal width: {len(line)} > 20"
+
+    def test_rich_markup_with_ambiguous_content(self):
+        """Test Rich markup handles ambiguous content correctly."""
+        # Create a node where label contains text that looks like extras
+        root = Node(
+            label="status=active is my label",  # Label that contains extras-like text
+            type="document",
+            extra={"status": "active"},  # Real extras
+        )
+
+        # Render with color to test markup
+        from treeviz.const import ICONS
+        options = {
+            "symbols": ICONS,
+            "terminal_width": 80,
+            "format": "term",
+        }
+
+        result = self.renderer.render(root, options)
+        
+        # The markup should be applied correctly despite the ambiguous content
+        # This test ensures the position-based markup doesn't get confused
+        # We can't easily test the exact ANSI codes, but we can verify it doesn't crash
+        assert result
+        assert "status=active is my label" in result
+        assert result.count("status=active") >= 2  # Once in label, once in extras

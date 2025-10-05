@@ -5,7 +5,7 @@ This renderer uses templates to generate tree output with optional
 Rich formatting for colored terminal output.
 """
 
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, Tuple
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -14,7 +14,7 @@ from rich.text import Text
 from .base import BaseRenderer
 from ...model import Node
 from ..themes import ThemeManager
-from ..layout.calculator import calculate_line_layout
+from ..layout.calculator import calculate_line_layout, calculate_line_layout_with_positions
 from ..templates.filters import register_filters
 
 
@@ -35,9 +35,11 @@ class TemplateRenderer(BaseRenderer):
         # Register custom filters
         register_filters(self.env)
 
-        # Add layout function to globals
+        # Add layout functions to globals
         self.env.globals["calculate_line_layout"] = calculate_line_layout
+        self.env.globals["calculate_line_layout_with_positions"] = calculate_line_layout_with_positions
         self.env.globals["apply_rich_markup"] = self._apply_rich_markup
+        self.env.globals["apply_rich_markup_with_positions"] = self._apply_rich_markup_with_positions
 
         # Get theme manager instance
         self.theme_manager = ThemeManager()
@@ -169,6 +171,45 @@ class TemplateRenderer(BaseRenderer):
             if count_start >= 0:
                 count_end = count_start + len(count_str)
                 text.stylize("numlines", count_start, count_end)
+
+        # Render with console (applies theme)
+        with console.capture() as capture:
+            console.print(text, end="")
+
+        return capture.get()
+
+    def _apply_rich_markup_with_positions(
+        self,
+        plain_line: str,
+        positions: Dict[str, Tuple[int, int]],
+    ) -> str:
+        """
+        Apply Rich markup to a formatted line using pre-calculated positions.
+
+        This is more efficient and robust than searching for components
+        in the formatted string.
+
+        Args:
+            plain_line: The formatted line from calculate_line_layout
+            positions: Dictionary mapping component names to (start, end) positions
+
+        Returns:
+            Line with Rich markup applied
+        """
+        # Get console for rendering with forced terminal mode for color output
+        console = self.theme_manager.get_console(force_terminal=True)
+
+        # Create a Rich Text object from the plain line
+        text = Text(plain_line)
+
+        # Apply styles using the pre-calculated positions
+        for component, (start, end) in positions.items():
+            if component == "indent":
+                # No style for indent
+                continue
+            elif component in ("icon", "label", "extras", "numlines"):
+                # Apply the component style
+                text.stylize(component, start, end)
 
         # Render with console (applies theme)
         with console.capture() as capture:
