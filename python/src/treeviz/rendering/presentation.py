@@ -17,14 +17,27 @@ class ViewOptions:
     """Visual rendering options that control output appearance."""
 
     max_width: int = 120
-    show_line_numbers: bool = True
+    """ -1 mans use terminal width"""
+    show_line_count: bool = True
+    """ this is the num lines of content, not the v index"""
     show_types: bool = True
+    """ This can be: "never", "always", "missing", which only shows types if node has no icon"""
     show_extras: bool = True
-    show_positions: bool = False
-    compact_mode: bool = False
-    indent_size: int = 2
-    tree_guides: bool = True
+    show_positions: bool = False  # not implemented
+    compact_mode: str | None = None  # not implemented
+    """ Some cases for example have paragpagh, single line, then a text element inside. This restults in 3 lines with the same text.  Compact mode can be :
+        - None:  default, off
+        - hide: hide identical inner lines
+        - ditto: following nodes wil show the ditto mark for label
+
+    ¶ More content here.                                      1L
+      ↵ "                                                     1L
+         ◦  "                                                 1L
+    """
+    show_tree_guides: bool = True
+    """ Show tree guide lines """
     color_output: str = "auto"  # auto, always, never
+    indent_size: int = 2
 
     def merge(self, other: "ViewOptions") -> "ViewOptions":
         """Merge with another ViewOptions, with other taking precedence."""
@@ -176,7 +189,9 @@ class PresentationLoader:
         options = Presentation()
 
         # User defaults
-        user_presentation = Path.home() / ".config" / "3viz" / "presentation.yaml"
+        user_presentation = (
+            Path.home() / ".config" / "3viz" / "presentation.yaml"
+        )
         if user_presentation.exists():
             try:
                 user_options = Presentation.from_yaml(user_presentation)
@@ -189,7 +204,7 @@ class PresentationLoader:
         user_alt = Path.home() / ".3viz" / "presentation.yaml"
         if user_alt.exists():
             try:
-                user_options = RenderingOptions.from_yaml(user_alt)
+                user_options = Presentation.from_yaml(user_alt)
                 options = options.merge(user_options)
             except Exception:
                 pass
