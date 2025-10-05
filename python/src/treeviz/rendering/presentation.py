@@ -6,14 +6,14 @@ themes, icons, view options, and output formats.
 """
 
 from dataclasses import dataclass, field, asdict
+import enum
 from typing import Dict, Any, Union, Optional
 from pathlib import Path
-from enum import Enum
 from ruamel.yaml import YAML
 from ..const import ICONS
 
 
-class ShowTypes(str, Enum):
+class ShowTypes(enum.StrEnum):
     """When to show node type information."""
 
     NEVER = "never"
@@ -21,7 +21,7 @@ class ShowTypes(str, Enum):
     MISSING = "missing"  # Only show if no icon
 
 
-class CompactMode(str, Enum):
+class CompactMode(enum.StrEnum):
     """How to handle repetitive content."""
 
     OFF = "off"  # Default, show all
