@@ -20,7 +20,7 @@
           "icon": null,
           "content_lines": 1,
           "source_location": null,
-          "extra": {},
+          "extra": {"bestviz": "3viz"},
           "children": [
             {
               "label": "This is a paragraph:",

@@ -18,12 +18,10 @@ class TestGenerateViz:
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render_nodes")
-    @patch("treeviz.__main__.create_render_options")
+    @patch("treeviz.__main__.TemplateRenderer")
     def test_generate_viz_term_output(
         self,
-        mock_create_options,
-        mock_render,
+        mock_template_renderer_class,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -35,13 +33,15 @@ class TestGenerateViz:
         mock_icons = {"doc": "📄"}
         mock_node = Node(label="test", type="doc")
         mock_rendered = "📄 test"
-        mock_options = MagicMock()
+
+        # Mock the renderer instance
+        mock_renderer = MagicMock()
+        mock_renderer.render.return_value = mock_rendered
+        mock_template_renderer_class.return_value = mock_renderer
 
         mock_load_document.return_value = mock_document
         mock_load_adapter.return_value = (mock_adapter_def, mock_icons)
         mock_convert.return_value = mock_node
-        mock_create_options.return_value = mock_options
-        mock_render.return_value = mock_rendered
 
         # Call function
         result = generate_viz("test.json", output_format="term")
@@ -52,10 +52,17 @@ class TestGenerateViz:
         )
         mock_load_adapter.assert_called_once_with("3viz", adapter_format=None)
         mock_convert.assert_called_once_with(mock_document, mock_adapter_def)
-        mock_create_options.assert_called_once_with(
-            symbols=mock_icons, terminal_width=80
+
+        # Verify renderer was created and called
+        mock_template_renderer_class.assert_called_once()
+        mock_renderer.render.assert_called_once_with(
+            mock_node,
+            {
+                "symbols": mock_icons,
+                "terminal_width": 80,
+                "format": "term",
+            },
         )
-        mock_render.assert_called_once_with(mock_node, mock_options)
 
         assert result == mock_rendered
 
@@ -187,16 +194,14 @@ class TestGenerateViz:
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render_nodes")
-    @patch("treeviz.__main__.create_render_options")
+    @patch("treeviz.__main__.TemplateRenderer")
     @patch("sys.stdout.isatty")
     @patch("os.get_terminal_size")
     def test_generate_viz_terminal_width_detection(
         self,
         mock_term_size,
         mock_isatty,
-        mock_create_options,
-        mock_render,
+        mock_template_renderer_class,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -206,39 +211,37 @@ class TestGenerateViz:
         mock_load_document.return_value = {"name": "test"}
         mock_load_adapter.return_value = ({"label": "name"}, {})
         mock_convert.return_value = Node(label="test")
-        mock_render.return_value = "output"
 
-        # Test with TTY (should auto-detect width)
-        mock_isatty.return_value = True
-        mock_term_size.return_value = MagicMock(columns=120)
+        mock_renderer = MagicMock()
+        mock_renderer.render.return_value = "output"
+        mock_template_renderer_class.return_value = mock_renderer
 
-        generate_viz("test.json", output_format="term")
+        # Test with specified terminal width
+        generate_viz("test.json", output_format="term", terminal_width=120)
 
-        # Should use detected terminal width
-        mock_create_options.assert_called_once_with(
-            symbols={}, terminal_width=120
+        # Should use provided terminal width
+        mock_renderer.render.assert_called_with(
+            Node(label="test"),
+            {"symbols": {}, "terminal_width": 120, "format": "term"},
         )
-        mock_create_options.reset_mock()
+        mock_renderer.render.reset_mock()
 
-        # Test with non-TTY (should use default)
-        mock_isatty.return_value = False
-
+        # Test without terminal width (should use default)
         generate_viz("test.json", output_format="term")
 
         # Should use default width
-        mock_create_options.assert_called_once_with(
-            symbols={}, terminal_width=80
+        mock_renderer.render.assert_called_with(
+            Node(label="test"),
+            {"symbols": {}, "terminal_width": 80, "format": "term"},
         )
 
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
     @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.render_nodes")
-    @patch("treeviz.__main__.create_render_options")
+    @patch("treeviz.__main__.TemplateRenderer")
     def test_generate_viz_text_vs_term_width(
         self,
-        mock_create_options,
-        mock_render,
+        mock_template_renderer_class,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -248,19 +251,26 @@ class TestGenerateViz:
         mock_load_document.return_value = {"name": "test"}
         mock_load_adapter.return_value = ({"label": "name"}, {})
         mock_convert.return_value = Node(label="test")
-        mock_render.return_value = "output"
+
+        mock_renderer = MagicMock()
+        mock_renderer.render.return_value = "output"
+        mock_template_renderer_class.return_value = mock_renderer
 
         # Test text output (fixed width)
         generate_viz("test.json", output_format="text")
-        mock_create_options.assert_called_with(symbols={}, terminal_width=80)
+        mock_renderer.render.assert_called_with(
+            Node(label="test"),
+            {"symbols": {}, "terminal_width": 80, "format": "text"},
+        )
 
-        mock_create_options.reset_mock()
+        mock_renderer.render.reset_mock()
 
         # Test term output (should also use 80 as default when not TTY)
         with patch("sys.stdout.isatty", return_value=False):
             generate_viz("test.json", output_format="term")
-            mock_create_options.assert_called_with(
-                symbols={}, terminal_width=80
+            mock_renderer.render.assert_called_with(
+                Node(label="test"),
+                {"symbols": {}, "terminal_width": 80, "format": "term"},
             )
 
     @patch("treeviz.__main__.load_document")
@@ -323,17 +333,23 @@ class TestGenerateViz:
         mock_convert.return_value = Node(label="test", type="function")
 
         with patch(
-            "treeviz.__main__.create_render_options"
-        ) as mock_create_options:
-            with patch("treeviz.__main__.render_nodes") as mock_render:
-                mock_render.return_value = "⚡ test"
+            "treeviz.__main__.TemplateRenderer"
+        ) as mock_template_renderer_class:
+            mock_renderer = MagicMock()
+            mock_renderer.render.return_value = "⚡ test"
+            mock_template_renderer_class.return_value = mock_renderer
 
-                generate_viz("test.json", output_format="term")
+            generate_viz("test.json", output_format="term")
 
-                # Should pass custom icons to render options
-                mock_create_options.assert_called_once_with(
-                    symbols=custom_icons, terminal_width=80
-                )
+            # Should pass custom icons to renderer
+            mock_renderer.render.assert_called_once_with(
+                Node(label="test", type="function"),
+                {
+                    "symbols": custom_icons,
+                    "terminal_width": 80,
+                    "format": "term",
+                },
+            )
 
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")

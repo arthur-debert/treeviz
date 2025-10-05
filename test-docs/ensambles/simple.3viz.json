@@ -12,7 +12,7 @@
       "icon": null,
       "content_lines": 1,
       "source_location": null,
-      "extra": {},
+      "extra": {"role": "store abritrary data", "reason": "for testing"},
       "children": [
         {
           "label": "This is a simple paragraph with no verbatim blocks.",

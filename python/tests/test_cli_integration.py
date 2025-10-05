@@ -302,6 +302,54 @@ class TestCLIIntegration:
             "usage" in result.stdout.lower() or "help" in result.stdout.lower()
         )
 
+    def test_cli_theme_override(self, test_data_dir):
+        """Test CLI with --theme option."""
+        # Use an existing test file
+        mdast_file = test_data_dir / "mdast" / "simple_tree.json"
+
+        # Test with dark theme
+        result_dark = subprocess.run(
+            [
+                "python",
+                "-m",
+                "treeviz",
+                str(mdast_file),
+                "mdast",
+                "--output-format", "term",
+                "--theme", "dark",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).parent.parent / "src",
+        )
+
+        assert result_dark.returncode == 0
+        # Should have ANSI codes
+        assert "\x1b[" in result_dark.stdout
+
+        # Test with light theme
+        result_light = subprocess.run(
+            [
+                "python",
+                "-m",
+                "treeviz",
+                str(mdast_file),
+                "mdast",
+                "--output-format", "term",
+                "--theme", "light",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).parent.parent / "src",
+        )
+
+        assert result_light.returncode == 0
+        # Should have ANSI codes
+        assert "\x1b[" in result_light.stdout
+        
+        # The outputs should be different due to different color themes
+        assert result_dark.stdout != result_light.stdout
+
 
 class TestCLICornerCases:
     """Additional corner case tests for CLI robustness."""

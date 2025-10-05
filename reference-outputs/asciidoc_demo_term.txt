@@ -1,0 +1,146 @@
+📄 Asciidoctor Demo                                                            7L
+  ``` to test Asciidoctor compliance.                                         1L
+  ¶ And this is the preamble of t…                                            1L
+  💡 tip                                                                       1L
+    ¶ If you wa…                                                              1L
+  § § First Steps with AsciiDoc                                               7L
+    T First Steps with AsciiDoc                                               1L
+    • Inline markup                                                           7L
+      T Inline markup                                                         1L
+      › underlines around a phrase place                                      1L
+        ¶ underlines around a phrase place                                    1L
+      › astericks around a phrase ma…                                         1L
+        ¶ astericks around a phrase …                                         1L
+      › double as…                                                            1L
+        ¶ double as…                                                          1L
+      › double un…                                                            1L
+        ¶ double un…                                                          1L
+      › use carrots around…                                                   1L
+        ¶ use carrots arou…                                                   1L
+      › use tildes around c…                                                  1L
+        ¶ use tildes around…                                                  1L
+    ¶ ired)                                                                   1L
+    • itemizedlist                                                            7L
+      › characters can be escaped using …                                     2L
+        ¶ characters can be escaped usin…                                     1L
+        • itemizedlist                                                        1L
+          › for insta…                                                        1L
+            ¶ for insta…                                                      1L
+      › you can s…                                                            1L
+        ¶ you can s…                                                          1L
+      › force a s…                                                            1L
+        ¶ force a s…                                                          1L
+      › hold text…                                                            1L
+        ¶ hold text…                                                          1L
+      › handle wo…                                                            1L
+        ¶ handle wo…                                                          1L
+      › claim you…                                                            1L
+        ¶ claim you…                                                          1L
+      › select menu:View[Zo…                                                  1L
+        ¶ select menu:View[…                                                  1L
+    ¶ You can write text , optionally …                                       1L
+    ¶ If you want to break a line                                             1L
+    § § Lists Upon Lists                                                      9L
+      T Lists Upon Lists                                                      1L
+      • Adjacent lists                                                        5L
+        T Adjacent lists                                                      1L
+        › this list                                                           1L
+          ¶ this list                                                         1L
+        › should join                                                         1L
+          ¶ should join                                                       1L
+        › to have                                                             1L
+          ¶ to have                                                           1L
+        › four items                                                          1L
+          ¶ four items                                                        1L
+      ? Ordered lists                                                         4L
+        T Ordered lists                                                       1L
+        › These items                                                         1L
+          ¶ These items                                                       1L
+        › will be auto-numbered                                               2L
+          ¶ will be auto-numbered                                             1L
+          ? orderedlist                                                       1L
+            › and can be nested                                               1L
+              ¶ and can be nested                                             1L
+        › A numbered list can nest                                            2L
+          ¶ A numbered list can nest                                          1L
+          • itemizedlist                                                      3L
+            › unordered                                                       1L
+              ¶ unordered                                                     1L
+            › list                                                            1L
+              ¶ list                                                          1L
+            › items                                                           1L
+              ¶ items                                                         1L
+      dl variablelist                                                         2L
+        dt varlistentry                                                       2L
+          t term                                                              1L
+          › definition                                                        1L
+            ¶ definition                                                      1L
+        dt varlistentry                                                       2L
+          t another term                                                      1L
+          › another d…                                                        1L
+            ¶ another d…                                                      1L
+      ¶ This shou…                                                            1L
+      • itemizedlist                                                          4L
+        › first level                                                         1L
+          ¶ first level                                                       1L
+        › first level                                                         2L
+          ¶ first level                                                       1L
+          ``` with this literal text                                          1L
+        › first level                                                         3L
+          ¶ first level                                                       1L
+          ``` with more literal text                                          1L
+          • itemizedlist                                                      1L
+            › second level                                                    2L
+              ¶ second level                                                  1L
+              • itemizedlist                                                  1L
+                › third level                                                 2L
+                  ¶ third level                                               1L
+                  • itemizedlist                                              1L
+                    › fourth level                                            1L
+                      ¶ fourth level                                          1L
+        › back to                                                             1L
+          ¶ back to                                                           1L
+      ¶ Let’s make a horizontal rule…                                         1L
+      ¶ simpara                                                               1L
+      ¶ then take a break.                                                    1L
+  § § …and we’re back!                                                        8L
+    T …and we’re back!                                                        1L
+    ¶ Do you want to see a ?                                                  1L
+    ¶ Do you feel safer with the …                                            1L
+    🖼️ Tiger in a box                                                         1L
+      T Tiger in a box                                                        1L
+    ¶ Fancy some math?                                                        1L
+    ¶ $$\sum_{i=1}^N (f_i)^2$$                                                1L
+    ¶ We’d like…                                                              1L
+    § § Block Quotes and " " Ones                                             4L
+      T Block Quotes and " " Ones                                             1L
+      ¶ This verse comes to mind.                                             1L
+      ¶ Here’s another quote:                                                 1L
+      ¶ " " he shouted.                                                       1L
+  § § Getting Literal                                                         5L
+    T Getting Literal                                                         1L
+    ``` Want to g…                                                            1L
+    ``` I'll join that party, too.                                            1L
+    ¶ We forgot…                                                              1L
+    ? orderedlist                                                             3L
+      › first item (yeah!)                                                    1L
+        ¶ first item (yeah!)                                                  1L
+      › second item, looking                                                  1L
+        ¶ second item, looking                                                1L
+      › third item, it is!                                                    1L
+        ¶ third item, it is!                                                  1L
+  § § Wrap-up                                                                 6L
+    T Wrap-up                                                                 1L
+    📝 note                                                                    1L
+      ¶ AsciiDoc is quite cool, y…                                            1L
+    💡 tip                                                                     4L
+      T Info                                                                  1L
+      ¶ Go to this URL to learn more …                                        1L
+      • itemizedlist                                                          1L
+        › listitem                                                            1L
+          ¶ simpara                                                           1L
+      ¶ Or you could return to the or .                                       1L
+    ¶ Here’s a …                                                              1L
+    📝 note                                                                    1L
+      ¶ One more thing. Happy documenting!                                    1L
+    ¶ When all else fails, head over to .                                     1L

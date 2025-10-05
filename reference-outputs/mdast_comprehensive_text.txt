@@ -1,0 +1,45 @@
+⧉ root                                                                       11L
+  ⊤ heading                                                                   1L
+    ◦ MDAST Comprehensive Example                                             1L
+  ¶ paragraph                                                                 5L
+    ◦ This is a paragraph with                                                1L
+    𝐁 strong                                                                  1L
+      ◦ bold text                                                             1L
+    ◦  and                                                                    1L
+    𝐼 emphasis                                                                1L
+      ◦ italic text                                                           1L
+    ◦ .                                                                       1L
+  ⊤ heading                                                                   1L
+    ◦ Lists                                                                   1L
+  ☰ list                                                                      2L
+    • listItem                                                                1L
+      ¶ paragraph                                                             1L
+        ◦ First ordered item                                                  1L
+    • listItem                                                                1L
+      ¶ paragraph                                                             1L
+        ◦ Second ordered item                                                 1L
+  ☰ list                                                                      2L
+    • listItem                                                                1L
+      ¶ paragraph                                                             1L
+        ◦ Unordered item                                                      1L
+    • listItem                                                                1L
+      ¶ paragraph                                                             1L
+        ◦ Another unordered item                                              1L
+  ❝ blockquote                                                                1L
+    ¶ paragraph                                                               1L
+      ◦ This is a blockquote with so…                                         1L
+  𝒱 function example() {                                                      1L
+  ⊤ heading                                                                   1L
+    ◦ Links and Images                                                        1L
+  ¶ paragraph                                                                 5L
+    ◦ Here's a                                                                1L
+    🔗 link                                                                    1L
+      ◦ link                                                                  1L
+    ◦  and an                                                                 1L
+    🖼 image                                                                   1L
+    ◦ .                                                                       1L
+  ⸺ thematicBreak                                                             1L
+  ¶ paragraph                                                                 3L
+    ◦ Some                                                                    1L
+    ƒ inline code                                                             1L
+    ◦  in a paragraph.                                                        1L

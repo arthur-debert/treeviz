@@ -1,0 +1,86 @@
+📄 Pandoc Document                                                            14L
+  H HThis is a test document                                                  5L
+    T This                                                                    1L
+    T is                                                                      1L
+    T a                                                                       1L
+    T test                                                                    1L
+    T document                                                                1L
+  ¶ This docum…                                                              12L
+    T This                                                                    1L
+    T document                                                                1L
+    T contains                                                                1L
+    T various                                                                 1L
+    T Markdown                                                                1L
+    T elements                                                                1L
+    T to                                                                      1L
+    T test                                                                    1L
+    T the                                                                     1L
+    T Pandoc                                                                  1L
+    T AST                                                                     1L
+    T adapter.                                                                1L
+  H HLists                                                                    1L
+    T Lists                                                                   1L
+  H HUnordered List                                                           2L
+    T Unordered                                                               1L
+    T List                                                                    1L
+  • Bullet List                                                               2L
+    › Item 1                                                                  1L
+      p Item 1                                                                2L
+        T Item                                                                1L
+        T 1                                                                   1L
+    › Item 2                                                                  2L
+      p Item 2                                                                2L
+        T Item                                                                1L
+        T 2                                                                   1L
+      • Bullet List                                                           2L
+        › Nested Item 2.1                                                     1L
+          p Nested Item 2.1                                                   3L
+            T Nested                                                          1L
+            T Item                                                            1L
+            T 2.1                                                             1L
+        › Nested Item 2.2                                                     1L
+          p Nested Item 2.2                                                   3L
+            T Nested                                                          1L
+            T Item                                                            1L
+            T 2.2                                                             1L
+  H HOrdered List                                                             2L
+    T Ordered                                                                 1L
+    T List                                                                    1L
+  ? Ordered List                                                              3L
+    › First item                                                              1L
+      p First item                                                            2L
+        T First                                                               1L
+        T item                                                                1L
+    › Second item                                                             1L
+      p Second item                                                           2L
+        T Second                                                              1L
+        T item                                                                1L
+    › Third item                                                              1L
+      p Third item                                                            2L
+        T Third                                                               1L
+        T item                                                                1L
+  H HBlockquotes                                                              1L
+    T Blockquotes                                                             1L
+  > BlockQuote                                                                2L
+    ¶ This is a blockquote.                                                   4L
+      T This                                                                  1L
+      T is                                                                    1L
+      T a                                                                     1L
+      T blockquote.                                                           1L
+    ¶ It can span multiple lines.                                             5L
+      T It                                                                    1L
+      T can                                                                   1L
+      T span                                                                  1L
+      T multiple                                                              1L
+      T lines.                                                                1L
+  H HCode                                                                     1L
+    T Code                                                                    1L
+  ¶ Inline is supported.                                                      4L
+    T Inline                                                                  1L
+    ` code                                                                    1L
+    T is                                                                      1L
+    T supported.                                                              1L
+  ``` )CodeBlock(python                                                       1L
+  H HTable                                                                    1L
+    T Table                                                                   1L
+  ▦ Table                                                                     1L
