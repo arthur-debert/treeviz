@@ -8,7 +8,7 @@ Rich formatting for colored terminal output.
 from typing import Dict, Optional, Any, Tuple, Union, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..options import RenderingOptions
+    from ..presentation import Presentation
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -56,47 +56,47 @@ class TemplateRenderer(BaseRenderer):
     def render(
         self,
         node: Node,
-        options: Optional[Union[Dict[str, Any], "RenderingOptions"]] = None,
+        options: Optional[Union[Dict[str, Any], "Presentation"]] = None,
     ) -> str:
         """
         Render a Node tree using templates.
 
         Args:
             node: Root node to render
-            options: Rendering options - either Dict or RenderingOptions object
+            options: Rendering options - either Dict or Presentation object
 
         Returns:
             Formatted string representation of the tree
         """
-        from ..options import RenderingOptions
+        from ..presentation import Presentation
 
-        # Convert to RenderingOptions if needed
+        # Convert to Presentation if needed
         if options is None:
-            rendering_opts = RenderingOptions()
-        elif isinstance(options, RenderingOptions):
-            rendering_opts = options
+            presentation = Presentation()
+        elif isinstance(options, Presentation):
+            presentation = options
         else:
             # Legacy dict-based options
-            rendering_opts = self._convert_legacy_options(options)
+            presentation = self._convert_legacy_options(options)
 
         # Apply theme
-        if isinstance(rendering_opts.theme, str):
-            if rendering_opts.theme in ("dark", "light"):
-                set_theme_mode(rendering_opts.theme)
+        if isinstance(presentation.theme, str):
+            if presentation.theme in ("dark", "light"):
+                set_theme_mode(presentation.theme)
             else:
                 try:
-                    set_theme(rendering_opts.theme)
+                    set_theme(presentation.theme)
                 except Exception:
                     # Fall back to default if theme not found
                     pass
 
         # Extract view options
-        view_opts = rendering_opts.view
+        view_opts = presentation.view
         terminal_width = view_opts.max_width
 
         # Determine color usage
         if view_opts.color_output == "auto":
-            use_color = rendering_opts.output.format == "tree"
+            use_color = presentation.output.format == "tree"
         elif view_opts.color_output == "always":
             use_color = True
         else:
@@ -113,8 +113,8 @@ class TemplateRenderer(BaseRenderer):
 
             symbols = options.get("symbols", ICONS)
         else:
-            # New mode - get icons from RenderingOptions
-            symbols = get_icon_map_from_options(rendering_opts)
+            # New mode - get icons from Presentation
+            symbols = get_icon_map_from_options(presentation)
 
         render_options = create_render_options(symbols, terminal_width)
 
@@ -137,9 +137,9 @@ class TemplateRenderer(BaseRenderer):
 
     def _convert_legacy_options(
         self, options: Dict[str, Any]
-    ) -> "RenderingOptions":
-        """Convert legacy dict-based options to RenderingOptions."""
-        from ..options import RenderingOptions, ViewOptions, OutputOptions
+    ) -> "Presentation":
+        """Convert legacy dict-based options to Presentation."""
+        from ..presentation import Presentation, ViewOptions, OutputOptions
 
         # Extract legacy options
         terminal_width = options.get("terminal_width", 80)
@@ -159,7 +159,7 @@ class TemplateRenderer(BaseRenderer):
             )
         )
 
-        return RenderingOptions(
+        return Presentation(
             theme=theme_override, view=view_opts, output=output_opts
         )
 

@@ -11,7 +11,12 @@ from .engines.template import TemplateRenderer
 from .engines.base import BaseRenderer
 from ..model import Node
 from ..const import ICONS as DEFAULT_SYMBOLS
-from .options import RenderingOptions, ViewOptions, OutputOptions, StyleLoader
+from .presentation import (
+    Presentation,
+    ViewOptions,
+    OutputOptions,
+    PresentationLoader,
+)
 
 
 # For backward compatibility with the old API
@@ -71,8 +76,8 @@ __all__ = [
     "create_render_options",
     "DEFAULT_SYMBOLS",
     "RenderOptions",
-    "RenderingOptions",
+    "Presentation",
     "ViewOptions",
     "OutputOptions",
-    "StyleLoader",
+    "PresentationLoader",
 ]

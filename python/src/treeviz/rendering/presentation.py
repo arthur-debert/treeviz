@@ -1,8 +1,8 @@
 """
-Rendering options for treeviz.
+Presentation configuration for treeviz.
 
-Provides a unified configuration system for themes, icon packs,
-and view options.
+Provides a unified configuration system for all visual aspects including
+themes, icons, view options, and output formats.
 """
 
 from dataclasses import dataclass, field, asdict
@@ -59,8 +59,8 @@ class OutputOptions:
 
 
 @dataclass
-class RenderingOptions:
-    """Complete rendering configuration including theme, icons, and view options."""
+class Presentation:
+    """Complete presentation configuration for treeviz visualization."""
 
     theme: Union[str, Dict[str, Any]] = "default"
     icon_pack: Union[str, Dict[str, Any]] = "treeviz"
@@ -71,8 +71,8 @@ class RenderingOptions:
     output: OutputOptions = field(default_factory=OutputOptions)
 
     @classmethod
-    def from_dict(cls, config: Dict[str, Any]) -> "RenderingOptions":
-        """Create RenderingOptions from a dictionary configuration."""
+    def from_dict(cls, config: Dict[str, Any]) -> "Presentation":
+        """Create Presentation from a dictionary configuration."""
         # Extract nested options
         view_config = config.get("view", {})
         output_config = config.get("output", {})
@@ -97,8 +97,8 @@ class RenderingOptions:
         )
 
     @classmethod
-    def from_yaml(cls, path: Union[str, Path]) -> "RenderingOptions":
-        """Load RenderingOptions from a YAML file."""
+    def from_yaml(cls, path: Union[str, Path]) -> "Presentation":
+        """Load Presentation from a YAML file."""
         yaml = YAML()
         yaml.preserve_quotes = True
 
@@ -108,9 +108,9 @@ class RenderingOptions:
 
         return cls.from_dict(config)
 
-    def merge(self, other: "RenderingOptions") -> "RenderingOptions":
+    def merge(self, other: "Presentation") -> "Presentation":
         """
-        Merge with another RenderingOptions, with other taking precedence.
+        Merge with another Presentation, with other taking precedence.
 
         This allows for configuration layering:
         1. Default options
@@ -134,7 +134,7 @@ class RenderingOptions:
         view = self.view.merge(other.view)
         output = self.output.merge(other.output)
 
-        return RenderingOptions(
+        return Presentation(
             theme=theme,
             icon_pack=icon_pack,
             icons=icons,
@@ -153,18 +153,18 @@ class RenderingOptions:
         }
 
 
-class StyleLoader:
-    """Handles loading and merging of style configurations."""
+class PresentationLoader:
+    """Handles loading and merging of presentation configurations."""
 
     def __init__(self):
         self.yaml = YAML()
         self.yaml.preserve_quotes = True
 
-    def load_style_hierarchy(
+    def load_presentation_hierarchy(
         self, explicit_file: Optional[Path] = None
-    ) -> RenderingOptions:
+    ) -> Presentation:
         """
-        Load and merge styles from the configuration hierarchy.
+        Load and merge presentation configurations from the hierarchy.
 
         Order (later overrides earlier):
         1. Built-in defaults
@@ -173,20 +173,20 @@ class StyleLoader:
         4. Explicit file (if provided)
         """
         # Start with built-in defaults
-        options = RenderingOptions()
+        options = Presentation()
 
         # User defaults
-        user_style = Path.home() / ".config" / "3viz" / "style.yaml"
-        if user_style.exists():
+        user_presentation = Path.home() / ".config" / "3viz" / "presentation.yaml"
+        if user_presentation.exists():
             try:
-                user_options = RenderingOptions.from_yaml(user_style)
+                user_options = Presentation.from_yaml(user_presentation)
                 options = options.merge(user_options)
             except Exception:
                 # Ignore errors in user config
                 pass
 
         # Alternative user location
-        user_alt = Path.home() / ".3viz" / "style.yaml"
+        user_alt = Path.home() / ".3viz" / "presentation.yaml"
         if user_alt.exists():
             try:
                 user_options = RenderingOptions.from_yaml(user_alt)
@@ -195,24 +195,24 @@ class StyleLoader:
                 pass
 
         # Project defaults
-        project_style = Path(".3viz") / "style.yaml"
-        if project_style.exists():
+        project_presentation = Path(".3viz") / "presentation.yaml"
+        if project_presentation.exists():
             try:
-                project_options = RenderingOptions.from_yaml(project_style)
+                project_options = Presentation.from_yaml(project_presentation)
                 options = options.merge(project_options)
             except Exception:
                 pass
 
         # Explicit file
         if explicit_file:
-            explicit_options = RenderingOptions.from_yaml(explicit_file)
+            explicit_options = Presentation.from_yaml(explicit_file)
             options = options.merge(explicit_options)
 
         return options
 
     def apply_overrides(
-        self, options: RenderingOptions, overrides: Dict[str, Any]
-    ) -> RenderingOptions:
+        self, options: Presentation, overrides: Dict[str, Any]
+    ) -> Presentation:
         """
         Apply command-line or API overrides to options.
 
@@ -232,5 +232,5 @@ class StyleLoader:
             current[parts[-1]] = value
 
         # Create options from overrides and merge
-        override_options = RenderingOptions.from_dict(nested)
+        override_options = Presentation.from_dict(nested)
         return options.merge(override_options)

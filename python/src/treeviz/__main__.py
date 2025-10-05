@@ -32,7 +32,7 @@ def generate_viz(
     output_format: str = "term",
     terminal_width: Optional[int] = None,
     theme: Optional[str] = None,
-    style: Optional[Union[str, Path]] = None,
+    presentation: Optional[Union[str, Path]] = None,
 ) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
@@ -48,6 +48,7 @@ def generate_viz(
         output_format: Output format - json/yaml/text/term/obj (default: "term")
         terminal_width: Terminal width for text/term output (default: 80)
         theme: Theme override - 'dark' or 'light' (default: auto-detect)
+        presentation: Path to presentation.yaml configuration file
 
     Returns:
         String output in the specified format, or Node object if output_format="obj"
@@ -100,24 +101,26 @@ def generate_viz(
         # Create options for the template renderer
         renderer = TemplateRenderer()
 
-        # If style file is provided, use RenderingOptions
-        if style:
-            from .rendering import StyleLoader
+        # If presentation file is provided, use Presentation
+        if presentation:
+            from .rendering import PresentationLoader
             from pathlib import Path
 
-            # Load style configuration
-            style_loader = StyleLoader()
-            rendering_options = style_loader.load_style_hierarchy(Path(style))
+            # Load presentation configuration
+            loader = PresentationLoader()
+            presentation_obj = loader.load_presentation_hierarchy(
+                Path(presentation)
+            )
 
             # Apply theme override if specified
             if theme:
-                rendering_options.theme = theme
+                presentation_obj.theme = theme
 
             # Override terminal width if specified
             if terminal_width:
-                rendering_options.view.max_width = terminal_width
+                presentation_obj.view.max_width = terminal_width
 
-            return renderer.render(node, rendering_options)
+            return renderer.render(node, presentation_obj)
         else:
             # Legacy dict-based options
             options = {
@@ -306,9 +309,9 @@ def cli(ctx, output_format):
     help="Theme name (dark, light, minimal, high_contrast) or custom theme",
 )
 @click.option(
-    "--style",
+    "--presentation",
     type=click.Path(exists=True, readable=True),
-    help="Path to style.yaml configuration file",
+    help="Path to presentation.yaml configuration file",
 )
 @click.pass_context
 def render(
@@ -319,7 +322,7 @@ def render(
     adapter_format,
     output_format,
     theme,
-    style,
+    presentation,
 ):
     """
     Render a document tree using a 3viz adapter.
@@ -360,7 +363,7 @@ def render(
             output_format=output_format,
             terminal_width=ctx.obj.get("terminal_width", 80),
             theme=theme,
-            style=style,
+            presentation=presentation,
         )
 
         # Output result to stdout

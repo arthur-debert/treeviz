@@ -26,7 +26,7 @@ class TestRenderAPI:
             document_path="test.json",
             adapter_spec="mdast",
             output_format="json",
-            style=None,
+            presentation=None,
             theme=None,
         )
         assert result == "mocked output"
@@ -45,7 +45,7 @@ class TestRenderAPI:
             document_path=test_data,
             adapter_spec=custom_adapter,
             output_format="text",
-            style=None,
+            presentation=None,
             theme=None,
         )
         assert result == "mocked output"
@@ -63,7 +63,7 @@ class TestRenderAPI:
             document_path=test_data,
             adapter_spec="3viz",
             output_format="text",
-            style=None,
+            presentation=None,
             theme=None,
         )
 
@@ -84,7 +84,7 @@ class TestRenderAPI:
             document_path=test_data,
             adapter_spec="mdast",
             output_format="obj",
-            style=None,
+            presentation=None,
             theme=None,
         )
 
@@ -107,7 +107,7 @@ class TestRenderAPI:
                 document_path=test_data,
                 adapter_spec=adapter_obj,
                 output_format="json",
-                style=None,
+                presentation=None,
                 theme=None,
             )
 
@@ -178,7 +178,7 @@ class TestAPIIntegration:
                 document_path=test_data,
                 adapter_spec=adapter,
                 output_format="json",
-                style=None,
+                presentation=None,
                 theme=None,
             )
             assert result == '{"label": "test", "type": "root"}'
@@ -195,7 +195,7 @@ class TestAPIIntegration:
                 document_path="test.json",
                 adapter_spec="mdast",
                 output_format="text",
-                style=None,
+                presentation=None,
                 theme=None,
             )
             assert result == "file output"

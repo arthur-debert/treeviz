@@ -65,7 +65,7 @@ class TestOutputConstants:
                 document_path=test_data,
                 adapter_spec="3viz",
                 output_format="obj",
-                style=None,
+                presentation=None,
                 theme=None,
             )
 

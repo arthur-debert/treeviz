@@ -18,7 +18,7 @@ OUTPUT_YAML = "yaml"  # YAML representation
 OUTPUT_OBJ = "obj"  # Return Node tree object
 
 
-def render(ast, adapter="3viz", output="text", style=None, theme=None):
+def render(ast, adapter="3viz", output="text", presentation=None):
     """
     Render any AST with treeviz visualization.
 
@@ -28,33 +28,35 @@ def render(ast, adapter="3viz", output="text", style=None, theme=None):
         ast: File path, stdin ("-"), or Python object (dict/list/Node)
         adapter: Adapter name ("3viz", "mdast", "unist") or Adapter/dict object
         output: Output format - "text", "term", "json", "yaml", or "obj"
-        style: Optional - RenderingOptions object, dict config, or path to style.yaml
-        theme: Optional - Theme name override (e.g., "dark", "light", "minimal")
+        presentation: Optional - Presentation object, dict config, or path to presentation.yaml
 
     Returns:
         String output or Node object (if output="obj")
     """
-    # Convert style to appropriate format for generate_viz
-    style_path = None
-    if style is not None:
-        from pathlib import Path
-        from .rendering import RenderingOptions
+    # Convert presentation to appropriate format for generate_viz
+    presentation_path = None
+    theme_override = None
 
-        if isinstance(style, (str, Path)):
-            # Path to style file
-            style_path = style
-        elif isinstance(style, RenderingOptions):
-            # TODO: In the future, we could serialize and pass the options
-            # For now, generate_viz only accepts file paths
-            pass
-        elif isinstance(style, dict):
+    if presentation is not None:
+        from pathlib import Path
+        from .rendering import Presentation
+
+        if isinstance(presentation, (str, Path)):
+            # Path to presentation file
+            presentation_path = presentation
+        elif isinstance(presentation, Presentation):
+            # Extract theme from Presentation object
+            theme_override = presentation.theme
+            # TODO: In the future, we could serialize and pass the full object
+        elif isinstance(presentation, dict):
+            # Extract theme from dict if present
+            theme_override = presentation.get("theme")
             # TODO: Could create a temporary file or enhance generate_viz
-            pass
 
     return generate_viz(
         document_path=ast,
         adapter_spec=adapter,
         output_format=output,
-        style=style_path,
-        theme=theme,
+        presentation=presentation_path,
+        theme=theme_override,
     )

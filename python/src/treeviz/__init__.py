@@ -171,22 +171,22 @@ def list_themes():
 
 def get_default_style():
     """
-    Get the default rendering options.
+    Get the default presentation configuration.
 
     Returns:
-        RenderingOptions: Default style configuration
+        Presentation: Default presentation configuration
     """
-    from .rendering import RenderingOptions
+    from .rendering import Presentation
 
-    return RenderingOptions()
+    return Presentation()
 
 
 def validate_style(style_config):
     """
-    Validate a style configuration.
+    Validate a presentation configuration.
 
     Args:
-        style_config: Dict or RenderingOptions object to validate
+        style_config: Dict or Presentation object to validate
 
     Returns:
         bool: True if valid
@@ -194,19 +194,19 @@ def validate_style(style_config):
     Raises:
         ValueError: If configuration is invalid
     """
-    from .rendering import RenderingOptions
+    from .rendering import Presentation
 
-    if isinstance(style_config, RenderingOptions):
+    if isinstance(style_config, Presentation):
         return True
 
     if isinstance(style_config, dict):
         try:
-            RenderingOptions.from_dict(style_config)
+            Presentation.from_dict(style_config)
             return True
         except Exception as e:
-            raise ValueError(f"Invalid style configuration: {e}")
+            raise ValueError(f"Invalid presentation configuration: {e}")
 
-    raise ValueError("Style must be a dict or RenderingOptions object")
+    raise ValueError("Configuration must be a dict or Presentation object")
 
 
 # Core data structures
