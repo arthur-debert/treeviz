@@ -421,3 +421,33 @@ class TestConfigManager:
         assert result["level1"]["value"] == "override"
         assert result["top"] == "original"
         assert result["new"] == "added"
+
+    def test_search_path_order(self):
+        """Test that search paths have correct precedence order."""
+        from unittest.mock import patch
+
+        filesystem = {
+            "/app/treeviz/config": {},  # Built-in location
+            "/home/user/.config/3viz": {},  # XDG location
+            "/project/work/.3viz": {},  # Project location
+        }
+
+        loader = MockFileLoader(filesystem)
+
+        # Mock various path operations
+        with patch("config.manager.__file__", "/app/config/manager.py"):
+            with patch("pathlib.Path.home", return_value=Path("/home/user")):
+                with patch(
+                    "pathlib.Path.cwd", return_value=Path("/project/work")
+                ):
+                    with patch.dict(
+                        "os.environ", {}, clear=True
+                    ):  # No XDG_CONFIG_HOME
+                        mgr = ConfigManager(file_loader=loader)
+                        paths = mgr.search_paths
+
+                        # Verify order: built-in -> user -> project
+                        assert len(paths) == 3
+                        assert str(paths[0]) == "/app/treeviz/config"
+                        assert str(paths[1]) == "/home/user/.config/3viz"
+                        assert str(paths[2]) == "/project/work/.3viz"

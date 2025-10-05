@@ -142,13 +142,13 @@ class ConfigManager:
 
         paths = []
 
-        # 1. Built-in configs (shipped with package)
-        # This will be updated when integrated into treeviz
+        # Order of precedence (later overrides earlier):
+        # 1. Built-in defaults (lowest priority)
         pkg_dir = Path(__file__).parent.parent / "treeviz" / "config"
         if self._loader.exists(pkg_dir):
             paths.append(pkg_dir)
 
-        # 2. XDG config (respecting XDG_CONFIG_HOME)
+        # 2. User configuration (XDG or home fallback)
         xdg_config = os.environ.get("XDG_CONFIG_HOME")
         if xdg_config:
             config_dir = Path(xdg_config) / self.app_name
@@ -157,13 +157,13 @@ class ConfigManager:
 
         if self._loader.exists(config_dir):
             paths.append(config_dir)
+        else:
+            # Fallback to home directory if XDG doesn't exist
+            home_config = Path.home() / f".{self.app_name}"
+            if self._loader.exists(home_config):
+                paths.append(home_config)
 
-        # 3. User home directory fallback
-        home_config = Path.home() / f".{self.app_name}"
-        if self._loader.exists(home_config):
-            paths.append(home_config)
-
-        # 4. Current working directory
+        # 3. Project-local configuration (highest priority)
         cwd_config = Path.cwd() / f".{self.app_name}"
         if self._loader.exists(cwd_config):
             paths.append(cwd_config)
