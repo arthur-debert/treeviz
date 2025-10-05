@@ -14,186 +14,65 @@ class MockFileLoader:
         """
         Initialize with a mock filesystem.
 
-        The filesystem dict maps directory paths to their contents.
-        File values are the actual config dictionaries.
+        Uses a flat dictionary structure where:
+        - Keys are full file paths as strings
+        - Values are file contents (dicts)
+        - Directories are represented by having files under them
 
         Example:
             {
-                "/home/user/.config/3viz": {
-                    "test.yaml": {"key": "value"},
-                    "subdir": {
-                        "nested.yaml": {"other": "data"}
-                    }
-                }
+                "/app/config/test.yaml": {"name": "default"},
+                "/home/user/.config/3viz/test.yaml": {"name": "user"},
+                "/project/.3viz/adapters/custom.yaml": {"name": "custom"}
             }
         """
         self.filesystem = filesystem or {}
+        # Build directory set from file paths
+        self._directories = set()
+        for file_path in self.filesystem.keys():
+            # Add all parent directories
+            parts = file_path.strip("/").split("/")
+            for i in range(1, len(parts)):
+                dir_path = "/" + "/".join(parts[:i])
+                self._directories.add(dir_path)
 
     def exists(self, path: Path) -> bool:
         """Check if path exists in mock filesystem."""
         path_str = str(path)
-
-        # Check if it's a known directory
-        if path_str in self.filesystem:
-            return True
-
-        # Check if it's a file or subdirectory in a known directory
-        parent = str(path.parent)
-        if parent in self.filesystem:
-            parent_contents = self.filesystem[parent]
-            if (
-                isinstance(parent_contents, dict)
-                and path.name in parent_contents
-            ):
-                return True
-
-        # Check for nested subdirectories (e.g., /app/config/adapters)
-        # when filesystem has /app/config with adapters as a key
-        parts = path_str.split("/")
-        if len(parts) > 2:
-            # Try to find the base directory and navigate down
-            for i in range(len(parts) - 1, 0, -1):
-                base_path = "/".join(parts[:i])
-                if base_path in self.filesystem:
-                    # Navigate through the remaining parts
-                    current = self.filesystem[base_path]
-                    for part in parts[i:]:
-                        if isinstance(current, dict) and part in current:
-                            current = current[part]
-                        else:
-                            return False
-                    return True
-
-        return False
+        # Check if it's a file or directory
+        return path_str in self.filesystem or path_str in self._directories
 
     def is_file(self, path: Path) -> bool:
         """Check if path is a file."""
-        # Must have a file extension to be considered a file
-        if not path.name.endswith((".yaml", ".yml", ".json")):
-            return False
-
-        # Try direct parent lookup
-        parent = str(path.parent)
-        if parent in self.filesystem:
-            parent_contents = self.filesystem[parent]
-            if (
-                isinstance(parent_contents, dict)
-                and path.name in parent_contents
-            ):
-                # Check it's not a subdirectory
-                content = parent_contents[path.name]
-                return isinstance(content, dict) and not any(
-                    k.endswith((".yaml", ".yml", ".json"))
-                    or isinstance(v, dict)
-                    for k, v in content.items()
-                )
-
-        # Try nested structure
-        path_parts = str(path).split("/")
-        for i in range(len(path_parts) - 2, 0, -1):
-            base_path = "/".join(path_parts[:i])
-            if base_path in self.filesystem:
-                current = self.filesystem[base_path]
-
-                # Navigate to check if file exists
-                for j, part in enumerate(path_parts[i:]):
-                    if isinstance(current, dict) and part in current:
-                        if j == len(path_parts[i:]) - 1:
-                            # This should be the file
-                            content = current[part]
-                            return isinstance(content, dict) and not any(
-                                k.endswith((".yaml", ".yml", ".json"))
-                                or isinstance(v, dict)
-                                for k, v in content.items()
-                            )
-                        else:
-                            current = current[part]
-                    else:
-                        return False
-
-        return False
+        return str(path) in self.filesystem
 
     def list_directory(self, path: Path) -> List[Path]:
         """List contents of a directory."""
-        path_str = str(path)
+        path_str = str(path).rstrip("/")
 
-        # Direct directory lookup
-        if path_str in self.filesystem:
-            dir_contents = self.filesystem[path_str]
-            if isinstance(dir_contents, dict):
-                return [Path(path_str) / name for name in dir_contents.keys()]
+        if path_str not in self._directories:
+            return []
 
-        # Check if it's a subdirectory within a known directory
-        parent_str = str(path.parent)
-        if parent_str in self.filesystem:
-            parent_contents = self.filesystem[parent_str]
-            if (
-                isinstance(parent_contents, dict)
-                and path.name in parent_contents
-            ):
-                subdir = parent_contents[path.name]
-                if isinstance(subdir, dict):
-                    return [Path(path_str) / name for name in subdir.keys()]
+        # Find all direct children
+        children = set()
+        prefix = path_str + "/"
 
-        return []
+        for file_path in self.filesystem:
+            if file_path.startswith(prefix):
+                # Get the relative path after the directory
+                relative = file_path[len(prefix) :]
+                # Get only the first component (direct child)
+                first_part = relative.split("/")[0]
+                children.add(first_part)
+
+        return [Path(path_str) / name for name in sorted(children)]
 
     def load_file(self, path: Path) -> Dict[str, Any]:
         """Load file contents."""
-        # Try direct parent lookup first
-        parent = str(path.parent)
-        if parent in self.filesystem:
-            parent_contents = self.filesystem[parent]
-            if (
-                isinstance(parent_contents, dict)
-                and path.name in parent_contents
-            ):
-                contents = parent_contents[path.name]
-
-                # Check if it's a file (dict) not a subdirectory
-                if isinstance(contents, dict) and not any(
-                    k.endswith((".yaml", ".yml", ".json"))
-                    or isinstance(v, dict)
-                    for k, v in contents.items()
-                ):
-                    return contents
-                elif isinstance(contents, dict):
-                    raise ConfigError(
-                        f"Path is a directory: {path}", "test", path
-                    )
-                else:
-                    raise ConfigError(
-                        f"Invalid file contents: {path}", "test", path
-                    )
-
-        # Try navigating through nested structure
-        path_parts = str(path).split("/")
-        for i in range(len(path_parts) - 2, 0, -1):
-            base_path = "/".join(path_parts[:i])
-            if base_path in self.filesystem:
-                current = self.filesystem[base_path]
-
-                # Navigate to the file
-                for j, part in enumerate(path_parts[i:]):
-                    if isinstance(current, dict) and part in current:
-                        if j == len(path_parts[i:]) - 1:
-                            # This should be the file
-                            file_content = current[part]
-                            if isinstance(file_content, dict) and not any(
-                                k.endswith((".yaml", ".yml", ".json"))
-                                or isinstance(v, dict)
-                                for k, v in file_content.items()
-                            ):
-                                return file_content
-                            else:
-                                raise ConfigError(
-                                    f"Invalid file at: {path}", "test", path
-                                )
-                        else:
-                            current = current[part]
-                    else:
-                        break
-
-        raise ConfigError(f"File not found: {path}", "test", path)
+        path_str = str(path)
+        if path_str not in self.filesystem:
+            raise ConfigError(f"File not found: {path}", "test", path)
+        return self.filesystem[path_str]
 
 
 @dataclass
@@ -247,8 +126,9 @@ class TestConfigManager:
     def test_single_file_loading(self):
         """Test loading a single configuration file."""
         filesystem = {
-            "/home/user/.config/3viz": {
-                "test.yaml": {"name": "user-config", "value": 100}
+            "/home/user/.config/3viz/test.yaml": {
+                "name": "user-config",
+                "value": 100,
             }
         }
 
@@ -267,13 +147,13 @@ class TestConfigManager:
     def test_hierarchical_merge(self):
         """Test configuration merging across hierarchy."""
         filesystem = {
-            "/app/config": {
-                "test.yaml": {"name": "default", "value": 1, "extra": "base"}
+            "/app/config/test.yaml": {
+                "name": "default",
+                "value": 1,
+                "extra": "base",
             },
-            "/home/user/.config/3viz": {
-                "test.yaml": {"name": "user", "value": 2}
-            },
-            "/project/.3viz": {"test.yaml": {"value": 3}},
+            "/home/user/.config/3viz/test.yaml": {"name": "user", "value": 2},
+            "/project/.3viz/test.yaml": {"value": 3},
         }
 
         loader = MockFileLoader(filesystem)
@@ -298,17 +178,21 @@ class TestConfigManager:
     def test_collection_loading(self):
         """Test loading a collection of files."""
         filesystem = {
-            "/app/config": {
-                "adapters": {
-                    "adapter1.yaml": {"name": "adapter1", "type": "builtin"},
-                    "adapter2.yaml": {"name": "adapter2", "type": "builtin"},
-                }
+            "/app/config/adapters/adapter1.yaml": {
+                "name": "adapter1",
+                "type": "builtin",
             },
-            "/home/user/.config/3viz": {
-                "adapters": {
-                    "custom.yaml": {"name": "custom", "type": "user"},
-                    "another.json": {"name": "another", "type": "user"},
-                }
+            "/app/config/adapters/adapter2.yaml": {
+                "name": "adapter2",
+                "type": "builtin",
+            },
+            "/home/user/.config/3viz/adapters/custom.yaml": {
+                "name": "custom",
+                "type": "user",
+            },
+            "/home/user/.config/3viz/adapters/another.json": {
+                "name": "another",
+                "type": "user",
             },
         }
 
@@ -334,8 +218,9 @@ class TestConfigManager:
     def test_dataclass_conversion(self):
         """Test automatic dataclass conversion."""
         filesystem = {
-            "/home/user/.config/3viz": {
-                "sample.yaml": {"name": "test-config", "value": 123}
+            "/home/user/.config/3viz/sample.yaml": {
+                "name": "test-config",
+                "value": 123,
             }
         }
 
@@ -358,8 +243,9 @@ class TestConfigManager:
     def test_validation(self):
         """Test configuration validation."""
         filesystem = {
-            "/home/user/.config/3viz": {
-                "validated.yaml": {"name": "test", "value": -1}
+            "/home/user/.config/3viz/validated.yaml": {
+                "name": "test",
+                "value": -1,
             }
         }
 
@@ -383,9 +269,7 @@ class TestConfigManager:
 
     def test_callback(self):
         """Test post-load callback."""
-        filesystem = {
-            "/home/user/.config/3viz": {"callback.yaml": {"name": "test"}}
-        }
+        filesystem = {"/home/user/.config/3viz/callback.yaml": {"name": "test"}}
 
         processed = []
 
@@ -407,7 +291,7 @@ class TestConfigManager:
 
     def test_caching(self):
         """Test configuration caching."""
-        filesystem = {"/home/user/.config/3viz": {"cached.yaml": {"count": 1}}}
+        filesystem = {"/home/user/.config/3viz/cached.yaml": {"count": 1}}
 
         load_count = 0
         original_load = MockFileLoader.load_file
@@ -445,10 +329,8 @@ class TestConfigManager:
     def test_clear_cache(self):
         """Test cache clearing."""
         filesystem = {
-            "/home/user/.config/3viz": {
-                "test1.yaml": {"name": "test1"},
-                "test2.yaml": {"name": "test2"},
-            }
+            "/home/user/.config/3viz/test1.yaml": {"name": "test1"},
+            "/home/user/.config/3viz/test2.yaml": {"name": "test2"},
         }
 
         loader = MockFileLoader(filesystem)
@@ -476,7 +358,7 @@ class TestConfigManager:
     def test_error_propagation(self):
         """Test that errors are properly propagated."""
         filesystem = {
-            "/home/user/.config/3viz": {"broken.yaml": {"incomplete": "data"}}
+            "/home/user/.config/3viz/broken.yaml": {"incomplete": "data"}
         }
 
         @dataclass
