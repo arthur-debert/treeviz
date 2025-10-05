@@ -1,0 +1,32 @@
+{
+  "label": "name",
+  "type": "node_type",
+  "children": "children",
+  "icons": {
+    "python": "\ud83d\udc0d",
+    "javascript": "\ud83d\udcdc",
+    "typescript": "\ud83d\udd37",
+    "json": "{ }",
+    "yaml": "\ud83d\udccb",
+    "markdown": "\ud83d\udcdd",
+    "text": "\ud83d\udcc4",
+    "folder": "\ud83d\udcc1",
+    "package": "\ud83d\udce6",
+    "module": "\ud83e\udde9",
+    "test": "\ud83e\uddea",
+    "config": "\u2699\ufe0f",
+    "docs": "\ud83d\udcda",
+    "data": "\ud83d\udcbe",
+    "image": "\ud83d\uddbc\ufe0f",
+    "video": "\ud83c\udfac",
+    "audio": "\ud83c\udfb5",
+    "error": "\u274c",
+    "warning": "\u26a0\ufe0f",
+    "success": "\u2705",
+    "pending": "\u23f3",
+    "locked": "\ud83d\udd12"
+  },
+  "description": "Custom adapter for file system visualization",
+  "version": "1.0.0",
+  "author": "Your Name"
+}

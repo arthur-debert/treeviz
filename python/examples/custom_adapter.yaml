@@ -1,0 +1,133 @@
+# Custom Adapter Definition Example
+# This file demonstrates all the ways to customize icons in treeviz
+
+# Basic field mappings
+label: name          # Where to find the display text
+type: kind           # Where to find the node type
+children: children   # Where to find child nodes
+
+# Icon customization - map node types to Unicode symbols
+icons:
+  # Document structure
+  document: "📄"
+  folder: "📁"
+  file: "📃"
+  
+  # Programming languages (with emoji)
+  python: "🐍"
+  javascript: "🟨"
+  typescript: "🔷"
+  rust: "🦀"
+  go: "🐹"
+  java: "☕"
+  cpp: "⚡"
+  
+  # File types
+  config: "⚙️"
+  test: "🧪"
+  docs: "📚"
+  data: "📊"
+  image: "🖼️"
+  video: "🎬"
+  audio: "🎵"
+  
+  # Version control
+  git: "🌿"
+  branch: "🌳"
+  commit: "📌"
+  merge: "🔀"
+  
+  # Status indicators
+  error: "❌"
+  warning: "⚠️"
+  success: "✅"
+  info: "ℹ️"
+  pending: "⏳"
+  
+  # Mathematical symbols (no emoji)
+  equation: "∑"
+  matrix: "⊞"
+  vector: "→"
+  integral: "∫"
+  derivative: "∂"
+  
+  # Box drawing and special characters
+  container: "□"
+  filled_container: "■"
+  circle: "○"
+  filled_circle: "●"
+  diamond: "◇"
+  filled_diamond: "◆"
+  
+  # Arrows and pointers
+  right_arrow: "→"
+  left_arrow: "←"
+  up_arrow: "↑"
+  down_arrow: "↓"
+  double_arrow: "⇄"
+
+# Type-specific overrides
+# Use different fields for different node types
+type_overrides:
+  # For code blocks, use the language field as the label
+  code:
+    label: language
+    
+  # For error nodes, use the message field
+  error:
+    label: error_message
+    
+  # For data files, show the format
+  data:
+    label: format
+    
+  # For git commits, show the commit message
+  commit:
+    label: message
+    # And include author info in extra
+    extra:
+      author: committer
+
+# Icon packs - define reusable sets of icons
+# (Note: This is for documentation; actual icon packs are registered in code)
+ICON_PACKS:
+  - name: "developer_tools"
+    description: "Icons for development tools and languages"
+    icons:
+      python:
+        icon: "🐍"
+        aliases: ["py", "python3"]
+      javascript:
+        icon: "🟨" 
+        aliases: ["js", "node"]
+      docker:
+        icon: "🐳"
+        aliases: ["container", "dockerfile"]
+        
+  - name: "file_types"
+    description: "Icons for common file types"
+    icons:
+      json:
+        icon: "{ }"
+        aliases: ["data", "config"]
+      xml:
+        icon: "<>"
+        aliases: ["markup", "html"]
+      csv:
+        icon: "▦"
+        aliases: ["data", "table"]
+
+# Node types to ignore during tree traversal
+ignore_types:
+  - "hidden"
+  - "internal"
+  - ".git"
+  - "node_modules"
+  - "__pycache__"
+
+# Additional metadata (optional)
+metadata:
+  version: "1.0.0"
+  description: "Custom adapter for development projects"
+  author: "Your Name"
+  license: "MIT"

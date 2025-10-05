@@ -13,8 +13,11 @@ from rich.text import Text
 
 from .base import BaseRenderer
 from ...model import Node
-from ..themes import theme_manager
-from ..layout.calculator import calculate_line_layout, calculate_line_layout_with_positions
+from ..themes import set_theme_mode, get_console
+from ..layout.calculator import (
+    calculate_line_layout,
+    calculate_line_layout_with_positions,
+)
 from ..templates.filters import register_filters
 
 
@@ -37,12 +40,15 @@ class TemplateRenderer(BaseRenderer):
 
         # Add layout functions to globals
         self.env.globals["calculate_line_layout"] = calculate_line_layout
-        self.env.globals["calculate_line_layout_with_positions"] = calculate_line_layout_with_positions
+        self.env.globals["calculate_line_layout_with_positions"] = (
+            calculate_line_layout_with_positions
+        )
         self.env.globals["apply_rich_markup"] = self._apply_rich_markup
-        self.env.globals["apply_rich_markup_with_positions"] = self._apply_rich_markup_with_positions
+        self.env.globals["apply_rich_markup_with_positions"] = (
+            self._apply_rich_markup_with_positions
+        )
 
-        # Use the module-level theme manager instance
-        self.theme_manager = theme_manager
+        # Theme is now accessed globally
 
     def render(
         self, node: Node, options: Optional[Dict[str, Any]] = None
@@ -70,12 +76,9 @@ class TemplateRenderer(BaseRenderer):
         output_format = options.get("format", "term")
         theme_override = options.get("theme")
 
-        # Override theme if specified
-        if theme_override:
-            if theme_override in ("dark", "light"):
-                self.theme_manager.set_mode(theme_override)
-            else:
-                self.theme_manager.set_theme(theme_override)
+        # Override theme mode if specified
+        if theme_override and theme_override in ("dark", "light"):
+            set_theme_mode(theme_override)
 
         # Determine if we should use color
         use_color = output_format == "term"
@@ -128,7 +131,7 @@ class TemplateRenderer(BaseRenderer):
             Line with Rich markup applied
         """
         # Get console for rendering with forced terminal mode for color output
-        console = self.theme_manager.get_console(force_terminal=True)
+        console = get_console(force_terminal=True)
 
         # Create a Rich Text object from the plain line
         text = Text(plain_line)
@@ -197,7 +200,7 @@ class TemplateRenderer(BaseRenderer):
             Line with Rich markup applied
         """
         # Get console for rendering with forced terminal mode for color output
-        console = self.theme_manager.get_console(force_terminal=True)
+        console = get_console(force_terminal=True)
 
         # Create a Rich Text object from the plain line
         text = Text(plain_line)
