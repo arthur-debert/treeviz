@@ -58,10 +58,8 @@ def generate_viz(
     # Load the document
     document = load_document(document_path, format_name=document_format)
 
-    # Load the adapter definition and icons
-    adapter_def, icons_dict = load_adapter(
-        adapter_spec, adapter_format=adapter_format
-    )
+    # Load the adapter definition (icons are now in style)
+    adapter_def, _ = load_adapter(adapter_spec, adapter_format=adapter_format)
 
     # Convert document to 3viz Node format
     node = convert_document(document, adapter_def)
@@ -123,7 +121,6 @@ def generate_viz(
         else:
             # Legacy dict-based options
             options = {
-                "symbols": icons_dict,
                 "terminal_width": terminal_width,
                 "format": output_format,
             }

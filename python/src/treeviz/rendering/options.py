@@ -9,6 +9,7 @@ from dataclasses import dataclass, field, asdict
 from typing import Dict, Any, Union, Optional
 from pathlib import Path
 from ruamel.yaml import YAML
+from ..const import ICONS
 
 
 @dataclass
@@ -63,6 +64,9 @@ class RenderingOptions:
 
     theme: Union[str, Dict[str, Any]] = "default"
     icon_pack: Union[str, Dict[str, Any]] = "treeviz"
+    icons: Dict[str, str] = field(
+        default_factory=lambda: ICONS.copy()
+    )  # Direct icon overrides
     view: ViewOptions = field(default_factory=ViewOptions)
     output: OutputOptions = field(default_factory=OutputOptions)
 
@@ -79,10 +83,15 @@ class RenderingOptions:
             OutputOptions(**output_config) if output_config else OutputOptions()
         )
 
+        # Handle icons - merge with defaults
+        icons = ICONS.copy()
+        icons.update(config.get("icons", {}))
+
         # Create main options
         return cls(
             theme=config.get("theme", "default"),
             icon_pack=config.get("icon_pack", "treeviz"),
+            icons=icons,
             view=view,
             output=output,
         )
@@ -117,12 +126,20 @@ class RenderingOptions:
             other.icon_pack if other.icon_pack != "treeviz" else self.icon_pack
         )
 
+        # Merge icons (combine dictionaries, other takes precedence)
+        icons = self.icons.copy()
+        icons.update(other.icons)
+
         # Merge view and output options
         view = self.view.merge(other.view)
         output = self.output.merge(other.output)
 
         return RenderingOptions(
-            theme=theme, icon_pack=icon_pack, view=view, output=output
+            theme=theme,
+            icon_pack=icon_pack,
+            icons=icons,
+            view=view,
+            output=output,
         )
 
     def to_dict(self) -> Dict[str, Any]:
@@ -130,6 +147,7 @@ class RenderingOptions:
         return {
             "theme": self.theme,
             "icon_pack": self.icon_pack,
+            "icons": self.icons,
             "view": asdict(self.view),
             "output": asdict(self.output),
         }

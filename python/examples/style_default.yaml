@@ -8,6 +8,54 @@ theme: default  # Options: default, high_contrast, minimal, or custom
 # Icon pack selection - currently only treeviz is available
 icon_pack: treeviz
 
+# Direct icon mappings - override icon pack defaults
+# These take precedence over icon pack definitions
+icons:
+  # Common document elements
+  document: "⧉"
+  paragraph: "¶"
+  heading: "⊤"
+  list: "☰"
+  listItem: "•"
+  
+  # Text formatting
+  text: "◦"
+  strong: "𝐁"
+  emphasis: "𝐼"
+  code: "ƒ"
+  codeBlock: "𝒱"
+  
+  # Structure
+  section: "§"
+  container: "□"
+  group: "⊙"
+  
+  # Media and links
+  link: "🔗"
+  image: "🖼"
+  video: "🎥"
+  audio: "🔊"
+  
+  # Data structures
+  table: "⊞"
+  tableRow: "⊟"
+  tableCell: "⊡"
+  
+  # Programming elements
+  function: "λ"
+  class: "◈"
+  method: "⚡"
+  variable: "𝓋"
+  
+  # Status indicators
+  error: "⊗"
+  warning: "⚠"
+  info: "ⓘ"
+  success: "✓"
+  
+  # Default fallback
+  unknown: "?"
+
 # View options control the visual appearance
 view:
   max_width: 120              # Maximum line width

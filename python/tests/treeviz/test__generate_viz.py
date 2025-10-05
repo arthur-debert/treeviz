@@ -58,7 +58,6 @@ class TestGenerateViz:
         mock_renderer.render.assert_called_once_with(
             mock_node,
             {
-                "symbols": mock_icons,
                 "terminal_width": 80,
                 "format": "term",
             },
@@ -222,7 +221,7 @@ class TestGenerateViz:
         # Should use provided terminal width
         mock_renderer.render.assert_called_with(
             Node(label="test"),
-            {"symbols": {}, "terminal_width": 120, "format": "term"},
+            {"terminal_width": 120, "format": "term"},
         )
         mock_renderer.render.reset_mock()
 
@@ -232,7 +231,7 @@ class TestGenerateViz:
         # Should use default width
         mock_renderer.render.assert_called_with(
             Node(label="test"),
-            {"symbols": {}, "terminal_width": 80, "format": "term"},
+            {"terminal_width": 80, "format": "term"},
         )
 
     @patch("treeviz.__main__.load_document")
@@ -260,7 +259,7 @@ class TestGenerateViz:
         generate_viz("test.json", output_format="text")
         mock_renderer.render.assert_called_with(
             Node(label="test"),
-            {"symbols": {}, "terminal_width": 80, "format": "text"},
+            {"terminal_width": 80, "format": "text"},
         )
 
         mock_renderer.render.reset_mock()
@@ -270,7 +269,7 @@ class TestGenerateViz:
             generate_viz("test.json", output_format="term")
             mock_renderer.render.assert_called_with(
                 Node(label="test"),
-                {"symbols": {}, "terminal_width": 80, "format": "term"},
+                {"terminal_width": 80, "format": "term"},
             )
 
     @patch("treeviz.__main__.load_document")
@@ -345,7 +344,6 @@ class TestGenerateViz:
             mock_renderer.render.assert_called_once_with(
                 Node(label="test", type="function"),
                 {
-                    "symbols": custom_icons,
                     "terminal_width": 80,
                     "format": "term",
                 },

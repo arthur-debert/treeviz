@@ -104,14 +104,18 @@ class TemplateRenderer(BaseRenderer):
 
         # Create legacy render options for template compatibility
         from .. import create_render_options
-        from ...const import ICONS
+        from ..icon_resolver import get_icon_map_from_options
 
-        # TODO: In Phase 5, icons will come from style, not adapter
-        symbols = (
-            options.get("symbols", ICONS)
-            if isinstance(options, dict)
-            else ICONS
-        )
+        # Get icons from RenderingOptions instead of adapter
+        if isinstance(options, dict):
+            # Legacy mode - use provided symbols or fall back to defaults
+            from ...const import ICONS
+
+            symbols = options.get("symbols", ICONS)
+        else:
+            # New mode - get icons from RenderingOptions
+            symbols = get_icon_map_from_options(rendering_opts)
+
         render_options = create_render_options(symbols, terminal_width)
 
         # Get the template
