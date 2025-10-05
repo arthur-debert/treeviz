@@ -10,6 +10,7 @@ from treeviz.rendering.themes import (
     LIGHT_THEME,
     detect_terminal_mode,
     ThemeManager,
+    theme_manager,
 )
 from treeviz.rendering.themes.definitions import Colors
 
@@ -130,36 +131,34 @@ class TestThemeManager:
 
     def setup_method(self):
         """Reset ThemeManager before each test."""
-        ThemeManager.reset()
+        theme_manager.reset()
 
-    def test_singleton_behavior(self):
-        """ThemeManager should be a singleton."""
-        manager1 = ThemeManager()
-        manager2 = ThemeManager()
-        assert manager1 is manager2
+    def test_module_level_singleton(self):
+        """Should use the module-level singleton instance."""
+        # The module-level instance should be the one we're using
+        assert theme_manager is not None
+        assert isinstance(theme_manager, ThemeManager)
 
     def test_initial_theme_detection(self):
         """Manager should detect theme on initialization."""
-        manager = ThemeManager()
-        assert manager.active_mode in ("dark", "light")
-        assert manager.active_theme is not None
+        # Reset to ensure clean state
+        theme_manager.reset()
+        assert theme_manager.active_mode in ("dark", "light")
+        assert theme_manager.active_theme is not None
 
     def test_set_mode(self):
         """Setting mode should update theme."""
-        manager = ThemeManager()
+        theme_manager.set_mode("dark")
+        assert theme_manager.active_mode == "dark"
+        assert theme_manager.active_theme == DARK_THEME
 
-        manager.set_mode("dark")
-        assert manager.active_mode == "dark"
-        assert manager.active_theme == DARK_THEME
-
-        manager.set_mode("light")
-        assert manager.active_mode == "light"
-        assert manager.active_theme == LIGHT_THEME
+        theme_manager.set_mode("light")
+        assert theme_manager.active_mode == "light"
+        assert theme_manager.active_theme == LIGHT_THEME
 
     def test_get_console(self):
         """Should return configured console."""
-        manager = ThemeManager()
-        console = manager.get_console()
+        console = theme_manager.get_console()
 
         assert console is not None
         # Rich doesn't expose theme as public attribute
@@ -167,44 +166,39 @@ class TestThemeManager:
 
     def test_console_caching(self):
         """Consoles should be cached with same parameters."""
-        manager = ThemeManager()
-
-        console1 = manager.get_console(width=80)
-        console2 = manager.get_console(width=80)
+        console1 = theme_manager.get_console(width=80)
+        console2 = theme_manager.get_console(width=80)
         assert console1 is console2
 
-        console3 = manager.get_console(width=100)
+        console3 = theme_manager.get_console(width=100)
         assert console3 is not console1
 
     def test_get_style(self):
         """Should return style values from active theme."""
-        manager = ThemeManager()
-        manager.set_mode("dark")
+        theme_manager.set_mode("dark")
 
         # Should return style from theme
-        icon_style = manager.get_style("icon")
+        icon_style = theme_manager.get_style("icon")
         # Rich normalizes hex colors to lowercase
         assert icon_style == Colors.ICON_DARK.lower()
 
         # Should return empty string for unknown style
-        assert manager.get_style("unknown_style") == ""
+        assert theme_manager.get_style("unknown_style") == ""
 
     def test_custom_theme_registration(self):
         """Should support custom theme registration."""
         from rich.theme import Theme
 
-        manager = ThemeManager()
         custom_theme = Theme({"custom": "red"})
 
-        manager.register_theme("my_theme", custom_theme)
-        manager.set_theme("my_theme")
+        theme_manager.register_theme("my_theme", custom_theme)
+        theme_manager.set_theme("my_theme")
 
-        assert manager.active_theme == custom_theme
+        assert theme_manager.active_theme == custom_theme
 
     def test_no_color_console(self):
         """No-color console should have no theme."""
-        manager = ThemeManager()
-        console = manager.get_console(no_color=True)
+        console = theme_manager.get_console(no_color=True)
 
         # Verify console has no color output
         assert console.no_color is True

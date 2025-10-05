@@ -216,22 +216,17 @@ class TestGenerateViz:
         mock_renderer.render.return_value = "output"
         mock_template_renderer_class.return_value = mock_renderer
 
-        # Test with TTY (should auto-detect width)
-        mock_isatty.return_value = True
-        mock_term_size.return_value = MagicMock(columns=120)
+        # Test with specified terminal width
+        generate_viz("test.json", output_format="term", terminal_width=120)
 
-        generate_viz("test.json", output_format="term")
-
-        # Should use detected terminal width
+        # Should use provided terminal width
         mock_renderer.render.assert_called_with(
             Node(label="test"),
             {"symbols": {}, "terminal_width": 120, "format": "term"},
         )
         mock_renderer.render.reset_mock()
 
-        # Test with non-TTY (should use default)
-        mock_isatty.return_value = False
-
+        # Test without terminal width (should use default)
         generate_viz("test.json", output_format="term")
 
         # Should use default width

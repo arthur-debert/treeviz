@@ -13,7 +13,7 @@ from rich.text import Text
 
 from .base import BaseRenderer
 from ...model import Node
-from ..themes import ThemeManager
+from ..themes import theme_manager
 from ..layout.calculator import calculate_line_layout, calculate_line_layout_with_positions
 from ..templates.filters import register_filters
 
@@ -41,8 +41,8 @@ class TemplateRenderer(BaseRenderer):
         self.env.globals["apply_rich_markup"] = self._apply_rich_markup
         self.env.globals["apply_rich_markup_with_positions"] = self._apply_rich_markup_with_positions
 
-        # Get theme manager instance
-        self.theme_manager = ThemeManager()
+        # Use the module-level theme manager instance
+        self.theme_manager = theme_manager
 
     def render(
         self, node: Node, options: Optional[Dict[str, Any]] = None

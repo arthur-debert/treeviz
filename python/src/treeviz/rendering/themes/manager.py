@@ -16,26 +16,12 @@ class ThemeManager:
     """
     Manages theme selection and Rich console creation.
 
-    This class uses a singleton pattern to ensure consistent theme
-    application across the application.
+    Use the module-level `theme_manager` instance instead of creating new instances.
     """
-
-    _instance: Optional["ThemeManager"] = None
-    _console_cache: Dict[str, Console] = {}
-
-    def __new__(cls) -> "ThemeManager":
-        """Ensure only one instance exists."""
-        if cls._instance is None:
-            cls._instance = super(ThemeManager, cls).__new__(cls)
-            cls._instance._initialized = False
-        return cls._instance
 
     def __init__(self):
         """Initialize the theme manager."""
-        if self._initialized:
-            return
-
-        self._initialized = True
+        self._console_cache: Dict[str, Console] = {}
         self.active_mode: Literal["dark", "light"] = detect_terminal_mode()
         self.active_theme: Theme = (
             DARK_THEME if self.active_mode == "dark" else LIGHT_THEME
@@ -140,8 +126,15 @@ class ThemeManager:
             return str(self.active_theme.styles[style_name])
         return ""
 
-    @classmethod
-    def reset(cls) -> None:
-        """Reset the singleton instance (mainly for testing)."""
-        cls._instance = None
-        cls._console_cache.clear()
+    def reset(self) -> None:
+        """Reset the theme manager state (mainly for testing)."""
+        self._console_cache.clear()
+        self.active_mode = detect_terminal_mode()
+        self.active_theme = (
+            DARK_THEME if self.active_mode == "dark" else LIGHT_THEME
+        )
+        self._custom_themes.clear()
+
+
+# Create the singleton instance at module level
+theme_manager = ThemeManager()
