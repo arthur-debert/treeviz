@@ -221,8 +221,16 @@ class AdapterDef:
 
     @classmethod
     def default(cls) -> "AdapterDef":
-        """Get the default definition."""
-        return cls()  # Uses default field values
+        """Get the default definition for 3viz format (identity mapping)."""
+        return cls(
+            label="label",
+            type="type",
+            children="children",
+            icon="icon",
+            content_lines="content_lines",
+            source_location="source_location",
+            extra="extra",
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         """
