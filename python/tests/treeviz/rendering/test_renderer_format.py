@@ -396,3 +396,68 @@ class TestRendererFormat:
         assert (
             len(spaces_after_icon) == 1
         ), f"Label leading spaces should be stripped, expected 1 space after icon, got {len(spaces_after_icon)}"
+
+    def test_long_extras_dont_break_layout(self):
+        """Test that long extras don't break the layout."""
+        # Create a node with very long extras
+        root = Node(
+            label="Root",
+            type="document",
+            extra={"very_long_key": "this_is_a_very_long_value_that_exceeds_20_chars"},
+            children=[
+                Node(
+                    label="Child with normal extras",
+                    type="text",
+                    extra={"key": "value"},
+                )
+            ]
+        )
+
+        result = self.renderer.render(root, self.options)
+        lines = result.strip().split("\n")
+
+        # Check that both lines end with line counts
+        assert lines[0].endswith("1L")
+        assert lines[1].endswith("1L")
+        
+        # Check that the layout is not broken (line counts are aligned)
+        # Extract the position of "1L" in both lines
+        pos1 = lines[0].rfind("1L")
+        pos2 = lines[1].rfind("1L")
+        
+        # They should be at the same position (right-aligned)
+        assert pos1 == pos2, f"Line counts not aligned: {pos1} vs {pos2}"
+
+    def test_narrow_terminal_handling(self):
+        """Test that very narrow terminals don't cause errors."""
+        # Create a node with long content
+        root = Node(
+            label="This is a very long label that would overflow",
+            type="document",
+            extra={"status": "active"},
+            children=[
+                Node(
+                    label="Another long child label",
+                    type="text",
+                    extra={"priority": "high"},
+                )
+            ]
+        )
+
+        # Test with very narrow terminal (20 chars)
+        from treeviz.const import ICONS
+        narrow_options = {
+            "symbols": ICONS,
+            "terminal_width": 20,
+            "format": "text",
+        }
+
+        result = self.renderer.render(root, narrow_options)
+        lines = result.strip().split("\n")
+
+        # Should not crash and should produce output
+        assert len(lines) == 2
+        
+        # Each line should not exceed terminal width
+        for line in lines:
+            assert len(line) <= 20, f"Line exceeds terminal width: {len(line)} > 20"

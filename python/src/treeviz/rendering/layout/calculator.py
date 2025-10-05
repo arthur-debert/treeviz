@@ -68,10 +68,26 @@ def layout_columns(columns: List[ColumnSpec], terminal_width: int) -> List[str]:
 
     # Distribute available width to responsive columns
     if responsive_cols:
-        # Ensure we don't allocate negative or zero width
-        responsive_width = max(1, available_width // len(responsive_cols))
+        # Ensure we have at least some minimum space
+        if available_width < len(responsive_cols):
+            # Terminal too narrow - give minimum width to each responsive column
+            responsive_width = 1
+        else:
+            # Distribute available width evenly among responsive columns
+            responsive_width = available_width // len(responsive_cols)
+        
         for idx, col in responsive_cols:
             fixed_widths[idx] = responsive_width
+    
+    # Final check: if total width would exceed terminal width,
+    # reduce widths proportionally
+    total_width = sum(fixed_widths.values()) + total_separator_width
+    if total_width > terminal_width:
+        # Calculate scale factor
+        scale = terminal_width / total_width
+        # Apply scaling to each column
+        for idx in fixed_widths:
+            fixed_widths[idx] = max(1, int(fixed_widths[idx] * scale))
 
     # Ensure we have width for all columns
     for i in range(len(columns)):
@@ -199,10 +215,13 @@ def calculate_line_layout(
         )
 
     # Fixed right: line count
+    # For narrow terminals, don't enforce fixed width
+    line_count_width = None if terminal_width < 40 else 6
     columns.append(
         ColumnSpec(
             content=line_count,
-            width=6,  # Fixed width for alignment
+            width=line_count_width,  # Fixed width only for wider terminals
+            min_width=len(line_count),  # At least the content width
             align=ColumnAlign.RIGHT,
             style="numlines",
             separator="",  # Last column, no separator
@@ -219,9 +238,6 @@ def calculate_line_layout(
         if i < len(columns) - 1:
             result += col_spec.separator
 
-    # Ensure result doesn't exceed terminal width
-    result = result.rstrip()
-    if len(result) > terminal_width:
-        result = result[: terminal_width - 1] + "…"
-
-    return result
+    # Remove trailing whitespace but don't truncate
+    # The layout algorithm should have ensured the line fits
+    return result.rstrip()
