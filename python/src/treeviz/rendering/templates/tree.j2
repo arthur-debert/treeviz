@@ -2,7 +2,7 @@
 {% macro render_node(node, depth=0, render_options=None, terminal_width=80, use_color=True) -%}
 {%- set indent = "  " * depth -%}
 {%- set icon = node.icon or (render_options.symbols[node.type] if node.type and render_options else "?") -%}
-{%- set label = node.label -%}
+{%- set label = node.label | trim -%}
 {%- set extras = node.extra | format_extras -%}
 {%- set line_count = (node.children | length) if node.children else node.content_lines -%}
 {%- set count_str = line_count ~ "L" -%}
