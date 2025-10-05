@@ -8,23 +8,37 @@ themes, icons, view options, and output formats.
 from dataclasses import dataclass, field, asdict
 from typing import Dict, Any, Union, Optional
 from pathlib import Path
+from enum import Enum
 from ruamel.yaml import YAML
 from ..const import ICONS
+
+
+class ShowTypes(str, Enum):
+    """When to show node type information."""
+
+    NEVER = "never"
+    ALWAYS = "always"
+    MISSING = "missing"  # Only show if no icon
+
+
+class CompactMode(str, Enum):
+    """How to handle repetitive content."""
+
+    OFF = "off"  # Default, show all
+    HIDE = "hide"  # Hide identical inner lines
+    DITTO = "ditto"  # Show ditto mark for repeated labels
 
 
 @dataclass
 class ViewOptions:
     """Visual rendering options that control output appearance."""
 
-    max_width: int = 120
-    """ -1 mans use terminal width"""
-    show_line_count: bool = True
-    """ this is the num lines of content, not the v index"""
-    show_types: bool = True
-    """ This can be: "never", "always", "missing", which only shows types if node has no icon"""
-    show_extras: bool = True
-    show_positions: bool = False  # not implemented
-    compact_mode: str | None = None  # not implemented
+    max_width: int = 120  # -1 means use terminal width
+    show_line_count: bool = True  # Show content line count (e.g., "3L")
+    show_types: ShowTypes = ShowTypes.ALWAYS  # When to show node types
+    show_extras: bool = True  # Show extra metadata
+    show_positions: bool = False  # Show source positions (not implemented)
+    compact_mode: CompactMode = CompactMode.OFF  # Handle repetitive content
     """ Some cases for example have paragpagh, single line, then a text element inside. This restults in 3 lines with the same text.  Compact mode can be :
         - None:  default, off
         - hide: hide identical inner lines
@@ -34,10 +48,22 @@ class ViewOptions:
       ↵ "                                                     1L
          ◦  "                                                 1L
     """
-    show_tree_guides: bool = True
-    """ Show tree guide lines """
-    color_output: str = "auto"  # auto, always, never
+    show_tree_guides: bool = True  # Show tree guide lines
     indent_size: int = 2
+
+    @classmethod
+    def from_dict(cls, config: Dict[str, Any]) -> "ViewOptions":
+        """Create ViewOptions from dictionary, converting strings to enums."""
+        config = config.copy()  # Don't modify original
+
+        # Convert string values to enums if needed
+        if "show_types" in config and isinstance(config["show_types"], str):
+            config["show_types"] = ShowTypes(config["show_types"])
+
+        if "compact_mode" in config and isinstance(config["compact_mode"], str):
+            config["compact_mode"] = CompactMode(config["compact_mode"])
+
+        return cls(**config)
 
     def merge(self, other: "ViewOptions") -> "ViewOptions":
         """Merge with another ViewOptions, with other taking precedence."""
@@ -49,51 +75,29 @@ class ViewOptions:
             if value is not None:
                 result_dict[key] = value
 
-        return ViewOptions(**result_dict)
-
-
-@dataclass
-class OutputOptions:
-    """Output format options."""
-
-    format: str = "tree"  # tree, flat, json
-    syntax_highlight: bool = True
-
-    def merge(self, other: "OutputOptions") -> "OutputOptions":
-        """Merge with another OutputOptions, with other taking precedence."""
-        result_dict = asdict(self)
-        other_dict = asdict(other)
-
-        for key, value in other_dict.items():
-            if value is not None:
-                result_dict[key] = value
-
-        return OutputOptions(**result_dict)
+        return ViewOptions.from_dict(result_dict)
 
 
 @dataclass
 class Presentation:
     """Complete presentation configuration for treeviz visualization."""
 
-    theme: Union[str, Dict[str, Any]] = "default"
-    icon_pack: Union[str, Dict[str, Any]] = "treeviz"
+    theme: str = "default"  # Theme name to be resolved
+    icon_pack: str = "treeviz"  # Icon pack name to be resolved
     icons: Dict[str, str] = field(
         default_factory=lambda: ICONS.copy()
     )  # Direct icon overrides
     view: ViewOptions = field(default_factory=ViewOptions)
-    output: OutputOptions = field(default_factory=OutputOptions)
 
     @classmethod
     def from_dict(cls, config: Dict[str, Any]) -> "Presentation":
         """Create Presentation from a dictionary configuration."""
         # Extract nested options
         view_config = config.get("view", {})
-        output_config = config.get("output", {})
 
-        # Create sub-options
-        view = ViewOptions(**view_config) if view_config else ViewOptions()
-        output = (
-            OutputOptions(**output_config) if output_config else OutputOptions()
+        # Create sub-options using ViewOptions.from_dict
+        view = (
+            ViewOptions.from_dict(view_config) if view_config else ViewOptions()
         )
 
         # Handle icons - merge with defaults
@@ -106,7 +110,6 @@ class Presentation:
             icon_pack=config.get("icon_pack", "treeviz"),
             icons=icons,
             view=view,
-            output=output,
         )
 
     @classmethod
@@ -143,26 +146,30 @@ class Presentation:
         icons = self.icons.copy()
         icons.update(other.icons)
 
-        # Merge view and output options
+        # Merge view options
         view = self.view.merge(other.view)
-        output = self.output.merge(other.output)
 
         return Presentation(
             theme=theme,
             icon_pack=icon_pack,
             icons=icons,
             view=view,
-            output=output,
         )
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
+        view_dict = asdict(self.view)
+        # Convert enums to strings for serialization
+        if isinstance(view_dict.get("show_types"), ShowTypes):
+            view_dict["show_types"] = view_dict["show_types"].value
+        if isinstance(view_dict.get("compact_mode"), CompactMode):
+            view_dict["compact_mode"] = view_dict["compact_mode"].value
+
         return {
             "theme": self.theme,
             "icon_pack": self.icon_pack,
             "icons": self.icons,
-            "view": asdict(self.view),
-            "output": asdict(self.output),
+            "view": view_dict,
         }
 
 

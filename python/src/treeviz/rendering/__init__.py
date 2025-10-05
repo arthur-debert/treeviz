@@ -14,8 +14,9 @@ from ..const import ICONS as DEFAULT_SYMBOLS
 from .presentation import (
     Presentation,
     ViewOptions,
-    OutputOptions,
     PresentationLoader,
+    ShowTypes,
+    CompactMode,
 )
 
 
@@ -78,6 +79,7 @@ __all__ = [
     "RenderOptions",
     "Presentation",
     "ViewOptions",
-    "OutputOptions",
     "PresentationLoader",
+    "ShowTypes",
+    "CompactMode",
 ]

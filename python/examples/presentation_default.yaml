@@ -58,17 +58,11 @@ icons:
 
 # View options control the visual appearance
 view:
-  max_width: 120              # Maximum line width
-  show_line_numbers: true     # Show line count (e.g., "3L")
-  show_types: true            # Show node type information
+  max_width: 120              # Maximum line width (-1 for terminal width)
+  show_line_count: true       # Show content line count (e.g., "3L")
+  show_types: always          # Options: always, never, missing (only if no icon)
   show_extras: true           # Show extra metadata
-  show_positions: false       # Show source positions (line:col)
-  compact_mode: false         # Reduce spacing between elements
+  show_positions: false       # Show source positions (line:col) - not implemented
+  compact_mode: off           # Options: off, hide (identical lines), ditto (repeat mark)
   indent_size: 2              # Number of spaces per indent level
-  tree_guides: true           # Show tree connection lines
-  color_output: auto          # Options: auto, always, never
-
-# Output format options
-output:
-  format: tree                # Options: tree, flat, json
-  syntax_highlight: true      # Enable syntax highlighting where applicable
+  show_tree_guides: true      # Show tree connection lines

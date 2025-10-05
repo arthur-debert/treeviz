@@ -94,13 +94,13 @@ class TemplateRenderer(BaseRenderer):
         view_opts = presentation.view
         terminal_width = view_opts.max_width
 
-        # Determine color usage
-        if view_opts.color_output == "auto":
-            use_color = presentation.output.format == "tree"
-        elif view_opts.color_output == "always":
-            use_color = True
-        else:
-            use_color = False
+        # Determine color usage based on output format from options dict
+        output_format = (
+            options.get("format", "term")
+            if isinstance(options, dict)
+            else "term"
+        )
+        use_color = output_format == "term"
 
         # Create legacy render options for template compatibility
         from .. import create_render_options
@@ -139,29 +139,19 @@ class TemplateRenderer(BaseRenderer):
         self, options: Dict[str, Any]
     ) -> "Presentation":
         """Convert legacy dict-based options to Presentation."""
-        from ..presentation import Presentation, ViewOptions, OutputOptions
+        from ..presentation import Presentation, ViewOptions
 
         # Extract legacy options
         terminal_width = options.get("terminal_width", 80)
-        output_format = options.get("format", "term")
+        options.get("format", "term")
         theme_override = options.get("theme", "default")
 
         # Create view options
         view_opts = ViewOptions(
             max_width=terminal_width,
-            color_output="always" if output_format == "term" else "never",
         )
 
-        # Create output options
-        output_opts = OutputOptions(
-            format=(
-                "tree" if output_format in ("term", "text") else output_format
-            )
-        )
-
-        return Presentation(
-            theme=theme_override, view=view_opts, output=output_opts
-        )
+        return Presentation(theme=theme_override, view=view_opts)
 
     def _apply_rich_markup(
         self,
