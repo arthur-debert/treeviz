@@ -155,6 +155,64 @@ from .rendering import (
     DEFAULT_SYMBOLS,
 )
 
+
+# Utility functions for themes and styles
+def list_themes():
+    """
+    List all available theme names.
+
+    Returns:
+        List[str]: Available theme names
+    """
+    from .rendering.themes import list_available_themes
+
+    return list_available_themes()
+
+
+def get_default_style():
+    """
+    Get the default rendering options.
+
+    Returns:
+        RenderingOptions: Default style configuration
+    """
+    from .rendering import RenderingOptions
+
+    return RenderingOptions()
+
+
+def validate_style(style_config):
+    """
+    Validate a style configuration.
+
+    Args:
+        style_config: Dict or RenderingOptions object to validate
+
+    Returns:
+        bool: True if valid
+
+    Raises:
+        ValueError: If configuration is invalid
+    """
+    from .rendering import RenderingOptions
+
+    if isinstance(style_config, RenderingOptions):
+        return True
+
+    if isinstance(style_config, dict):
+        try:
+            RenderingOptions.from_dict(style_config)
+            return True
+        except Exception as e:
+            raise ValueError(f"Invalid style configuration: {e}")
+
+    raise ValueError("Style must be a dict or RenderingOptions object")
+
+
+# Core data structures
+
+# Legacy API (kept for backward compatibility, but not in primary docs)
+
 __version__ = "1.0.0"
 __all__ = [
     # Primary API
@@ -167,6 +225,10 @@ __all__ = [
     "OUTPUT_JSON",
     "OUTPUT_YAML",
     "OUTPUT_OBJ",
+    # Style and theme utilities
+    "list_themes",
+    "get_default_style",
+    "validate_style",
     # Core data structures
     "Node",
     # Legacy API (for backward compatibility)
