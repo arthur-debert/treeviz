@@ -390,14 +390,20 @@ class TestConfigManager:
         assert not spec.matches("config.yml")
         assert not spec.matches("config.json")
 
-        # Test with directory prefix
-        # When pattern has a directory component, it extracts just the filename part
-        # for matching, since directory filtering happens at a different level
+        # Test with directory prefix - now uses full relative path
         spec_with_dir = ConfigSpec(name="test", pattern="themes/*.yaml")
-        assert spec_with_dir.matches("default.yaml")
-        assert spec_with_dir.matches("custom.yaml")
-        # This also matches because we only match the filename part
-        assert spec_with_dir.matches("config.yaml")
+        assert spec_with_dir.matches("themes/default.yaml")
+        assert spec_with_dir.matches("themes/custom.yaml")
+        assert not spec_with_dir.matches("config.yaml")  # Not in themes/
+        assert not spec_with_dir.matches("other/config.yaml")  # Wrong directory
+
+        # Test more complex patterns
+        spec_nested = ConfigSpec(name="test", pattern="themes/*/*.yaml")
+        assert spec_nested.matches("themes/dark/colors.yaml")
+        assert spec_nested.matches("themes/light/colors.yaml")
+        assert not spec_nested.matches(
+            "themes/colors.yaml"
+        )  # Not nested enough
 
     def test_deep_merge(self):
         """Test deep dictionary merging."""

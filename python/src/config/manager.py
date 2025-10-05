@@ -79,18 +79,19 @@ class ConfigSpec:
     validator: Optional[Callable[[Dict[str, Any]], bool]] = None
     callback: Optional[Callable[[Any], None]] = None  # Post-process hook
 
-    def matches(self, filename: str) -> bool:
-        """Check if a filename matches this spec's pattern."""
+    def matches(self, path: str) -> bool:
+        """
+        Check if a path matches this spec's pattern.
+
+        Args:
+            path: Relative path within the search directory (e.g., "test.yaml" or "adapters/custom.yaml")
+
+        Returns:
+            True if the path matches the pattern
+        """
         from fnmatch import fnmatch
 
-        # For patterns with directory prefix, we need exact match
-        if "/" in self.pattern:
-            # The pattern has a directory component, so we only match
-            # files in that specific subdirectory
-            return fnmatch(filename, self.pattern.split("/")[-1])
-        else:
-            # Simple pattern without directory
-            return fnmatch(filename, self.pattern)
+        return fnmatch(path, self.pattern)
 
 
 @dataclass
@@ -308,19 +309,33 @@ class ConfigManager:
 
         # Find matching files
         for file_path in self._loader.list_directory(search_dir):
-            if self._loader.is_file(file_path) and spec.matches(file_path.name):
+            if self._loader.is_file(file_path):
+                # Calculate relative path from the base directory for matching
                 try:
-                    data = self._loader.load_file(file_path)
-                    if single:
-                        return data
-                    results.append(data)
-                except Exception as e:
-                    raise ConfigError(
-                        message="Failed to load file",
-                        spec_name=spec.name,
-                        file_path=file_path,
-                        cause=e,
-                    )
+                    if "/" in spec.pattern:
+                        # For patterns with directories, use relative path from base
+                        relative_path = file_path.relative_to(directory)
+                        match_path = str(relative_path).replace("\\", "/")
+                    else:
+                        # For simple patterns, just use filename
+                        match_path = file_path.name
+                except ValueError:
+                    # Path is not relative to directory
+                    continue
+
+                if spec.matches(match_path):
+                    try:
+                        data = self._loader.load_file(file_path)
+                        if single:
+                            return data
+                        results.append(data)
+                    except Exception as e:
+                        raise ConfigError(
+                            message="Failed to load file",
+                            spec_name=spec.name,
+                            file_path=file_path,
+                            cause=e,
+                        )
 
         return results if not single else None
 
