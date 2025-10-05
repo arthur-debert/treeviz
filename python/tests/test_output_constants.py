@@ -65,6 +65,8 @@ class TestOutputConstants:
                 document_path=test_data,
                 adapter_spec="3viz",
                 output_format="obj",
+                presentation=None,
+                theme=None,
             )
 
             # Should return the Node object from generate_viz

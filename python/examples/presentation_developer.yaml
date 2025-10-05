@@ -1,0 +1,31 @@
+# Developer-focused style with maximum information
+# Shows all available details for debugging and analysis
+version: "1.0"
+
+theme: high_contrast  # Better visibility for long sessions
+
+# Custom icon pack could be defined here once Phase 5 is complete
+# icon_pack: developer_icons
+
+view:
+  max_width: 160              # Wide for detailed information
+  show_line_numbers: true     # Essential for navigation
+  show_types: true            # Show all node types
+  show_extras: true           # Show all metadata
+  show_positions: true        # Show source locations
+  compact_mode: false         # Full spacing for readability
+  indent_size: 4              # Clear hierarchy
+  tree_guides: true           # Visual structure guides
+  color_output: always        # Force colors even in pipes
+
+output:
+  format: tree
+  syntax_highlight: true
+
+# Once Phase 5 is complete, you can override icons here:
+# icons:
+#   function: "ƒ"
+#   class: "©"
+#   method: "μ"
+#   variable: "ν"
+#   constant: "Κ"

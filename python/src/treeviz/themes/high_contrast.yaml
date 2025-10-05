@@ -1,0 +1,55 @@
+# High contrast theme for accessibility
+# Strong color differentiation for better visibility
+name: high_contrast
+styles:
+  # Tree structure elements
+  icon:
+    light: "bold #0000FF"
+    dark: "bold #00FFFF"
+  label:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  extras:
+    light: "bold #666666"
+    dark: "bold #CCCCCC"
+  numlines:
+    light: "bold #999999"
+    dark: "bold #999999"
+  position:
+    light: "dim #CCCCCC"
+    dark: "dim #666666"
+  type:
+    light: "bold #FF00FF"
+    dark: "bold #FFFF00"
+  
+  # Semantic styles
+  default:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  muted:
+    light: "#999999"
+    dark: "#999999"
+  subdued:
+    light: "#666666"
+    dark: "#CCCCCC"
+  faint:
+    light: "dim #CCCCCC"
+    dark: "dim #666666"
+  info:
+    light: "bold #0000FF"
+    dark: "bold #00FFFF"
+  emphasis:
+    light: "bold underline #000000"
+    dark: "bold underline #FFFFFF"
+  strong:
+    light: "bold underline #000000"
+    dark: "bold underline #FFFFFF"
+  warning:
+    light: "bold #FF6600"
+    dark: "bold #FFCC00"
+  error:
+    light: "bold #FF0000"
+    dark: "bold #FF6666"
+  success:
+    light: "bold #00CC00"
+    dark: "bold #00FF00"

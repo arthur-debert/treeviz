@@ -26,6 +26,8 @@ class TestRenderAPI:
             document_path="test.json",
             adapter_spec="mdast",
             output_format="json",
+            presentation=None,
+            theme=None,
         )
         assert result == "mocked output"
 
@@ -43,6 +45,8 @@ class TestRenderAPI:
             document_path=test_data,
             adapter_spec=custom_adapter,
             output_format="text",
+            presentation=None,
+            theme=None,
         )
         assert result == "mocked output"
 
@@ -56,7 +60,11 @@ class TestRenderAPI:
 
         # Should use defaults
         mock_generate_viz.assert_called_once_with(
-            document_path=test_data, adapter_spec="3viz", output_format="text"
+            document_path=test_data,
+            adapter_spec="3viz",
+            output_format="text",
+            presentation=None,
+            theme=None,
         )
 
     @patch("treeviz.treeviz.generate_viz")
@@ -73,7 +81,11 @@ class TestRenderAPI:
 
         # Should call generate_viz with OBJ output directly
         mock_generate_viz.assert_called_once_with(
-            document_path=test_data, adapter_spec="mdast", output_format="obj"
+            document_path=test_data,
+            adapter_spec="mdast",
+            output_format="obj",
+            presentation=None,
+            theme=None,
         )
 
         # Should return the Node object from generate_viz
@@ -95,6 +107,8 @@ class TestRenderAPI:
                 document_path=test_data,
                 adapter_spec=adapter_obj,
                 output_format="json",
+                presentation=None,
+                theme=None,
             )
 
     def test_render_validation_delegated_to_generate_viz(self):
@@ -164,6 +178,8 @@ class TestAPIIntegration:
                 document_path=test_data,
                 adapter_spec=adapter,
                 output_format="json",
+                presentation=None,
+                theme=None,
             )
             assert result == '{"label": "test", "type": "root"}'
 
@@ -179,5 +195,7 @@ class TestAPIIntegration:
                 document_path="test.json",
                 adapter_spec="mdast",
                 output_format="text",
+                presentation=None,
+                theme=None,
             )
             assert result == "file output"

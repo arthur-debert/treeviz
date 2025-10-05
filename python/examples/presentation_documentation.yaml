@@ -1,0 +1,20 @@
+# Documentation style optimized for README files and docs
+# Clean output suitable for markdown code blocks
+version: "1.0"
+
+theme: default
+
+view:
+  max_width: 100              # Common doc width
+  show_line_numbers: true     # Helpful for referencing
+  show_types: true            # Show structure types
+  show_extras: true           # Include metadata
+  show_positions: false       # Not needed in docs
+  compact_mode: false         # Readable spacing
+  indent_size: 2              # Standard indentation
+  tree_guides: true           # Clear structure
+  color_output: never         # Plain text for markdown
+
+output:
+  format: tree
+  syntax_highlight: false     # No syntax highlight in plain text

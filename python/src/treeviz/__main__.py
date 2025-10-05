@@ -32,6 +32,7 @@ def generate_viz(
     output_format: str = "term",
     terminal_width: Optional[int] = None,
     theme: Optional[str] = None,
+    presentation: Optional[Union[str, Path]] = None,
 ) -> Union[str, Any]:
     """
     Generate 3viz visualization from document.
@@ -47,6 +48,7 @@ def generate_viz(
         output_format: Output format - json/yaml/text/term/obj (default: "term")
         terminal_width: Terminal width for text/term output (default: 80)
         theme: Theme override - 'dark' or 'light' (default: auto-detect)
+        presentation: Path to presentation.yaml configuration file
 
     Returns:
         String output in the specified format, or Node object if output_format="obj"
@@ -57,10 +59,8 @@ def generate_viz(
     # Load the document
     document = load_document(document_path, format_name=document_format)
 
-    # Load the adapter definition and icons
-    adapter_def, icons_dict = load_adapter(
-        adapter_spec, adapter_format=adapter_format
-    )
+    # Load the adapter definition (icons are now in style)
+    adapter_def, _ = load_adapter(adapter_spec, adapter_format=adapter_format)
 
     # Convert document to 3viz Node format
     node = convert_document(document, adapter_def)
@@ -100,17 +100,39 @@ def generate_viz(
 
         # Create options for the template renderer
         renderer = TemplateRenderer()
-        options = {
-            "symbols": icons_dict,
-            "terminal_width": terminal_width,
-            "format": output_format,
-        }
-        
-        # Add theme if specified
-        if theme:
-            options["theme"] = theme
 
-        return renderer.render(node, options)
+        # If presentation file is provided, use Presentation
+        if presentation:
+            from .rendering import PresentationLoader
+            from pathlib import Path
+
+            # Load presentation configuration
+            loader = PresentationLoader()
+            presentation_obj = loader.load_presentation_hierarchy(
+                Path(presentation)
+            )
+
+            # Apply theme override if specified
+            if theme:
+                presentation_obj.theme = theme
+
+            # Override terminal width if specified
+            if terminal_width:
+                presentation_obj.view.max_width = terminal_width
+
+            return renderer.render(node, presentation_obj)
+        else:
+            # Legacy dict-based options
+            options = {
+                "terminal_width": terminal_width,
+                "format": output_format,
+            }
+
+            # Add theme if specified
+            if theme:
+                options["theme"] = theme
+
+            return renderer.render(node, options)
 
     else:
         raise ValueError(f"Unknown output format: {output_format}")
@@ -284,12 +306,23 @@ def cli(ctx, output_format):
 )
 @click.option(
     "--theme",
-    type=click.Choice(["dark", "light"]),
-    help="Color theme for terminal output (overrides auto-detection)",
+    help="Theme name (dark, light, minimal, high_contrast) or custom theme",
+)
+@click.option(
+    "--presentation",
+    type=click.Path(exists=True, readable=True),
+    help="Path to presentation.yaml configuration file",
 )
 @click.pass_context
 def render(
-    ctx, document, adapter, document_format, adapter_format, output_format, theme
+    ctx,
+    document,
+    adapter,
+    document_format,
+    adapter_format,
+    output_format,
+    theme,
+    presentation,
 ):
     """
     Render a document tree using a 3viz adapter.
@@ -330,6 +363,7 @@ def render(
             output_format=output_format,
             terminal_width=ctx.obj.get("terminal_width", 80),
             theme=theme,
+            presentation=presentation,
         )
 
         # Output result to stdout
@@ -372,6 +406,35 @@ def get_definition_cmd(ctx, format_name):
     """
     output_format = ctx.obj["output_format"]
     get_definition(format_name, output_format)
+
+
+@cli.command("themes")
+@click.pass_context
+def list_themes_cmd(ctx):
+    """
+    List available themes.
+
+    \b
+    Shows all available themes that can be used with the --theme option:
+    - Built-in themes (default, minimal, high_contrast)
+    - User-defined themes from configuration directories
+
+    \b
+    Examples:
+      3viz themes                           # List all themes
+      3viz themes --output-format json      # Machine-readable output
+    """
+    from .rendering.themes import list_available_themes
+
+    output_format = ctx.obj["output_format"]
+    themes = list_available_themes()
+
+    if output_format == "json":
+        print(json.dumps({"themes": themes}, indent=2))
+    else:
+        print("Available themes:")
+        for theme in themes:
+            print(f"  - {theme}")
 
 
 @cli.command("list-user-defs")
@@ -637,6 +700,7 @@ def main():
         "get-definition",
         "list-user-defs",
         "validate-user-defs",
+        "themes",
         "help",
         "--help",
         "--version",

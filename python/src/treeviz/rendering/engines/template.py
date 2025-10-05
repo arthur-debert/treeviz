@@ -5,7 +5,10 @@ This renderer uses templates to generate tree output with optional
 Rich formatting for colored terminal output.
 """
 
-from typing import Dict, Optional, Any, Tuple
+from typing import Dict, Optional, Any, Tuple, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..presentation import Presentation
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -13,8 +16,11 @@ from rich.text import Text
 
 from .base import BaseRenderer
 from ...model import Node
-from ..themes import theme_manager
-from ..layout.calculator import calculate_line_layout, calculate_line_layout_with_positions
+from ..themes import set_theme_mode, get_console, set_theme
+from ..layout.calculator import (
+    calculate_line_layout,
+    calculate_line_layout_with_positions,
+)
 from ..templates.filters import register_filters
 
 
@@ -37,51 +43,78 @@ class TemplateRenderer(BaseRenderer):
 
         # Add layout functions to globals
         self.env.globals["calculate_line_layout"] = calculate_line_layout
-        self.env.globals["calculate_line_layout_with_positions"] = calculate_line_layout_with_positions
+        self.env.globals["calculate_line_layout_with_positions"] = (
+            calculate_line_layout_with_positions
+        )
         self.env.globals["apply_rich_markup"] = self._apply_rich_markup
-        self.env.globals["apply_rich_markup_with_positions"] = self._apply_rich_markup_with_positions
+        self.env.globals["apply_rich_markup_with_positions"] = (
+            self._apply_rich_markup_with_positions
+        )
 
-        # Use the module-level theme manager instance
-        self.theme_manager = theme_manager
+        # Theme is now accessed globally
 
     def render(
-        self, node: Node, options: Optional[Dict[str, Any]] = None
+        self,
+        node: Node,
+        options: Optional[Union[Dict[str, Any], "Presentation"]] = None,
     ) -> str:
         """
         Render a Node tree using templates.
 
         Args:
             node: Root node to render
-            options: Rendering options including:
-                - symbols: Dict of node type to icon mappings
-                - terminal_width: Width of terminal (default 80)
-                - format: Output format ('term' or 'text')
-                - theme: Theme name or 'dark'/'light'
+            options: Rendering options - either Dict or Presentation object
 
         Returns:
             Formatted string representation of the tree
         """
+        from ..presentation import Presentation
+
+        # Convert to Presentation if needed
         if options is None:
-            options = {}
+            presentation = Presentation()
+        elif isinstance(options, Presentation):
+            presentation = options
+        else:
+            # Legacy dict-based options
+            presentation = self._convert_legacy_options(options)
 
-        # Extract options
-        symbols = options.get("symbols", {})
-        terminal_width = options.get("terminal_width", 80)
-        output_format = options.get("format", "term")
-        theme_override = options.get("theme")
-
-        # Override theme if specified
-        if theme_override:
-            if theme_override in ("dark", "light"):
-                self.theme_manager.set_mode(theme_override)
+        # Apply theme
+        if isinstance(presentation.theme, str):
+            if presentation.theme in ("dark", "light"):
+                set_theme_mode(presentation.theme)
             else:
-                self.theme_manager.set_theme(theme_override)
+                try:
+                    set_theme(presentation.theme)
+                except Exception:
+                    # Fall back to default if theme not found
+                    pass
 
-        # Determine if we should use color
+        # Extract view options
+        view_opts = presentation.view
+        terminal_width = view_opts.max_width
+
+        # Determine color usage based on output format from options dict
+        output_format = (
+            options.get("format", "term")
+            if isinstance(options, dict)
+            else "term"
+        )
         use_color = output_format == "term"
 
-        # Create render options object for template
+        # Create legacy render options for template compatibility
         from .. import create_render_options
+        from ..icon_resolver import get_icon_map_from_options
+
+        # Get icons from RenderingOptions instead of adapter
+        if isinstance(options, dict):
+            # Legacy mode - use provided symbols or fall back to defaults
+            from ...const import ICONS
+
+            symbols = options.get("symbols", ICONS)
+        else:
+            # New mode - get icons from Presentation
+            symbols = get_icon_map_from_options(presentation)
 
         render_options = create_render_options(symbols, terminal_width)
 
@@ -94,12 +127,31 @@ class TemplateRenderer(BaseRenderer):
             render_options=render_options,
             terminal_width=terminal_width,
             use_color=use_color,
+            view_options=view_opts,  # Pass view options to template
         )
         return result.rstrip()
 
     def supports_format(self, format: str) -> bool:
         """Template renderer supports text and term formats."""
         return format in ("text", "term")
+
+    def _convert_legacy_options(
+        self, options: Dict[str, Any]
+    ) -> "Presentation":
+        """Convert legacy dict-based options to Presentation."""
+        from ..presentation import Presentation, ViewOptions
+
+        # Extract legacy options
+        terminal_width = options.get("terminal_width", 80)
+        options.get("format", "term")
+        theme_override = options.get("theme", "default")
+
+        # Create view options
+        view_opts = ViewOptions(
+            max_width=terminal_width,
+        )
+
+        return Presentation(theme=theme_override, view=view_opts)
 
     def _apply_rich_markup(
         self,
@@ -128,7 +180,7 @@ class TemplateRenderer(BaseRenderer):
             Line with Rich markup applied
         """
         # Get console for rendering with forced terminal mode for color output
-        console = self.theme_manager.get_console(force_terminal=True)
+        console = get_console(force_terminal=True)
 
         # Create a Rich Text object from the plain line
         text = Text(plain_line)
@@ -197,7 +249,7 @@ class TemplateRenderer(BaseRenderer):
             Line with Rich markup applied
         """
         # Get console for rendering with forced terminal mode for color output
-        console = self.theme_manager.get_console(force_terminal=True)
+        console = get_console(force_terminal=True)
 
         # Create a Rich Text object from the plain line
         text = Text(plain_line)
