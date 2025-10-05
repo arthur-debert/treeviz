@@ -13,7 +13,9 @@ logger = logging.getLogger(__name__)
 
 
 def apply_transformation(
-    value: Any, transform_spec: Union[str, Dict[str, Any], Callable, list]
+    value: Any,
+    transform_spec: Union[str, Dict[str, Any], Callable, list],
+    source_node: Any = None,
 ) -> Any:
     """
     Apply transformation(s) to value based on specification.
@@ -27,6 +29,7 @@ def apply_transformation(
     Args:
         value: Value to transform
         transform_spec: Transformation specification
+        source_node: Original source node, for context-aware transforms
 
     Returns:
         Transformed value
@@ -48,7 +51,9 @@ def apply_transformation(
                 logger.debug(
                     f"Pipeline step {i+1}: applying {transform_step} to {result}"
                 )
-                result = apply_transformation(result, transform_step)
+                result = apply_transformation(
+                    result, transform_step, source_node
+                )
                 if result is None:
                     logger.debug(
                         f"Pipeline terminated at step {i+1}: result is None"
@@ -62,7 +67,9 @@ def apply_transformation(
 
         elif isinstance(transform_spec, str):
             # Simple built-in transformation name
-            return _apply_builtin_transformation(value, transform_spec)
+            return _apply_builtin_transformation(
+                value, transform_spec, source_node=source_node
+            )
 
         elif isinstance(transform_spec, dict):
             # Transformation with parameters
@@ -75,7 +82,7 @@ def apply_transformation(
             # Extract parameters (exclude 'name' field)
             params = {k: v for k, v in transform_spec.items() if k != "name"}
             return _apply_builtin_transformation(
-                value, transform_name, **params
+                value, transform_name, source_node=source_node, **params
             )
 
         else:
@@ -91,33 +98,35 @@ def apply_transformation(
             raise ValueError(f"Transformation failed: {e}") from e
 
 
-def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
+def _apply_builtin_transformation(
+    value: Any, name: str, source_node: Any = None, **kwargs
+) -> Any:
     """Apply built-in transformation by name."""
     transformations = {
         # Text transformations
-        "upper": lambda v, **k: _text_upper(v),
-        "lower": lambda v, **k: _text_lower(v),
-        "capitalize": lambda v, **k: _text_capitalize(v),
-        "strip": lambda v, **k: _text_strip(v),
-        "truncate": lambda v, **k: _truncate_text(v, **k),
-        "prefix": lambda v, **k: _prefix_text(v, **k),
-        "suffix": lambda v, **k: _suffix_text(v, **k),
+        "upper": lambda v, sn, **k: _text_upper(v),
+        "lower": lambda v, sn, **k: _text_lower(v),
+        "capitalize": lambda v, sn, **k: _text_capitalize(v),
+        "strip": lambda v, sn, **k: _text_strip(v),
+        "truncate": lambda v, sn, **k: _truncate_text(v, **k),
+        "prefix": lambda v, sn, **k: _prefix_text(v, sn, **k),
+        "suffix": lambda v, sn, **k: _suffix_text(v, sn, **k),
         # Numeric transformations
-        "abs": lambda v, **k: _numeric_abs(v),
-        "round": lambda v, **k: _numeric_round(v, **k),
-        "format": lambda v, **k: _format_value(v, **k),
+        "abs": lambda v, sn, **k: _numeric_abs(v),
+        "round": lambda v, sn, **k: _numeric_round(v, **k),
+        "format": lambda v, sn, **k: _format_value(v, **k),
         # Collection transformations
-        "length": lambda v, **k: _collection_length(v),
-        "join": lambda v, **k: _collection_join(v, **k),
-        "first": lambda v, **k: _collection_first(v),
-        "last": lambda v, **k: _collection_last(v),
-        "extract": lambda v, **k: _collection_extract(v, **k),
-        "filter": lambda v, **k: _collection_filter(v, **k),
-        "flatten": lambda v, **k: _collection_flatten(v, **k),
+        "length": lambda v, sn, **k: _collection_length(v),
+        "join": lambda v, sn, **k: _collection_join(v, **k),
+        "first": lambda v, sn, **k: _collection_first(v),
+        "last": lambda v, sn, **k: _collection_last(v),
+        "extract": lambda v, sn, **k: _collection_extract(v, **k),
+        "filter": lambda v, sn, **k: _collection_filter(v, **k),
+        "flatten": lambda v, sn, **k: _collection_flatten(v, **k),
         # Type transformations
-        "str": lambda v, **k: _convert_to_str(v),
-        "int": lambda v, **k: _convert_to_int(v),
-        "float": lambda v, **k: _convert_to_float(v),
+        "str": lambda v, sn, **k: _convert_to_str(v),
+        "int": lambda v, sn, **k: _convert_to_int(v),
+        "float": lambda v, sn, **k: _convert_to_float(v),
     }
 
     if name not in transformations:
@@ -126,7 +135,7 @@ def _apply_builtin_transformation(value: Any, name: str, **kwargs) -> Any:
             f"Unknown transformation '{name}'. Available: {available}"
         )
 
-    return transformations[name](value, **kwargs)
+    return transformations[name](value, source_node, **kwargs)
 
 
 def _truncate_text(
@@ -320,22 +329,54 @@ def _convert_to_float(value: Any) -> float:
         ) from e
 
 
-def _prefix_text(value: Any, prefix: str = "", **kwargs) -> str:
-    """Add prefix to text value with type checking."""
+def _prefix_text(
+    value: Any, source_node: Any, prefix: str = "", **kwargs
+) -> str:
+    """Add prefix to text value with type checking and variable substitution."""
     if not isinstance(prefix, str):
         raise ValueError(
             f"prefix transformation requires string prefix, got {type(prefix).__name__}"
         )
+
+    from ..extraction.path_evaluator import extract_by_path
+    import re
+
+    def repl(match):
+        var_name = match.group(1)
+        # Use a simple property access for substitution
+        if isinstance(source_node, dict):
+            return str(source_node.get(var_name, ''))
+        return str(getattr(source_node, var_name, ''))
+
+    # Substitute ${var} placeholders
+    prefix = re.sub(r'\$\{(\w+)\}', repl, prefix)
+
     text = str(value)
     return prefix + text
 
 
-def _suffix_text(value: Any, suffix: str = "", **kwargs) -> str:
-    """Add suffix to text value with type checking."""
+def _suffix_text(
+    value: Any, source_node: Any, suffix: str = "", **kwargs
+) -> str:
+    """Add suffix to text value with type checking and variable substitution."""
     if not isinstance(suffix, str):
         raise ValueError(
             f"suffix transformation requires string suffix, got {type(suffix).__name__}"
         )
+
+    from ..extraction.path_evaluator import extract_by_path
+    import re
+
+    def repl(match):
+        var_name = match.group(1)
+        # Use a simple property access for substitution
+        if isinstance(source_node, dict):
+            return str(source_node.get(var_name, ''))
+        return str(getattr(source_node, var_name, ''))
+
+    # Substitute ${var} placeholders
+    suffix = re.sub(r'\$\{(\w+)\}', repl, suffix)
+
     text = str(value)
     return text + suffix
 

@@ -81,7 +81,7 @@ def extract_attribute(source_node: Any, extraction_spec: Any) -> Any:
     # Step 4: Transformation application (after extraction, before filtering)
     if primary_value is not None and "transform" in extraction_spec:
         primary_value = apply_transformation(
-            primary_value, extraction_spec["transform"]
+            primary_value, extraction_spec["transform"], source_node=source_node
         )
 
     # Step 5: Collection filtering (after transformation, only for lists)

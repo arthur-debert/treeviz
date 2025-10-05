@@ -1,0 +1,158 @@
+# mediawiki.yaml
+
+# The 'type' field in the AST is straightforward.
+type: "type"
+
+# The children of a node are in the 'nodes' field.
+# This is a good default, but many node types override this.
+children: "nodes"
+
+# By default, we'll extract a label from a 'value' field if it exists.
+# This works for 'Text' nodes.
+label: "value"
+
+# Default icon for unknown node types.
+icon: " "
+
+# Define icons for known node types.
+icons:
+  Wikicode: "📄"
+  Heading: "H"
+  Text: "T"
+  Wikilink: "🔗"
+  ExternalLink: "🌐"
+  Template: "{}"
+  Parameter: "P"
+  Tag: "<>"
+  Table: "▦"
+
+# Type-specific overrides for handling the diverse node structures.
+type_overrides:
+  # The root Wikicode node has its children in 'nodes'.
+  Wikicode:
+    icon: "📄"
+    children: "nodes"
+    label: "MediaWiki Document"
+
+  # Heading nodes have their content in the 'title' field.
+  Heading:
+    icon: "H"
+    children: "title.nodes"
+    label:
+      # Construct a label like "H1: Main Heading"
+      path: "title.nodes"
+      transform:
+        - name: "filter"
+          type: "Text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "strip"
+        - name: "prefix"
+          # Use the 'level' attribute from the node
+          prefix: "H${level}: "
+      default: "Heading"
+
+  # Text nodes have no children and their content is in 'value'.
+  Text:
+    children: []
+    label:
+      path: "value"
+      transform:
+        - name: "strip"
+        - name: "truncate"
+          max_length: 70
+          suffix: "..."
+      default: ""
+
+  # Wikilinks point to other pages.
+  Wikilink:
+    # A link's content is its title. If it has separate display text,
+    # that's handled by the label logic.
+    children: "title.nodes"
+    label:
+      # The label is the display text, or the link title if no display text exists.
+      path: "text.nodes" # Try display text first
+      fallback: "title.nodes" # Fallback to page title
+      transform:
+        - name: "filter"
+          type: "Text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "strip"
+        - name: "prefix"
+          prefix: "🔗 "
+      default: "Wikilink"
+
+  # External links point to outside URLs.
+  ExternalLink:
+    children: "title.nodes"
+    label:
+      # The label is the link text.
+      path: "title.nodes"
+      transform:
+        - name: "filter"
+          type: "Text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "strip"
+        - name: "prefix"
+          prefix: "🌐 "
+      default: "External Link"
+
+  # Tags represent HTML-like elements (<b>, <i>, <li>, etc.)
+  Tag:
+    children: "contents.nodes"
+    label:
+      # Create a label like "<tag_name>"
+      path: "tag.nodes[0].value"
+      transform:
+        - name: "strip"
+        - name: "prefix"
+          prefix: "<"
+        - name: "suffix"
+          suffix: ">"
+      default: "<Tag>"
+
+  # Templates are transcluded content blocks like infoboxes.
+  Template:
+    children: "params"
+    label:
+      path: "name.nodes"
+      transform:
+        - name: "filter"
+          type: "Text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "strip"
+        - name: "prefix"
+          prefix: "{{ "
+        - name: "suffix"
+          suffix: " }}"
+      default: "Template"
+
+  # Parameters are the key-value pairs inside a template.
+  Parameter:
+    children: "value.nodes"
+    label:
+      # Create a label like "name = <value text>"
+      path: "name.nodes"
+      transform:
+        - name: "filter"
+          type: "Text"
+        - name: "extract"
+          field: "value"
+        - name: "join"
+          separator: " "
+        - name: "strip"
+        - name: "suffix"
+          # The value part is complex, so we just add " = ..."
+          suffix: " = ..."
+      default: "Parameter"

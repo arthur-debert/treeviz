@@ -115,7 +115,8 @@ label:
 - **capitalize** - Capitalize first letter
 - **strip** - Remove whitespace
 - **truncate** - Limit text length with suffix
-- **prefix** - Add text prefix
+- **prefix** - Add text prefix. Supports `${variable}` substitution from the source node.
+- **suffix** - Add text suffix. Supports `${variable}` substitution from the source node.
 
 ```yaml
 transform:
@@ -123,7 +124,8 @@ transform:
     max_length: 60
     suffix: "..."
   - name: "prefix"
-    prefix: "H"
+    # Embeds the 'level' attribute from the source node into the prefix
+    prefix: "H${level}: "
 ```
 
 #### Collection Transforms

@@ -5,21 +5,23 @@ This module provides the main node adaptation functionality, converting
 source AST nodes to 3viz Node format using declarative definitions.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
+from ..definitions.model import AdapterDef, ChildrenSelector
 from ..model import Node
 from .extraction import extract_attribute
-from ..definitions.model import AdapterDef, ChildrenSelector
 from .utils import resolve_icon
 
 
-def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
+def adapt_node(
+    source_node: Any, def_: Union[Dict[str, Any], AdapterDef]
+) -> Optional[Node]:
     """
     Adapt a source AST node to a 3viz Node.
 
     Args:
         source_node: The source AST node to adapt
-        def_: Dictionary containing attribute mappings and icon mappings
+        def_: Dictionary or AdapterDef object containing attribute mappings and icon mappings
 
     Returns:
         3viz Node or None if node should be ignored
@@ -28,7 +30,10 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
         Standard Python exceptions: TypeError, KeyError, ValueError, etc. with descriptive messages
     """
     # Parse and validate using dataclass
-    definition = AdapterDef.from_dict(def_)
+    if isinstance(def_, AdapterDef):
+        definition = def_
+    else:
+        definition = AdapterDef.from_dict(def_)
 
     # Check if this node type should be ignored
     node_type = extract_attribute(source_node, definition.type)
@@ -125,14 +130,14 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
                         potential_child, definition.type
                     )
                     if child_type and effective_children.matches(child_type):
-                        child_node = adapt_node(potential_child, def_)
+                        child_node = adapt_node(potential_child, definition)
                         if child_node is not None:
                             children.append(child_node)
             else:
                 # Check if it's a single potential child node
                 child_type = extract_attribute(attr_value, definition.type)
                 if child_type and effective_children.matches(child_type):
-                    child_node = adapt_node(attr_value, def_)
+                    child_node = adapt_node(attr_value, definition)
                     if child_node is not None:
                         children.append(child_node)
     else:
@@ -146,7 +151,7 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
                 )
 
             for child in children_source:
-                child_node = adapt_node(child, def_)
+                child_node = adapt_node(child, definition)
                 if child_node is not None:  # Skip ignored nodes
                     children.append(child_node)
 
@@ -161,7 +166,9 @@ def adapt_node(source_node: Any, def_: Dict[str, Any]) -> Optional[Node]:
     )
 
 
-def adapt_tree(source_tree: Any, def_: Dict[str, Any]) -> Node:
+def adapt_tree(
+    source_tree: Any, def_: Union[Dict[str, Any], AdapterDef]
+) -> Node:
     """
     Convenience function to adapt a tree with definition.
 
