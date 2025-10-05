@@ -21,7 +21,7 @@ from .definitions.user_lib_commands import (
 )
 from .formats import load_document
 from .adapters import load_adapter, convert_document
-from .renderer import render as render_nodes, create_render_options
+from .rendering.engines.template import TemplateRenderer
 
 
 def generate_viz(
@@ -86,7 +86,7 @@ def generate_viz(
                 return json.dumps(result_data, indent=2, ensure_ascii=False)
 
     elif output_format in ["text", "term"]:
-        # For text/term formats, use the renderer
+        # For text/term formats, use the new template renderer
         if node is None:
             return ""  # Empty output for ignored nodes
 
@@ -100,12 +100,15 @@ def generate_viz(
             # Use standard width for text output (non-interactive)
             terminal_width = 80
 
-        # Create render options with icons from adapter
-        render_options = create_render_options(
-            symbols=icons_dict, terminal_width=terminal_width
-        )
+        # Create options for the template renderer
+        renderer = TemplateRenderer()
+        options = {
+            "symbols": icons_dict,
+            "terminal_width": terminal_width,
+            "format": output_format,
+        }
 
-        return render_nodes(node, render_options)
+        return renderer.render(node, options)
 
     else:
         raise ValueError(f"Unknown output format: {output_format}")
