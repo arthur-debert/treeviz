@@ -229,19 +229,14 @@ class TestConfigLoaders:
         assert "minimal" in names
         assert "custom" in names
 
-    def test_get_adapter_names(self, mock_fs):
+    def test_get_adapter_names(self, loaders):
         """Test getting list of adapter names."""
-        manager = ConfigManager(
-            app_name="3viz",
-            search_paths=[Path("/app/treeviz/config")],
-            file_loader=mock_fs.create_loader(),
-        )
-        loaders = ConfigLoaders(manager)
-
         names = loaders.get_adapter_names()
 
-        # Since AdapterDef doesn't have a name field, this will return empty list
-        assert len(names) == 0
+        # Now AdapterDef has a name field populated from filename
+        assert len(names) == 2
+        assert "mdast" in names
+        assert "pandoc" in names
 
     def test_create_config_loaders(self, mock_fs, monkeypatch):
         """Test the factory function."""

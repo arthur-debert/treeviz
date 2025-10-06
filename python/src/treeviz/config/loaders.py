@@ -79,20 +79,14 @@ class ConfigLoaders:
 
     def load_theme(self, name: str) -> Optional[Theme]:
         """Load a specific theme by name."""
-        # Temporarily update the pattern with the actual name
-        spec = self.manager.specs["theme"]
-        original_pattern = spec.pattern
-        spec.pattern = f"themes/{name}.yaml"
-
         try:
-            theme_data = self.manager.get("theme", force_reload=True)
-            if theme_data:
-                return theme_data
-        finally:
-            # Restore original pattern
-            spec.pattern = original_pattern
-
-        return None
+            theme = self.manager.get("theme", params={"name": name})
+            # ConfigManager returns empty dict/object if nothing found
+            if theme and hasattr(theme, "name"):
+                return theme
+            return None
+        except Exception:
+            return None
 
     def load_all_adapters(self) -> List[AdapterDef]:
         """Load all available adapter definitions."""
@@ -100,20 +94,17 @@ class ConfigLoaders:
 
     def load_adapter(self, name: str) -> Optional[AdapterDef]:
         """Load a specific adapter by name."""
-        # Temporarily update the pattern with the actual name
-        spec = self.manager.specs["adapter"]
-        original_pattern = spec.pattern
-        spec.pattern = f"adapters/{name}.yaml"
-
         try:
-            adapter_data = self.manager.get("adapter", force_reload=True)
-            if adapter_data:
-                return adapter_data
-        finally:
-            # Restore original pattern
-            spec.pattern = original_pattern
-
-        return None
+            adapter = self.manager.get("adapter", params={"name": name})
+            # ConfigManager returns empty dict/object if nothing found
+            if adapter and hasattr(adapter, "label"):
+                # Populate the name field if not already set
+                if not adapter.name:
+                    adapter.name = name
+                return adapter
+            return None
+        except Exception:
+            return None
 
     def load_view_options(self) -> ViewOptions:
         """Load view configuration with hierarchy merging."""
@@ -127,9 +118,7 @@ class ConfigLoaders:
     def get_adapter_names(self) -> List[str]:
         """Get list of available adapter names."""
         adapters = self.load_all_adapters()
-        return [
-            adapter.name for adapter in adapters if hasattr(adapter, "name")
-        ]
+        return [adapter.name for adapter in adapters if adapter.name]
 
 
 def create_config_loaders(
