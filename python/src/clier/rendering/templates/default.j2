@@ -1,0 +1,12 @@
+{#- Default template for arbitrary objects -#}
+{%- if data is mapping -%}
+{%- for key, value in data.items() %}
+{{ key }}: {{ value }}
+{%- endfor -%}
+{%- elif data is iterable and data is not string -%}
+{%- for item in data %}
+- {{ item }}
+{%- endfor -%}
+{%- else -%}
+{{ data }}
+{%- endif -%}

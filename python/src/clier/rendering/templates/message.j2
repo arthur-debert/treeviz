@@ -1,0 +1,9 @@
+{%- if use_colors -%}
+{{ data.msg | level_color(data.level) }}
+{%- else -%}
+[{{ data.level.value | upper }}] {{ data.msg }}
+{%- endif -%}
+{%- if data.details %}
+
+{{ data.details }}
+{%- endif -%}

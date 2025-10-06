@@ -30,7 +30,10 @@ classifiers = [
     "Topic :: Utilities",
 ]
 
-packages = [{ include = "treeviz", from = "python/src" }]
+packages = [
+    { include = "treeviz", from = "python/src" },
+    { include = "clier", from = "python/src" }
+]
 include = [
     "LICENSE",
     "README.md",
