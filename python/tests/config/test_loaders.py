@@ -6,7 +6,7 @@ import pytest
 from pathlib import Path
 from unittest.mock import Mock
 
-from config import ConfigManager, FileLoader
+from clier.config import ConfigManager, FileLoader
 from treeviz.config.loaders import ConfigLoaders, create_config_loaders
 from treeviz.rendering.theme import Theme
 from treeviz.rendering.presentation import ViewOptions, ShowTypes, CompactMode
@@ -242,7 +242,8 @@ class TestConfigLoaders:
         """Test the factory function."""
         # Mock the default file loader
         monkeypatch.setattr(
-            "config.manager.DefaultFileLoader", lambda: mock_fs.create_loader()
+            "clier.config.manager.DefaultFileLoader",
+            lambda: mock_fs.create_loader(),
         )
 
         loaders = create_config_loaders(

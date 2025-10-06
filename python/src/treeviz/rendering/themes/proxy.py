@@ -39,7 +39,7 @@ class ThemeProxy:
     def __init__(self, config: Dict[str, Any]):
         self._styles = {}
 
-        # Build style proxies from config
+        # Build style proxies from clier.config
         for style_name, style_defs in config.get("styles", {}).items():
             if isinstance(style_defs, dict):
                 self._styles[style_name] = StyleProxy(

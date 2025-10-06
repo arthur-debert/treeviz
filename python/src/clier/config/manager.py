@@ -181,6 +181,7 @@ class ConfigManager:
         app_name: str = "3viz",
         search_paths: Optional[List[Path]] = None,
         file_loader: Optional[FileLoader] = None,
+        package_config_path: Optional[Path] = None,
     ):
         """
         Initialize the configuration manager.
@@ -189,9 +190,11 @@ class ConfigManager:
             app_name: Application name for config directories
             search_paths: Optional explicit search paths (for testing)
             file_loader: Optional file loader for dependency injection
+            package_config_path: Optional path to package's built-in config directory
         """
         self.app_name = app_name
         self._explicit_paths = search_paths
+        self._package_config_path = package_config_path
         self.specs: Dict[str, ConfigSpec] = {}
         self._cache: Dict[str, Any] = {}
         self._loader = file_loader or DefaultFileLoader()
@@ -206,9 +209,8 @@ class ConfigManager:
 
         # Order of precedence (later overrides earlier):
         # 1. Built-in defaults (lowest priority)
-        pkg_dir = Path(__file__).parent.parent / "treeviz" / "config"
-        if self._loader.exists(pkg_dir):
-            paths.append(pkg_dir)
+        if self._package_config_path and self._loader.exists(self._package_config_path):
+            paths.append(self._package_config_path)
 
         # 2. User configuration (XDG or home fallback)
         xdg_config = os.environ.get("XDG_CONFIG_HOME")

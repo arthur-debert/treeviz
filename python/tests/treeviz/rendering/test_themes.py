@@ -60,7 +60,7 @@ class TestThemeSystem:
         themes = list_available_themes()
         assert isinstance(themes, list)
         assert "default" in themes
-        # Should include themes from config
+        # Should include themes from clier.config
         assert len(themes) >= 1
 
     def test_get_console(self):

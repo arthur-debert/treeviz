@@ -4,7 +4,7 @@ import pytest
 from pathlib import Path
 from typing import Dict, Any, List
 from dataclasses import dataclass
-from config import ConfigManager, ConfigSpec, ConfigError
+from clier.config import ConfigManager, ConfigSpec, ConfigError
 
 
 class MockFileLoader:
@@ -441,7 +441,9 @@ class TestConfigManager:
         loader = MockFileLoader(filesystem)
 
         # Mock various path operations
-        with patch("config.manager.__file__", "/app/config/manager.py"):
+        with patch(
+            "clier.config.manager.__file__", "/app/clier/config/manager.py"
+        ):
             with patch("pathlib.Path.home", return_value=Path("/home/user")):
                 with patch(
                     "pathlib.Path.cwd", return_value=Path("/project/work")
@@ -449,7 +451,10 @@ class TestConfigManager:
                     with patch.dict(
                         "os.environ", {}, clear=True
                     ):  # No XDG_CONFIG_HOME
-                        mgr = ConfigManager(file_loader=loader)
+                        mgr = ConfigManager(
+                            file_loader=loader,
+                            package_config_path=Path("/app/treeviz/config"),
+                        )
                         paths = mgr.search_paths
 
                         # Verify order: built-in -> user -> project

@@ -8,7 +8,7 @@ from typing import List, Optional, Any
 from pathlib import Path
 from dataclasses import dataclass
 
-from config import ConfigManager, ConfigSpec
+from clier.config import ConfigManager, ConfigSpec
 
 
 @dataclass
@@ -136,6 +136,13 @@ def create_config_loaders(
     Returns:
         ConfigLoaders instance ready to use
     """
-    manager = ConfigManager(app_name=app_name, search_paths=search_paths)
+    # Get the treeviz package config directory
+    package_config_path = Path(__file__).parent.parent / "config"
+
+    manager = ConfigManager(
+        app_name=app_name,
+        search_paths=search_paths,
+        package_config_path=package_config_path,
+    )
 
     return ConfigLoaders(manager)
