@@ -116,7 +116,7 @@ def generate_viz(
             presentation_obj.view.max_width = terminal_width
 
         # Apply theme settings
-        from .rendering.themes import set_theme_mode, set_theme
+        from clier.rendering.themes import set_theme_mode, set_theme
 
         if isinstance(presentation_obj.theme, str):
             if presentation_obj.theme in ("dark", "light"):

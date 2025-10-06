@@ -163,7 +163,8 @@ def list_themes():
     Returns:
         List[str]: Available theme names
     """
-    from .rendering.themes import list_available_themes
+    # Note: imports moved to module level initialization
+    from clier.rendering.themes import list_available_themes
 
     return list_available_themes()
 
@@ -243,3 +244,16 @@ __all__ = [
     "Presentation",
     "ViewOptions",
 ]
+
+
+# Initialize the theme system with treeviz's theme provider
+def _init_theme_system():
+    """Initialize clier's theme system with treeviz's provider."""
+    from clier.rendering.themes import set_theme_provider
+    from .rendering.theme_provider import TreevizThemeProvider
+
+    set_theme_provider(TreevizThemeProvider())
+
+
+# Initialize on module load
+_init_theme_system()

@@ -1,0 +1,22 @@
+# Style mapping for treeviz
+# Maps application-specific style names to semantic color names
+
+# Tree structure elements
+icon: accent        # Icons use accent color  
+label: primary      # Labels use primary text color
+extras: subdued     # Extra information is subdued
+numlines: muted     # Line counts are muted
+position: faint     # Position info is faint
+type: secondary     # Type information uses secondary color
+
+# Semantic styles (pass-through)
+default: primary
+muted: muted
+subdued: subdued  
+faint: faint
+info: info
+emphasis: emphasis
+strong: strong
+warning: warning
+error: error
+success: success

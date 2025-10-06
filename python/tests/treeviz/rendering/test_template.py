@@ -4,7 +4,7 @@ Tests for the template-based renderer.
 
 from treeviz.model import Node
 from treeviz.rendering.engines.template import TemplateRenderer
-from treeviz.rendering.themes import set_theme_mode, set_theme
+from clier.rendering.themes import set_theme_mode, set_theme
 from treeviz.rendering import Presentation
 
 

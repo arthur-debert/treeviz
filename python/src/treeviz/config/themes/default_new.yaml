@@ -1,0 +1,45 @@
+# Default theme for treeviz
+# Adaptive colors that work well in both light and dark terminals
+name: default
+colors:
+  # Primary text hierarchy
+  primary:
+    light: "#000000"
+    dark: "#FFFFFF"
+  secondary:
+    light: "#6600CC"
+    dark: "#B366FF"
+  subdued:
+    light: "#495057"
+    dark: "#ADB5BD"
+  muted:
+    light: "#ADB5BD"
+    dark: "#6C757D"
+  faint:
+    light: "#CED4DA"
+    dark: "#CED4DA"
+    
+  # Accent colors
+  accent:
+    light: "#0066CC"
+    dark: "#66B3FF"
+    
+  # Semantic colors
+  info:
+    light: "#0066CC"
+    dark: "#66B3FF"
+  emphasis:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  strong:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  warning:
+    light: "#CC6600"
+    dark: "#FFB366"
+  error:
+    light: "#CC0000"
+    dark: "#FF6666"
+  success:
+    light: "#009900"
+    dark: "#66FF66"

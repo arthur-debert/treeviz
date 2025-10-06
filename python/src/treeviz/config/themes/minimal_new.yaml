@@ -1,0 +1,45 @@
+# Minimal theme for treeviz
+# Uses only basic colors for maximum compatibility
+name: minimal
+colors:
+  # Primary text hierarchy
+  primary:
+    light: "#000000"
+    dark: "#FFFFFF"
+  secondary:
+    light: "#555555"
+    dark: "#AAAAAA"
+  subdued:
+    light: "#666666"
+    dark: "#999999"
+  muted:
+    light: "#999999"
+    dark: "#666666"
+  faint:
+    light: "#CCCCCC"
+    dark: "#333333"
+    
+  # Accent colors
+  accent:
+    light: "#000000"
+    dark: "#FFFFFF"
+    
+  # Semantic colors - all minimal
+  info:
+    light: "#000000"
+    dark: "#FFFFFF"
+  emphasis:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  strong:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  warning:
+    light: "#000000"
+    dark: "#FFFFFF"
+  error:
+    light: "#000000"
+    dark: "#FFFFFF"
+  success:
+    light: "#000000"
+    dark: "#FFFFFF"

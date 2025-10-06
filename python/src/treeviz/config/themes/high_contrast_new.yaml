@@ -1,0 +1,45 @@
+# High contrast theme for treeviz
+# Maximum contrast for accessibility
+name: high_contrast
+colors:
+  # Primary text hierarchy
+  primary:
+    light: "#000000"
+    dark: "#FFFFFF"
+  secondary:
+    light: "#FF00FF"  # Bright magenta
+    dark: "#FF00FF"
+  subdued:
+    light: "#0000FF"  # Bright blue
+    dark: "#00FFFF"  # Bright cyan
+  muted:
+    light: "#808080"  # Gray
+    dark: "#808080"
+  faint:
+    light: "#C0C0C0"  # Light gray
+    dark: "#404040"  # Dark gray
+    
+  # Accent colors
+  accent:
+    light: "#FF0000"  # Bright red
+    dark: "#FFFF00"  # Bright yellow
+    
+  # Semantic colors - maximum contrast
+  info:
+    light: "#0000FF"  # Bright blue
+    dark: "#00FFFF"  # Bright cyan
+  emphasis:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  strong:
+    light: "bold #000000"
+    dark: "bold #FFFFFF"
+  warning:
+    light: "#FF8000"  # Orange
+    dark: "#FFFF00"  # Yellow
+  error:
+    light: "#FF0000"  # Red
+    dark: "#FF0000"
+  success:
+    light: "#00FF00"  # Green
+    dark: "#00FF00"

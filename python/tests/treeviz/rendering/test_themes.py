@@ -5,7 +5,7 @@ Tests for the theme system.
 import os
 from unittest.mock import patch, MagicMock
 
-from treeviz.rendering.themes import (
+from clier.rendering.themes import (
     detect_terminal_mode,
     theme,
     set_theme_mode,

@@ -14,12 +14,15 @@ class Theme:
 
     name: str
     styles: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    colors: Dict[str, Dict[str, str]] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, config: Dict[str, Any]) -> "Theme":
         """Create Theme from dictionary configuration."""
         return cls(
-            name=config.get("name", "custom"), styles=config.get("styles", {})
+            name=config.get("name", "custom"),
+            styles=config.get("styles", {}),
+            colors=config.get("colors", {}),
         )
 
     def get_style(

@@ -9,7 +9,7 @@ correct style based on the current terminal theme.
 from typing import Dict, Any, Optional, List
 from rich.theme import Theme as RichTheme
 from .detector import detect_terminal_mode
-from ...config.loaders import create_config_loaders
+from .base import Theme, ThemeProvider
 
 
 class StyleProxy:
@@ -119,18 +119,11 @@ DEFAULT_THEME_CONFIG = {
 
 
 # Initialize config loaders and global theme proxy
-_theme_loaders = create_config_loaders()
+# Theme provider will be set by the application
+_theme_provider: Optional[ThemeProvider] = None
 _theme_config = DEFAULT_THEME_CONFIG
 
-# Try to load default theme from YAML
-try:
-    theme_obj = _theme_loaders.load_theme("default")
-    if theme_obj and theme_obj.styles:
-        _theme_config = {"styles": theme_obj.styles}
-except Exception:
-    # Fall back to hardcoded theme if loading fails
-    pass
-
+# Global theme proxy - initialized with default theme
 theme = ThemeProxy(_theme_config)
 
 # Set initial mode based on terminal detection
@@ -170,11 +163,19 @@ def set_theme(theme_name: str):
     if theme_name.lower() == "default":
         theme_config = DEFAULT_THEME_CONFIG
     else:
-        theme_obj = _theme_loaders.load_theme(theme_name)
+        if not _theme_provider:
+            raise ValueError("No theme provider configured")
+        theme_obj = _theme_provider.get_theme(theme_name)
         if not theme_obj:
             raise ValueError(f"Theme '{theme_name}' not found")
         # Convert Theme object to dict format for ThemeProxy
-        theme_config = {"styles": theme_obj.styles}
+        style_mapping = _theme_provider.get_style_mapping()
+        theme_config = {
+            "styles": {
+                style_name: theme_obj.colors.get(color_name, {})
+                for style_name, color_name in style_mapping.items()
+            }
+        }
 
     # Create new theme proxy
     theme = ThemeProxy(theme_config)
@@ -186,5 +187,12 @@ def set_theme(theme_name: str):
 def list_available_themes() -> List[str]:
     """List all available theme names."""
     themes = ["default"]  # Always include default
-    themes.extend(_theme_loaders.get_theme_names())
+    if _theme_provider:
+        themes.extend(_theme_provider.list_themes())
     return list(set(themes))  # Remove duplicates
+
+
+def set_theme_provider(provider: ThemeProvider) -> None:
+    """Set the theme provider (called by the application)."""
+    global _theme_provider
+    _theme_provider = provider

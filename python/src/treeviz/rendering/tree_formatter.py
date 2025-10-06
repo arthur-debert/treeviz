@@ -12,7 +12,7 @@ from ..model import Node
 from .presentation import Presentation
 from .simple_layout import calculate_column_widths
 from .icon_resolver import get_icon_map_from_options
-from .themes import get_console
+from clier.rendering.themes import get_console
 from rich.text import Text
 from .templates.filters import format_extras, truncate_text, ljust, rjust
 
