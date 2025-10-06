@@ -1,9 +1,11 @@
 from treeviz.adapters import convert_document, load_adapter
 from treeviz.formats import load_document
 from treeviz.rendering import TemplateRenderer
+from treeviz.result import TreeResult
 
 
 import json
+import sys
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
@@ -75,7 +77,7 @@ def generate_viz(
                 return json.dumps(result_data, indent=2, ensure_ascii=False)
 
     elif output_format in ["text", "term"]:
-        # For text/term formats, use the new template renderer
+        # For text/term formats, prepare all business logic here
         if node is None:
             return ""  # Empty output for ignored nodes
 
@@ -83,13 +85,9 @@ def generate_viz(
         if terminal_width is None:
             terminal_width = 80
 
-        # Create renderer and presentation
-        renderer = TemplateRenderer()
-        from pathlib import Path
-
+        # Load presentation configuration
         from .rendering import Presentation, PresentationLoader
 
-        # Load presentation configuration
         if presentation:
             loader = PresentationLoader()
             presentation_obj = loader.load_presentation_hierarchy(
@@ -102,7 +100,7 @@ def generate_viz(
         # Apply theme override if specified
         if theme:
             presentation_obj.theme_name = theme
-            # Reload the theme
+            # Load the theme
             from .config.loaders import create_config_loaders
 
             loaders = create_config_loaders()
@@ -114,7 +112,45 @@ def generate_viz(
         if terminal_width:
             presentation_obj.view.max_width = terminal_width
 
-        return renderer.render(node, presentation_obj)
+        # Apply theme settings
+        from .rendering.themes import set_theme_mode, set_theme
+
+        if isinstance(presentation_obj.theme, str):
+            if presentation_obj.theme in ("dark", "light"):
+                set_theme_mode(presentation_obj.theme)
+            else:
+                try:
+                    set_theme(presentation_obj.theme)
+                except Exception:
+                    # Fall back to default if theme not found
+                    pass
+
+        # Detect terminal capabilities
+        use_color = sys.stdout.isatty() if output_format == "term" else False
+
+        # Get icons from presentation
+        from .rendering.icon_resolver import get_icon_map_from_options
+
+        symbols = get_icon_map_from_options(presentation_obj)
+
+        # Create the result object with all prepared data
+        TreeResult(
+            node=node,
+            presentation=presentation_obj,
+            symbols=symbols,
+            use_color=use_color,
+            terminal_width=terminal_width,
+        )
+
+        # Now render with a clean renderer that only does rendering
+        renderer = TemplateRenderer()
+        return renderer.render(
+            node=node,
+            presentation=presentation_obj,
+            symbols=symbols,
+            use_color=use_color,
+            terminal_width=terminal_width,
+        )
 
     else:
         raise ValueError(f"Unknown output format: {output_format}")

@@ -22,6 +22,7 @@ from tests.conftest import (
 class TestGenerateViz:
     """Test cases for generate_viz function."""
 
+    @patch("sys.stdout.isatty", return_value=True)
     @patch(MOCK_LOAD_DOCUMENT)
     @patch(MOCK_LOAD_ADAPTER)
     @patch(MOCK_CONVERT_DOCUMENT)
@@ -32,6 +33,7 @@ class TestGenerateViz:
         mock_convert,
         mock_load_adapter,
         mock_load_document,
+        mock_isatty,
     ):
         """Test generate_viz with term output format."""
         # Setup mocks
@@ -62,11 +64,16 @@ class TestGenerateViz:
 
         # Verify renderer was created and called
         mock_template_renderer_class.assert_called_once()
-        # Renderer is now called with Presentation object
-        call_args = mock_renderer.render.call_args
-        assert call_args[0][0] == mock_node
-        assert isinstance(call_args[0][1], Presentation)
-        assert call_args[0][1].view.max_width == 80
+        # Renderer is now called with keyword arguments
+        assert mock_renderer.render.called
+        call_kwargs = mock_renderer.render.call_args.kwargs
+        assert call_kwargs["node"] == mock_node
+        assert isinstance(call_kwargs["presentation"], Presentation)
+        assert call_kwargs["terminal_width"] == 80
+        assert (
+            call_kwargs["use_color"] is True
+        )  # stdout.isatty() is True in tests
+        assert "symbols" in call_kwargs
 
         assert result == mock_rendered
 
@@ -224,20 +231,18 @@ class TestGenerateViz:
         generate_viz("test.json", output_format="term", terminal_width=120)
 
         # Should use provided terminal width
-        call_args = mock_renderer.render.call_args
-        assert call_args[0][0] == Node(label="test")
-        assert isinstance(call_args[0][1], Presentation)
-        assert call_args[0][1].view.max_width == 120
+        call_kwargs = mock_renderer.render.call_args.kwargs
+        assert call_kwargs["node"] == Node(label="test")
+        assert call_kwargs["terminal_width"] == 120
         mock_renderer.render.reset_mock()
 
         # Test without terminal width (should use default)
         generate_viz("test.json", output_format="term")
 
         # Should use default width
-        call_args = mock_renderer.render.call_args
-        assert call_args[0][0] == Node(label="test")
-        assert isinstance(call_args[0][1], Presentation)
-        assert call_args[0][1].view.max_width == 80
+        call_kwargs = mock_renderer.render.call_args.kwargs
+        assert call_kwargs["node"] == Node(label="test")
+        assert call_kwargs["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     @patch(MOCK_LOAD_ADAPTER)
@@ -262,20 +267,18 @@ class TestGenerateViz:
 
         # Test text output (fixed width)
         generate_viz("test.json", output_format="text")
-        call_args = mock_renderer.render.call_args
-        assert call_args[0][0] == Node(label="test")
-        assert isinstance(call_args[0][1], Presentation)
-        assert call_args[0][1].view.max_width == 80
+        call_kwargs = mock_renderer.render.call_args.kwargs
+        assert call_kwargs["node"] == Node(label="test")
+        assert call_kwargs["terminal_width"] == 80
 
         mock_renderer.render.reset_mock()
 
         # Test term output (should also use 80 as default when not TTY)
         with patch("sys.stdout.isatty", return_value=False):
             generate_viz("test.json", output_format="term")
-            call_args = mock_renderer.render.call_args
-            assert call_args[0][0] == Node(label="test")
-            assert isinstance(call_args[0][1], Presentation)
-            assert call_args[0][1].view.max_width == 80
+            call_kwargs = mock_renderer.render.call_args.kwargs
+            assert call_kwargs["node"] == Node(label="test")
+            assert call_kwargs["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_invalid_output_format(self, mock_load_document):
@@ -344,10 +347,9 @@ class TestGenerateViz:
             generate_viz("test.json", output_format="term")
 
             # Should pass custom icons to renderer
-            call_args = mock_renderer.render.call_args
-            assert call_args[0][0] == Node(label="test", type="function")
-            assert isinstance(call_args[0][1], Presentation)
-            assert call_args[0][1].view.max_width == 80
+            call_kwargs = mock_renderer.render.call_args.kwargs
+            assert call_kwargs["node"] == Node(label="test", type="function")
+            assert call_kwargs["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     @patch(MOCK_LOAD_ADAPTER)

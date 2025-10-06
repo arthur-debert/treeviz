@@ -16,7 +16,7 @@ from rich.text import Text
 
 from .base import BaseRenderer
 from ...model import Node
-from ..themes import set_theme_mode, get_console, set_theme
+from ..themes import get_console
 from ..layout.calculator import (
     calculate_line_layout,
     calculate_line_layout_with_positions,
@@ -57,13 +57,23 @@ class TemplateRenderer(BaseRenderer):
         self,
         node: Node,
         presentation: Optional["Presentation"] = None,
+        symbols: Optional[Dict[str, str]] = None,
+        use_color: Optional[bool] = None,
+        terminal_width: Optional[int] = None,
     ) -> str:
         """
         Render a Node tree using templates.
 
+        This renderer is now focused purely on rendering, with all business
+        logic (theme application, terminal detection, icon resolution) handled
+        by the caller.
+
         Args:
             node: Root node to render
             presentation: Presentation object with rendering configuration
+            symbols: Pre-resolved icon map (if None, will be resolved)
+            use_color: Whether to use color (if None, will auto-detect)
+            terminal_width: Terminal width (if None, will use from presentation)
 
         Returns:
             Formatted string representation of the tree
@@ -74,30 +84,24 @@ class TemplateRenderer(BaseRenderer):
         if presentation is None:
             presentation = Presentation()
 
-        # Apply theme
-        if isinstance(presentation.theme, str):
-            if presentation.theme in ("dark", "light"):
-                set_theme_mode(presentation.theme)
-            else:
-                try:
-                    set_theme(presentation.theme)
-                except Exception:
-                    # Fall back to default if theme not found
-                    pass
-
         # Extract view options
         view_opts = presentation.view
-        terminal_width = view_opts.max_width
 
-        # Determine if we should use color based on terminal detection
-        import sys
+        # Use provided values or fall back to defaults
+        if terminal_width is None:
+            terminal_width = view_opts.max_width
 
-        use_color = sys.stdout.isatty()
+        if use_color is None:
+            # Default behavior if not specified
+            import sys
 
-        # Get icons from presentation
-        from ..icon_resolver import get_icon_map_from_options
+            use_color = sys.stdout.isatty()
 
-        symbols = get_icon_map_from_options(presentation)
+        if symbols is None:
+            # Fall back to resolving icons if not provided
+            from ..icon_resolver import get_icon_map_from_options
+
+            symbols = get_icon_map_from_options(presentation)
 
         # Get the template
         template = self.env.get_template("tree.j2")
