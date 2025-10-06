@@ -1,7 +1,7 @@
 """
 Entry point for treeviz CLI.
 
-This module contains both the CLI interface and main business logic for treeviz.
+This module contains the CLI interface for treeviz.
 """
 
 import json
@@ -14,8 +14,6 @@ from clier.cmdhelp import HelpConfig, HelpSystem, create_help_command
 
 from treeviz.viz import generate_viz
 
-
-# CLI functions moved from cli.py to avoid import issues
 
 # Configure help system paths
 _help_dirs = []
@@ -58,9 +56,9 @@ def cli(ctx, output_format):
 
     \b
     Quick Start:
-      3viz document.json                      # Visualize with auto-detection
-      3viz document.md mdast                  # Use Markdown AST adapter
-      echo '{"type":"root"}' | 3viz - 3viz   # Process from stdin
+      3viz viz document.json                  # Visualize with auto-detection
+      3viz viz document.md mdast              # Use Markdown AST adapter
+      echo '{"type":"root"}' | 3viz viz - 3viz   # Process from stdin
 
     \b
     Available adapters: 3viz, mdast, unist, pandoc, restructuredtext
@@ -110,7 +108,7 @@ def cli(ctx, output_format):
     help="Path to presentation.yaml configuration file",
 )
 @click.pass_context
-def render(
+def viz(
     ctx,
     document,
     adapter,
@@ -121,7 +119,7 @@ def render(
     presentation,
 ):
     """
-    Render a document tree using a 3viz adapter.
+    Visualize a document tree using a 3viz adapter.
 
     \b
     DOCUMENT: Path to document file or '-' for stdin
@@ -135,12 +133,10 @@ def render(
 
     \b
     Examples:
-      3viz document.json                      # Auto-detect format, use 3viz adapter
-      3viz document.md mdast                  # Use Markdown AST adapter
-      3viz data.xml my-custom.yaml            # Use custom adapter definition
-      3viz - mdast < input.json               # Read from stdin
-      3viz data.json --output-format json     # Output as JSON instead of visual
-      3viz doc.xml my-adapter --document-format json  # Force document parsing as JSON
+      3viz viz document.json                  # Auto-detect format, use 3viz adapter
+      3viz viz document.md mdast              # Use Markdown AST adapter
+      3viz viz data.xml my-custom.yaml        # Use custom adapter definition
+      3viz viz - mdast < input.json           # Read from stdin
 
     \b
     User-defined adapters are discovered from:
@@ -171,6 +167,12 @@ def render(
         else:
             print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
+
+
+@cli.command()
+def foo():
+    """Test command that prints bar."""
+    print("bar")
 
 
 # Create the help command using the generic help system
@@ -204,22 +206,6 @@ cli.add_command(help)
 
 def main():
     """Main entry point that delegates to CLI argument parsing."""
-    # If no arguments or first argument doesn't look like a subcommand, inject 'render'
-    if len(sys.argv) > 1 and sys.argv[1] not in [
-        "render",
-        "get-definition",
-        "list-user-defs",
-        "validate-user-defs",
-        "themes",
-        "help",
-        "--help",
-        "--version",
-    ]:
-        # Handle special case for stdin '-' or file paths
-        if sys.argv[1] == "-" or not sys.argv[1].startswith("-"):
-            # First argument looks like a document path, prepend 'render'
-            sys.argv.insert(1, "render")
-
     cli()
 
 
