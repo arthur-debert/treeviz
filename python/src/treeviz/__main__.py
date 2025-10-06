@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 import click
-from clier.learn import LearnSystem, create_learn_command
+from clier.learn import LearnSystem
 
 from treeviz.viz import generate_viz
 
@@ -32,9 +32,6 @@ if _pkg_topic_dir.exists():
 # If no directories found, still use dev path
 if not _topic_dirs:
     _topic_dirs.append(_dev_topic_dir)
-
-# Create learn system with topic directories
-_learn_system = LearnSystem(_topic_dirs)
 
 
 @click.group()
@@ -163,9 +160,7 @@ def foo():
 
 
 # Create the help command using the learn system
-help = create_learn_command(_learn_system, command_name="learn")
-# Register the help command with the main CLI
-cli.add_command(help)
+cli.add_command(LearnSystem(_topic_dirs, name="learn").as_command())
 
 
 def main():
