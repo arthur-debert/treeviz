@@ -7,7 +7,7 @@ including the polymorphic render() function and core classes.
 
 from .definitions.model import AdapterDef  # noqa: F401
 from .definitions.lib import AdapterLib  # noqa: F401
-from .__main__ import generate_viz
+from treeviz.viz import generate_viz
 
 
 # Output format constants for better UX

@@ -12,6 +12,13 @@ from typing import Any, Dict, List
 
 from treeviz.model import Node
 
+# Mock paths for imports that have moved from __main__ to viz module
+MOCK_VIZ_MODULE = "treeviz.viz"
+MOCK_LOAD_DOCUMENT = f"{MOCK_VIZ_MODULE}.load_document"
+MOCK_LOAD_ADAPTER = f"{MOCK_VIZ_MODULE}.load_adapter"
+MOCK_CONVERT_DOCUMENT = f"{MOCK_VIZ_MODULE}.convert_document"
+MOCK_TEMPLATE_RENDERER = f"{MOCK_VIZ_MODULE}.TemplateRenderer"
+
 
 class NodeAssertion:
     """Custom assertion class for Node objects with fluent interface."""
@@ -121,6 +128,31 @@ def load_test_data(filename: str) -> Any:
 
 
 # Common test fixtures
+
+
+@pytest.fixture
+def mock_paths():
+    """
+    Provides centralized mock paths for testing generate_viz function.
+
+    Use this fixture to get the correct paths for mocking functions that
+    have moved from __main__ to the viz module.
+
+    Returns:
+        dict: Dictionary with mock path constants
+
+    Example:
+        def test_something(mock_paths):
+            with patch(mock_paths['load_document']) as mock_load:
+                ...
+    """
+    return {
+        "module": MOCK_VIZ_MODULE,
+        "load_document": MOCK_LOAD_DOCUMENT,
+        "load_adapter": MOCK_LOAD_ADAPTER,
+        "convert_document": MOCK_CONVERT_DOCUMENT,
+        "template_renderer": MOCK_TEMPLATE_RENDERER,
+    }
 
 
 @pytest.fixture
