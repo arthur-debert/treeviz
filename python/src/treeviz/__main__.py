@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 import click
-from clier.cmdhelp import HelpConfig, HelpSystem, create_help_command
+from clier.learn import HelpConfig, HelpSystem, create_help_command
 
 from treeviz.viz import generate_viz
 
