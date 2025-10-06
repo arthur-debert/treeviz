@@ -15,8 +15,6 @@ import click
 from clier.cmdhelp import HelpConfig, HelpSystem, create_help_command
 
 from .adapters import convert_document, load_adapter
-from .definitions import AdapterDef, AdapterLib
-from .definitions.yaml_utils import serialize_dataclass_to_yaml
 from .formats import load_document
 from .rendering import TemplateRenderer
 
@@ -132,32 +130,6 @@ def generate_viz(
         raise ValueError(f"Unknown output format: {output_format}")
 
 
-def _output_definition(definition, output_format):
-    """
-    Output definition in the specified format.
-
-    Args:
-        definition: The AdapterDef object to output
-        output_format: One of 'text', 'json', 'term'
-    """
-    if output_format == "json":
-        data = asdict(definition)
-        print(json.dumps(data, indent=2, ensure_ascii=False))
-    elif output_format in ["text", "term"]:
-        # For text/term output, use YAML with comments for better readability
-        try:
-            yaml_output = serialize_dataclass_to_yaml(
-                definition, include_comments=True
-            )
-            print(yaml_output)
-        except ImportError:
-            # Fallback to JSON if YAML not available
-            data = asdict(definition)
-            print(json.dumps(data, indent=2, ensure_ascii=False))
-    else:
-        raise ValueError(f"Unknown output format: {output_format}")
-
-
 def _output_data(data, output_format):
     """
     Output data in the specified format.
@@ -173,24 +145,6 @@ def _output_data(data, output_format):
         print(json.dumps(data, indent=2, ensure_ascii=False))
     else:
         raise ValueError(f"Unknown output format: {output_format}")
-
-
-def get_definition(format_name: str, output_format: str = "text"):
-    """
-    Get and output an adapter definition for the specified format.
-
-    Args:
-        format_name: Name of the format (3viz, mdast, unist, etc.)
-        output_format: Output format - json/text/term (default: "text")
-    """
-    if format_name == "3viz":
-        # For 3viz, create a default definition
-        definition = AdapterDef()
-    else:
-        # For other formats, get from the library
-        definition = AdapterLib.get(format_name)
-
-    _output_definition(definition, output_format)
 
 
 # CLI functions moved from cli.py to avoid import issues
