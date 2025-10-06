@@ -12,6 +12,10 @@ import click
 from clier.learn import learn_app
 
 from treeviz.viz import generate_viz
+from treeviz.commands import viz_command
+from treeviz.result import TreeResult
+from treeviz.rendering import TemplateRenderer
+from clier.rendering import handle_command_result
 
 # Configure learn system paths, has to work in editable and packaged..
 ROOT = Path(Path(__file__).parent)
@@ -98,19 +102,57 @@ def viz(
       3viz viz - mdast < input.json           # Read from stdin
     """
 
-    print(
-        generate_viz(
+    # Get output format
+    fmt = output_format or ctx.obj["output_format"]
+
+    # Handle different output formats
+    if fmt in ("json", "yaml"):
+        # For data formats, use original generate_viz
+        result = generate_viz(
             document_path=document,
             adapter_spec=adapter,
             document_format=document_format,
             adapter_format=adapter_format,
-            output_format=output_format or ctx.obj["output_format"],
+            output_format=fmt,
             terminal_width=ctx.obj.get("terminal_width", None),
             theme=theme,
             presentation=presentation,
-        ),
-        end="",
-    )
+        )
+        print(result, end="")
+    else:
+        # For text/term, use command pattern
+        try:
+            # Execute command
+            result = viz_command(
+                document_path=document,
+                adapter_spec=adapter,
+                document_format=document_format,
+                adapter_format=adapter_format,
+                terminal_width=ctx.obj.get("terminal_width", None),
+                theme=theme,
+                presentation=presentation,
+            )
+
+            # Render TreeResult directly for tree visualization
+            if isinstance(result, TreeResult):
+                renderer = TemplateRenderer()
+                output = renderer.render(
+                    node=result.node,
+                    presentation=result.presentation,
+                    symbols=result.symbols,
+                    use_color=result.use_color,
+                    terminal_width=result.terminal_width,
+                )
+                print(output, end="")
+            else:
+                # For other results, use generic renderer
+                output = handle_command_result(result, fmt)
+                print(output, end="")
+        except Exception as e:
+            # Render error using generic renderer
+            output = handle_command_result(e, fmt)
+            print(output, file=sys.stderr)
+            ctx.exit(1)
 
 
 # Create and add the learn command with custom name

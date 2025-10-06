@@ -20,7 +20,8 @@ def generate_viz(
     terminal_width: Optional[int] = 80,
     theme: Optional[str] = None,
     presentation: Optional[Union[str, Path]] = None,
-) -> Union[str, Any]:
+    return_result_object: bool = False,
+) -> Union[str, Any, TreeResult]:
     """
     Generate 3viz visualization from document.
 
@@ -38,7 +39,8 @@ def generate_viz(
         presentation: Path to presentation.yaml configuration file
 
     Returns:
-        String output in the specified format, or Node object if output_format="obj"
+        String output in the specified format, Node object if output_format="obj",
+        or TreeResult object if return_result_object=True
 
     Raises:
         Various exceptions from sub-functions (DocumentFormatError, ValueError, etc.)
@@ -134,7 +136,7 @@ def generate_viz(
         symbols = get_icon_map_from_options(presentation_obj)
 
         # Create the result object with all prepared data
-        TreeResult(
+        tree_result = TreeResult(
             node=node,
             presentation=presentation_obj,
             symbols=symbols,
@@ -142,7 +144,11 @@ def generate_viz(
             terminal_width=terminal_width,
         )
 
-        # Now render with a clean renderer that only does rendering
+        # Return the result object if requested
+        if return_result_object:
+            return tree_result
+
+        # Otherwise render to string
         renderer = TemplateRenderer()
         return renderer.render(
             node=node,
