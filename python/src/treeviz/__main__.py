@@ -13,24 +13,9 @@ from clier.learn import learn_app
 
 from treeviz.viz import generate_viz
 
-# Configure learn system paths
-_topic_dirs = []
-
-# Try development path first (relative to repo root)
-_dev_topic_dir = (
-    Path(__file__).parent.parent.parent.parent / "docs" / "shell-help"
-)
-if _dev_topic_dir.exists():
-    _topic_dirs.append(_dev_topic_dir)
-
-# For installed packages, use package data
-_pkg_topic_dir = Path(__file__).parent / "data" / "shell-help"
-if _pkg_topic_dir.exists():
-    _topic_dirs.append(_pkg_topic_dir)
-
-# If no directories found, still use dev path
-if not _topic_dirs:
-    _topic_dirs.append(_dev_topic_dir)
+# Configure learn system paths, has to work in editable and packaged..
+ROOT = Path(Path(__file__).parent)
+_topic_dirs = [ROOT / "docs" / "shell-help"]
 
 
 @click.group()
