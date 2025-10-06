@@ -7,9 +7,7 @@ This package contains JSON definition files for popular AST formats.
 from .model import AdapterDef
 from .lib import AdapterLib
 
-# Load built-in and user libraries on module import
-AdapterLib.load_core_libs()
-AdapterLib.load_user_libs()
+# No longer need to preload - new system loads on demand
 
 __all__ = [
     "AdapterDef",

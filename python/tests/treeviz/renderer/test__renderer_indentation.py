@@ -5,15 +5,18 @@ This test file focuses on proper indentation of nested structures,
 spacing, and visual formatting of the rendered output.
 """
 
-from treeviz.rendering import render
+from treeviz.rendering import TemplateRenderer
 from treeviz.model import Node
+
+# Create a module-level renderer instance for all tests
+renderer = TemplateRenderer()
 
 
 def test_no_indentation_for_root():
     """Test that root node has no indentation."""
     node = Node(type="document", label="Root")
 
-    output = render(node)
+    output = renderer.render(node)
 
     assert output.startswith("⧉ Root")
     assert not output.startswith(" ")
@@ -24,7 +27,7 @@ def test_single_level_indentation():
     child = Node(type="text", label="Child")
     parent = Node(type="document", label="Parent", children=[child])
 
-    output = render(parent)
+    output = renderer.render(parent)
 
     lines = output.split("\n")
     assert "⧉ Parent" in lines[0]
@@ -37,7 +40,7 @@ def test_multi_level_indentation():
     child = Node(type="paragraph", label="Child", children=[grandchild])
     root = Node(type="document", label="Root", children=[child])
 
-    output = render(root)
+    output = renderer.render(root)
 
     lines = output.split("\n")
     assert "⧉ Root" in lines[0]
@@ -53,7 +56,7 @@ def test_consistent_indentation_width():
     level2 = Node(type="paragraph", label="Level 2", children=[level3])
     level1 = Node(type="document", label="Level 1", children=[level2])
 
-    output = render(level1)
+    output = renderer.render(level1)
 
     lines = output.split("\n")
     assert "⧉ Level 1" in lines[0]  # 0 spaces
@@ -71,7 +74,7 @@ def test_sibling_indentation():
     ]
     parent = Node(type="document", label="Parent", children=children)
 
-    output = render(parent)
+    output = renderer.render(parent)
 
     lines = output.split("\n")
     assert "⧉ Parent" in lines[0]
@@ -94,7 +97,7 @@ def test_mixed_depth_siblings():
         type="document", label="Root", children=[deep_child, shallow_child]
     )
 
-    output = render(root)
+    output = renderer.render(root)
 
     lines = output.split("\n")
     assert "⧉ Root" in lines[0]
@@ -135,7 +138,7 @@ def test_complex_tree_indentation():
         children=[heading, paragraph, list_node],
     )
 
-    output = render(document)
+    output = renderer.render(document)
 
     expected_patterns = [
         "⧉ Document",  # 0 spaces
@@ -162,7 +165,7 @@ def test_empty_children_no_extra_lines():
     empty_child = Node(type="paragraph", label="Empty", children=[])
     parent = Node(type="document", label="Parent", children=[empty_child])
 
-    output = render(parent)
+    output = renderer.render(parent)
 
     lines = output.split("\n")
     assert len(lines) == 2
@@ -178,7 +181,7 @@ def test_indentation_with_long_labels():
     child = Node(type="text", label=long_label)
     parent = Node(type="document", label="Short", children=[child])
 
-    output = render(parent)
+    output = renderer.render(parent)
 
     lines = output.split("\n")
     assert "⧉ Short" in lines[0]
@@ -194,7 +197,7 @@ def test_indentation_preserves_spaces_in_labels():
     child = Node(type="text", label="Label with  multiple   spaces")
     parent = Node(type="document", label="Parent", children=[child])
 
-    output = render(parent)
+    output = renderer.render(parent)
 
     lines = output.split("\n")
     assert "Label with  multiple   spaces" in lines[1]
@@ -209,7 +212,7 @@ def test_maximum_depth_indentation():
     for i in range(9, 0, -1):
         current = Node(type="paragraph", label=f"Level {i}", children=[current])
 
-    output = render(current)
+    output = renderer.render(current)
 
     lines = output.split("\n")
 

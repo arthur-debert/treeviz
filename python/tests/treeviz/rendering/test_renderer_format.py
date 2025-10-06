@@ -8,6 +8,7 @@ of the renderer without needing full integration tests.
 import re
 from treeviz.model import Node
 from treeviz.rendering.engines.template import TemplateRenderer
+from treeviz.rendering import Presentation
 
 
 class TestRendererFormat:
@@ -16,15 +17,9 @@ class TestRendererFormat:
     def setup_method(self):
         """Set up test fixtures."""
         self.renderer = TemplateRenderer()
-        # Standard test options
-        # Import default symbols for testing
-        from treeviz.const import ICONS
-
-        self.options = {
-            "symbols": ICONS,
-            "terminal_width": 80,
-            "format": "text",
-        }
+        # Use default presentation for testing
+        self.presentation = Presentation()
+        self.presentation.view.max_width = 80
 
     def test_single_space_after_icon(self):
         """Test that there's always exactly one space between icon and label."""
@@ -47,7 +42,7 @@ class TestRendererFormat:
             ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         # Check each line for proper spacing
@@ -78,7 +73,7 @@ class TestRendererFormat:
             ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         expected_indents = [
@@ -111,7 +106,7 @@ class TestRendererFormat:
         ]
 
         for node in nodes:
-            result = self.renderer.render(node, self.options)
+            result = self.renderer.render(node, self.presentation)
             lines = result.strip().split("\n")
 
             # Check that line count is at the end and right-aligned
@@ -151,10 +146,11 @@ class TestRendererFormat:
 
         for label, width, expected_contains, should_have_ellipsis in test_cases:
             node = Node(label=label, type="text")
-            options = self.options.copy()
-            options["terminal_width"] = width
+            # Create a new presentation with custom width
+            presentation = Presentation()
+            presentation.view.max_width = width
 
-            result = self.renderer.render(node, options)
+            result = self.renderer.render(node, presentation)
 
             assert (
                 expected_contains in result or label == ""
@@ -175,10 +171,10 @@ class TestRendererFormat:
             extra={"type": "ordered", "start": 1},
         )
 
-        options = self.options.copy()
-        options["terminal_width"] = 60
+        presentation = Presentation()
+        presentation.view.max_width = 60
 
-        result = self.renderer.render(node, options)
+        result = self.renderer.render(node, presentation)
 
         # Extras should be visible
         assert "type=ordered" in result
@@ -197,7 +193,7 @@ class TestRendererFormat:
             },
         )
 
-        result = self.renderer.render(node, self.options)
+        result = self.renderer.render(node, self.presentation)
 
         # Extract the extras part
         match = re.search(r"Test\s+(.*?)\s+\d+L", result)
@@ -239,7 +235,7 @@ class TestRendererFormat:
             ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         # Verify each line
@@ -263,21 +259,21 @@ class TestRendererFormat:
     def test_empty_children_list(self):
         """Test nodes with empty children list."""
         node = Node(label="Empty parent", children=[], content_lines=0)
-        result = self.renderer.render(node, self.options)
+        result = self.renderer.render(node, self.presentation)
 
         # Should show 0L for no children when content_lines is explicitly 0
         assert "0L" in result
 
         # Default behavior: empty children with default content_lines=1
         node2 = Node(label="Default empty", children=[])
-        result2 = self.renderer.render(node2, self.options)
+        result2 = self.renderer.render(node2, self.presentation)
         assert "1L" in result2  # Default content_lines is 1
 
     def test_custom_icon_rendering(self):
         """Test that custom icons are used correctly."""
         node = Node(label="Custom", type="custom", icon="★")  # Custom icon
 
-        result = self.renderer.render(node, self.options)
+        result = self.renderer.render(node, self.presentation)
         assert "★ Custom" in result
 
         # Verify spacing after custom icon
@@ -294,7 +290,7 @@ class TestRendererFormat:
 
         for icon in unicode_icons:
             node = Node(label=f"Test with {icon}", icon=icon)
-            result = self.renderer.render(node, self.options)
+            result = self.renderer.render(node, self.presentation)
 
             # Extract spacing after icon
             match = re.match(rf"^{re.escape(icon)}(\s+)", result)
@@ -317,7 +313,7 @@ class TestRendererFormat:
             ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         # Find the line with the dash
@@ -361,7 +357,7 @@ class TestRendererFormat:
             ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         # Find the line with spaces
@@ -403,28 +399,30 @@ class TestRendererFormat:
         root = Node(
             label="Root",
             type="document",
-            extra={"very_long_key": "this_is_a_very_long_value_that_exceeds_20_chars"},
+            extra={
+                "very_long_key": "this_is_a_very_long_value_that_exceeds_20_chars"
+            },
             children=[
                 Node(
                     label="Child with normal extras",
                     type="text",
                     extra={"key": "value"},
                 )
-            ]
+            ],
         )
 
-        result = self.renderer.render(root, self.options)
+        result = self.renderer.render(root, self.presentation)
         lines = result.strip().split("\n")
 
         # Check that both lines end with line counts
         assert lines[0].endswith("1L")
         assert lines[1].endswith("1L")
-        
+
         # Check that the layout is not broken (line counts are aligned)
         # Extract the position of "1L" in both lines
         pos1 = lines[0].rfind("1L")
         pos2 = lines[1].rfind("1L")
-        
+
         # They should be at the same position (right-aligned)
         assert pos1 == pos2, f"Line counts not aligned: {pos1} vs {pos2}"
 
@@ -441,26 +439,24 @@ class TestRendererFormat:
                     type="text",
                     extra={"priority": "high"},
                 )
-            ]
+            ],
         )
 
         # Test with very narrow terminal (20 chars)
-        from treeviz.const import ICONS
-        narrow_options = {
-            "symbols": ICONS,
-            "terminal_width": 20,
-            "format": "text",
-        }
+        narrow_presentation = Presentation()
+        narrow_presentation.view.max_width = 20
 
-        result = self.renderer.render(root, narrow_options)
+        result = self.renderer.render(root, narrow_presentation)
         lines = result.strip().split("\n")
 
         # Should not crash and should produce output
         assert len(lines) == 2
-        
+
         # Each line should not exceed terminal width
         for line in lines:
-            assert len(line) <= 20, f"Line exceeds terminal width: {len(line)} > 20"
+            assert (
+                len(line) <= 20
+            ), f"Line exceeds terminal width: {len(line)} > 20"
 
     def test_rich_markup_with_ambiguous_content(self):
         """Test Rich markup handles ambiguous content correctly."""
@@ -472,18 +468,13 @@ class TestRendererFormat:
         )
 
         # Render with color to test markup
-        from treeviz.const import ICONS
-        options = {
-            "symbols": ICONS,
-            "terminal_width": 80,
-            "format": "term",
-        }
+        result = self.renderer.render(root, self.presentation)
 
-        result = self.renderer.render(root, options)
-        
         # The markup should be applied correctly despite the ambiguous content
         # This test ensures the position-based markup doesn't get confused
         # We can't easily test the exact ANSI codes, but we can verify it doesn't crash
         assert result
         assert "status=active is my label" in result
-        assert result.count("status=active") >= 2  # Once in label, once in extras
+        assert (
+            result.count("status=active") >= 2
+        )  # Once in label, once in extras

@@ -5,15 +5,98 @@ These functions implement the core logic for CLI commands, separate from
 output formatting to enable easy testing and reuse.
 """
 
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, List
+from pathlib import Path
+import os
 
-from .user_config import (
-    get_user_config_dirs,
-    is_3viz_conf_dir,
-    discover_user_definitions,
-)
-from .lib import AdapterLib
 from .model import AdapterDef
+
+
+def get_user_config_dirs(
+    env_vars: Optional[Dict[str, str]] = None
+) -> List[Path]:
+    """
+    Get user configuration directories in precedence order.
+
+    Args:
+        env_vars: Environment variables for testing (default: os.environ)
+
+    Returns:
+        List of paths in precedence order
+    """
+    if env_vars is None:
+        env_vars = os.environ
+
+    dirs = []
+
+    # Project-specific directory (highest precedence)
+    dirs.append(Path.cwd() / ".3viz")
+
+    # XDG config home
+    xdg_config = env_vars.get("XDG_CONFIG_HOME")
+    if xdg_config:
+        dirs.append(Path(xdg_config) / "3viz")
+    else:
+        dirs.append(Path.home() / ".config" / "3viz")
+
+    # Legacy home directory
+    dirs.append(Path.home() / ".3viz")
+
+    return dirs
+
+
+def is_3viz_conf_dir(path: Path) -> bool:
+    """
+    Check if a path is a 3viz configuration directory.
+
+    Args:
+        path: Path to check
+
+    Returns:
+        True if the directory exists
+    """
+    return path.exists() and path.is_dir()
+
+
+def discover_user_definitions(
+    env_vars: Optional[Dict[str, str]] = None
+) -> Dict[Path, List[Path]]:
+    """
+    Discover user adapter definition files.
+
+    Args:
+        env_vars: Environment variables for testing
+
+    Returns:
+        Dict mapping config directories to their definition files
+    """
+    discovered = {}
+
+    # Files to exclude from adapter discovery
+    excluded_names = {"config", "3viz", "settings", "preferences"}
+
+    for config_dir in get_user_config_dirs(env_vars):
+        if is_3viz_conf_dir(config_dir):
+            # Look for adapter definitions
+            adapter_files = []
+
+            # Check adapters subdirectory
+            adapters_dir = config_dir / "adapters"
+            if adapters_dir.exists():
+                for ext in [".yaml", ".yml", ".json"]:
+                    adapter_files.extend(adapters_dir.glob(f"*{ext}"))
+
+            # Also check root directory for backward compatibility
+            # but exclude config files
+            for ext in [".yaml", ".yml", ".json"]:
+                for file in config_dir.glob(f"*{ext}"):
+                    if file.stem.lower() not in excluded_names:
+                        adapter_files.append(file)
+
+            if adapter_files:
+                discovered[config_dir] = adapter_files
+
+    return discovered
 
 
 def list_user_definitions(
@@ -91,21 +174,33 @@ def validate_user_definitions(
     for config_dir, files in discovered.items():
         for file_path in files:
             try:
-                # Try to load the definition file
-                definition_dict = AdapterLib.load_definition_file(file_path)
+                # Try to load and parse the definition file
+                import json
+                from ruamel.yaml import YAML
+
+                content = file_path.read_text()
+
+                if file_path.suffix.lower() == ".json":
+                    definition_dict = json.loads(content)
+                else:  # yaml
+                    yaml = YAML()
+                    definition_dict = yaml.load(content)
 
                 # Try to create an AdapterDef from it (validates structure)
-                default_def = AdapterDef.default()
-                default_def.merge_with(definition_dict)
+                if isinstance(definition_dict, dict):
+                    # Basic validation - check if it has some adapter-like fields
+                    AdapterDef.from_dict(definition_dict)
 
-                valid_definitions.append(
-                    {
-                        "name": file_path.stem,
-                        "file_path": str(file_path),
-                        "config_dir": str(config_dir),
-                        "format": file_path.suffix.lower(),
-                    }
-                )
+                    valid_definitions.append(
+                        {
+                            "name": file_path.stem,
+                            "file_path": str(file_path),
+                            "config_dir": str(config_dir),
+                            "format": file_path.suffix.lower(),
+                        }
+                    )
+                else:
+                    raise ValueError("Definition must be a dictionary")
 
             except Exception as e:
                 invalid_definitions.append(

@@ -1,7 +1,7 @@
 {#- Main tree rendering template -#}
-{% macro render_node(node, depth=0, render_options=None, terminal_width=80, use_color=True) -%}
+{% macro render_node(node, depth=0, symbols=None, terminal_width=80, use_color=True) -%}
 {%- set indent = "  " * depth -%}
-{%- set icon = node.icon or (render_options.symbols[node.type] if node.type and render_options else "?") -%}
+{%- set icon = node.icon or (symbols[node.type] if node.type and symbols else "?") -%}
 {%- set label = node.label | trim -%}
 {%- set extras = node.extra | format_extras -%}
 {%- set line_count = (node.children | length) if node.children else node.content_lines -%}
@@ -18,9 +18,9 @@
 {{ line_parts }}
 {% endif -%}
 {%- for child in node.children %}
-{{ render_node(child, depth + 1, render_options, terminal_width, use_color) }}
+{{ render_node(child, depth + 1, symbols, terminal_width, use_color) }}
 {%- endfor -%}
 {%- endmacro %}
 
 {#- Entry point: render the root node -#}
-{{ render_node(root_node, 0, render_options, terminal_width, use_color) -}}
+{{ render_node(root_node, 0, symbols, terminal_width, use_color) -}}

@@ -98,41 +98,37 @@ def generate_viz(
         if terminal_width is None:
             terminal_width = 80
 
-        # Create options for the template renderer
+        # Create renderer and presentation
         renderer = TemplateRenderer()
+        from .rendering import PresentationLoader, Presentation
+        from pathlib import Path
 
-        # If presentation file is provided, use Presentation
+        # Load presentation configuration
         if presentation:
-            from .rendering import PresentationLoader
-            from pathlib import Path
-
-            # Load presentation configuration
             loader = PresentationLoader()
             presentation_obj = loader.load_presentation_hierarchy(
                 Path(presentation)
             )
-
-            # Apply theme override if specified
-            if theme:
-                presentation_obj.theme = theme
-
-            # Override terminal width if specified
-            if terminal_width:
-                presentation_obj.view.max_width = terminal_width
-
-            return renderer.render(node, presentation_obj)
         else:
-            # Legacy dict-based options
-            options = {
-                "terminal_width": terminal_width,
-                "format": output_format,
-            }
+            # Create default presentation
+            presentation_obj = Presentation()
 
-            # Add theme if specified
-            if theme:
-                options["theme"] = theme
+        # Apply theme override if specified
+        if theme:
+            presentation_obj.theme_name = theme
+            # Reload the theme
+            from .config.loaders import create_config_loaders
 
-            return renderer.render(node, options)
+            loaders = create_config_loaders()
+            theme_obj = loaders.load_theme(theme)
+            if theme_obj:
+                presentation_obj.theme = theme_obj
+
+        # Override terminal width if specified
+        if terminal_width:
+            presentation_obj.view.max_width = terminal_width
+
+        return renderer.render(node, presentation_obj)
 
     else:
         raise ValueError(f"Unknown output format: {output_format}")

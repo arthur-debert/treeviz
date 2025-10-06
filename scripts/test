@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Test runner script that runs ALL tests including slow ones
-# This is used by CI and other scripts that need comprehensive testing
+# Test runner script
+# By default, excludes slow tests for faster development cycles
+# Use --all flag to include slow tests (useful for CI and comprehensive testing)
 set -euo pipefail
 
 # Change to project root
@@ -9,5 +10,26 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$PROJECT_ROOT"
 
-echo "Running all tests (including slow tests)..."
-poetry run pytest -m '' "$@" python/tests/
+# Parse arguments
+RUN_ALL_TESTS=false
+PYTEST_ARGS=()
+
+for arg in "$@"; do
+	case $arg in
+	--all)
+		RUN_ALL_TESTS=true
+		;;
+	*)
+		PYTEST_ARGS+=("$arg")
+		;;
+	esac
+done
+
+# Set marker filter based on --all flag
+if [ "$RUN_ALL_TESTS" = true ]; then
+	echo "Running all tests (including slow tests)..."
+	poetry run pytest -m '' "${PYTEST_ARGS[@]+"${PYTEST_ARGS[@]}"}" python/tests/
+else
+	echo "Running tests (excluding slow tests, use --all to include them)..."
+	poetry run pytest -m 'not slow' "${PYTEST_ARGS[@]+"${PYTEST_ARGS[@]}"}" python/tests/
+fi

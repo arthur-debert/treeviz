@@ -5,12 +5,10 @@ This module implements the bidirectional layout algorithm that processes
 fixed columns from the edges and gives remaining space to responsive columns.
 """
 
-from typing import List
+from typing import List, Tuple, Dict
 
 from .column import ColumnSpec, ColumnAlign
 
-
-from typing import List, Tuple, Dict
 
 def layout_columns(columns: List[ColumnSpec], terminal_width: int) -> List[str]:
     """
@@ -77,10 +75,10 @@ def layout_columns(columns: List[ColumnSpec], terminal_width: int) -> List[str]:
         else:
             # Distribute available width evenly among responsive columns
             responsive_width = available_width // len(responsive_cols)
-        
+
         for idx, col in responsive_cols:
             fixed_widths[idx] = responsive_width
-    
+
     # Final check: if total width would exceed terminal width,
     # reduce widths proportionally
     total_width = sum(fixed_widths.values()) + total_separator_width
@@ -274,7 +272,7 @@ def calculate_line_layout_with_positions(
     """
     columns = []
     component_indices = {}  # Maps component name to column index
-    
+
     # Fixed left: indent (no separator)
     if indent:
         component_indices["indent"] = len(columns)
@@ -343,12 +341,12 @@ def calculate_line_layout_with_positions(
     # Build result and track positions
     result = ""
     positions = {}
-    
+
     for i, (col_str, col_spec) in enumerate(zip(formatted, columns)):
         start_pos = len(result)
         result += col_str
         end_pos = len(result)
-        
+
         # Find which component this column represents
         for comp_name, col_idx in component_indices.items():
             if col_idx == i:
@@ -356,12 +354,12 @@ def calculate_line_layout_with_positions(
                 # Handle truncated content by storing what was actually rendered
                 positions[comp_name] = (start_pos, end_pos)
                 break
-        
+
         # Add separator if not last column
         if i < len(columns) - 1:
             result += col_spec.separator
 
     # Remove trailing whitespace
     result = result.rstrip()
-    
+
     return result, positions

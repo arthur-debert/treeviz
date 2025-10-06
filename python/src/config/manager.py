@@ -1,8 +1,6 @@
 """
 Centralized configuration management system.
 
-Provides a unified API for loading, merging, and managing configuration
-files across multiple locations following the XDG Base Directory spec.
 """
 
 import os
@@ -113,7 +111,69 @@ class ConfigError(Exception):
 
 
 class ConfigManager:
-    """Centralized configuration management."""
+    """
+    Centralized configuration management.
+
+    The core design features:
+    - Follows XDG Base Directory spec for config file locations
+    - Supports multiple config types with flexible patterns
+    - Can merge configs from multiple locations
+    - Dependency injected for easy and thorough testing
+
+    The core flow:
+    1. Register a config spec with name, pattern, dataclass, validator, etc.
+    2. Call get(name) to load and cache the configuration
+    3. Configs are loaded from multiple locations in order of precedence
+    4. Config files can be YAML or JSON
+
+    Example usage:
+        manager = ConfigManager(app_name="3viz")
+
+        # Register settings, where values are moerged from
+        # multiple possible locations
+        manager.register(ConfigSpec(
+            name="settings",
+            pattern="settings/*.yaml",
+            collection=False,
+            dataclass=Settings,
+            validator=validate_seeting,
+        ))
+
+
+        # These are plugins, instead of being merged, all found files are loaded
+        # and returned as a list
+        manager.register(ConfigSpec(
+            name="plugins",
+            pattern="plugins/*.yaml",
+            collection=True,
+            dataclass=Plugin,
+            validator=add_plugin,
+        ))
+
+        # Load configurations
+        settings = manager.get("settings")
+        plugins = manager.get("plugins")
+
+    Provides a unified API for loading, merging, and managing configuration
+    files across multiple locations following the XDG Base Directory spec.
+
+    Config search order (later overrides earlier):
+    1. Built-in defaults (lowest priority)
+    2. User configuration (XDG or home fallback)
+    3. Project-local configuration (highest priority)
+    4. Explicit paths if provided (for testing)
+
+    Data is merged recursively for single configs, but lists are replaced.
+
+
+    Future enhancements:
+    - Support additional file formats (TOML, INI)
+    - Configureable locations
+    - Environment variable overrides
+    - Command-line overrides
+    - Allow no dataclass (in which case it should return a dict)
+    - Pre-fetch : load all configs at once
+    """
 
     def __init__(
         self,

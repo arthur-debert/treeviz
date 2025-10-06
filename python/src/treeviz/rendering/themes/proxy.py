@@ -6,10 +6,10 @@ to be theme-aware. The theme proxy automatically resolves to the
 correct style based on the current terminal theme.
 """
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from rich.theme import Theme as RichTheme
 from .detector import detect_terminal_mode
-from .loader import load_theme, validate_theme
+from ...config.loaders import create_config_loaders
 
 
 class StyleProxy:
@@ -118,14 +118,15 @@ DEFAULT_THEME_CONFIG = {
 }
 
 
-# Initialize the global theme proxy
+# Initialize config loaders and global theme proxy
+_theme_loaders = create_config_loaders()
 _theme_config = DEFAULT_THEME_CONFIG
 
 # Try to load default theme from YAML
 try:
-    loaded_config = load_theme("default")
-    if validate_theme(loaded_config):
-        _theme_config = loaded_config
+    theme_obj = _theme_loaders.load_theme("default")
+    if theme_obj and theme_obj.styles:
+        _theme_config = {"styles": theme_obj.styles}
 except Exception:
     # Fall back to hardcoded theme if loading fails
     pass
@@ -166,8 +167,14 @@ def set_theme(theme_name: str):
     """
     global theme, _console_cache
 
-    theme_config = load_theme(theme_name)
-    validate_theme(theme_config)
+    if theme_name.lower() == "default":
+        theme_config = DEFAULT_THEME_CONFIG
+    else:
+        theme_obj = _theme_loaders.load_theme(theme_name)
+        if not theme_obj:
+            raise ValueError(f"Theme '{theme_name}' not found")
+        # Convert Theme object to dict format for ThemeProxy
+        theme_config = {"styles": theme_obj.styles}
 
     # Create new theme proxy
     theme = ThemeProxy(theme_config)
@@ -176,8 +183,8 @@ def set_theme(theme_name: str):
     _console_cache.clear()
 
 
-def list_available_themes():
+def list_available_themes() -> List[str]:
     """List all available theme names."""
-    from .loader import list_themes
-
-    return list_themes()
+    themes = ["default"]  # Always include default
+    themes.extend(_theme_loaders.get_theme_names())
+    return list(set(themes))  # Remove duplicates
