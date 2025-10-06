@@ -30,18 +30,6 @@ def cli(ctx, output_format):
     """
     3viz - Terminal AST visualizer for document trees
 
-    Transform complex Abstract Syntax Trees into readable, line-based visualizations.
-    Works with Markdown, XML, JSON, Pandoc, reStructuredText and custom formats.
-
-    \b
-    Quick Start:
-      3viz viz document.json                  # Visualize with auto-detection
-      3viz viz document.md mdast              # Use Markdown AST adapter
-      echo '{"type":"root"}' | 3viz viz - 3viz   # Process from stdin
-
-    \b
-    Available adapters: 3viz, mdast, unist, pandoc, restructuredtext
-    For detailed help: 3viz help getting-started
     """
     # Ensure context dict exists
     ctx.ensure_object(dict)
@@ -100,26 +88,14 @@ def viz(
     """
     Visualize a document tree using a 3viz adapter.
 
-    \b
     DOCUMENT: Path to document file or '-' for stdin
     ADAPTER:  Built-in adapter (3viz, mdast, unist, pandoc, restructuredtext),
               user-defined adapter name, or path to adapter definition file
-
-    \b
-    The adapter defines how to extract and display information from your AST format.
-    Built-in adapters handle common formats automatically. For custom formats,
-    create an adapter definition file or use user-defined adapters.
-
-    \b
     Examples:
       3viz viz document.json                  # Auto-detect format, use 3viz adapter
       3viz viz document.md mdast              # Use Markdown AST adapter
       3viz viz data.xml my-custom.yaml        # Use custom adapter definition
       3viz viz - mdast < input.json           # Read from stdin
-
-    \b
-    User-defined adapters are discovered from:
-      ./.3viz/, ~/.config/3viz/, ~/.3viz/
     """
 
     print(
@@ -135,12 +111,6 @@ def viz(
         ),
         end="",
     )
-
-
-@cli.command()
-def foo():
-    """Test command that prints bar."""
-    print("bar")
 
 
 # Create and add the learn command with custom name
