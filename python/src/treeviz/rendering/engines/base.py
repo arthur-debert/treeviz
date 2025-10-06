@@ -3,7 +3,10 @@ Base renderer interface for all rendering engines.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from typing import Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..presentation import Presentation
 
 from ...model import Node
 
@@ -13,14 +16,14 @@ class BaseRenderer(ABC):
 
     @abstractmethod
     def render(
-        self, node: Node, options: Optional[Dict[str, Any]] = None
+        self, node: Node, presentation: Optional["Presentation"] = None
     ) -> str:
         """
         Render a node tree to a string representation.
 
         Args:
             node: Root node to render
-            options: Rendering options (engine-specific)
+            presentation: Presentation object with rendering configuration
 
         Returns:
             String representation of the tree

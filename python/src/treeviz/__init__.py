@@ -149,10 +149,9 @@ from .formats import (
     get_format_by_name,
 )
 from .rendering import (
-    render as render_nodes,
-    create_render_options,
-    RenderOptions,
-    DEFAULT_SYMBOLS,
+    TemplateRenderer,
+    Presentation,
+    ViewOptions,
 )
 
 
@@ -240,8 +239,7 @@ __all__ = [
     "register_format",
     "get_supported_formats",
     "get_format_by_name",
-    "render_nodes",
-    "create_render_options",
-    "RenderOptions",
-    "DEFAULT_SYMBOLS",
+    "TemplateRenderer",
+    "Presentation",
+    "ViewOptions",
 ]

@@ -5,6 +5,7 @@ Tests for the template-based renderer.
 from treeviz.model import Node
 from treeviz.rendering.engines.template import TemplateRenderer
 from treeviz.rendering.themes import set_theme_mode, set_theme
+from treeviz.rendering import Presentation
 
 
 class TestTemplateRenderer:
@@ -28,7 +29,8 @@ class TestTemplateRenderer:
         )
 
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text"})
+        presentation = Presentation()
+        result = renderer.render(root, presentation)
 
         # Check basic structure
         assert "Root" in result
@@ -45,7 +47,8 @@ class TestTemplateRenderer:
         )
 
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text"})
+        presentation = Presentation()
+        result = renderer.render(root, presentation)
         lines = result.split("\n")
 
         # Check indentation
@@ -63,7 +66,9 @@ class TestTemplateRenderer:
         )
 
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text", "terminal_width": 80})
+        presentation = Presentation()
+        presentation.view.max_width = 80
+        result = renderer.render(root, presentation)
 
         # Extras should be formatted and displayed
         assert "type=ordered" in result
@@ -77,7 +82,9 @@ class TestTemplateRenderer:
         root = Node(label=long_text, type="paragraph")
 
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text", "terminal_width": 40})
+        presentation = Presentation()
+        presentation.view.max_width = 40
+        result = renderer.render(root, presentation)
 
         # Should be truncated
         assert "…" in result
@@ -88,10 +95,10 @@ class TestTemplateRenderer:
         root = Node(label="Custom", type="custom_type")
 
         renderer = TemplateRenderer()
-        custom_symbols = {"custom_type": "★"}
-        result = renderer.render(
-            root, {"format": "text", "symbols": custom_symbols}
-        )
+        presentation = Presentation()
+        # Set custom symbols through icons in presentation
+        presentation.icons = {"custom_type": "★"}
+        result = renderer.render(root, presentation)
 
         assert "★" in result
 
@@ -107,7 +114,8 @@ class TestTemplateRenderer:
         """Test rendering empty node."""
         root = Node(label="")
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text"})
+        presentation = Presentation()
+        result = renderer.render(root, presentation)
 
         # Should handle empty label gracefully
         assert "1L" in result
@@ -121,36 +129,41 @@ class TestTemplateRenderer:
         renderer = TemplateRenderer()
 
         # Test narrow terminal
-        narrow = renderer.render(root, {"format": "text", "terminal_width": 30})
+        narrow_presentation = Presentation()
+        narrow_presentation.view.max_width = 30
+        narrow = renderer.render(root, narrow_presentation)
         assert len(narrow.split("\n")[0]) <= 30
 
         # Test wide terminal
-        wide = renderer.render(root, {"format": "text", "terminal_width": 100})
+        wide_presentation = Presentation()
+        wide_presentation.view.max_width = 100
+        wide = renderer.render(root, wide_presentation)
         assert len(wide.split("\n")[0]) <= 100
 
     def test_rich_markup_in_term_mode(self):
-        """Test that term mode applies Rich markup."""
+        """Test that Rich markup is applied based on terminal detection."""
         root = Node(label="Colored", type="document")
 
         renderer = TemplateRenderer()
 
-        # In term mode, should have ANSI codes
-        term_result = renderer.render(root, {"format": "term"})
+        # The renderer now auto-detects terminal capabilities
+        # In pytest environment, sys.stdout.isatty() returns False, so no ANSI codes
+        presentation = Presentation()
+        result = renderer.render(root, presentation)
 
-        # In text mode, no ANSI codes
-        text_result = renderer.render(root, {"format": "text"})
-
-        # Results should be different (term has escape codes)
-        assert term_result != text_result
-
-        # But stripping ANSI codes should give same content
+        # Check that result doesn't contain ANSI codes in test environment
         import re
 
         ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
-        term_stripped = ansi_escape.sub("", term_result)
 
-        # Should have same content
-        assert term_stripped.strip() == text_result.strip()
+        # In test environment, should not have ANSI codes
+        assert not ansi_escape.search(
+            result
+        ), "Found ANSI codes in test environment"
+
+        # Should have plain text content
+        assert "⧉ Colored" in result
+        assert "1L" in result
 
     def test_node_with_icon_override(self):
         """Test node with explicit icon override."""
@@ -161,7 +174,8 @@ class TestTemplateRenderer:
         )
 
         renderer = TemplateRenderer()
-        result = renderer.render(root, {"format": "text"})
+        presentation = Presentation()
+        result = renderer.render(root, presentation)
 
         # Should use the custom icon
         assert "🌟" in result

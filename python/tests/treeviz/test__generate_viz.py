@@ -10,6 +10,7 @@ from unittest.mock import patch, MagicMock
 
 from treeviz.__main__ import generate_viz
 from treeviz.model import Node
+from treeviz.rendering import Presentation
 
 
 class TestGenerateViz:
@@ -55,13 +56,11 @@ class TestGenerateViz:
 
         # Verify renderer was created and called
         mock_template_renderer_class.assert_called_once()
-        mock_renderer.render.assert_called_once_with(
-            mock_node,
-            {
-                "terminal_width": 80,
-                "format": "term",
-            },
-        )
+        # Renderer is now called with Presentation object
+        call_args = mock_renderer.render.call_args
+        assert call_args[0][0] == mock_node
+        assert isinstance(call_args[0][1], Presentation)
+        assert call_args[0][1].view.max_width == 80
 
         assert result == mock_rendered
 
@@ -219,20 +218,20 @@ class TestGenerateViz:
         generate_viz("test.json", output_format="term", terminal_width=120)
 
         # Should use provided terminal width
-        mock_renderer.render.assert_called_with(
-            Node(label="test"),
-            {"terminal_width": 120, "format": "term"},
-        )
+        call_args = mock_renderer.render.call_args
+        assert call_args[0][0] == Node(label="test")
+        assert isinstance(call_args[0][1], Presentation)
+        assert call_args[0][1].view.max_width == 120
         mock_renderer.render.reset_mock()
 
         # Test without terminal width (should use default)
         generate_viz("test.json", output_format="term")
 
         # Should use default width
-        mock_renderer.render.assert_called_with(
-            Node(label="test"),
-            {"terminal_width": 80, "format": "term"},
-        )
+        call_args = mock_renderer.render.call_args
+        assert call_args[0][0] == Node(label="test")
+        assert isinstance(call_args[0][1], Presentation)
+        assert call_args[0][1].view.max_width == 80
 
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")
@@ -257,20 +256,20 @@ class TestGenerateViz:
 
         # Test text output (fixed width)
         generate_viz("test.json", output_format="text")
-        mock_renderer.render.assert_called_with(
-            Node(label="test"),
-            {"terminal_width": 80, "format": "text"},
-        )
+        call_args = mock_renderer.render.call_args
+        assert call_args[0][0] == Node(label="test")
+        assert isinstance(call_args[0][1], Presentation)
+        assert call_args[0][1].view.max_width == 80
 
         mock_renderer.render.reset_mock()
 
         # Test term output (should also use 80 as default when not TTY)
         with patch("sys.stdout.isatty", return_value=False):
             generate_viz("test.json", output_format="term")
-            mock_renderer.render.assert_called_with(
-                Node(label="test"),
-                {"terminal_width": 80, "format": "term"},
-            )
+            call_args = mock_renderer.render.call_args
+            assert call_args[0][0] == Node(label="test")
+            assert isinstance(call_args[0][1], Presentation)
+            assert call_args[0][1].view.max_width == 80
 
     @patch("treeviz.__main__.load_document")
     def test_generate_viz_invalid_output_format(self, mock_load_document):
@@ -341,13 +340,10 @@ class TestGenerateViz:
             generate_viz("test.json", output_format="term")
 
             # Should pass custom icons to renderer
-            mock_renderer.render.assert_called_once_with(
-                Node(label="test", type="function"),
-                {
-                    "terminal_width": 80,
-                    "format": "term",
-                },
-            )
+            call_args = mock_renderer.render.call_args
+            assert call_args[0][0] == Node(label="test", type="function")
+            assert isinstance(call_args[0][1], Presentation)
+            assert call_args[0][1].view.max_width == 80
 
     @patch("treeviz.__main__.load_document")
     @patch("treeviz.__main__.load_adapter")

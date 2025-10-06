@@ -11,7 +11,7 @@ from click.testing import CliRunner
 from treeviz.__main__ import cli
 from treeviz.formats import parse_document
 from treeviz.adapters import adapt_node
-from treeviz.rendering import render
+from treeviz.rendering import TemplateRenderer
 
 
 def get_test_data_path(filename: str) -> str:
@@ -53,7 +53,8 @@ class TestEssentialIntegration:
         adapted_node = adapt_node(parsed_data, adapter_config)
 
         # Render the result
-        rendered_output = render(adapted_node)
+        renderer = TemplateRenderer()
+        rendered_output = renderer.render(adapted_node)
 
         # Verify complete pipeline works
         assert isinstance(rendered_output, str)
