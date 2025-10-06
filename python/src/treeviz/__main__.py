@@ -9,10 +9,9 @@ import sys
 from pathlib import Path
 
 import click
-from clier.learn import LearnSystem
+from clier.learn import learn_app
 
 from treeviz.viz import generate_viz
-
 
 # Configure learn system paths
 _topic_dirs = []
@@ -159,9 +158,8 @@ def foo():
     print("bar")
 
 
-# Create the learn system and add it with custom name
-learn_system = LearnSystem(_topic_dirs)
-cli.add_command(learn_system.as_command(), name="help")
+# Create and add the learn command with custom name
+cli.add_command(learn_app(_topic_dirs), name="learn")
 
 
 def main():
