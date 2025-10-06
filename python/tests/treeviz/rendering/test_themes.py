@@ -6,20 +6,21 @@ import os
 from unittest.mock import patch, MagicMock
 
 from treeviz.rendering.themes import (
-    DARK_THEME,
-    LIGHT_THEME,
     detect_terminal_mode,
-    ThemeManager,
-    theme_manager,
+    theme,
+    set_theme_mode,
+    get_theme_mode,
+    set_theme,
+    list_available_themes,
+    get_console,
 )
-from treeviz.rendering.themes.definitions import Colors
 
 
-class TestThemeDefinitions:
-    """Test theme definitions."""
+class TestThemeSystem:
+    """Test the new theme system."""
 
-    def test_dark_theme_has_required_styles(self):
-        """Dark theme should have all required style definitions."""
+    def test_theme_proxy_has_required_styles(self):
+        """Theme proxy should expose all required style attributes."""
         required_styles = [
             "icon",
             "label",
@@ -39,166 +40,126 @@ class TestThemeDefinitions:
             "success",
         ]
         for style in required_styles:
-            assert style in DARK_THEME.styles
+            assert hasattr(theme, style)
+            # Verify it returns a style proxy
+            style_proxy = getattr(theme, style)
+            assert hasattr(style_proxy, "style")
 
-    def test_light_theme_has_required_styles(self):
-        """Light theme should have all required style definitions."""
-        required_styles = [
-            "icon",
-            "label",
-            "extras",
-            "numlines",
-            "position",
-            "type",
-            "default",
-            "muted",
-            "subdued",
-            "faint",
-            "info",
-            "emphasis",
-            "strong",
-            "warning",
-            "error",
-            "success",
-        ]
-        for style in required_styles:
-            assert style in LIGHT_THEME.styles
+    def test_theme_mode_switching(self):
+        """Test switching between light and dark modes."""
+        # Test dark mode
+        set_theme_mode("dark")
+        assert get_theme_mode() == "dark"
 
-    def test_color_contrast(self):
-        """Verify colors have appropriate contrast."""
-        # Primary text should be black on light, white on dark
-        assert Colors.PRIMARY_LIGHT == "#000000"
-        assert Colors.PRIMARY_DARK == "#FFFFFF"
+        # Test light mode
+        set_theme_mode("light")
+        assert get_theme_mode() == "light"
 
-        # Subdued colors should be less prominent
-        assert Colors.SUBDUED_LIGHT == "#495057"
-        assert Colors.SUBDUED_DARK == "#ADB5BD"
-
-
-class TestTerminalDetection:
-    """Test terminal mode detection."""
-
-    def test_env_override(self):
-        """Environment variable should override detection."""
-        with patch.dict(os.environ, {"TREEVIZ_THEME": "light"}):
-            assert detect_terminal_mode() == "light"
-
-        with patch.dict(os.environ, {"TREEVIZ_THEME": "dark"}):
-            assert detect_terminal_mode() == "dark"
-
-    @patch("sys.platform", "darwin")
-    @patch("subprocess.run")
-    def test_macos_dark_mode(self, mock_run):
-        """macOS dark mode detection."""
-        mock_result = MagicMock()
-        mock_result.returncode = 0
-        mock_result.stdout = "Dark"
-        mock_run.return_value = mock_result
-
-        assert detect_terminal_mode() == "dark"
-
-    @patch("sys.platform", "darwin")
-    @patch("subprocess.run")
-    def test_macos_light_mode(self, mock_run):
-        """macOS light mode detection (no dark mode set)."""
-        mock_result = MagicMock()
-        mock_result.returncode = 1  # Command fails when not in dark mode
-        mock_run.return_value = mock_result
-
-        assert detect_terminal_mode() == "light"
-
-    @patch("sys.platform", "linux")
-    def test_linux_colorfgbg_dark(self):
-        """Linux COLORFGBG detection for dark background."""
-        with patch.dict(os.environ, {"COLORFGBG": "15;0"}):  # White on black
-            assert detect_terminal_mode() == "dark"
-
-    @patch("sys.platform", "linux")
-    def test_linux_colorfgbg_light(self):
-        """Linux COLORFGBG detection for light background."""
-        with patch.dict(os.environ, {"COLORFGBG": "0;15"}):  # Black on white
-            assert detect_terminal_mode() == "light"
-
-    @patch("sys.platform", "linux")
-    def test_default_fallback(self):
-        """Should default to dark when detection fails."""
-        with patch.dict(os.environ, {}, clear=True):
-            assert detect_terminal_mode() == "dark"
-
-
-class TestThemeManager:
-    """Test theme manager functionality."""
-
-    def setup_method(self):
-        """Reset ThemeManager before each test."""
-        theme_manager.reset()
-
-    def test_module_level_singleton(self):
-        """Should use the module-level singleton instance."""
-        # The module-level instance should be the one we're using
-        assert theme_manager is not None
-        assert isinstance(theme_manager, ThemeManager)
-
-    def test_initial_theme_detection(self):
-        """Manager should detect theme on initialization."""
-        # Reset to ensure clean state
-        theme_manager.reset()
-        assert theme_manager.active_mode in ("dark", "light")
-        assert theme_manager.active_theme is not None
-
-    def test_set_mode(self):
-        """Setting mode should update theme."""
-        theme_manager.set_mode("dark")
-        assert theme_manager.active_mode == "dark"
-        assert theme_manager.active_theme == DARK_THEME
-
-        theme_manager.set_mode("light")
-        assert theme_manager.active_mode == "light"
-        assert theme_manager.active_theme == LIGHT_THEME
+    def test_list_available_themes(self):
+        """Test listing available themes."""
+        themes = list_available_themes()
+        assert isinstance(themes, list)
+        assert "default" in themes
+        # Should include themes from config
+        assert len(themes) >= 1
 
     def test_get_console(self):
         """Should return configured console."""
-        console = theme_manager.get_console()
-
+        console = get_console()
         assert console is not None
-        # Rich doesn't expose theme as public attribute
-        # Just verify console was created
+        # Console objects don't expose theme attribute directly
+        # Just verify we got a valid console
+        from rich.console import Console
 
-    def test_console_caching(self):
-        """Consoles should be cached with same parameters."""
-        console1 = theme_manager.get_console(width=80)
-        console2 = theme_manager.get_console(width=80)
-        assert console1 is console2
+        assert isinstance(console, Console)
 
-        console3 = theme_manager.get_console(width=100)
-        assert console3 is not console1
+    def test_console_force_terminal(self):
+        """Should support force terminal option."""
+        console1 = get_console(force_terminal=True)
+        console2 = get_console(force_terminal=False)
+        # They should be different console instances
+        assert console1 is not console2
 
-    def test_get_style(self):
-        """Should return style values from active theme."""
-        theme_manager.set_mode("dark")
+    def test_set_theme(self):
+        """Should support changing themes."""
+        # Set to a known theme
+        set_theme("default")
+        # Verify theme is loaded
+        assert hasattr(theme, "icon")
 
-        # Should return style from theme
-        icon_style = theme_manager.get_style("icon")
-        # Rich normalizes hex colors to lowercase
-        assert icon_style == Colors.ICON_DARK.lower()
+        # Try setting a custom theme if available
+        themes = list_available_themes()
+        if "minimal" in themes:
+            set_theme("minimal")
+            # Theme should still work
+            assert hasattr(theme, "icon")
 
-        # Should return empty string for unknown style
-        assert theme_manager.get_style("unknown_style") == ""
 
-    def test_custom_theme_registration(self):
-        """Should support custom theme registration."""
-        from rich.theme import Theme
+class TestTerminalDetection:
+    """Test terminal theme detection."""
 
-        custom_theme = Theme({"custom": "red"})
+    @patch("sys.platform", "linux")
+    def test_detect_terminal_mode_dark(self):
+        """Should detect dark mode from environment."""
+        # Background 0-6 are dark colors
+        # Clear existing env vars that might interfere
+        env = {"COLORFGBG": "15;0"}
+        with patch.dict(os.environ, env, clear=True):
+            assert detect_terminal_mode() == "dark"
 
-        theme_manager.register_theme("my_theme", custom_theme)
-        theme_manager.set_theme("my_theme")
+    @patch("sys.platform", "linux")
+    def test_detect_terminal_mode_light(self):
+        """Should detect light mode from environment."""
+        # Background 7+ are light colors
+        env = {"COLORFGBG": "0;15"}
+        with patch.dict(os.environ, env, clear=True):
+            assert detect_terminal_mode() == "light"
 
-        assert theme_manager.active_theme == custom_theme
+    @patch("sys.platform", "linux")
+    def test_detect_terminal_mode_no_env(self):
+        """Should default to dark when no environment info."""
+        with patch.dict(os.environ, {}, clear=True):
+            assert detect_terminal_mode() == "dark"
 
-    def test_no_color_console(self):
-        """No-color console should have no theme."""
-        console = theme_manager.get_console(no_color=True)
+    @patch("sys.platform", "linux")
+    def test_detect_terminal_mode_invalid_env(self):
+        """Should default to dark on invalid environment."""
+        with patch.dict(os.environ, {"COLORFGBG": "invalid"}):
+            assert detect_terminal_mode() == "dark"
 
-        # Verify console has no color output
-        assert console.no_color is True
+    @patch("sys.platform", "win32")
+    def test_detect_terminal_mode_windows(self):
+        """Should detect Windows dark mode."""
+        # Create a fake winreg module
+        mock_winreg = MagicMock()
+        mock_key = MagicMock()
+
+        with patch.dict("sys.modules", {"winreg": mock_winreg}):
+            mock_winreg.OpenKey.return_value.__enter__.return_value = mock_key
+            mock_winreg.HKEY_CURRENT_USER = "HKEY_CURRENT_USER"
+
+            # Test dark mode
+            mock_winreg.QueryValueEx.return_value = (0, None)
+            assert detect_terminal_mode() == "dark"
+
+            # Test light mode
+            mock_winreg.QueryValueEx.return_value = (1, None)
+            assert detect_terminal_mode() == "light"
+
+    @patch("sys.platform", "darwin")
+    def test_detect_terminal_mode_macos(self):
+        """Should detect macOS dark mode."""
+        # Test dark mode
+        with patch("subprocess.run") as mock_run:
+            mock_result = MagicMock()
+            mock_result.returncode = 0
+            mock_result.stdout = "Dark"
+            mock_run.return_value = mock_result
+            assert detect_terminal_mode() == "dark"
+
+        # Test light mode
+        with patch("subprocess.run") as mock_run:
+            mock_result = MagicMock()
+            mock_result.returncode = 1  # Non-zero means no dark mode
+            mock_run.return_value = mock_result
+            assert detect_terminal_mode() == "light"

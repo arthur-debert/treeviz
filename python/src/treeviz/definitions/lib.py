@@ -2,52 +2,27 @@
 AdapterDef library registry for treeviz.
 
 This module provides a registry system for format definitions,
-automatically loading core definitions from the lib directory.
+using the new ConfigLoaders system.
 """
 
-import json
-import importlib.resources
-from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, List
 from .model import AdapterDef
-from .user_config import discover_user_definitions
-
-try:
-    from ruamel import yaml
-
-    HAS_YAML = True
-except ImportError:
-    HAS_YAML = False
+from ..config.loaders import create_config_loaders
 
 
 class AdapterLib:
     """
-    Registry for definition libraries.
-
-    Manages loading and caching of format definitions from built-in and user directories.
-    Provides a clean interface for accessing pre-built and user-defined definitions.
+    Registry for definition libraries using the new configuration system.
     """
 
-    _registry: Dict[str, AdapterDef] = {}
-    _loaded = False
-    _user_loaded = False
+    _loaders = None
+    _cache: Dict[str, AdapterDef] = {}
 
     @classmethod
-    def register(cls, name: str, definition_dict: Dict) -> None:
-        """
-        Register a definition in the library.
-
-        Args:
-            name: Format name (e.g., "mdast", "unist")
-            definition_dict: AdapterDef dictionary to convert and store
-
-        Raises:
-            Standard Python exceptions: KeyError, ValueError, etc. if definition is invalid
-        """
-        # Merge with defaults and validate - let exceptions bubble up naturally
-        default_def = AdapterDef.default()
-        merged_def = default_def.merge_with(definition_dict)
-        cls._registry[name] = merged_def
+    def _ensure_loaders(cls):
+        """Ensure config loaders are initialized."""
+        if cls._loaders is None:
+            cls._loaders = create_config_loaders()
 
     @classmethod
     def get(cls, format_name: str) -> AdapterDef:
@@ -55,7 +30,7 @@ class AdapterLib:
         Get a definition from the library.
 
         Args:
-            format_name: Name of the format (e.g., "mdast", "unist", "json", "3viz")
+            format_name: Name of the format (e.g., "mdast", "unist", "pandoc", "3viz")
 
         Returns:
             AdapterDef object for the format
@@ -63,218 +38,58 @@ class AdapterLib:
         Raises:
             KeyError: If format is not found
         """
+        cls._ensure_loaders()
+
         # Handle special case for 3viz (default definition)
         if format_name == "3viz":
             return AdapterDef.default()
 
-        # Ensure all libraries are loaded
-        cls.ensure_all_loaded()
+        # Check cache first
+        if format_name in cls._cache:
+            return cls._cache[format_name]
 
-        if format_name not in cls._registry:
-            available_formats = list(cls._registry.keys()) + ["3viz"]
-            raise KeyError(
-                f"Unknown format '{format_name}'. Available formats: {available_formats}. "
-                f"To add a new format, place a JSON definition file in the lib/ directory."
-            )
+        # Try to load the adapter
+        adapter = cls._loaders.load_adapter(format_name)
+        if adapter:
+            cls._cache[format_name] = adapter
+            return adapter
 
-        return cls._registry[format_name]
-
-    @classmethod
-    def load_definition_file(cls, file_path: Union[str, Path]) -> Dict:
-        """
-        Load a definition file, supporting both JSON and YAML based on extension.
-
-        Args:
-            file_path: Path to the definition file
-
-        Returns:
-            Dictionary containing the definition data
-
-        Raises:
-            ValueError: If file format is not supported or parsing fails
-        """
-        file_path = Path(file_path)
-
-        if file_path.suffix.lower() == ".json":
-            try:
-                with open(file_path, "r") as f:
-                    return json.load(f)
-            except json.JSONDecodeError as e:
-                raise ValueError(f"Invalid JSON in {file_path}: {e}")
-        elif file_path.suffix.lower() in [".yaml", ".yml"]:
-            if not HAS_YAML:
-                raise ValueError(
-                    "YAML support requires 'ruamel.yaml' package. Install with: pip install ruamel.yaml"
-                )
-            try:
-                yml = yaml.YAML(typ="safe", pure=True)
-                with open(file_path, "r") as f:
-                    return yml.load(f)
-            except yaml.YAMLError as e:
-                raise ValueError(f"Invalid YAML in {file_path}: {e}")
-        else:
-            # Try both formats if extension is unknown
-            try:
-                with open(file_path, "r") as f:
-                    content = f.read()
-
-                # Try JSON first
-                try:
-                    return json.loads(content)
-                except json.JSONDecodeError:
-                    pass
-
-                # Try YAML if JSON fails
-                if HAS_YAML:
-                    try:
-                        yml = yaml.YAML(typ="safe", pure=True)
-                        return yml.load(content)
-                    except yaml.YAMLError:
-                        pass
-
-                raise ValueError(f"Could not parse {file_path} as JSON or YAML")
-            except Exception as e:
-                raise ValueError(f"Error reading {file_path}: {e}")
+        # Not found - provide helpful error
+        available = cls.list_formats()
+        raise KeyError(
+            f"Unknown format '{format_name}'. Available formats: {available}. "
+            f"To add a new format, place a YAML definition file in config/adapters/ directory."
+        )
 
     @classmethod
-    def load_definitions_from_dir(
-        cls, directory_path: Union[str, Path]
-    ) -> None:
-        """
-        Load all definition files from a directory.
-
-        Args:
-            directory_path: Path to directory containing definition files
-
-        Raises:
-            ValueError: If file parsing fails
-        """
-        directory_path = Path(directory_path)
-        if not directory_path.exists():
-            return
-
-        # Get all JSON and YAML files from the directory
-        patterns = ["*.json", "*.yaml", "*.yml"]
-        for pattern in patterns:
-            for file_path in directory_path.glob(pattern):
-                # Skip config files
-                if file_path.stem.lower() in ["config", "3viz"]:
-                    continue
-
-                format_name = file_path.stem
-                definition_dict = cls.load_definition_file(file_path)
-                cls.register(format_name, definition_dict)
-
-    @classmethod
-    def load_core_libs(cls, reload: bool = False) -> None:
-        """
-        Load core definitions from the builtins directory.
-
-        Args:
-            reload: If True, reload even if already loaded
-        """
-        if cls._loaded and not reload:
-            return
-
-        if reload:
-            cls._registry.clear()
-
-        # Use importlib.resources to get the builtins directory
-        try:
-            with importlib.resources.path(
-                "treeviz.definitions.builtins", ""
-            ) as builtins_path:
-                cls.load_definitions_from_dir(builtins_path)
-        except (ImportError, FileNotFoundError):
-            # Fallback: try to access files directly
-            for filename in [
-                "mdast.yaml",
-                "unist.yaml",
-                "pandoc.yaml",
-            ]:
-                try:
-                    with importlib.resources.open_text(
-                        "treeviz.definitions.builtins", filename
-                    ) as f:
-                        content = f.read()
-
-                    format_name = Path(filename).stem
-                    if filename.endswith(".json"):
-                        definition_dict = json.loads(content)
-                    elif filename.endswith((".yaml", ".yml")):
-                        if not HAS_YAML:
-                            continue
-                        yml = yaml.YAML(typ="safe", pure=True)
-                        definition_dict = yml.load(content)
-                    else:
-                        continue
-
-                    cls.register(format_name, definition_dict)
-                except (ImportError, FileNotFoundError):
-                    continue
-
-        cls._loaded = True
-
-    @classmethod
-    def list_formats(cls) -> list[str]:
+    def list_formats(cls) -> List[str]:
         """
         List all available format names.
 
         Returns:
-            List of available format names including built-in and user-defined adapters
+            List of format names (including '3viz')
         """
-        cls.ensure_all_loaded()
-
-        formats = list(cls._registry.keys())
-        if "json" not in formats:
-            formats.append("json")
-        if "3viz" not in formats:
-            formats.append("3viz")
-        return sorted(formats)
+        cls._ensure_loaders()
+        formats = ["3viz"]  # Always include default
+        formats.extend(cls._loaders.get_adapter_names())
+        return sorted(list(set(formats)))
 
     @classmethod
-    def load_user_libs(cls, reload: bool = False) -> None:
+    def ensure_all_loaded(cls):
         """
-        Load user-defined definitions from configuration directories.
+        Ensure all definitions are loaded.
 
-        Args:
-            reload: If True, reload even if already loaded
+        This is a no-op in the new system as adapters are loaded on demand.
         """
-        if cls._user_loaded and not reload:
-            return
-
-        # Discover and load user definitions
-        discovered = discover_user_definitions()
-
-        for config_dir, files in discovered.items():
-            for file_path in files:
-                try:
-                    # Load the definition file
-                    definition_dict = cls.load_definition_file(file_path)
-                    format_name = file_path.stem
-
-                    # Only register if not already registered (built-ins have priority)
-                    if format_name not in cls._registry:
-                        cls.register(format_name, definition_dict)
-
-                except Exception:
-                    # Silently skip invalid user definitions
-                    # Users can use validate-user-defs to find issues
-                    continue
-
-        cls._user_loaded = True
+        cls._ensure_loaders()
 
     @classmethod
-    def ensure_all_loaded(cls) -> None:
-        """Ensure both built-in and user libraries are loaded."""
-        if not cls._loaded:
-            cls.load_core_libs()
-        if not cls._user_loaded:
-            cls.load_user_libs()
+    def clear_cache(cls):
+        """Clear the adapter cache."""
+        cls._cache.clear()
 
     @classmethod
-    def clear(cls) -> None:
-        """Clear the registry (mainly for testing)."""
-        cls._registry.clear()
-        cls._loaded = False
-        cls._user_loaded = False
+    def clear(cls):
+        """Clear the adapter cache and reset loaders. Alias for clear_cache()."""
+        cls._cache.clear()
+        cls._loaders = None

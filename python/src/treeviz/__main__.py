@@ -114,7 +114,14 @@ def generate_viz(
 
             # Apply theme override if specified
             if theme:
-                presentation_obj.theme = theme
+                presentation_obj.theme_name = theme
+                # Reload the theme
+                from .config.loaders import create_config_loaders
+
+                loaders = create_config_loaders()
+                theme_obj = loaders.load_theme(theme)
+                if theme_obj:
+                    presentation_obj.theme = theme_obj
 
             # Override terminal width if specified
             if terminal_width:

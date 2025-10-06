@@ -4,15 +4,16 @@ Tests for the template-based renderer.
 
 from treeviz.model import Node
 from treeviz.rendering.engines.template import TemplateRenderer
-from treeviz.rendering.themes import theme_manager
+from treeviz.rendering.themes import set_theme_mode, set_theme
 
 
 class TestTemplateRenderer:
     """Test the template renderer."""
 
     def setup_method(self):
-        """Reset theme manager before each test."""
-        theme_manager.reset()
+        """Reset theme to defaults before each test."""
+        set_theme_mode("dark")
+        set_theme("default")
 
     def test_basic_rendering(self):
         """Test basic tree rendering."""

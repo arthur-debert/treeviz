@@ -4,14 +4,11 @@ Configuration loaders for 3viz using the ConfigManager.
 Provides loaders for themes, adapters, and view configurations.
 """
 
-from typing import List, Optional
+from typing import List, Optional, Any
 from pathlib import Path
 from dataclasses import dataclass
 
 from config import ConfigManager, ConfigSpec
-from ..rendering.theme import Theme
-from ..rendering.presentation import ViewOptions
-from ..definitions.model import AdapterDef
 
 
 @dataclass
@@ -22,6 +19,11 @@ class ConfigLoaders:
 
     def __post_init__(self):
         """Register all configuration specifications."""
+        # Lazy imports to avoid circular dependencies
+        from ..rendering.theme import Theme
+        from ..rendering.presentation import ViewOptions
+        from ..definitions.model import AdapterDef
+
         # Theme configurations
         self.manager.register(
             ConfigSpec(
@@ -73,11 +75,11 @@ class ConfigLoaders:
             )
         )
 
-    def load_all_themes(self) -> List[Theme]:
+    def load_all_themes(self) -> List[Any]:
         """Load all available themes."""
         return self.manager.get("themes")
 
-    def load_theme(self, name: str) -> Optional[Theme]:
+    def load_theme(self, name: str) -> Optional[Any]:
         """Load a specific theme by name."""
         try:
             theme = self.manager.get("theme", params={"name": name})
@@ -88,11 +90,11 @@ class ConfigLoaders:
         except Exception:
             return None
 
-    def load_all_adapters(self) -> List[AdapterDef]:
+    def load_all_adapters(self) -> List[Any]:
         """Load all available adapter definitions."""
         return self.manager.get("adapters")
 
-    def load_adapter(self, name: str) -> Optional[AdapterDef]:
+    def load_adapter(self, name: str) -> Optional[Any]:
         """Load a specific adapter by name."""
         try:
             adapter = self.manager.get("adapter", params={"name": name})
@@ -106,7 +108,7 @@ class ConfigLoaders:
         except Exception:
             return None
 
-    def load_view_options(self) -> ViewOptions:
+    def load_view_options(self) -> Any:
         """Load view configuration with hierarchy merging."""
         return self.manager.get("view")
 

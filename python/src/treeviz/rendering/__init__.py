@@ -14,10 +14,10 @@ from ..const import ICONS as DEFAULT_SYMBOLS
 from .presentation import (
     Presentation,
     ViewOptions,
-    PresentationLoader,
     ShowTypes,
     CompactMode,
 )
+from .presentation_loader import PresentationLoader
 
 
 # For backward compatibility with the old API
