@@ -1,7 +1,7 @@
 """
-Command-line help system for displaying markdown-based help topics.
+Learn command system for displaying documentation topics.
 """
 
-from clier.learn.learn import HelpSystem, HelpGroup, HelpConfig, create_help_command
+from clier.learn.learn import LearnSystem, create_learn_command
 
-__all__ = ["HelpSystem", "HelpGroup", "HelpConfig", "create_help_command"]
+__all__ = ["LearnSystem", "create_learn_command"]

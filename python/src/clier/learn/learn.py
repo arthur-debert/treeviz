@@ -1,188 +1,185 @@
 """
-Generic command-line help system for displaying markdown-based help topics.
+Learn command system for displaying documentation topics.
 
-This module provides a reusable help system that can be integrated into any
+This module provides a reusable learn/topic system that can be integrated into any
 Click-based CLI application. It supports:
-- Dynamic discovery of help topics from markdown files
-- Configurable help directories
-- Built-in and custom topic descriptions
-- Integration with Click command groups
+- Dynamic discovery of topics from files
+- Configurable topic directories
+- Optional pager support for long content
+- Configurable command name when mounting
 """
 
-from typing import List
+import os
+import subprocess
+import sys
+from typing import List, Optional
 from pathlib import Path
-from dataclasses import dataclass
 
 import click
 
 
-@dataclass
-class HelpConfig:
-    """Configuration for the help system."""
+class LearnSystem:
+    """Main learn system implementation."""
 
-    # List of directories to search for help topics (in priority order)
-    help_dirs: List[Path]
-
-    # File extension for help files
-    file_extension: str = ".md"
-
-
-class HelpSystem:
-    """Main help system implementation."""
-
-    def __init__(self, config: HelpConfig):
+    def __init__(
+        self,
+        topic_dirs: List[Path],
+        file_extension: str = ".md",
+        pager: Optional[str] = None,
+    ):
         """
-        Initialize the help system with configuration.
+        Initialize the learn system.
 
         Args:
-            config: Configuration for the help system
+            topic_dirs: List of directories to search for topic files
+            file_extension: File extension for topic files (default: ".md")
+            pager: Default pager command (None means use system default)
         """
-        self.config = config
+        self.topic_dirs = topic_dirs
+        self.file_extension = file_extension
+        self.pager = pager
 
     def discover_topics(self) -> List[str]:
-        """Discover available help topics from configured directories."""
+        """Discover available topics from configured directories."""
         topics = set()
 
-        for help_dir in self.config.help_dirs:
-            if help_dir.exists() and help_dir.is_dir():
-                pattern = f"*{self.config.file_extension}"
-                for file_path in help_dir.glob(pattern):
+        for topic_dir in self.topic_dirs:
+            if topic_dir.exists() and topic_dir.is_dir():
+                pattern = f"*{self.file_extension}"
+                for file_path in topic_dir.glob(pattern):
                     topics.add(file_path.stem)
 
         return sorted(topics)
 
-    def load_topic(self, topic_name: str) -> str:
+    def load_topic(self, topic_name: str) -> Optional[str]:
         """
-        Load help content for a specific topic.
+        Load content for a specific topic.
 
         Args:
-            topic_name: Name of the help topic
+            topic_name: Name of the topic
 
         Returns:
-            The help content as a string
+            The topic content as a string, or None if not found
         """
-        for help_dir in self.config.help_dirs:
-            help_file = help_dir / f"{topic_name}{self.config.file_extension}"
-            if help_file.exists():
+        for topic_dir in self.topic_dirs:
+            topic_file = topic_dir / f"{topic_name}{self.file_extension}"
+            if topic_file.exists():
                 try:
-                    return help_file.read_text()
+                    return topic_file.read_text()
                 except Exception as e:
-                    return f"Error reading help topic '{topic_name}': {e}"
+                    click.echo(
+                        f"Error reading topic '{topic_name}': {e}", err=True
+                    )
+                    return None
 
-        return f"Help topic '{topic_name}' not found."
+        return None
 
-    def format_topic_list(self) -> str:
-        """Format the list of available topics."""
+    def display_topic(self, content: str, use_pager: bool = False):
+        """
+        Display topic content, optionally using a pager.
+
+        Args:
+            content: The content to display
+            use_pager: Whether to use a pager for display
+        """
+        if use_pager:
+            # Try to use configured pager, then PAGER env var, then defaults
+            pager = self.pager or os.environ.get("PAGER")
+
+            if not pager:
+                # Try common pagers
+                for candidate in ["less", "more"]:
+                    try:
+                        subprocess.run(
+                            ["which", candidate],
+                            capture_output=True,
+                            check=True,
+                        )
+                        pager = candidate
+                        break
+                    except subprocess.CalledProcessError:
+                        continue
+
+            if pager:
+                try:
+                    proc = subprocess.Popen(
+                        pager, shell=True, stdin=subprocess.PIPE
+                    )
+                    proc.communicate(content.encode())
+                except Exception:
+                    # Fallback to direct output if pager fails
+                    click.echo(content)
+            else:
+                click.echo(content)
+        else:
+            click.echo(content)
+
+    def format_topic_list(self, command_name: str) -> str:
+        """
+        Format the list of available topics.
+
+        Args:
+            command_name: The name of the command (e.g., 'learn', 'topic')
+
+        Returns:
+            Formatted list of topics
+        """
         topics = self.discover_topics()
 
         if not topics:
-            return "No help topics found."
+            return "No topics found."
 
-        lines = ["Available help topics:", ""]
+        lines = ["Available topics:", ""]
 
         for topic in topics:
-            lines.append(f"  {{app_name}} help {topic}")
+            lines.append(f"  {topic}")
 
         lines.append("")
-        lines.append("For detailed information: {app_name} help <topic>")
+        lines.append(f"To view a topic: {command_name} <topic>")
+        lines.append(f"To view with pager: {command_name} <topic> --pager")
 
         return "\n".join(lines)
 
 
-class HelpGroup(click.Group):
+def create_learn_command(
+    learn_system: LearnSystem,
+    command_name: str = "learn",
+    command_help: Optional[str] = None,
+) -> click.Command:
     """
-    Custom Click group that integrates with the help system.
-
-    This group dynamically creates commands for each help topic discovered
-    by the help system.
-    """
-
-    def __init__(self, help_system: HelpSystem, app_name: str, *args, **kwargs):
-        """
-        Initialize the help group.
-
-        Args:
-            help_system: The help system instance
-            app_name: Name of the application (for display in help)
-            *args, **kwargs: Additional arguments for Click Group
-        """
-        super().__init__(*args, **kwargs)
-        self.help_system = help_system
-        self.app_name = app_name
-        self._dynamic_commands = {}
-        self._load_dynamic_commands()
-
-    def _load_dynamic_commands(self):
-        """Load help topics as dynamic commands."""
-        topics = self.help_system.discover_topics()
-
-        for topic in topics:
-            # Create a command for each topic
-            def make_help_command(topic_name):
-                def help_command():
-                    content = self.help_system.load_topic(topic_name)
-                    click.echo(content)
-
-                return help_command
-
-            # Set up the command
-            cmd = make_help_command(topic)
-            cmd.__name__ = topic.replace("-", "_")
-            cmd.__doc__ = f"Show help for {topic}"
-
-            # Convert to Click command
-            click_cmd = click.command(name=topic)(cmd)
-            self._dynamic_commands[topic] = click_cmd
-
-    def get_command(self, ctx, cmd_name):
-        """Get a command, checking dynamic commands first."""
-        if cmd_name in self._dynamic_commands:
-            return self._dynamic_commands[cmd_name]
-        return super().get_command(ctx, cmd_name)
-
-    def list_commands(self, ctx):
-        """List only static commands (not dynamic help topics)."""
-        return super().list_commands(ctx)
-
-    def format_help(self, ctx, formatter):
-        """Format help to include available topics."""
-        super().format_help(ctx, formatter)
-
-        topics = self.help_system.discover_topics()
-        if topics:
-            with formatter.section("Available Topics"):
-                formatter.write_paragraph()
-                for topic in topics:
-                    formatter.write_text(f"  {self.app_name} help {topic}")
-
-
-def create_help_command(help_system: HelpSystem, app_name: str) -> click.Group:
-    """
-    Create a help command group with list command.
+    Create a learn command with configurable name.
 
     Args:
-        help_system: The help system instance
-        app_name: Name of the application
+        learn_system: The learn system instance
+        command_name: Name for the command (default: "learn")
+        command_help: Custom help text for the command
 
     Returns:
-        A Click group configured as a help command
+        A Click command configured as a learn command
     """
+    if not command_help:
+        command_help = "Display documentation topics."
 
-    @click.group(cls=HelpGroup, help_system=help_system, app_name=app_name)
-    def help_cmd():
-        """
-        Show detailed help for specific topics.
+    @click.command(name=command_name, help=command_help)
+    @click.argument("topic", required=False)
+    @click.option(
+        "--pager", "-p", is_flag=True, help="Display topic using system pager"
+    )
+    def learn_cmd(topic, pager):
+        """Display documentation topics."""
+        if not topic:
+            # List available topics
+            output = learn_system.format_topic_list(command_name)
+            click.echo(output)
+        else:
+            # Display specific topic
+            content = learn_system.load_topic(topic)
+            if content is None:
+                click.echo(f"Topic '{topic}' not found.", err=True)
+                click.echo("")
+                click.echo(learn_system.format_topic_list(command_name))
+                sys.exit(1)
+            else:
+                learn_system.display_topic(content, use_pager=pager)
 
-        Provides comprehensive documentation loaded from markdown files.
-        """
-        pass
-
-    @help_cmd.command(name="list")
-    def list_topics():
-        """List all available help topics."""
-        # Format the topic list with the app name
-        output = help_system.format_topic_list()
-        output = output.replace("{app_name}", app_name)
-        click.echo(output)
-
-    return help_cmd
+    return learn_cmd

@@ -9,33 +9,32 @@ import sys
 from pathlib import Path
 
 import click
-from clier.learn import HelpConfig, HelpSystem, create_help_command
+from clier.learn import LearnSystem, create_learn_command
 
 from treeviz.viz import generate_viz
 
 
-# Configure help system paths
-_help_dirs = []
+# Configure learn system paths
+_topic_dirs = []
 
 # Try development path first (relative to repo root)
-_dev_help_dir = (
+_dev_topic_dir = (
     Path(__file__).parent.parent.parent.parent / "docs" / "shell-help"
 )
-if _dev_help_dir.exists():
-    _help_dirs.append(_dev_help_dir)
+if _dev_topic_dir.exists():
+    _topic_dirs.append(_dev_topic_dir)
 
 # For installed packages, use package data
-_pkg_help_dir = Path(__file__).parent / "data" / "shell-help"
-if _pkg_help_dir.exists():
-    _help_dirs.append(_pkg_help_dir)
+_pkg_topic_dir = Path(__file__).parent / "data" / "shell-help"
+if _pkg_topic_dir.exists():
+    _topic_dirs.append(_pkg_topic_dir)
 
 # If no directories found, still use dev path
-if not _help_dirs:
-    _help_dirs.append(_dev_help_dir)
+if not _topic_dirs:
+    _topic_dirs.append(_dev_topic_dir)
 
-# Create help system with just the directories
-_help_config = HelpConfig(help_dirs=_help_dirs)
-_help_system = HelpSystem(_help_config)
+# Create learn system with topic directories
+_learn_system = LearnSystem(_topic_dirs)
 
 
 @click.group()
@@ -163,31 +162,8 @@ def foo():
     print("bar")
 
 
-# Create the help command using the generic help system
-help = create_help_command(_help_system, "3viz")
-
-# Update the docstring for the help command
-help.__doc__ = """
-Show detailed help for specific topics.
-
-\b
-Provides comprehensive documentation for 3viz features, including:
-  • Getting started guides and basic usage
-  • Adapter system and custom adapter creation
-  • Advanced extraction and transform pipelines
-  • Visual output format explanation
-  • Examples and real-world use cases
-
-\b
-Examples:
-  3viz help getting-started         # Basic usage and concepts
-  3viz help adapters               # Adapter system documentation
-  3viz help examples               # Practical examples and patterns
-
-\b
-All help content is loaded from markdown files for rich formatting.
-"""
-
+# Create the help command using the learn system
+help = create_learn_command(_learn_system, command_name="learn")
 # Register the help command with the main CLI
 cli.add_command(help)
 
