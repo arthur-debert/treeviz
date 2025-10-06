@@ -130,23 +130,6 @@ def generate_viz(
         raise ValueError(f"Unknown output format: {output_format}")
 
 
-def _output_data(data, output_format):
-    """
-    Output data in the specified format.
-
-    Args:
-        data: The data to output
-        output_format: One of 'text', 'json', 'term'
-    """
-    if output_format == "json":
-        print(json.dumps(data, indent=2, ensure_ascii=False))
-    elif output_format in ["text", "term"]:
-        # For text/term output, just pipe the JSON (simpler approach)
-        print(json.dumps(data, indent=2, ensure_ascii=False))
-    else:
-        raise ValueError(f"Unknown output format: {output_format}")
-
-
 # CLI functions moved from cli.py to avoid import issues
 
 # Configure help system paths
