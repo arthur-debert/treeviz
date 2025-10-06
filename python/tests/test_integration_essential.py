@@ -4,13 +4,11 @@ Essential integration tests for multi-component workflows.
 These 7 tests cover the most critical integration scenarios for treeviz.
 """
 
-import pytest
 from pathlib import Path
-from click.testing import CliRunner
 
-from treeviz.__main__ import cli
-from treeviz.formats import parse_document
+import pytest
 from treeviz.adapters import adapt_node
+from treeviz.formats import parse_document
 from treeviz.rendering import TemplateRenderer
 
 
@@ -23,20 +21,6 @@ def get_test_data_path(filename: str) -> str:
 
 class TestEssentialIntegration:
     """Essential integration tests covering critical multi-component workflows."""
-
-    def test_cli_end_to_end_workflow(self):
-        """Test complete CLI workflow from file input to rendered output."""
-        runner = CliRunner()
-
-        # Test basic help works
-        result = runner.invoke(cli, ["--help"])
-        assert result.exit_code == 0
-        assert "Terminal AST visualizer for document trees" in result.output
-
-        # Test get-definition command works
-        result = runner.invoke(cli, ["get-definition", "3viz"])
-        assert result.exit_code == 0
-        assert "label" in result.output
 
     def test_complete_parse_adapt_render_pipeline(self):
         """Test complete pipeline: parse document → adapt with config → render output."""

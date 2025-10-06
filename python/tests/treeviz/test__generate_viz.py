@@ -8,18 +8,24 @@ import json
 import pytest
 from unittest.mock import patch, MagicMock
 
-from treeviz.__main__ import generate_viz
+from treeviz.viz import generate_viz
 from treeviz.model import Node
 from treeviz.rendering import Presentation
+from tests.conftest import (
+    MOCK_LOAD_DOCUMENT,
+    MOCK_LOAD_ADAPTER,
+    MOCK_CONVERT_DOCUMENT,
+    MOCK_TEMPLATE_RENDERER,
+)
 
 
 class TestGenerateViz:
     """Test cases for generate_viz function."""
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.TemplateRenderer")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
+    @patch(MOCK_TEMPLATE_RENDERER)
     def test_generate_viz_term_output(
         self,
         mock_template_renderer_class,
@@ -64,9 +70,9 @@ class TestGenerateViz:
 
         assert result == mock_rendered
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_json_output(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -91,9 +97,9 @@ class TestGenerateViz:
         assert parsed["content_lines"] == 5
         assert parsed["children"] == []
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_yaml_output(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -115,9 +121,9 @@ class TestGenerateViz:
         assert "label: test" in result
         assert "type: simple" in result
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_with_all_parameters(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -148,9 +154,9 @@ class TestGenerateViz:
         parsed = json.loads(result)
         assert parsed["label"] == "test"
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_with_stdin(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -169,9 +175,9 @@ class TestGenerateViz:
         parsed = json.loads(result)
         assert parsed["label"] == "from_stdin"
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_with_ignored_node(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -189,10 +195,10 @@ class TestGenerateViz:
         result = generate_viz("test.json", output_format="term")
         assert result == ""
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.TemplateRenderer")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
+    @patch(MOCK_TEMPLATE_RENDERER)
     @patch("sys.stdout.isatty")
     @patch("os.get_terminal_size")
     def test_generate_viz_terminal_width_detection(
@@ -233,10 +239,10 @@ class TestGenerateViz:
         assert isinstance(call_args[0][1], Presentation)
         assert call_args[0][1].view.max_width == 80
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
-    @patch("treeviz.__main__.TemplateRenderer")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
+    @patch(MOCK_TEMPLATE_RENDERER)
     def test_generate_viz_text_vs_term_width(
         self,
         mock_template_renderer_class,
@@ -271,7 +277,7 @@ class TestGenerateViz:
             assert isinstance(call_args[0][1], Presentation)
             assert call_args[0][1].view.max_width == 80
 
-    @patch("treeviz.__main__.load_document")
+    @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_invalid_output_format(self, mock_load_document):
         """Test generate_viz with invalid output format."""
         mock_load_document.return_value = {"test": "data"}
@@ -279,7 +285,7 @@ class TestGenerateViz:
         with pytest.raises(ValueError, match="Unknown output format: invalid"):
             generate_viz("test.json", output_format="invalid")
 
-    @patch("treeviz.__main__.load_document")
+    @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_preserves_load_document_errors(
         self, mock_load_document
     ):
@@ -291,8 +297,8 @@ class TestGenerateViz:
         with pytest.raises(DocumentFormatError, match="Invalid format"):
             generate_viz("invalid.doc")
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
     def test_generate_viz_preserves_load_adapter_errors(
         self, mock_load_adapter, mock_load_document
     ):
@@ -303,9 +309,9 @@ class TestGenerateViz:
         with pytest.raises(ValueError, match="Unknown adapter"):
             generate_viz("test.json", adapter_spec="unknown")
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_preserves_convert_errors(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -317,9 +323,9 @@ class TestGenerateViz:
         with pytest.raises(KeyError, match="Missing field"):
             generate_viz("test.json")
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_with_custom_icons(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -330,9 +336,7 @@ class TestGenerateViz:
         mock_load_adapter.return_value = ({"label": "name"}, custom_icons)
         mock_convert.return_value = Node(label="test", type="function")
 
-        with patch(
-            "treeviz.__main__.TemplateRenderer"
-        ) as mock_template_renderer_class:
+        with patch(MOCK_TEMPLATE_RENDERER) as mock_template_renderer_class:
             mock_renderer = MagicMock()
             mock_renderer.render.return_value = "⚡ test"
             mock_template_renderer_class.return_value = mock_renderer
@@ -345,9 +349,9 @@ class TestGenerateViz:
             assert isinstance(call_args[0][1], Presentation)
             assert call_args[0][1].view.max_width == 80
 
-    @patch("treeviz.__main__.load_document")
-    @patch("treeviz.__main__.load_adapter")
-    @patch("treeviz.__main__.convert_document")
+    @patch(MOCK_LOAD_DOCUMENT)
+    @patch(MOCK_LOAD_ADAPTER)
+    @patch(MOCK_CONVERT_DOCUMENT)
     def test_generate_viz_yaml_output_normal(
         self, mock_convert, mock_load_adapter, mock_load_document
     ):
@@ -368,7 +372,7 @@ class TestGenerateViz:
 class TestGenerateVizIntegration:
     """Integration tests for generate_viz with minimal mocking."""
 
-    @patch("treeviz.__main__.load_document")
+    @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_with_builtin_adapter(self, mock_load_document):
         """Test generate_viz with built-in 3viz adapter (minimal mocking)."""
         # Mock document loading only
@@ -394,7 +398,7 @@ class TestGenerateVizIntegration:
         assert len(parsed["children"]) == 2
         assert parsed["children"][0]["label"] == "Child 1"
 
-    @patch("treeviz.__main__.load_document")
+    @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_with_mdast_adapter(self, mock_load_document):
         """Test generate_viz with built-in mdast adapter."""
         # MDAST-like document structure
