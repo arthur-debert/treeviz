@@ -159,8 +159,9 @@ def foo():
     print("bar")
 
 
-# Create the help command using the learn system
-cli.add_command(LearnSystem(_topic_dirs, name="learn").as_command())
+# Create the learn system and add it with custom name
+learn_system = LearnSystem(_topic_dirs)
+cli.add_command(learn_system.as_command(), name="help")
 
 
 def main():

@@ -24,26 +24,20 @@ class LearnSystem:
     def __init__(
         self,
         topic_dirs: List[Path],
-        name: str = "learn",
         file_extension: str = ".md",
         pager: Optional[str] = None,
-        help: Optional[str] = None,
     ):
         """
         Initialize the learn system.
 
         Args:
             topic_dirs: List of directories to search for topic files
-            name: Command name (default: "learn")
             file_extension: File extension for topic files (default: ".md")
             pager: Default pager command (None means use system default)
-            help: Custom help text for the command
         """
         self.topic_dirs = topic_dirs
-        self.name = name
         self.file_extension = file_extension
         self.pager = pager
-        self.help = help or "Display documentation topics."
 
     def discover_topics(self) -> List[str]:
         """Discover available topics from configured directories."""
@@ -154,7 +148,7 @@ class LearnSystem:
             A Click command ready to be added to a CLI
         """
 
-        @click.command(name=self.name, help=self.help)
+        @click.command()
         @click.argument("topic", required=False)
         @click.option(
             "--pager",
@@ -162,11 +156,15 @@ class LearnSystem:
             is_flag=True,
             help="Display topic using system pager",
         )
-        def learn_cmd(topic, pager):
+        @click.pass_context
+        def learn_cmd(ctx, topic, pager):
             """Display documentation topics."""
+            # Get the actual command name from context
+            command_name = ctx.info_name
+
             if not topic:
                 # List available topics
-                output = self.format_topic_list(self.name)
+                output = self.format_topic_list(command_name)
                 click.echo(output)
             else:
                 # Display specific topic
@@ -174,7 +172,7 @@ class LearnSystem:
                 if content is None:
                     click.echo(f"Topic '{topic}' not found.", err=True)
                     click.echo("")
-                    click.echo(self.format_topic_list(self.name))
+                    click.echo(self.format_topic_list(command_name))
                     sys.exit(1)
                 else:
                     self.display_topic(content, use_pager=pager)
