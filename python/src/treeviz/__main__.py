@@ -4,7 +4,6 @@ Entry point for treeviz CLI.
 This module contains the CLI interface for treeviz.
 """
 
-import json
 import os
 import sys
 from pathlib import Path
@@ -142,31 +141,20 @@ def viz(
     User-defined adapters are discovered from:
       ./.3viz/, ~/.config/3viz/, ~/.3viz/
     """
-    # Use command-specific output format if provided, otherwise use global setting
-    if output_format is None:
-        output_format = ctx.obj["output_format"]
 
-    try:
-        result = generate_viz(
+    print(
+        generate_viz(
             document_path=document,
             adapter_spec=adapter,
             document_format=document_format,
             adapter_format=adapter_format,
-            output_format=output_format,
-            terminal_width=ctx.obj.get("terminal_width", 80),
+            output_format=output_format or ctx.obj["output_format"],
+            terminal_width=ctx.obj.get("terminal_width", None),
             theme=theme,
             presentation=presentation,
-        )
-
-        # Output result to stdout
-        print(result, end="")
-
-    except Exception as e:
-        if output_format == "json":
-            print(json.dumps({"error": str(e)}))
-        else:
-            print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
+        ),
+        end="",
+    )
 
 
 @cli.command()

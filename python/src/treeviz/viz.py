@@ -15,7 +15,7 @@ def generate_viz(
     document_format: Optional[str] = None,
     adapter_format: Optional[str] = None,
     output_format: str = "term",
-    terminal_width: Optional[int] = None,
+    terminal_width: Optional[int] = 80,
     theme: Optional[str] = None,
     presentation: Optional[Union[str, Path]] = None,
 ) -> Union[str, Any]:
