@@ -14,7 +14,7 @@ from clier.learn import learn_app
 from treeviz.viz import generate_viz
 from treeviz.commands import viz_command
 from treeviz.result import TreeResult
-from treeviz.rendering import TemplateRenderer
+from treeviz.rendering.tree_formatter import TreeFormatter
 from clier.rendering import handle_command_result
 
 # Configure learn system paths, has to work in editable and packaged..
@@ -135,13 +135,24 @@ def viz(
 
             # Render TreeResult directly for tree visualization
             if isinstance(result, TreeResult):
-                renderer = TemplateRenderer()
-                output = renderer.render(
+                formatter = TreeFormatter()
+                context = formatter.prepare_context(
                     node=result.node,
                     presentation=result.presentation,
                     symbols=result.symbols,
                     use_color=result.use_color,
                     terminal_width=result.terminal_width,
+                )
+
+                # Let clier handle the rendering with treeviz templates
+                from clier.rendering import render as clier_render
+
+                output = clier_render(
+                    data=result.node,
+                    format=fmt,
+                    template="tree.j2",
+                    context=context,
+                    template_dirs=[formatter.template_dir],
                 )
                 print(output, end="")
             else:

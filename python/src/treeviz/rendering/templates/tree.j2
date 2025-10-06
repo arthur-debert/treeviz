@@ -1,26 +1,61 @@
-{#- Main tree rendering template -#}
-{% macro render_node(node, depth=0, symbols=None, terminal_width=80, use_color=True) -%}
+{#- Main tree rendering template with simple column-based layout -#}
+{% macro render_node(node, depth=0) -%}
 {%- set indent = "  " * depth -%}
 {%- set icon = node.icon or (symbols[node.type] if node.type and symbols else "?") -%}
-{%- set label = node.label | trim -%}
-{%- set extras = node.extra | format_extras -%}
-{%- set line_count = (node.children | length) if node.children else node.content_lines -%}
+{%- set label = node.label | default("", true) | trim -%}
+
+{#- Format extras -#}
+{%- set extras_parts = [] -%}
+{%- if node.extra -%}
+  {%- for k, v in node.extra.items() -%}
+    {%- if v is sameas true -%}
+      {%- set _ = extras_parts.append(k) -%}
+    {%- elif v is not sameas false and v is not none -%}
+      {%- set _ = extras_parts.append(k ~ "=" ~ v) -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- set extras_str = extras_parts | join(" ") -%}
+{#- Truncate extras if too long -#}
+{%- if extras_str | length > 20 -%}
+  {%- set extras_str = extras_str[:19] ~ "…" -%}
+{%- endif -%}
+
+{#- Line count -#}
+{%- set line_count = node.children | length if node.children else node.content_lines -%}
 {%- set count_str = line_count ~ "L" -%}
 
-{#- Use the layout calculator to get properly formatted line with positions -#}
+{#- Calculate actual content widths -#}
+{%- set current_indent_width = depth * 2 -%}
+{%- set icon_str = icon ~ " " -%}
+
+{#- Adjust label width based on current indent to maintain alignment -#}
+{%- set indent_diff = column_widths.indent_width - current_indent_width -%}
+{%- set adjusted_label_width = column_widths.label_width + indent_diff -%}
+
+{#- Truncate label if needed -#}
+{%- if label | length > adjusted_label_width -%}
+  {%- set label = label[:adjusted_label_width-1] ~ "…" -%}
+{%- endif -%}
+
+{#- Apply padding to create fixed-width columns -#}
+{%- set padded_label = label | ljust(adjusted_label_width) -%}
+{%- set padded_extras = extras_str | rjust(column_widths.extras_width) if column_widths.extras_width > 0 else "" -%}
+{%- set padded_count = count_str | rjust(column_widths.count_width) -%}
+
+{#- Assemble line -#}
+{%- set line = indent ~ icon_str ~ padded_label ~ padded_extras ~ padded_count -%}
+
+{#- Apply color if enabled -#}
 {%- if use_color -%}
-{%- set layout_result = calculate_line_layout_with_positions(indent, icon, label, extras, count_str, terminal_width) -%}
-{%- set line_parts = layout_result[0] -%}
-{%- set positions = layout_result[1] -%}
-{{ apply_rich_markup_with_positions(line_parts, positions) }}
-{% else -%}
-{%- set line_parts = calculate_line_layout(indent, icon, label, extras, count_str, terminal_width) -%}
-{{ line_parts }}
+{{ apply_simple_markup(line, current_indent_width, icon_str, label, extras_str, count_str) }}
+{%- else -%}
+{{ line }}
 {% endif -%}
 {%- for child in node.children %}
-{{ render_node(child, depth + 1, symbols, terminal_width, use_color) }}
+{{ render_node(child, depth + 1) }}
 {%- endfor -%}
 {%- endmacro %}
 
 {#- Entry point: render the root node -#}
-{{ render_node(root_node, 0, symbols, terminal_width, use_color) -}}
+{{ render_node(root_node, 0) }}

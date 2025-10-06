@@ -17,7 +17,7 @@ MOCK_VIZ_MODULE = "treeviz.viz"
 MOCK_LOAD_DOCUMENT = f"{MOCK_VIZ_MODULE}.load_document"
 MOCK_LOAD_ADAPTER = f"{MOCK_VIZ_MODULE}.load_adapter"
 MOCK_CONVERT_DOCUMENT = f"{MOCK_VIZ_MODULE}.convert_document"
-MOCK_TEMPLATE_RENDERER = f"{MOCK_VIZ_MODULE}.TemplateRenderer"
+MOCK_TEMPLATE_RENDERER = f"{MOCK_VIZ_MODULE}.clier_render"
 
 
 class NodeAssertion:

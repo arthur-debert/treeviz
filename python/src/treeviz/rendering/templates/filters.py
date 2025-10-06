@@ -60,6 +60,16 @@ def truncate_text(text: str, max_length: int) -> str:
     return text[: max_length - 1] + "…"
 
 
+def ljust(value: str, width: int, fillchar: str = " ") -> str:
+    """Left-justify a string in a field of given width."""
+    return str(value).ljust(width, fillchar)
+
+
+def rjust(value: str, width: int, fillchar: str = " ") -> str:
+    """Right-justify a string in a field of given width."""
+    return str(value).rjust(width, fillchar)
+
+
 def register_filters(env: Environment) -> None:
     """
     Register custom filters with a Jinja2 environment.
@@ -69,3 +79,5 @@ def register_filters(env: Environment) -> None:
     """
     env.filters["format_extras"] = format_extras
     env.filters["truncate"] = truncate_text
+    env.filters["ljust"] = ljust
+    env.filters["rjust"] = rjust

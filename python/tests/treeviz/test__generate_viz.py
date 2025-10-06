@@ -6,11 +6,10 @@ Tests the main orchestration functionality with mocked sub-functions.
 
 import json
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from treeviz.viz import generate_viz
 from treeviz.model import Node
-from treeviz.rendering import Presentation
 from tests.conftest import (
     MOCK_LOAD_DOCUMENT,
     MOCK_LOAD_ADAPTER,
@@ -29,7 +28,7 @@ class TestGenerateViz:
     @patch(MOCK_TEMPLATE_RENDERER)
     def test_generate_viz_term_output(
         self,
-        mock_template_renderer_class,
+        mock_clier_render,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -43,10 +42,8 @@ class TestGenerateViz:
         mock_node = Node(label="test", type="doc")
         mock_rendered = "📄 test"
 
-        # Mock the renderer instance
-        mock_renderer = MagicMock()
-        mock_renderer.render.return_value = mock_rendered
-        mock_template_renderer_class.return_value = mock_renderer
+        # Mock clier_render
+        mock_clier_render.return_value = mock_rendered
 
         mock_load_document.return_value = mock_document
         mock_load_adapter.return_value = (mock_adapter_def, mock_icons)
@@ -62,18 +59,24 @@ class TestGenerateViz:
         mock_load_adapter.assert_called_once_with("3viz", adapter_format=None)
         mock_convert.assert_called_once_with(mock_document, mock_adapter_def)
 
-        # Verify renderer was created and called
-        mock_template_renderer_class.assert_called_once()
-        # Renderer is now called with keyword arguments
-        assert mock_renderer.render.called
-        call_kwargs = mock_renderer.render.call_args.kwargs
-        assert call_kwargs["node"] == mock_node
-        assert isinstance(call_kwargs["presentation"], Presentation)
-        assert call_kwargs["terminal_width"] == 80
-        assert (
-            call_kwargs["use_color"] is True
-        )  # stdout.isatty() is True in tests
-        assert "symbols" in call_kwargs
+        # Verify clier_render was called
+        mock_clier_render.assert_called_once()
+
+        # Check the keyword arguments
+        kwargs = mock_clier_render.call_args.kwargs
+        assert kwargs["data"] == mock_node
+        assert kwargs["format"] == "term"
+        assert kwargs["template"] == "tree.j2"
+
+        # Check context
+        context = kwargs["context"]
+        assert context["root_node"] == mock_node
+        assert context["use_color"] is True  # stdout.isatty() is True
+        assert "column_widths" in context
+        assert "symbols" in context
+
+        # Check template_dirs
+        assert "template_dirs" in kwargs
 
         assert result == mock_rendered
 
@@ -212,7 +215,7 @@ class TestGenerateViz:
         self,
         mock_term_size,
         mock_isatty,
-        mock_template_renderer_class,
+        mock_clier_render,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -222,27 +225,24 @@ class TestGenerateViz:
         mock_load_document.return_value = {"name": "test"}
         mock_load_adapter.return_value = ({"label": "name"}, {})
         mock_convert.return_value = Node(label="test")
-
-        mock_renderer = MagicMock()
-        mock_renderer.render.return_value = "output"
-        mock_template_renderer_class.return_value = mock_renderer
+        mock_clier_render.return_value = "output"
 
         # Test with specified terminal width
         generate_viz("test.json", output_format="term", terminal_width=120)
 
         # Should use provided terminal width
-        call_kwargs = mock_renderer.render.call_args.kwargs
-        assert call_kwargs["node"] == Node(label="test")
-        assert call_kwargs["terminal_width"] == 120
-        mock_renderer.render.reset_mock()
+        context = mock_clier_render.call_args.kwargs["context"]
+        assert context["root_node"] == Node(label="test")
+        assert context["terminal_width"] == 120
+        mock_clier_render.reset_mock()
 
         # Test without terminal width (should use default)
         generate_viz("test.json", output_format="term")
 
         # Should use default width
-        call_kwargs = mock_renderer.render.call_args.kwargs
-        assert call_kwargs["node"] == Node(label="test")
-        assert call_kwargs["terminal_width"] == 80
+        context = mock_clier_render.call_args.kwargs["context"]
+        assert context["root_node"] == Node(label="test")
+        assert context["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     @patch(MOCK_LOAD_ADAPTER)
@@ -250,7 +250,7 @@ class TestGenerateViz:
     @patch(MOCK_TEMPLATE_RENDERER)
     def test_generate_viz_text_vs_term_width(
         self,
-        mock_template_renderer_class,
+        mock_clier_render,
         mock_convert,
         mock_load_adapter,
         mock_load_document,
@@ -260,25 +260,22 @@ class TestGenerateViz:
         mock_load_document.return_value = {"name": "test"}
         mock_load_adapter.return_value = ({"label": "name"}, {})
         mock_convert.return_value = Node(label="test")
-
-        mock_renderer = MagicMock()
-        mock_renderer.render.return_value = "output"
-        mock_template_renderer_class.return_value = mock_renderer
+        mock_clier_render.return_value = "output"
 
         # Test text output (fixed width)
         generate_viz("test.json", output_format="text")
-        call_kwargs = mock_renderer.render.call_args.kwargs
-        assert call_kwargs["node"] == Node(label="test")
-        assert call_kwargs["terminal_width"] == 80
+        context = mock_clier_render.call_args.kwargs["context"]
+        assert context["root_node"] == Node(label="test")
+        assert context["terminal_width"] == 80
 
-        mock_renderer.render.reset_mock()
+        mock_clier_render.reset_mock()
 
         # Test term output (should also use 80 as default when not TTY)
         with patch("sys.stdout.isatty", return_value=False):
             generate_viz("test.json", output_format="term")
-            call_kwargs = mock_renderer.render.call_args.kwargs
-            assert call_kwargs["node"] == Node(label="test")
-            assert call_kwargs["terminal_width"] == 80
+            context = mock_clier_render.call_args.kwargs["context"]
+            assert context["root_node"] == Node(label="test")
+            assert context["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     def test_generate_viz_invalid_output_format(self, mock_load_document):
@@ -339,17 +336,15 @@ class TestGenerateViz:
         mock_load_adapter.return_value = ({"label": "name"}, custom_icons)
         mock_convert.return_value = Node(label="test", type="function")
 
-        with patch(MOCK_TEMPLATE_RENDERER) as mock_template_renderer_class:
-            mock_renderer = MagicMock()
-            mock_renderer.render.return_value = "⚡ test"
-            mock_template_renderer_class.return_value = mock_renderer
+        with patch(MOCK_TEMPLATE_RENDERER) as mock_clier_render:
+            mock_clier_render.return_value = "⚡ test"
 
             generate_viz("test.json", output_format="term")
 
             # Should pass custom icons to renderer
-            call_kwargs = mock_renderer.render.call_args.kwargs
-            assert call_kwargs["node"] == Node(label="test", type="function")
-            assert call_kwargs["terminal_width"] == 80
+            context = mock_clier_render.call_args.kwargs["context"]
+            assert context["root_node"] == Node(label="test", type="function")
+            assert context["terminal_width"] == 80
 
     @patch(MOCK_LOAD_DOCUMENT)
     @patch(MOCK_LOAD_ADAPTER)

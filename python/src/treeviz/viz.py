@@ -1,6 +1,7 @@
 from treeviz.adapters import convert_document, load_adapter
 from treeviz.formats import load_document
-from treeviz.rendering import TemplateRenderer
+from treeviz.rendering.tree_formatter import TreeFormatter
+from clier.rendering import render as clier_render
 from treeviz.result import TreeResult
 
 
@@ -148,14 +149,23 @@ def generate_viz(
         if return_result_object:
             return tree_result
 
-        # Otherwise render to string
-        renderer = TemplateRenderer()
-        return renderer.render(
+        # Otherwise render to string using clier
+        formatter = TreeFormatter()
+        context = formatter.prepare_context(
             node=node,
             presentation=presentation_obj,
             symbols=symbols,
             use_color=use_color,
             terminal_width=terminal_width,
+        )
+
+        # Use clier's rendering with treeviz templates
+        return clier_render(
+            data=node,
+            format=output_format,
+            template="tree.j2",
+            context=context,
+            template_dirs=[formatter.template_dir],
         )
 
     else:

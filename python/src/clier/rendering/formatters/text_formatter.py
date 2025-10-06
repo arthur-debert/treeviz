@@ -14,12 +14,17 @@ from ..message import Message, MessageLevel
 class TextFormatter(Renderer):
     """Formatter for text and terminal output using templates."""
 
-    def __init__(self, template_dirs: Optional[List[Path]] = None):
+    def __init__(
+        self,
+        template_dirs: Optional[List[Path]] = None,
+        custom_filters: Optional[Dict[str, Any]] = None,
+    ):
         """
         Initialize the text formatter.
 
         Args:
             template_dirs: List of template directories to search
+            custom_filters: Additional filters to register
         """
         if template_dirs is None:
             # Default to built-in templates
@@ -32,11 +37,17 @@ class TextFormatter(Renderer):
             lstrip_blocks=True,
         )
 
+        self.custom_filters = custom_filters or {}
+
         # Register custom filters
         self._register_filters()
 
     def _register_filters(self):
         """Register custom Jinja2 filters."""
+        # Register custom filters first
+        for name, filter_func in self.custom_filters.items():
+            self.env.filters[name] = filter_func
+
         # Color filters for terminal output
         self.env.filters["red"] = lambda text: f"\033[91m{text}\033[0m"
         self.env.filters["green"] = lambda text: f"\033[92m{text}\033[0m"
@@ -115,6 +126,16 @@ class TextFormatter(Renderer):
                 "level_color",
             ]:
                 self.env.filters[filter_name] = lambda text, *args: text
+
+        # Add any globals from context
+        if "_globals" in context:
+            for name, func in context["_globals"].items():
+                self.env.globals[name] = func
+
+        # Add any filters from context
+        if "_filters" in context:
+            for name, func in context["_filters"].items():
+                self.env.filters[name] = func
 
         # Render template
         tmpl = self.env.get_template(template)
