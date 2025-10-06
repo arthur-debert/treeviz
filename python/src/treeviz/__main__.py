@@ -22,6 +22,7 @@ from .definitions.user_lib_commands import (
 from .formats import load_document
 from .adapters import load_adapter, convert_document
 from .rendering import TemplateRenderer
+from clier.cmdhelp import HelpSystem, HelpConfig, create_help_command
 
 
 def generate_viz(
@@ -197,48 +198,28 @@ def get_definition(format_name: str, output_format: str = "text"):
 
 # CLI functions moved from cli.py to avoid import issues
 
+# Configure help system paths
+_help_dirs = []
 
-def _get_help_dir() -> Path:
-    """Get the help directory, handling both development and installed scenarios."""
-    # Try development path first (relative to repo root)
-    dev_help_dir = (
-        Path(__file__).parent.parent.parent.parent / "docs" / "shell-help"
-    )
-    if dev_help_dir.exists():
-        return dev_help_dir
+# Try development path first (relative to repo root)
+_dev_help_dir = (
+    Path(__file__).parent.parent.parent.parent / "docs" / "shell-help"
+)
+if _dev_help_dir.exists():
+    _help_dirs.append(_dev_help_dir)
 
-    # For installed packages, use package data
-    pkg_help_dir = Path(__file__).parent / "data" / "shell-help"
-    if pkg_help_dir.exists():
-        return pkg_help_dir
+# For installed packages, use package data
+_pkg_help_dir = Path(__file__).parent / "data" / "shell-help"
+if _pkg_help_dir.exists():
+    _help_dirs.append(_pkg_help_dir)
 
-    # Last resort: return dev path even if it doesn't exist
-    return dev_help_dir
+# If no directories found, still use dev path
+if not _help_dirs:
+    _help_dirs.append(_dev_help_dir)
 
-
-def _load_help_topic(topic_name: str) -> str:
-    """Load help content from markdown file."""
-    help_dir = _get_help_dir()
-    help_file = help_dir / f"{topic_name}.md"
-
-    try:
-        return help_file.read_text()
-    except FileNotFoundError:
-        return f"Help topic '{topic_name}' not found."
-
-
-def _discover_help_topics() -> list:
-    """Discover available help topics from markdown files."""
-    help_dir = _get_help_dir()
-
-    if not help_dir.exists():
-        return []
-
-    topics = []
-    for md_file in help_dir.glob("*.md"):
-        topics.append(md_file.stem)
-
-    return sorted(topics)
+# Create help system with just the directories
+_help_config = HelpConfig(help_dirs=_help_dirs)
+_help_system = HelpSystem(_help_config)
 
 
 @click.group()
@@ -573,119 +554,33 @@ def validate_user_defs_cmd(ctx):
             print("No user definitions found to validate.")
 
 
-class HelpGroup(click.Group):
-    """Custom help group that dynamically discovers help topics."""
+# Create the help command using the generic help system
+help = create_help_command(_help_system, "3viz")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._dynamic_commands = {}
-        self._load_dynamic_commands()
+# Update the docstring for the help command
+help.__doc__ = """
+Show detailed help for specific topics.
 
-    def _load_dynamic_commands(self):
-        """Load help topics from markdown files."""
-        topics = _discover_help_topics()
-        for topic in topics:
-            # Create a dynamic command for each topic
-            def make_help_command(topic_name):
-                def help_command():
-                    content = _load_help_topic(topic_name)
-                    click.echo(content)
+\b
+Provides comprehensive documentation for 3viz features, including:
+  • Getting started guides and basic usage
+  • Adapter system and custom adapter creation
+  • Advanced extraction and transform pipelines
+  • Visual output format explanation
+  • Examples and real-world use cases
 
-                return help_command
+\b
+Examples:
+  3viz help getting-started         # Basic usage and concepts
+  3viz help adapters               # Adapter system documentation
+  3viz help examples               # Practical examples and patterns
 
-            # Set up the command
-            cmd = make_help_command(topic)
-            cmd.__name__ = topic.replace("-", "_")
-            cmd.__doc__ = f"Show help for {topic}"
+\b
+All help content is loaded from markdown files for rich formatting.
+"""
 
-            # Convert to Click command
-            click_cmd = click.command(name=topic)(cmd)
-            self._dynamic_commands[topic] = click_cmd
-
-    def get_command(self, ctx, cmd_name):
-        # First try dynamic commands
-        if cmd_name in self._dynamic_commands:
-            return self._dynamic_commands[cmd_name]
-
-        # Fall back to regular commands
-        return super().get_command(ctx, cmd_name)
-
-    def list_commands(self, ctx):
-        # Only list regular commands in the Commands section
-        # Dynamic commands will be shown in Available Topics section
-        return super().list_commands(ctx)
-
-    def format_help(self, ctx, formatter):
-        """Override help formatting to show available topics."""
-        # Show the basic help first
-        super().format_help(ctx, formatter)
-
-        # Add available topics section
-        topics = _discover_help_topics()
-        if topics:
-            with formatter.section("Available Topics"):
-                formatter.write_paragraph()
-                for topic in topics:
-                    formatter.write_text(f"  3viz help {topic}")
-                formatter.write_paragraph()
-                formatter.write_text(
-                    "Topics are loaded from markdown files in docs/shell-help/"
-                )
-
-
-@cli.group(cls=HelpGroup)
-def help():
-    """
-    Show detailed help for specific topics.
-
-    \b
-    Provides comprehensive documentation for 3viz features, including:
-      • Getting started guides and basic usage
-      • Adapter system and custom adapter creation
-      • Advanced extraction and transform pipelines
-      • Visual output format explanation
-      • Examples and real-world use cases
-
-    \b
-    Examples:
-      3viz help getting-started         # Basic usage and concepts
-      3viz help adapters               # Adapter system documentation
-      3viz help examples               # Practical examples and patterns
-
-    \b
-    All help content is loaded from markdown files for rich formatting.
-    """
-    pass
-
-
-@help.command()
-def list():
-    """
-    List all available help topics.
-
-    \b
-    Shows all discoverable help topics with brief descriptions.
-    Help topics are automatically loaded from documentation files.
-    """
-    topics = _discover_help_topics()
-    if topics:
-        click.echo("Available help topics:")
-        click.echo()
-        for topic in topics:
-            # Add brief descriptions for common topics
-            descriptions = {
-                "getting-started": "Basic usage, concepts, and quick start guide",
-                "adapters": "Complete adapter system documentation",
-                "examples": "Practical examples and common patterns",
-                "3viz-output": "Understanding the visual output format",
-            }
-            desc = descriptions.get(topic, "Detailed help topic")
-            click.echo(f"  3viz help {topic:<20} # {desc}")
-        click.echo()
-        click.echo("For detailed information: 3viz help <topic>")
-    else:
-        click.echo("No help topics found.")
-        click.echo("Help content is loaded from docs/shell-help/ directory.")
+# Register the help command with the main CLI
+cli.add_command(help)
 
 
 def main():
