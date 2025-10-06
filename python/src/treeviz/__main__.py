@@ -5,24 +5,20 @@ This module contains both the CLI interface and main business logic for treeviz.
 """
 
 import json
-import sys
 import os
+import sys
 from dataclasses import asdict
-from typing import Optional, Union, Dict, Any
 from pathlib import Path
+from typing import Any, Dict, Optional, Union
 
 import click
+from clier.cmdhelp import HelpConfig, HelpSystem, create_help_command
 
-from .definitions import AdapterLib, AdapterDef
+from .adapters import convert_document, load_adapter
+from .definitions import AdapterDef, AdapterLib
 from .definitions.yaml_utils import serialize_dataclass_to_yaml
-from .definitions.user_lib_commands import (
-    list_user_definitions,
-    validate_user_definitions,
-)
 from .formats import load_document
-from .adapters import load_adapter, convert_document
 from .rendering import TemplateRenderer
-from clier.cmdhelp import HelpSystem, HelpConfig, create_help_command
 
 
 def generate_viz(
@@ -101,8 +97,9 @@ def generate_viz(
 
         # Create renderer and presentation
         renderer = TemplateRenderer()
-        from .rendering import PresentationLoader, Presentation
         from pathlib import Path
+
+        from .rendering import Presentation, PresentationLoader
 
         # Load presentation configuration
         if presentation:
@@ -352,206 +349,6 @@ def render(
         else:
             print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
-
-
-@cli.command("get-definition")
-@click.argument(
-    "format_name",
-    type=click.Choice(["3viz"] + AdapterLib.list_formats()),
-    default="3viz",
-)
-@click.pass_context
-def get_definition_cmd(ctx, format_name):
-    """
-    Get the adapter definition for a specific format.
-
-    \b
-    FORMAT_NAME: Built-in adapter name (3viz, mdast, unist, pandoc, restructuredtext)
-                 or user-defined adapter name
-
-    \b
-    Shows the complete adapter definition including field mappings, icons,
-    type overrides, and other configuration. Useful for understanding how
-    an adapter works or as a starting point for creating custom adapters.
-
-    \b
-    Examples:
-      3viz get-definition mdast              # Show Markdown AST adapter
-      3viz get-definition 3viz               # Show default adapter
-      3viz get-definition my-custom          # Show user-defined adapter
-      3viz get-definition mdast --output-format json  # Output as JSON
-    """
-    output_format = ctx.obj["output_format"]
-    get_definition(format_name, output_format)
-
-
-@cli.command("themes")
-@click.pass_context
-def list_themes_cmd(ctx):
-    """
-    List available themes.
-
-    \b
-    Shows all available themes that can be used with the --theme option:
-    - Built-in themes (default, minimal, high_contrast)
-    - User-defined themes from configuration directories
-
-    \b
-    Examples:
-      3viz themes                           # List all themes
-      3viz themes --output-format json      # Machine-readable output
-    """
-    from .rendering.themes import list_available_themes
-
-    output_format = ctx.obj["output_format"]
-    themes = list_available_themes()
-
-    if output_format == "json":
-        print(json.dumps({"themes": themes}, indent=2))
-    else:
-        print("Available themes:")
-        for theme in themes:
-            print(f"  - {theme}")
-
-
-@cli.command("list-user-defs")
-@click.pass_context
-def list_user_defs_cmd(ctx):
-    """
-    List user-defined adapter configurations and directories.
-
-    \b
-    Discovers and displays user-defined adapters from XDG-compliant locations:
-      ./.3viz/                    # Project-specific adapters
-      ~/.config/3viz/             # User configuration directory (XDG)
-      ~/.3viz/                    # Legacy user directory
-
-    \b
-    Shows which directories exist, how many adapter definitions they contain,
-    and lists all discovered user-defined adapters by name and location.
-    User adapters can be referenced by name just like built-in adapters.
-
-    \b
-    Examples:
-      3viz list-user-defs                    # Show user adapters in terminal format
-      3viz list-user-defs --output-format json  # Machine-readable output
-
-    \b
-    User adapters take precedence order: .3viz/ > ~/.config/3viz/ > ~/.3viz/
-    Built-in adapters always take precedence over user-defined ones.
-    """
-    output_format = ctx.obj["output_format"]
-
-    # Get the data using pure Python function
-    data = list_user_definitions()
-
-    # Format output based on requested format
-    if output_format == "json":
-        print(json.dumps(data, indent=2))
-    else:
-        # Terminal-friendly format
-        directories = data["directories"]
-        definitions = data["definitions"]
-
-        # Show directory status
-        print("User configuration directories:")
-        for dir_info in directories:
-            status_indicator = {
-                "found": "✓",
-                "found_no_definitions": "○",
-                "not_found": "✗",
-            }.get(dir_info["status"], "?")
-
-            print(f"  {status_indicator} {dir_info['path']}", end="")
-            if dir_info["status"] == "found":
-                print(f" ({dir_info['file_count']} definitions)")
-            elif dir_info["status"] == "found_no_definitions":
-                print(" (found, no definitions)")
-            else:
-                print(" (not found)")
-
-        print()
-
-        # Show available definitions
-        if definitions:
-            print("Available user definitions:")
-            for def_info in definitions:
-                print(
-                    f"  • {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
-                )
-        else:
-            print("No user definitions found.")
-
-
-@cli.command("validate-user-defs")
-@click.pass_context
-def validate_user_defs_cmd(ctx):
-    """
-    Validate user-defined adapter definition files.
-
-    \b
-    Checks all discovered user adapter definition files for:
-      • Valid JSON/YAML syntax
-      • Required adapter definition fields
-      • Proper structure and data types
-      • Icon pack references (if using icon packs)
-
-    \b
-    Reports validation results with detailed error messages for debugging.
-    Use this command to troubleshoot adapter definitions that aren't working.
-
-    \b
-    Examples:
-      3viz validate-user-defs                # Validate all user adapters
-      3viz validate-user-defs --output-format json  # Machine-readable results
-
-    \b
-    Common validation issues:
-      • Missing required fields (label, type, children)
-      • Invalid YAML/JSON syntax
-      • Incorrect field types or values
-      • Malformed icon pack references
-    """
-    output_format = ctx.obj["output_format"]
-
-    # Get validation results using pure Python function
-    data = validate_user_definitions()
-
-    # Format output based on requested format
-    if output_format == "json":
-        print(json.dumps(data, indent=2))
-    else:
-        # Terminal-friendly format
-        summary = data["summary"]
-        valid_defs = data["valid_definitions"]
-        invalid_defs = data["invalid_definitions"]
-
-        print("Validation Summary:")
-        print(f"  Total files: {summary['total_files']}")
-        print(f"  Valid: {summary['valid_count']}")
-        print(f"  Invalid: {summary['invalid_count']}")
-        print(f"  Success rate: {summary['success_rate']:.1%}")
-        print()
-
-        if valid_defs:
-            print("Valid definitions:")
-            for def_info in valid_defs:
-                print(
-                    f"  ✓ {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
-                )
-            print()
-
-        if invalid_defs:
-            print("Invalid definitions:")
-            for def_info in invalid_defs:
-                print(
-                    f"  ✗ {def_info['name']} ({def_info['format']}) - {def_info['file_path']}"
-                )
-                print(f"    Error: {def_info['error']}")
-            print()
-
-        if not valid_defs and not invalid_defs:
-            print("No user definitions found to validate.")
 
 
 # Create the help command using the generic help system

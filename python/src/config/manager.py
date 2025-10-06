@@ -3,11 +3,12 @@ Centralized configuration management system.
 
 """
 
-import os
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Protocol, Type, Union
+
 from ruamel.yaml import YAML
 
 
