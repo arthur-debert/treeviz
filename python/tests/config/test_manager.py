@@ -457,3 +457,76 @@ class TestConfigManager:
                         assert str(paths[0]) == "/app/treeviz/config"
                         assert str(paths[1]) == "/home/user/.config/3viz"
                         assert str(paths[2]) == "/project/work/.3viz"
+
+    def test_parameterized_loading(self):
+        """Test loading with parameters."""
+        filesystem = {
+            "/home/user/.config/3viz/themes/custom.yaml": {
+                "name": "custom",
+                "styles": {"color": "red"},
+            },
+            "/home/user/.config/3viz/themes/dark.yaml": {
+                "name": "dark",
+                "styles": {"color": "black"},
+            },
+        }
+
+        loader = MockFileLoader(filesystem)
+        mgr = ConfigManager(
+            search_paths=[Path("/home/user/.config/3viz")], file_loader=loader
+        )
+
+        spec = ConfigSpec(name="theme", pattern="themes/{name}.yaml")
+        mgr.register(spec)
+
+        # Load specific theme
+        result = mgr.get("theme", params={"name": "custom"})
+        assert result["name"] == "custom"
+        assert result["styles"]["color"] == "red"
+
+        # Load different theme
+        result = mgr.get("theme", params={"name": "dark"})
+        assert result["name"] == "dark"
+        assert result["styles"]["color"] == "black"
+
+    def test_parameterized_caching(self):
+        """Test that parameterized configs are cached separately."""
+        filesystem = {
+            "/home/user/.config/3viz/themes/a.yaml": {"name": "a"},
+            "/home/user/.config/3viz/themes/b.yaml": {"name": "b"},
+        }
+
+        load_count = 0
+        original_load = MockFileLoader.load_file
+
+        def counting_load(self, path):
+            nonlocal load_count
+            load_count += 1
+            return original_load(self, path)
+
+        loader = MockFileLoader(filesystem)
+        loader.load_file = counting_load.__get__(loader, MockFileLoader)
+
+        mgr = ConfigManager(
+            search_paths=[Path("/home/user/.config/3viz")], file_loader=loader
+        )
+
+        spec = ConfigSpec(name="theme", pattern="themes/{name}.yaml")
+        mgr.register(spec)
+
+        # First load
+        mgr.get("theme", params={"name": "a"})
+        assert load_count == 1
+
+        # Second load of same - should be cached
+        mgr.get("theme", params={"name": "a"})
+        assert load_count == 1
+
+        # Load different params - should not be cached
+        mgr.get("theme", params={"name": "b"})
+        assert load_count == 2
+
+        # Clear cache for specific name clears all variants
+        mgr.clear_cache("theme")
+        mgr.get("theme", params={"name": "a"})
+        assert load_count == 3

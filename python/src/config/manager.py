@@ -177,13 +177,19 @@ class ConfigManager:
             raise ValueError(f"Config '{spec.name}' already registered")
         self.specs[spec.name] = spec
 
-    def get(self, name: str, force_reload: bool = False) -> Any:
+    def get(
+        self,
+        name: str,
+        force_reload: bool = False,
+        params: Optional[Dict[str, str]] = None,
+    ) -> Any:
         """
         Get configuration by name.
 
         Args:
             name: Configuration name as registered
             force_reload: Force reload from disk
+            params: Optional parameters to format the pattern (e.g., {"name": "default"})
 
         Returns:
             Loaded configuration (dataclass instance, dict, or list)
@@ -192,16 +198,25 @@ class ConfigManager:
             ValueError: If config name not registered
             ConfigError: If loading or validation fails
         """
-        if not force_reload and name in self._cache:
-            return self._cache[name]
+        # Create cache key that includes params
+        cache_key = name
+        if params:
+            cache_key = f"{name}:{':'.join(f'{k}={v}' for k, v in sorted(params.items()))}"
+
+        if not force_reload and cache_key in self._cache:
+            return self._cache[cache_key]
 
         spec = self.specs.get(name)
         if not spec:
             raise ValueError(f"Unknown config: {name}")
 
+        # Create a copy of the spec with formatted pattern if params provided
+        if params:
+            spec = self._create_parameterized_spec(spec, params)
+
         try:
             result = self._load_config(spec)
-            self._cache[name] = result
+            self._cache[cache_key] = result
             return result
         except ConfigError:
             raise
@@ -213,9 +228,23 @@ class ConfigManager:
     def clear_cache(self, name: Optional[str] = None) -> None:
         """Clear cached configurations."""
         if name:
-            self._cache.pop(name, None)
+            # Clear all cache entries that start with this name
+            keys_to_remove = [
+                k for k in self._cache if k == name or k.startswith(f"{name}:")
+            ]
+            for key in keys_to_remove:
+                self._cache.pop(key, None)
         else:
             self._cache.clear()
+
+    def _create_parameterized_spec(
+        self, spec: ConfigSpec, params: Dict[str, str]
+    ) -> ConfigSpec:
+        """Create a copy of the spec with formatted pattern."""
+        from dataclasses import replace
+
+        formatted_pattern = spec.pattern.format(**params)
+        return replace(spec, pattern=formatted_pattern)
 
     def _load_config(self, spec: ConfigSpec) -> Any:
         """Load configuration according to spec."""
@@ -231,6 +260,24 @@ class ConfigManager:
         for search_dir in self.search_paths:
             items = self._load_from_directory(search_dir, spec)
             all_items.extend(items)
+
+        # Convert to dataclass if specified
+        if spec.dataclass and all_items:
+            converted_items = []
+            for item in all_items:
+                try:
+                    if hasattr(spec.dataclass, "from_dict"):
+                        converted = spec.dataclass.from_dict(item)
+                    else:
+                        converted = spec.dataclass(**item)
+                    converted_items.append(converted)
+                except Exception as e:
+                    raise ConfigError(
+                        message=f"Failed to create {spec.dataclass.__name__}",
+                        spec_name=spec.name,
+                        cause=e,
+                    )
+            all_items = converted_items
 
         # Apply callback if provided
         if spec.callback and all_items:
@@ -326,6 +373,9 @@ class ConfigManager:
                 if spec.matches(match_path):
                     try:
                         data = self._loader.load_file(file_path)
+                        # For adapter configs, inject filename as name if not present
+                        if spec.name == "adapters" and "name" not in data:
+                            data["name"] = file_path.stem
                         if single:
                             return data
                         results.append(data)

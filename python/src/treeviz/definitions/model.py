@@ -6,7 +6,7 @@ replacing the ad-hoc dictionary validation.
 """
 
 from dataclasses import dataclass, field, asdict
-from typing import Dict, List, Any, Union
+from typing import Dict, List, Any, Union, Optional
 import fnmatch
 from ..const import ICONS
 from ..icon_pack import Icon, IconPack, register_icon_pack
@@ -70,6 +70,14 @@ class AdapterDef:
 
     A clean, typed representation of how to adapt AST nodes to treeviz format.
     """
+
+    # Optional name field (usually populated from filename)
+    name: Optional[str] = field(
+        default=None,
+        metadata={
+            "doc": "Name of the adapter (typically derived from filename)"
+        },
+    )
 
     # Core extraction mappings (flattened from attributes)
     label: str = field(
