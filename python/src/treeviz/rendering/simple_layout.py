@@ -91,6 +91,7 @@ def calculate_column_widths(
 
     # Calculate label width as remaining space
     # Note: We don't include max_indent in fixed_width because indent varies per line
+    # The line count should end exactly at terminal_width
     fixed_width = icon_width + max_extras + max_count
     # For very narrow terminals, we need at least 1 char for label
     label_width = max(1, terminal_width - fixed_width - max_indent)

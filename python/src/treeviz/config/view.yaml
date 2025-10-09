@@ -3,7 +3,7 @@
 
 # Maximum output width
 # -1 means use terminal width
-max_width: 120
+max_width: -1
 
 # Show content line count (e.g., "3L") 
 show_line_count: true

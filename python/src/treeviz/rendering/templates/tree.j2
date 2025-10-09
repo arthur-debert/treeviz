@@ -1,8 +1,15 @@
 {#- Main tree rendering template with simple column-based layout -#}
-{% macro render_node(node, depth=0) -%}
+{% macro render_node(node, depth=0) %}
 {%- set indent = "  " * depth -%}
 {%- set icon = node.icon or (symbols[node.type] if node.type and symbols else "?") -%}
-{%- set label = node.label | default("", true) | trim -%}
+{#- Handle multiline labels (especially for verbatim content) -#}
+{%- set raw_label = node.label | default("", true) | trim -%}
+{%- if "\n" in raw_label -%}
+  {%- set label_lines = raw_label.split("\n") -%}
+  {%- set label = label_lines[0] -%}
+{%- else -%}
+  {%- set label = raw_label -%}
+{%- endif -%}
 
 {#- Format extras -#}
 {%- set extras_parts = [] -%}
@@ -29,32 +36,57 @@
 {%- set current_indent_width = depth * 2 -%}
 {%- set icon_str = icon ~ " " -%}
 
-{#- Adjust label width based on current indent to maintain alignment -#}
-{%- set indent_diff = column_widths.indent_width - current_indent_width -%}
-{%- set adjusted_label_width = column_widths.label_width + indent_diff -%}
+{#- Calculate available width for this specific line after indent + icon -#}
+{%- set used_space = current_indent_width + icon_str | length -%}
+{%- set space_for_count = count_str | length -%}
+{%- set min_required = used_space + space_for_count + 1 -%}
 
-{#- Truncate label if needed -#}
-{%- if label | length > adjusted_label_width -%}
-  {%- set label = label[:adjusted_label_width-1] ~ "…" -%}
+{#- For very narrow terminals, skip extras entirely -#}
+{%- if terminal_width <= min_required + 4 -%}
+  {%- set space_for_extras = 0 -%}
+  {%- set extras_str = "" -%}
+{%- else -%}
+  {%- set space_for_extras = (2 + extras_str | length) if extras_str else 0 -%}
 {%- endif -%}
 
-{#- Apply padding to create fixed-width columns -#}
-{%- set padded_label = label | ljust(adjusted_label_width) -%}
-{%- set padded_extras = extras_str | rjust(column_widths.extras_width) if column_widths.extras_width > 0 else "" -%}
-{%- set padded_count = count_str | rjust(column_widths.count_width) -%}
+{%- set available_for_label = terminal_width - used_space - space_for_count - space_for_extras - 1 -%}
 
-{#- Assemble line -#}
-{%- set line = indent ~ icon_str ~ padded_label ~ padded_extras ~ padded_count -%}
+{#- Ensure we have at least 1 character for label -#}
+{%- if available_for_label < 1 -%}
+  {%- set available_for_label = 1 -%}
+  {%- set extras_str = "" -%}
+  {%- set space_for_extras = 0 -%}
+{%- endif -%}
+
+{#- Truncate label if needed based on available space -#}
+{%- if label | length > available_for_label -%}
+  {%- set label = label[:available_for_label-1] ~ "…" -%}
+{%- endif -%}
+
+{#- Build content part: indent + icon + label + extras -#}
+{%- set content_part = indent ~ icon_str ~ label -%}
+{%- if extras_str -%}
+  {%- set content_part = content_part ~ "  " ~ extras_str -%}
+{%- endif -%}
+
+{#- Calculate exact padding to right-align count -#}
+{%- set content_length = content_part | length -%}
+{%- set spaces_needed = terminal_width - content_length - count_str | length -%}
+{%- set padding = " " * (spaces_needed if spaces_needed > 0 else 1) -%}
+
+{#- Assemble final line -#}
+{%- set line = content_part ~ padding ~ count_str -%}
 
 {#- Apply color if enabled -#}
 {%- if use_color -%}
-{{ apply_simple_markup(line, current_indent_width, icon_str, label, extras_str, count_str) }}
+{{ apply_simple_markup(line, current_indent_width, icon_str, label, extras_str, count_str) }}{{ "\n" }}
 {%- else -%}
-{{ line }}
-{% endif -%}
+{{ line }}{{ "\n" }}
+{%- endif -%}
+
 {%- for child in node.children %}
 {{ render_node(child, depth + 1) }}
-{%- endfor -%}
+{%- endfor %}
 {%- endmacro %}
 
 {#- Entry point: render the root node -#}

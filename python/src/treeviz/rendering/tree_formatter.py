@@ -60,6 +60,16 @@ class TreeFormatter:
         if terminal_width is None:
             terminal_width = view_opts.max_width
 
+        # Handle -1 as "use terminal width"
+        if terminal_width == -1:
+            import os
+
+            try:
+                terminal_width = os.get_terminal_size().columns
+            except OSError:
+                # Fallback if terminal size detection fails (e.g., when not in a real TTY)
+                terminal_width = 80
+
         if use_color is None:
             # Default behavior if not specified
             import sys
